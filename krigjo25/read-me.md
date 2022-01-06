@@ -3,23 +3,23 @@
 ## Table of content
 
 >    [Introduction](#Introduction)
->        About the Developer
->        Krigjo25
->        Contact
+>>       About the Developer
+>>        Krigjo25
+>>        Contact
 
->    About the bot
->        version information 
->        How to use the bot
->        Features
->        What has been learned
->        Updates
->>    Project Summary
+>    [About krigjo25](#About krigjo25)
+>>        version information 
+>>        How to use the bot
+>>        Features
+>>        What has been learned
+>>        Updates
+>    Project Summary
 >    
 >    [Responsories](#Responsories)
-
->    Credentials
->        Disclaimers
->        References
+>
+>    [Credentials](#Credentials)
+>>        Disclaimers
+>>        References
 
 ## Introduction
 
@@ -34,6 +34,7 @@ Other activities Gym and living life as a human.
 
 krigjo25 made for Discord, intentionally<br>
 helping out as a Discord administrator, miniGames mananger and Server configuriations for games
+
 ***Contact Information***
 
 Discord : krigjo25#5588.<br>
@@ -44,9 +45,10 @@ Only One advice.
 
 ## About Krigjo25
 
-Project started: **23.10-21.**<br>
-last update: **05.01-22.**<br>
-current verison:**1.0.0 RC 1**
+***Project Information***
+> Project started: **23.10-21.**<br>
+> last update: **05.01-22.**<br>
+> current verison:**1.0.0 RC 1**
 
 ***How do the bot work***
 
@@ -57,17 +59,17 @@ the prefix command is ***?***, e.g ?krigjo25
 
 *Member module*
 
-    krigjo25 (optional: log )
-        Information about the bot
-
-    meme
-        Generates a random meme from Reddit
-    
-    memberlist
-        list of members in the server
-    
-    randint (integer one) (integer two)
-        generate a random integer
+>    krigjo25 (optional: log )
+>>        Information about the bot
+>
+>    meme
+>>        Generates a random meme from Reddit
+>    
+>    memberlist
+>>        list of members in the server
+>    
+>    randint (integer one) (integer two)
+>>        generate a random integer
 
 *miniGames module*
         
