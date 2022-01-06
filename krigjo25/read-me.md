@@ -135,12 +135,11 @@ Responsories used
 
 Copyright notice
 
-Disclaimers:
+Disclaimers:  
     the developer can only have the responsibility, for how it's created,
     How it is used by people. Is another story.
 
-References:
-
+References:  
 [ObjectOriented Discord Bot](https://nik.re/posts/2021-09-25/object_oriented_discord_bot), by Nikola Cucakovic,
 
 Books used while learning Python
@@ -148,8 +147,8 @@ learn Python and learn it well, by Jamie Chan
 
 ## Project Summary
 
-    *   Created Krigjo25 as a bot to manage your server, 
-        and to assist you with the administrative job
+*   Created Krigjo25 as a bot to manage your server, 
+    and to assist you with the administrative job
 
 Written and developed by,
 @krigjo25
