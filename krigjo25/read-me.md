@@ -2,24 +2,24 @@
 
 ## Table of content
 
-    [Introduction](#Introduction)
-        About the Developer
-        Krigjo25
-        Contact
+>    [Introduction](#Introduction)
+>        About the Developer
+>        Krigjo25
+>        Contact
 
-    About the bot
-        version information 
-        How to use the bot
-        Features
-        What has been learned
-        Updates
-    Project Summary
-    
-    [Responsories](#Responsories)
+>    About the bot
+>        version information 
+>        How to use the bot
+>        Features
+>        What has been learned
+>        Updates
+>>    Project Summary
+>    
+>    [Responsories](#Responsories)
 
-    Credentials
-        Disclaimers
-        References
+>    Credentials
+>        Disclaimers
+>        References
 
 ## Introduction
 
