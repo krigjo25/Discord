@@ -25,12 +25,11 @@ class Community(Cog, name='Community Module'):
     @command(name="krigjo25")
     async def BotInfo(self, ctx, args=None):
         svr = len(self.bot.guilds)
-        print (self.bot.guilds)
         owner = self.bot.get_user(340540581174575107)
         if args == None:
 
             self.embed.title = f':notebook: About {self.bot.user}'
-            self.embed.url='https://github.com/krigjo25/krigjo25Bot/blob/main/read%20me.md'
+            self.embed.url='https://github.com/krigjo25/Discord/blob/main/krigjo25/read-me.md'
             self.embed.description = ''
             self.embed.add_field(name = ':rotating_light: Released', value=getenv('BotCreated'), inline=True)
             self.embed.add_field(name = ' :new: Updated', value=getenv('BotUpdated'), inline=True)
@@ -38,7 +37,8 @@ class Community(Cog, name='Community Module'):
             self.embed.add_field(name = ':toolbox: Responsory', value=getenv('Responsory'), inline=True)
             self.embed.add_field(name = ':cloud: Hosted', value=getenv('HOSTED'), inline=True)
             self.embed.add_field(name = ':man: Master', value=f'My master goes by the name, {owner} :flag_no:', inline=True)
-            self.embed.add_field(name = ':arrows_counterclockwise: Server Counting', value=f'Watching {svr} Discord Servers', inline=True)
+            self.embed.add_field(name = ':arrows_counterclockwise: Server Counting', value=f'Watching {svr} \nDiscord Servers', inline=True)
+            self.embed.add_field(name = ':thought_balloon: To do list', value = '[Future projects](https://github.com/krigjo25/Discord/projects/1)', inline=True)
             await ctx.send(embed = self.embed)
             self.embed.clear_fields()
 

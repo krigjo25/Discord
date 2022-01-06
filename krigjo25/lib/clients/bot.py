@@ -18,7 +18,7 @@ class DiscordBot(Bot):
         #self.handler.register_plugin(self.tracker)
 
     async def on_ready(self):
-        print(f'Discord.py v{api_version}, loaded.\n {self.user} has establized a connection with ')
+        print(f'Discord.py v{api_version}, loaded.\n {self.user.name} has establized a connection with {self.guilds}')
 
     #async def on_message(self, message):
         #await self.handler.propagate(message)
