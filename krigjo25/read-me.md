@@ -59,17 +59,17 @@ the prefix command is ***?***, e.g ?krigjo25
 
 *Member module*
 
->    krigjo25 (optional: log )
->>        Information about the bot
+>krigjo25 (optional: log )
+>>Information about the bot
 >
->    meme
->>        Generates a random meme from Reddit
+> meme
+>>Generates a random meme from Reddit
 >    
->    memberlist
->>        list of members in the server
+>memberlist
+>>list of members in the server
 >    
->    randint (integer one) (integer two)
->>        generate a random integer
+>randint (integer one) (integer two)
+>>generate a random integer
 
 *miniGames module*
         
