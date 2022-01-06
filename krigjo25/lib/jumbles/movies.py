@@ -1,6 +1,6 @@
 from random import randrange, shuffle, sample, random
 
-import os
+from os import getenv
 import mariadb
 
 # dotenv reporosory
@@ -13,10 +13,11 @@ class Movies():
 
     def familyMovies():
         conn = mariadb.connect(
-                    user = os.getenv('USER'),
-                    password = os.getenv('PASSWORD'),
-                    host = os.getenv('HOST'),
-                    db = os.getenv('DATABASE')
+            port = 55368,
+            user = getenv('USER'),
+            host = getenv('HOST'),
+            db = getenv('DATABASE'),
+            password = getenv('PASSWORD')
         )
         cur = conn.cursor()
         # Creating a dictonary for the queries
@@ -44,10 +45,11 @@ class Movies():
 
     def ComedyMovies():
         conn = mariadb.connect(
-                    user = os.getenv('USER'),
-                    password = os.getenv('PASSWORD'),
-                    host = os.getenv('HOST'),
-                    db = os.getenv('DATABASE')
+            port = 55368,
+            user = getenv('USER'),
+            host = getenv('HOST'),
+            db = getenv('DATABASE'),
+            password = getenv('PASSWORD')
         )
         cur = conn.cursor()
         # Creating a dictonary for the queries
@@ -75,10 +77,11 @@ class Movies():
     
     def ActionMovies():
         conn = mariadb.connect(
-                    user = os.getenv('USER'),
-                    password = os.getenv('PASSWORD'),
-                    host = os.getenv('HOST'),
-                    db = os.getenv('DATABASE')
+            port = 55368,
+            user = getenv('USER'),
+            host = getenv('HOST'),
+            db = getenv('DATABASE'),
+            password = getenv('PASSWORD')
         )
         cur = conn.cursor()
         # Creating a dictonary for the queries

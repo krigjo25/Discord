@@ -21,7 +21,7 @@ class EightBall(Cog):
         
         # Creating a string of the question which is asked
         quiz = str(quiz)
-
+        msg = quiz
         # Slicing to get the four first characters
         x = slice(4)
 
@@ -41,37 +41,38 @@ class EightBall(Cog):
        
 
 
-        fact = {
+        facts = {
                     0:'The earth is oval',
-                    1:'You\'re a discord user',
+                    1:f'{ctx.author} is your username',
                     2:'life is why',
                     3:'it just is',
-                    4:'a',
-                    5:'b',
-                    6:'v',
-                    7:'f',
+                    4:'The opposite sides of a die will always add up to seven.',
+                    5:'The King of Hearts is the only king in a deck of cards without a mustache.',
+                    6:'There exist no answers for your questions, if you look with-in you know its true',
+                    7:'Alaska is the only state whose name is on one row on a keyboard.',
+                    8:'A "jiffy" is about one trillionth of a second.',
+                    9:'The ocean is blue',
+                    10:'Mulan has the highest kill-count of any Disney character.',
+                    11:'The infinity sign is called a lemniscate.'
                 }
 
         #   Randomize the answer
-        shuffle(fact)
+        shuffle(facts)
         i = randrange(0,7)
+        j = randrange(0,10)
 
         shuffle(philiosopicAnswer)
 
         #   Retrieve the key
-        fact = fact.get(i)
+        fact = facts.get(x)
         quiz = quiz[x].lower()
+
         answer = philiosopicAnswer.get(i)
-        print(quiz)
         # creating an embeded message
         self.embed.title = ':8ball: ask the Oracle'
         
         if quiz == 'how':
-            self.embed.description = f'{answer}'
-            await ctx.send(embed=self.embed)
-
-        elif quiz == 'why':
-            self.embed.description = f'{fact}'
+            self.embed.description = f' You asked the Oracle\n {msg}\n the response from the 8ball \n{answer}'
             await ctx.send(embed=self.embed)
 
         elif quiz == 'what':
@@ -80,4 +81,4 @@ class EightBall(Cog):
 
         
         else:
-            await ctx.send(f' I suggest you learn english first.')
+            await ctx.send(f'You asked the Oracle\n {msg}\n the response from the 8ball \n{fact}')

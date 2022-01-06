@@ -1,3 +1,4 @@
+from random import sample
 class Jumble():
     def __init__(self):
         pass

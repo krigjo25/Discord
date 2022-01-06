@@ -12,18 +12,18 @@ from lib.clients.bot import DiscordBot                          #   Client
 from lib.cog.community import Community                         #   Community module
 from lib.cog.commandError import ErrorHandler                   #   Error Handling Module
 
-# Bot Utility
-
-    #   Bot Aenti-spam
-#from lib.BotModerationModule.antiSpam import AntiSpam
-
 #   miniGames
 from lib.miniGames.askQ import EightBall                        #   EightBall
 from lib.miniGames.jumble import JumbleGame                     #   Jumble Game
 from lib.miniGames.int import GuessTheNumber                    #   Guess the number
 from lib.miniGames.reactGame import RockScissorPaper            #   Rock, Scissors & Paper
 
-# Moderation Utility
+# Bot Utility
+
+    #   Bot Anti-spam
+#from lib.BotModerationModule.antiSpam import AntiSpam
+
+    # Moderation Utility
 from lib.moderationModule.moderator import Moderator            #   Moderator Module
 from lib.moderationModule.administrator import Administrator    #   Administrator module
 
@@ -49,8 +49,8 @@ def botSetup ():
     bot = DiscordBot(intents=intents)
 
     #   Adding cogs into the bot
-    bot.add_cog(Community(bot))
     bot.add_cog(Welcome(bot))
+    bot.add_cog(Community(bot))
     bot.add_cog(HelpCommand(bot))
     #bot.add_cog(Support(bot))
 

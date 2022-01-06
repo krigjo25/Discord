@@ -1,6 +1,6 @@
 # System reporosory
 from os import getenv
-from random import randrange, shuffle, sample, random
+from random import randrange, shuffle
 
 # Database reporosory
 import mariadb
@@ -29,18 +29,20 @@ class Disney():
         # Connecting to the database
 
         conn = mariadb.connect(
-                    user = os.getenv('USER'),
-                    password = os.getenv('PASSWORD'),
-                    host = os.getenv('HOST'),
-                    db = os.getenv('DATABASE')
+            port = int(getenv('PORT')),
+            user = getenv('USER'),
+            host = getenv('HOST'),
+            db = getenv('DATABASE'),
+            password = getenv('PASSWORD')
         )
+
         cur = conn.cursor()
 
         # Creating a dictonary for the queries
         subCategory = []
 
         # Selecting character name from the database, and procsessing it
-        query = f'SELECT filmSeries FROM disneyMoviesSeriesEasy'
+        query = f'SELECT title FROM disneyClassicsEasy'
         cur.execute(query)
         data = cur.fetchall()
 
@@ -65,18 +67,20 @@ class Disney():
         # Connecting to the database
 
         conn = mariadb.connect(
-                    user = os.getenv('USER'),
-                    password = os.getenv('PASSWORD'),
-                    host = os.getenv('HOST'),
-                    db = os.getenv('DATABASE')
+            port = int(getenv('PORT')),
+            user = getenv('USER'),
+            host = getenv('HOST'),
+            db = getenv('DATABASE'),
+            password = getenv('PASSWORD')
         )
+
         cur = conn.cursor()
 
         # Creating a dictonary for the queries
         subCategory = []
 
         # Selecting character name from the database, and procsessing it
-        query = f'SELECT characterName FROM disneyCharactersEasy WHERE characterRole = "Princess"'
+        query = f'SELECT characterName FROM disneyCharactersEasy WHERE role = "Princess"'
         cur.execute(query)
         data = cur.fetchall()
 
@@ -101,18 +105,20 @@ class Disney():
         # Connecting to the database
 
         conn = mariadb.connect(
-                    user = os.getenv('USER'),
-                    password = os.getenv('PASSWORD'),
-                    host = os.getenv('HOST'),
-                    db = os.getenv('DATABASE')
+            port = int(getenv('PORT')),
+            user = getenv('USER'),
+            host = getenv('HOST'),
+            db = getenv('DATABASE'),
+            password = getenv('PASSWORD')
         )
+
         cur = conn.cursor()
 
         # Creating a dictonary for the queries
         subCategory = []
  
         # Selecting character name from the database, and procsessing it
-        query = f'SELECT characterName FROM disneyCharactersEasy WHERE characterRole = "Hero"'
+        query = f'SELECT characterName FROM disneyCharactersEasy WHERE role = "Hero"'
         cur.execute(query)
         data = cur.fetchall()
 
@@ -120,9 +126,9 @@ class Disney():
             subCategory.append(i[0])
 
         # Randomizing 
-        x = randrange(0,8)
+        x = randrange(0,7)
         shuffle(subCategory)
-        print(subCategory, 'Heros')
+
         # Assigning a variable to the given key
         pick = subCategory[x]
 
@@ -137,18 +143,20 @@ class Disney():
         # Connecting to the database
 
         conn = mariadb.connect(
-                    user = os.getenv('USER'),
-                    password = os.getenv('PASSWORD'),
-                    host = os.getenv('HOST'),
-                    db = os.getenv('DATABASE')
+            port = int(getenv('PORT')),
+            user = getenv('USER'),
+            host = getenv('HOST'),
+            db = getenv('DATABASE'),
+            password = getenv('PASSWORD')
         )
+
         cur = conn.cursor()
 
         # Creating a dictonary for the queries
         subCategory = []
 
         # Selecting character name from the database, and procsessing it
-        query = f'SELECT characterName FROM disneyCharactersEasy WHERE characterRole = "Villian"'
+        query = f'SELECT characterName FROM disneyCharactersEasy WHERE role = "Villian"'
         cur.execute(query)
         data = cur.fetchall()
 

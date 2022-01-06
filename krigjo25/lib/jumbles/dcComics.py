@@ -17,10 +17,11 @@ class DCComics():
         # Connecting to the database
 
         conn = mariadb.connect(
-                    user = os.getenv('USER'),
-                    password = os.getenv('PASSWORD'),
-                    host = os.getenv('HOST'),
-                    db = os.getenv('DATABASE')
+            port = 55368,
+            user = getenv('USER'),
+            host = getenv('HOST'),
+            db = getenv('DATABASE'),
+            password = getenv('PASSWORD')
         )
         cur = conn.cursor()
 
@@ -54,11 +55,13 @@ class DCComics():
         # Connecting to the database
 
         conn = mariadb.connect(
-                    user = os.getenv('USER'),
-                    password = os.getenv('PASSWORD'),
-                    host = os.getenv('HOST'),
-                    db = os.getenv('DATABASE')
+            port = 55368,
+            user = getenv('USER'),
+            host = getenv('HOST'),
+            db = getenv('DATABASE'),
+            password = getenv('PASSWORD')
         )
+
         cur = conn.cursor()
 
         # Creating a dictonary for the queries
@@ -91,10 +94,11 @@ class DCComics():
         # Connecting to the database
 
         conn = mariadb.connect(
-                    user = os.getenv('USER'),
-                    password = os.getenv('PASSWORD'),
-                    host = os.getenv('HOST'),
-                    db = os.getenv('DATABASE')
+            port = 55368,
+            user = getenv('USER'),
+            host = getenv('HOST'),
+            db = getenv('DATABASE'),
+            password = getenv('PASSWORD')
         )
         cur = conn.cursor()
 

@@ -1,6 +1,6 @@
 import discord
 from discord import Color
-
+from discord.utils import get
 from discord.embeds import Embed
 from discord.ext.commands import command, Cog
 from discord.ext.commands.core import has_any_role
@@ -13,7 +13,25 @@ class HelpCommand(Cog):
     @command(name='help', pass_context=True)
     
     async def FAQ(self, ctx, args=None):
-        # modules
+
+        '''        # Retrieve roles
+        srv = discord.Member.guild
+
+        memberRole = get(srv.roles, name='Member')
+
+        #Moderator    
+        mod = get(srv.roles, name = 'mod')
+        Mod = get(srv.roles, name = 'Mod')
+        Moderator = get(srv.roles, name = 'mod')
+        moderator = get(srv.roles, name = 'mod')
+        
+        #Administrators
+        admin = get(srv.roles, name = 'Software-Technican')
+        Admin = get(srv.roles, name = 'Admin')
+        administrator = get(srv.roles, name = 'administrator')
+        Administrator = get(srv.roles, name = 'Administrator')
+        '''
+
         if args==None:
 
             self.embed.title='Frequently Asked Questions:question:'
@@ -48,10 +66,11 @@ class HelpCommand(Cog):
 
                 self.embed.title=':people_holding_hands: Community-Module'
                 self.embed.description='Use ** *help (Category)**, for more details, sir.\n\n'
-                self.embed.add_field(name='*jamie', value='- how did the bot fail the exam? She was a bit rusty', inline=True)
-                self.embed.add_field(name='*memberlist', value ='Members list', inline=True)
+                self.embed.add_field(name='*krigjo25 \n(optional parameter: log)', value='- how did the bot fail the exam? She was a bit rusty', inline=True)
+                self.embed.add_field(name='*memberlist', value ='list of members', inline=True)
                 #self.embed.add_field(name=':x: *con (member) (congratulate type) ( personal note) ', value='- Congratulate someone e.g Birthday, Results etc,', inline=True)
                 self.embed.add_field(name='*meme', value='- What do you call a gamer whom works at an abortion clinic? :rofl:\n Spawn Camper ', inline=True)
+                self.embed.add_field(name='/', value='- for built-ins ', inline=True)
                 
                 await ctx.send(embed=self.embed)
                 
@@ -62,8 +81,8 @@ class HelpCommand(Cog):
 
                 self.embed.title=':people_wrestling: miniGames-Module'
                 self.embed.description='Use ** *help (Command/Category)**, for more details, sir.\n\n'
-                self.embed.add_field(name=' :rock:, :scissors:, :page_facing_up: *rsp', value='- Reaction based game', inline=True)
-                self.embed.add_field(name=' :question: *jumble', value=' - unscrabble a jumble', inline=True)
+                self.embed.add_field(name='*rsp', value='- :rock:, :scissors:, :page_facing_up:', inline=True)
+                self.embed.add_field(name=':question: *jumble', value=' - unscrabble a jumble', inline=True)
                 self.embed.add_field(name=':person_in_lotus_position: *ask (Question)', value='- How can cops be the worst pool players?\n They always shoot the eight ball first', inline=True)
                 self.embed.add_field(name=':seven:, :eight:, :nine: *int (easiest / easy / normal / hard / kimpossible)', value='- How could the two four skip a meal?\n they already eight ', inline=True)
                 await ctx.send(embed=self.embed)    

@@ -1,4 +1,4 @@
-import os
+from os import getenv
 from random import randrange
 
 # dotenv
@@ -8,11 +8,8 @@ from dotenv import load_dotenv
 import mariadb
 
 #   Discord Repositories
-from discord import channel, utils
 from discord.embeds import Embed
 from discord.colour import Color
-from discord.member import Member
-from discord.message import Message
 from discord.ext.commands import Cog, command
 
 #   Jumble Repositories
@@ -37,12 +34,11 @@ class JumbleGame(Cog):
         self.modeError = Dictionaries.DifficultyError()
         self.embed = Embed(color=Color.dark_purple(), description='')
         self.conn = mariadb.connect(
-                    user = os.getenv('USER'),
-                    host = os.getenv('HOST'),
-                    port = os.getenv('PORT'),
-                    db = os.getenv('DATABASE'),
-                    password = os.getenv('PASSWORD')
-        )
+            port = int(getenv('PORT')),
+            user = getenv('USER'),
+            host = getenv('HOST'),
+            db = getenv('DATABASE'),
+            password = getenv('PASSWORD'))
         self.cur = self.conn.cursor()    
 
     @command(name='jumble')
@@ -56,10 +52,10 @@ class JumbleGame(Cog):
 
         # Categories list  x - Database
         titles = [ 
-                        
-                        [ 
+                        # First Category
+                        [   'Movies & Series',
                             'Animations', 
-                            '- Disney\n:x:- Marvel-Comics\n- DC-Comics'
+                            '- Disney\n'#:x:- Marvel-Comics\n- DC-Comics'
                         ],
                         
                     ]
@@ -75,8 +71,8 @@ class JumbleGame(Cog):
         self.embed.description = f'Welcome to the jumble Game\n You grant {limit} attempts and default time limit : {sec} please select one of the sub-categories below:\n'
             
         # Creating a for loop to handle the list
-        for category, sub in titles:
-            self.embed.add_field(name = f'{category}', value=f'{sub}',inline=True)
+        for category, genre, sub in titles:
+            self.embed.add_field(name = f'{category}\n{genre}', value=f'{sub}',inline=True)
         await ctx.send(embed=self.embed)
         
         #   Clearing the fields
@@ -93,7 +89,7 @@ class JumbleGame(Cog):
             titles = [
                         [ 
                             f'{subChoice}', 
-                            ' - Heros \n- Villans \n- Princesses\n- Villans\n- Classics'
+                            ' - Heros \n- Villans\n- Princess\n- Villans\n- Classics'
                         ],
                         
                     ]
@@ -124,13 +120,13 @@ class JumbleGame(Cog):
 
                 # Creating a list to fetch the query inside, and procsess the request to the database
                 ch = []
-                query = f'SELECT characterName FROM disneyCharactersEasy WHERE characterName = "{answer}"'
+                query = f'SELECT animation FROM disneyCharactersEasy WHERE characterName = "{answer}"'
                 self.cur.execute(query)
                 data = self.cur.fetchall()
 
                 for i in data:
                     ch.append(i[0])
-
+                print(ch)
                 # Creating and prepare a embeded message to the user
                 self.embed.title = f'The jumbled Character is seen in \"{ch[0]}\" You have **{sec}** and **{limit}** attempts to resolve which Character it is '
                 self.embed.description = f'{virvel}'
@@ -149,7 +145,9 @@ class JumbleGame(Cog):
                     if choice == answer:
                         atNum +=1
                         word.append(choice)
-                        await ctx.send(f'**Results**\n words : **{word}** \n Attempts : **{atNum}** of **{limit}** \n {self.Answer} **{answer}**')
+                        self.embed.title = f'{self.Answer}'
+                        self.embed.description = f'{self.Answer}\n**Summuary**\n words : **{word}** \n Attempts : **{atNum}** of **{limit}** \n'
+                        await ctx.send(embed=self.embed)
                         break
         
                     # else if  the counter reaches max attempts 
@@ -175,7 +173,7 @@ class JumbleGame(Cog):
                         #   Continue the loop
                         continue            
 
-            elif subGenre == 'Princesses':
+            elif subGenre == 'Princess':
                 
                 #   Calling the choice function
                 answer = Disney.DisneyEasyPrincesses()
@@ -183,12 +181,12 @@ class JumbleGame(Cog):
 
                 #   Creating a list to fetch the query inside, and procsess the request to the database
                 ch = []
-                query = f'SELECT filmSeries FROM disneyCharactersEasy WHERE characterName = "{answer}"'
+                query = f'SELECT animation FROM disneyCharactersEasy WHERE characterName = "{answer}"'
                 self.cur.execute(query)
                 data = self.cur.fetchall()
 
                 for i in data:
-                    ch.append(i[0])
+                    ch.append(i)
 
                 # Creating and prepare a embeded message to the user
                 self.embed.title = f'The selected Character is from the Movie {ch[0]} You have **{sec}** and **{limit}** attempts to resolve the word. '
@@ -242,7 +240,7 @@ class JumbleGame(Cog):
 
                 #   Creating a list to fetch the query inside, and procsess the request to the database
                 ch = []
-                query = f'SELECT filmSeries FROM disneyCharactersEasy WHERE characterName = "{answer}"'
+                query = f'SELECT animation FROM disneyCharactersEasy WHERE characterName = "{answer}"'
                 self.cur.execute(query)
                 data = self.cur.fetchall()
 
@@ -294,13 +292,22 @@ class JumbleGame(Cog):
                         continue
 
             elif subGenre == 'Classics':
-                
+
                 #   Calling the choice function
                 answer = Disney.DisneyEasyClassics()
                 virvel = Jumble.Jumble(answer)
 
+                #   Creating a list to fetch the query inside, and procsess the request to the database
+                ch = []
+                query = f'SELECT animation FROM disneyCharactersEasy WHERE animation = "{answer}"'
+                self.cur.execute(query)
+                data = self.cur.fetchall()
+                
+                for i in data:
+                    ch.append(i[0])
+                    
                 # Creating and prepare a embeded message to the user
-                self.embed.title = f'You have **{sec}** and **{limit}** attempts to resolve the word. '
+                self.embed.title = f'The selected animation, has {ch[0]} as one of the main characters. You have **{sec}** and **{limit}** attempts to resolve the word. '
                 self.embed.description = f'{virvel}'
 
 
@@ -598,7 +605,7 @@ class JumbleGame(Cog):
                         #   Continue the loop
                         continue
 
-        elif subChoice == 'DcComics':
+        elif subChoice == 'Dc-comics':
             titles = [
                         [ 
                             f'{subChoice}', 
@@ -622,6 +629,7 @@ class JumbleGame(Cog):
             subGenre = await self.bot.wait_for('message', timeout=sec)
             subGenre = str(subGenre.content)
             subGenre = subGenre.capitalize()
+            print(subGenre)
 
             
             #  if a sub-category is choosen
@@ -630,6 +638,8 @@ class JumbleGame(Cog):
                 #   Calling the choice function
                 answer = Disney.DisneyEasyHeros()
                 virvel = Jumble.Jumble(answer)
+                print(virvel)
+                print(answer)
 
                 # Creating a list to fetch the query inside, and procsess the request to the database
                 ch = []

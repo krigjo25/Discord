@@ -20,44 +20,47 @@ class Community(Cog, name='Community Module'):
         self.bot = bot
         self.embed = Embed(color=Color.dark_purple())
 
+
 #   Bot Info
-    @command(name="jamie")
+    @command(name="krigjo25")
     async def BotInfo(self, ctx, args=None):
         svr = len(self.bot.guilds)
+        print (self.bot.guilds)
+        owner = self.bot.get_user(340540581174575107)
         if args == None:
 
             self.embed.title = f':notebook: About {self.bot.user}'
             self.embed.url='https://github.com/krigjo25/krigjo25Bot/blob/main/read%20me.md'
             self.embed.description = ''
             self.embed.add_field(name = ':rotating_light: Released', value=getenv('BotCreated'), inline=True)
-            self.embed.add_field(name = ':arrows_counterclockwise: Updated', value=getenv('BotUpdated'), inline=True)
-            self.embed.add_field(name = ':person_with_probing_cane:Current Version', value= getenv('BotVersion'), inline=True)
-            self.embed.add_field(name = ':books: Responsory', value=getenv('Responsory'), inline=True)
-            self.embed.add_field(name = ':x:Hosted', value='hosted', inline=True)
-            self.embed.add_field(name = ':man: Master', value='My master goes by the name, krigjo25 :flag_no:', inline=True)
-            self.embed.add_field(name = ':v: Server Counting', value=f'Watching {svr} Discord Servers', inline=True)
+            self.embed.add_field(name = ' :new: Updated', value=getenv('BotUpdated'), inline=True)
+            self.embed.add_field(name = ':person_with_probing_cane: Current Version', value= getenv('BotVersion'), inline=True)
+            self.embed.add_field(name = ':toolbox: Responsory', value=getenv('Responsory'), inline=True)
+            self.embed.add_field(name = ':cloud: Hosted', value=getenv('HOSTED'), inline=True)
+            self.embed.add_field(name = ':man: Master', value=f'My master goes by the name, {owner} :flag_no:', inline=True)
+            self.embed.add_field(name = ':arrows_counterclockwise: Server Counting', value=f'Watching {svr} Discord Servers', inline=True)
             await ctx.send(embed = self.embed)
             self.embed.clear_fields()
 
-        if args == 'changelog':
-            owner = self.bot.get_user(340540581174575107)
+        if args == 'log':
 
 
             changelog = f'''
             Changelog for current version {getenv('BotVersion')}
 
-            Whats new:
+            :new: Whats new:
                 
                 *  
                 * 
                 *  
 
-            Fixes / changes emade
+            :tools: Fixes / changes made
                 
                 *
                 *
                 *
 
+            
             Hope you will have fun with the new updates.
 
             sincerely,
@@ -77,7 +80,6 @@ class Community(Cog, name='Community Module'):
 
         #   Retriving the server
         svr = ctx.guild
-        
 
         self.embed.title = 'Server Members'
         

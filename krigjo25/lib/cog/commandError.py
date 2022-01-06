@@ -109,7 +109,7 @@ class ErrorHandler(Cog):
                                 2:'Sir, should i just fake it?\n',
                                 3:'More infomation would do my job easier..',
                                 4:'Still missing some leads..',
-                                5:'We all do mistakes, this time its not me, its you. ',
+                                5:'We all do mistakes. This time its not me, its you. ',
                             }
 
             # Randomizing the dictonary, choose a random value and retrieve the value
@@ -122,13 +122,9 @@ class ErrorHandler(Cog):
             # Checks which command is used
 
             #   Community
-            if cmd == 'Con' or cmd == 'con':
-                self.embed.title = '*con (birthday / regular/ feelsorry) (member Name)'
-                self.embed.description = requiredArgs
-                await ctx.send(embed = self.embed)
 
-            elif cmd == 'Randint' or cmd == 'randint':
-                self.embed.title = '*randint (integer) (integer)'
+            if cmd == 'Randint' or cmd == 'randint':
+                self.embed.title = '*randint (integer one) (integer two)'
                 self.embed.description = requiredArgs
                 await ctx.send(embed = self.embed)
 
@@ -175,7 +171,7 @@ class ErrorHandler(Cog):
                 await ctx.send(embed=self.embed)
 
             elif cmd == 'Announce' or cmd == 'announce':
-                self.embed.title = '*announce (channelName) (message)'
+                self.embed.title = '*announce (channelName)'
                 self.embed.description = requiredArgs
                 await ctx.send(embed = self.embed)
 
@@ -215,7 +211,7 @@ class ErrorHandler(Cog):
 
         # Non Discord errors
         elif isinstance(error, self.invokeError):
-            runTimeError = ' Its not your foulth, an issue report as been already submitted, thank you for your patientcy.'
+            runTimeError = ' This time its my master\'s foulth. An issue report as been submitted, thank you for your patiency.'
 
            # Time-out
             if isinstance(error.original, self.timeOut):
@@ -259,7 +255,6 @@ class ErrorHandler(Cog):
                 await owner.send(f'Master, an undentified error were found, in, {error.original}', tts = True)
                 await ctx.send(f'{runTimeError}')        
         else:
-
             # If none of the above, print it in the terminal
             print('Ignoring exception in command {}:\n'.format(ctx.command), file=sys.stderr)
             traceback.print_exception(type(error), error, error.__traceback__, file=sys.stderr)

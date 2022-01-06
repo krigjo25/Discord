@@ -1,6 +1,6 @@
 # System reporosory
 from os import getenv
-from random import randrange, shuffle, sample, random
+from random import randrange, shuffle
 
 # Database reporosory
 import mariadb
@@ -16,10 +16,11 @@ class MarvelComics():
         # Connecting to the database
 
         conn = mariadb.connect(
-                    user = os.getenv('USER'),
-                    password = os.getenv('PASSWORD'),
-                    host = os.getenv('HOST'),
-                    db = os.getenv('DATABASE')
+            port = 55368,
+            user = getenv('USER'),
+            host = getenv('HOST'),
+            db = getenv('DATABASE'),
+            password = getenv('PASSWORD')
         )
         cur = conn.cursor()
 
@@ -53,10 +54,11 @@ class MarvelComics():
         # Connecting to the database
 
         conn = mariadb.connect(
-                    user = os.getenv('USER'),
-                    password = os.getenv('PASSWORD'),
-                    host = os.getenv('HOST'),
-                    db = os.getenv('DATABASE')
+            port = 55368,
+            user = getenv('USER'),
+            host = getenv('HOST'),
+            db = getenv('DATABASE'),
+            password = getenv('PASSWORD')
         )
         cur = conn.cursor()
 
@@ -90,10 +92,11 @@ class MarvelComics():
         # Connecting to the database
 
         conn = mariadb.connect(
-                    user = os.getenv('USER'),
-                    password = os.getenv('PASSWORD'),
-                    host = os.getenv('HOST'),
-                    db = os.getenv('DATABASE')
+            port = 55368,
+            user = getenv('USER'),
+            host = getenv('HOST'),
+            db = getenv('DATABASE'),
+            password = getenv('PASSWORD')
         )
         cur = conn.cursor()
 

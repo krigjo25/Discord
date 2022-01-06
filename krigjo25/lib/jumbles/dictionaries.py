@@ -13,7 +13,7 @@ class Dictionaries():
 
     def CorrectAnswer():
         answer =  {
-                        0:f'Jamie\'s answer were',
+                        0:f'Congratulation you guessed correct',
                     }
         x = 0 #randrange(0,6)     
         CorrectAnswer = answer.get(x)
