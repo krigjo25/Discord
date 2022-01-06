@@ -81,16 +81,17 @@ Member joins:
     the user will be added to the role.
 
 ***Bot Post Moderation***
+
     Roles :
 
-    mod,
-    Mod,
-    admin,
-    Admin,
-    Moderator,
-    moderator,
-    Administrator,
-    administrator,
+        mod,
+        Mod,
+        admin,
+        Admin,
+        Moderator,
+        moderator,
+        Administrator,
+        administrator,
 
     Moderator module
 
