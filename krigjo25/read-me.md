@@ -25,27 +25,29 @@
 
 ***About the Developer***
 
-krigjo25, born in 94, Norway, Using most of the
-time on Python and SQL, otherwise Gym and living life as a human.
+krigjo25 is the nickname, were born in 94, Norway.
+Been using python since 2021, krigjo25 has used 2/3 of the time on Python and SQL.
+Other activities Gym and living life as a human.
+
 
 ***The bot***
+
 I'm a bot made for Discord, intentionally
 helping out as a Discord administrator
 
 ***Contact Information***
-    Discord : krigjo25#5588
-    website : krigjo25.com
 
-Only One advice,
+Discord : krigjo25#5588.
+website : krigjo25.com
+
+Only One advice.
 « The importance of creating is just have fun.
 
 ## About Krigjo25
 
-project started     :   23.10-21
-
-last update         :   05.01-22
-
-current verison     :   1.0.0 RC 1
+Project started: **23.10-21.**
+last update: **05.01-22.**
+current verison:**1.0.0 RC 1**
 
 ***How do the bot work***
 
