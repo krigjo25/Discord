@@ -127,7 +127,8 @@ What makes krigjo25 unique :
 
 ## Resposories
 
-Responsories used  
+Responsories used
+
     discord.py - [Rapptz] (https://github.com/Rapptz/discord.py),  
     python_dotenv - [Saurabh Kumar](https://github.com/motdotla/dotenv),  
     Anti-spam - [Skelmis](https://github.com/Skelmis/DPY-Anti-Spam/commits?author=Skelmis), 
