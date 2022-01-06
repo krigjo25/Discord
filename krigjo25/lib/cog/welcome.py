@@ -8,6 +8,9 @@ from discord.permissions import Permissions
 #   System Responsory
 from random import shuffle,randrange
 
+# Library Responsory
+from lib.dictionaries.systemmessages import Dictionaries
+
 class Welcome(Cog, name='Welcome module'):
     def __init__(self, bot, *kwargs):
         self.bot = bot
@@ -18,44 +21,17 @@ class Welcome(Cog, name='Welcome module'):
 
         #   Creating a new role for new members
         srv = member.guild
-        memberRole = get(srv.roles, name='Members')
+        memberRole = get(srv.roles, name='@Members')
 
         if not memberRole:
             overwrite = Permissions(speak=True, send_messages=True, read_message_history=True, read_messages=True)
             memberRole = await srv.create_role(name='@Members', permissions= overwrite, reason= 'Automatic Role assignment')
-        
-        await member.add_roles(memberRole)
+        else:
+            await member.add_roles(memberRole)
         
         #   Sending a random Greetings message
         ch = srv.system_channel
-        emojiDict = {  0: ':astonished',
-                    1:':alien:',
-                    2:':blush:',
-                    3:':boom:',
-                    4:':cold_sweat:',
-                    5:':confounded:',
-                    6:':no_mouth:',
-                    7:':scream:',
-                    8:':joy:',
-                    9:':grin:',
-                    10:':grinning:',
-                    11:':grimacing:',
-                    12:':smiley:',
-                    13:':sparkles:',
-                    14:':smile:',
-                    15:':laughing:',
-                    16:'smirk:',
-                    17:':two_hearts:',
-                    18:':+1:',
-                    19:':muscle:',
-                    20:':question:',
-                    21:':see_no_evil:',
-                    22:':fire:',
-
-                    }
-        shuffle(emojiDict)
-        i = randrange(0,16)
-        emoji = emojiDict.get(i)
+        emoji = Dictionaries.EmojiDictionary()
 
         args = {    0:f' :boom: {member.mention} appeared. {emoji}',
                     1:f'Can you catch em all? {member.mention}. {emoji}',
@@ -78,7 +54,7 @@ class Welcome(Cog, name='Welcome module'):
         shuffle(args)
         x = randrange(0,13)
 
-        await ch.send(f'{args.get(x)}')#(f'{args[x]}')
+        await ch.send(f'{args}')#(f'{args[x]}')
 
 #   When a member leaves the channel
     @Cog.listener()
@@ -137,7 +113,7 @@ class Welcome(Cog, name='Welcome module'):
                     4:f'noOne:\n  {member.mention}: just flew away. {emoji}',
                     5:f'Suddenly {member.mention} disapeared in the woods {emoji}',
                     6:f'{member.mention} Just got eaten by a {animal}.{emoji}.',
-                    7:f'A lost boy just got lost. {emoji}.',
+                    7:f'{member.mention} just became a lost boy {emoji}.',
                     8:f'{member.mention} went to work. {emoji}.',
                     9:f' {member.mention} blow up {emoji}.',
                     10:f' Farewell {member.mention}. {emoji}.',
@@ -151,4 +127,4 @@ class Welcome(Cog, name='Welcome module'):
         shuffle(args)
         x = randrange(0,12)
 
-        await ch.send(f'{args.get(x)}')#(f'{args[x]}')
+        await ch.send(f'{args.get(x)}')

@@ -1,10 +1,11 @@
+#    Python Library
 from os import getenv
 from random import randrange
 
-# dotenv
+# dotenv Library
 from dotenv import load_dotenv
 
-#   mariadb
+#   Connection to Mariadb
 import mariadb
 
 #   Discord Repositories
@@ -18,19 +19,18 @@ from lib.jumbles.disney import Disney
 from lib.jumbles.jumble import Jumble
 #from lib.jumbles.dcComics import DCComics
 #from lib.jumbles.marvelComics import MarvelComics
-from lib.jumbles.dictionaries import Dictionaries
 
-
-#   Asynico Repositories
-import asyncio
+ #  Custom Library
+from lib.dictionaries.systemmessages import Dictionaries
 
 load_dotenv()
 
 class JumbleGame(Cog):
+
     def __init__(self, bot):
         self.bot = bot
         self.Answer = Dictionaries.CorrectAnswer()
-        self.GameOver = Dictionaries.jumbleOver()
+        self.GameOver = Dictionaries.GameOver()
         self.modeError = Dictionaries.DifficultyError()
         self.embed = Embed(color=Color.dark_purple(), description='')
         self.conn = mariadb.connect(

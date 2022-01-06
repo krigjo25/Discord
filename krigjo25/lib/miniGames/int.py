@@ -6,11 +6,14 @@ from discord.ext.commands import Cog, command
 # Python library
 from random import shuffle,randrange, randint
 
+from lib.dictionaries.systemmessages import Dictionaries
+
 # Asynico library
 class GuessTheNumber(Cog, name='miniGames module'):
     def __init__(self, bot):
         self.bot = bot
         self.embed = Embed(color=Color.dark_purple(), description='')
+        self.gameOver = Dictionaries.GameOver()
     
     @command(name='int')
     async def GuessTheNum(self, ctx, diff):
@@ -116,7 +119,7 @@ class GuessTheNumber(Cog, name='miniGames module'):
                     equal = equal.get(i)
 
                     # Prepare and send the embed message
-                    self.embed.title = ' The game is over'
+                    self.embed.title = 'The game is over'
                     self.embed.description = f'{equal}'
                     await ctx.send(embed=self.embed)
                     break
@@ -128,7 +131,8 @@ class GuessTheNumber(Cog, name='miniGames module'):
 
                     #   Prepare and send the embed message
                     self.embed.title = 'The Game is over'
-                    self.embed.description = f'**Results**\nYou guessed **{atnum}** of **{atNumMax}** times\n <{less} | {greater}> \n Jamie\'s answer were {x} '
+                    self.embed.description = f'{self.gameOver}'
+                    self.embed.add_field(name='Results', value=f'You guessed **{atnum}** of **{atNumMax}** times\n <{less} | {greater}> \n krigjo25\'s answer were {x}', inline=False)
                     await ctx.send(embed=self.embed)
 
                     # Get out of the loop
@@ -223,7 +227,7 @@ class GuessTheNumber(Cog, name='miniGames module'):
                     equal = equal.get(i)
 
                     # Prepare and send the embed message
-                    self.embed.title = ' The game is over'
+                    self.embed.title = 'The game is over'
                     self.embed.description = f'{equal}'
                     await ctx.send(embed=self.embed)
                     break
@@ -235,7 +239,8 @@ class GuessTheNumber(Cog, name='miniGames module'):
 
                     #   Prepare and send the embed message
                     self.embed.title = 'The Game is over'
-                    self.embed.description = f'**Results**\nYou guessed **{atnum}** of **{atNumMax}** times\n <{less} | {greater}> \n Jamie\'s answer were {x} '
+                    self.embed.description = f'{self.gameOver}'
+                    self.embed.add_field(name='Results', value=f'You guessed **{atnum}** of **{atNumMax}** times\n <{less} | {greater}> \n krigjo25\'s answer were {x}', inline=False)
                     await ctx.send(embed=self.embed)
 
                     # Get out of the loop
@@ -334,7 +339,7 @@ class GuessTheNumber(Cog, name='miniGames module'):
                     equal = equal.get(i)
 
                     # Prepare and send the embed message
-                    self.embed.title = ' The game is over'
+                    self.embed.title = 'The game is over'
                     self.embed.description = f'{equal}'
                     await ctx.send(embed=self.embed)
                     break
@@ -346,7 +351,8 @@ class GuessTheNumber(Cog, name='miniGames module'):
 
                     #   Prepare and send the embed message
                     self.embed.title = 'The Game is over'
-                    self.embed.description = f'**Results**\nYou guessed **{atnum}** of **{atNumMax}** times\n <{less} | {greater}> \n Jamie\'s answer were {x} '
+                    self.embed.description = f'{self.gameOver}'
+                    self.embed.add_field(name='Results', value=f'You guessed **{atnum}** of **{atNumMax}** times\n <{less} | {greater}> \n krigjo25\'s answer were {x}', inline=False)
                     await ctx.send(embed=self.embed)
 
                     # Get out of the loop
@@ -441,7 +447,7 @@ class GuessTheNumber(Cog, name='miniGames module'):
                     equal = equal.get(i)
 
                     # Prepare and send the embed message
-                    self.embed.title = ' The game is over'
+                    self.embed.title = 'The game is over'
                     self.embed.description = f'{equal}'
                     await ctx.send(embed=self.embed)
                     break
@@ -452,8 +458,8 @@ class GuessTheNumber(Cog, name='miniGames module'):
                 if atnum == atNumMax:
 
                     #   Prepare and send the embed message
-                    self.embed.title = 'The Game is over'
-                    self.embed.description = f'**Results**\nYou guessed **{atnum}** of **{atNumMax}** times\n <{less} | {greater}> \n Jamie\'s answer were {x} '
+                    self.embed.description = f'{self.gameOver}'
+                    self.embed.add_field(name='Results', value=f'You guessed **{atnum}** of **{atNumMax}** times\n <{less} | {greater}> \n krigjo25\'s answer were {x}', inline=False)
                     await ctx.send(embed=self.embed)
 
                     # Get out of the loop
@@ -549,7 +555,7 @@ class GuessTheNumber(Cog, name='miniGames module'):
                     equal = equal.get(i)
 
                     # Prepare and send the embed message
-                    self.embed.title = ' The game is over'
+                    self.embed.title = 'The game is over'
                     self.embed.description = f'{equal}'
                     await ctx.send(embed=self.embed)
                     break
@@ -561,7 +567,8 @@ class GuessTheNumber(Cog, name='miniGames module'):
 
                     #   Prepare and send the embed message
                     self.embed.title = 'The Game is over'
-                    self.embed.description = f'**Results**\nYou guessed **{atnum}** of **{atNumMax}** times\n <{less} | {greater}> \n Jamie\'s answer were {x} '
+                    self.embed.description = f'{self.gameOver}'
+                    self.embed.add_field(name='Results', value=f'You guessed **{atnum}** of **{atNumMax}** times\n <{less} | {greater}> \n krigjo25\'s answer were {x}', inline=False)
                     await ctx.send(embed=self.embed)
 
                     # Get out of the loop
