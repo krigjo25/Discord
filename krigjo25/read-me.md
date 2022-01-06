@@ -74,13 +74,10 @@ the prefix command is ***?***, e.g ?krigjo25
 
 *miniGames module*
 
-> 8ball
-
-> jumble
-
-> guess The Number
-
-> reaction game (Rock, Scissor & paper)
+> 8ball<br>
+> jumble<br>
+> guess The Number<br>
+> reaction game (Rock, Scissor & paper)<br>
 
 ***Bot Pre Moderation Utility***
 
