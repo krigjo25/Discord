@@ -62,22 +62,22 @@ the prefix command is ***?***, e.g ?krigjo25
 
 > krigjo25 (optional: log )
 >> Information about the bot
->
+
 > meme
 >> Generates a random meme from Reddit
->    
+ 
 > memberlist
 >> list of members in the server
->    
+  
 > randint (integer one) (integer two)
 >> generate a random integer
 
 *miniGames module*
-        
-    8ball
-    jumble
-    guess The Number
-    reaction game (Rock, Scissor & paper)
+
+> 8ball
+> jumble
+> guess The Number
+> reaction game (Rock, Scissor & paper)
 
 ***Bot Pre Moderation Utility***
 
@@ -87,49 +87,49 @@ the prefix command is ***?***, e.g ?krigjo25
 
 ***Bot Post Moderation***
 
-    Roles :
-        mod,
-        Mod,
-        admin,
-        Admin,
-        Moderator,
-        moderator,
-        Administrator,
-        administrator,
+> Roles :
+>> mod,
+>> Mod,
+>> admin,
+>> Admin,
+>> Moderator,
+>> moderator,
+>> Administrator,
+>> administrator,
 
 *Moderator module*
 
-        cls (channel name) (int)
-            Clear the chat limit 100 lines each time the command
-            is used
+> cls (channel name) (int)
+>> Clear the chat limit 100 lines each time the command
+>> is used
 
-        crech (channel name)
-            Create a channel, by default it is only visible 
-            for admins & moderator roles
+> crech (channel name)
+>> Create a channel, by default it is only visible 
+>> for admins & moderator roles
 
-        kick (member name) (reason)
-            Kicks a member from the server, stores in a log
-            file.
+> kick (member name) (reason)
+>> Kicks a member from the server, stores in a log
+>> file.
 
 *Administrator module*
 
-        ban
-            Ban a discord user from the server
-            records the username into a .log file
-                                
-        Unban
-            Unban a discord user from the server
+> ban
+>> Ban a discord user from the server
+>> records the username into a .log file
+                           
+> Unban
+>> Unban a discord user from the server
 
-        Log (kick / ban
-            Open up and read the .log file
+> Log (kick / ban
+>> Open up and read the .log file
 
-    Software-Technician, Software-technician
-        Moderator commands
-        Admin commands
+> Software-Technician, Software-technician
+>> Moderator commands
+>> Admin commands
 
 ***What has been learned***
 
-
+- function
 
 *What makes krigjo25 unique*
 
