@@ -1,10 +1,13 @@
-import os
+#   Python Repositories
+from os import getenv
 
+#   Dotenv Repositories
 from dotenv import load_dotenv
 
+#   Discord Repositories
 from discord import Intents
 
-# library modules
+# library Repositories
 from lib.cog.welcome import Welcome                             #   Welcome Module 
 #from lib.cog.support import Support                            #   The Support module
 from lib.cog.help import HelpCommand                            #   Help module
@@ -12,7 +15,7 @@ from lib.clients.bot import DiscordBot                          #   Client
 from lib.cog.community import Community                         #   Community module
 from lib.cog.commandError import ErrorHandler                   #   Error Handling Module
 
-#   miniGames
+#   miniGames Repositories
 from lib.miniGames.askQ import EightBall                        #   EightBall
 from lib.miniGames.jumble import JumbleGame                     #   Jumble Game
 from lib.miniGames.int import GuessTheNumber                    #   Guess the number
@@ -34,7 +37,7 @@ load_dotenv()
 def botSetup ():
     
      # necsessary values from .env
-    botKey = os.getenv('BotToken')
+    botKey = getenv('BotToken')
     
 
             #   Discord configs
@@ -42,8 +45,8 @@ def botSetup ():
     
     #intents.members = True          #  Allows to add a role.
     #intents.messages = True         #  Allows the bot to send messages
-    #intents.presences = True
-    #intents.guild_reactions = True
+    #intents.presences = True        #
+    #intents.guild_reactions = True  #
 
     #   retrieving the module
     bot = DiscordBot(intents=intents)
