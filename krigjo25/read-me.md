@@ -2,7 +2,7 @@
 
 ## Table of content
 
-    Introduction
+    [Introduction](#Introduction)
         About the Developer
         Krigjo25
         Contact
@@ -15,7 +15,7 @@
         Updates
     Project Summary
     
-    Responsories
+    [Responsories](#Responsories)
 
     Credentials
         Disclaimers
@@ -156,8 +156,11 @@ The developer can only have the responsibility, for how it's created, how it is 
 ## Project Summary
 
 
-*   Created Krigjo25 as a bot to manage your server, 
-    and to assist you with the administrative job
+*   
+*   Since i do not have any particular experience in Phyton or SQL language then i did have a lot of challanges<br> 
+    regarding connecting to a database, creating a reaction based game, working with the different modules in the<br>
+    python library, finding ways to protect the database inputs, creating an advanced command handler to have some<br>
+    control over the different parts of the bot
 
 Written and developed by,
 @krigjo25
