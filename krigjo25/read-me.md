@@ -2,24 +2,24 @@
 
 ## Table of content
 
->    [Introduction](#Introduction)
->>       About the Developer
->>        Krigjo25
->>        Contact
+> [Introduction](#Introduction)
+>> About the Developer
+>>> Krigjo25
+>>> Contact
 
->    [About krigjo25](#About krigjo25)
->>        version information 
->>        How to use the bot
->>        Features
->>        What has been learned
->>        Updates
->    Project Summary
->    
->    [Responsories](#Responsories)
->
->    [Credentials](#Credentials)
->>        Disclaimers
->>        References
+> [About-krigjo25](#About-krigjo25)
+>> project information 
+>> How to use the bot
+>> Features
+>> Updates
+
+> [Responsories](#Responsories)
+
+> [Credentials](#Credentials)
+>> Disclaimers
+>> References
+
+> [Project-Summary](#project-Summary)
 
 ## Introduction
 
@@ -43,7 +43,7 @@ website : krigjo25.com
 Only One advice.
 « The importance of creating is just have fun.
 
-## About Krigjo25
+## About-Krigjo25
 
 ***Project Information***
 > Project started: **23.10-21.**<br>
@@ -54,22 +54,23 @@ Only One advice.
 
 The bot is there to help you to manage your server, with the given tasks which is available to be used, and for other members to have fun with-in discord,
 the prefix command is ***?***, e.g ?krigjo25
+***Feautures***
 
 **Bot Member Utility:**
 
 *Member module*
 
->krigjo25 (optional: log )
->>Information about the bot
+> krigjo25 (optional: log )
+>> Information about the bot
 >
 > meme
->>Generates a random meme from Reddit
+>> Generates a random meme from Reddit
 >    
->memberlist
->>list of members in the server
+> memberlist
+>> list of members in the server
 >    
->randint (integer one) (integer two)
->>generate a random integer
+> randint (integer one) (integer two)
+>> generate a random integer
 
 *miniGames module*
         
@@ -125,6 +126,10 @@ the prefix command is ***?***, e.g ?krigjo25
     Software-Technician, Software-technician
         Moderator commands
         Admin commands
+
+***What has been learned***
+
+
 
 *What makes krigjo25 unique*
 
