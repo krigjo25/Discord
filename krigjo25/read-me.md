@@ -16,28 +16,28 @@
     Project Summary
     
     Responsories
-        Discord.py
 
     Credentials
-        license
+        Disclaimers
+        References
 
 ## Introduction
 
 ***About the Developer***
 
-krigjo25 is the nickname, were born in 94, Norway.
-Been using python since 2021, krigjo25 has used 2/3 of the time on Python and SQL.
+krigjo25 is the nickname, were born in 94, Norway.<br>
+Been using python since 2021, krigjo25 has used 2/3 of the time on Python and SQL.<br>
 Other activities Gym and living life as a human.
 
 
 ***The bot***
 
-I'm a bot made for Discord, intentionally
+I'm a bot made for Discord, intentionally<br>
 helping out as a Discord administrator
 
 ***Contact Information***
 
-Discord : krigjo25#5588.
+Discord : krigjo25#5588.<br>
 website : krigjo25.com
 
 Only One advice.
@@ -45,8 +45,8 @@ Only One advice.
 
 ## About Krigjo25
 
-Project started: **23.10-21.**
-last update: **05.01-22.**
+Project started: **23.10-21.**<br>
+last update: **05.01-22.**<br>
 current verison:**1.0.0 RC 1**
 
 ***How do the bot work***
@@ -56,7 +56,8 @@ the prefix command is ***?***, e.g ?krigjo25
 
 **Bot Member Utility:**
 
-Member module
+*Member module*
+
     krigjo25 (optional: log )
         Information about the bot
 
@@ -69,23 +70,22 @@ Member module
     randint (integer one) (integer two)
         generate a random integer
 
-    miniGames module
+*miniGames module*
         
-        8ball
-        jumble
-        guess The Number
-        reaction game (Rock, Scissor & paper)
+    8ball
+    jumble
+    guess The Number
+    reaction game (Rock, Scissor & paper)
 
 ***Bot Pre Moderation Utility***
 
-Member joins:
+*Member joins:*
     When a member joins the server, the bot will create a role called "@Members"
     the user will be added to the role.
 
 ***Bot Post Moderation***
 
     Roles :
-
         mod,
         Mod,
         admin,
@@ -95,7 +95,7 @@ Member joins:
         Administrator,
         administrator,
 
-    Moderator module
+*Moderator module*
 
         cls (channel name) (int)
             Clear the chat limit 100 lines each time the command
@@ -109,7 +109,7 @@ Member joins:
             Kicks a member from the server, stores in a log
             file.
 
-    Admin module
+*Admin module*
         ban
             Ban a discord user from the server
             records the username into a .log file
@@ -124,7 +124,7 @@ Member joins:
         Moderator commands
         Admin commands
 
-What makes krigjo25 unique :
+*What makes krigjo25 unique*
     The bot serving you, as a humble bot
 
 ## Resposories
@@ -139,11 +139,10 @@ Responsories used
 
 Copyright notice
 
-Disclaimers:  
-    the developer can only have the responsibility, for how it's created,
-    How it is used by people. Is another story.
+***Disclaimers:***<br>
+The developer can only have the responsibility, for how it's created, how it is used by people. Is another story.
 
-References:  
+***References: *** 
 [ObjectOriented Discord Bot](https://nik.re/posts/2021-09-25/object_oriented_discord_bot), by Nikola Cucakovic,
 
 Books used while learning Python
