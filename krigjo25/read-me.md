@@ -42,15 +42,15 @@ Only One advice,
 ## About Krigjo25
 
 project started     :   23.10-21
+
 last update         :   05.01-22
+
 current verison     :   1.0.0 RC 1
-Repositories  used
-    discord.py,
 
 ***How do the bot work***
 
-The prefix command is ***?***
-e.g ?krigjo25
+The bot is there to help you to manage your server, with the given tasks which is available to be used, and for other members to have fun with-in discord,
+the prefix command is ***?***, e.g ?krigjo25
 
 **Bot Member Utility:**
 
@@ -129,9 +129,9 @@ What makes krigjo25 unique :
 
 Responsories used
 
-- discord.py - [Rapptz] (https://github.com/Rapptz/discord.py),  
-- python_dotenv - [Saurabh Kumar](https://github.com/motdotla/dotenv),  
-- Anti-spam - [Skelmis](https://github.com/Skelmis/DPY-Anti-Spam/commits?author=Skelmis), 
+- [discord.py by Rapptz](https://github.com/Rapptz/discord.py),  
+- [python_dotenv by Saurabh Kumar](https://github.com/motdotla/dotenv),  
+- [Anti-spam by Skelmis](https://github.com/Skelmis/DPY-Anti-Spam/commits?author=Skelmis), 
 
 ## Credentials
 
@@ -148,6 +148,7 @@ Books used while learning Python
 learn Python and learn it well, by Jamie Chan
 
 ## Project Summary
+
 
 *   Created Krigjo25 as a bot to manage your server, 
     and to assist you with the administrative job
