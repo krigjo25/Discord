@@ -137,19 +137,19 @@ The bot serving you, as a humble bot
 
 ## Resposories
 
-Responsories used
-
+- [MariaDB](https://github.com/mariadb-corporation/mariadb-connector-python),
+- [Anti-spam by Skelmis](https://github.com/Skelmis/DPY-Anti-Spam/commits?author=Skelmis),
 - [discord.py by Rapptz](https://github.com/Rapptz/discord.py),  
 - [python_dotenv by Saurabh Kumar](https://github.com/motdotla/dotenv),
-- [MariaDB](https://github.com/mariadb-corporation/mariadb-connector-python),
-- [Anti-spam by Skelmis](https://github.com/Skelmis/DPY-Anti-Spam/commits?author=Skelmis), 
+
+ 
 
 ## Credentials
 
 Copyright notice
 
 ***Disclaimers:***<br>
-The developer can only have the responsibility, for how it's created, how it is used by people. Is another story.
+***The developer can only have the responsibility, for how it's created, how it is used by people. Is another story.***
 
 ***References: ***
 
@@ -157,7 +157,7 @@ The developer can only have the responsibility, for how it's created, how it is 
 
 ***Books used while learning Python***
 
-[learn Python with-in one day and learn it well, by Jamie Chan](https://learncodingfast.com/)
+[learn Python with-in one day and learn it well, by Jamie Chan](https://learncodingfast.com/)<br>
 [learn SQL with-in one day and learn it well, by Jamie Chan](https://learncodingfast.com/)
 
 ## Project Summary
