@@ -85,17 +85,17 @@ the prefix command is ***?***, e.g ?krigjo25
     When a member joins the server, the bot will create a role called "@Members"
     the user will be added to the role.
 
-***Bot Post Moderation***
+***Bot Post Moderation Utility***
 
 > Roles :
->> mod,
->> Mod,
->> admin,
->> Admin,
->> Moderator,
->> moderator,
->> Administrator,
->> administrator,
+>> mod,<br>
+>> Mod,<br>
+>> admin,<br>
+>> Admin,<br>
+>> Moderator,<br>
+>> moderator,<br>
+>> Administrator,<br>
+>> administrator,<br>
 
 *Moderator module*
 
