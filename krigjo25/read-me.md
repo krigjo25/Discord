@@ -87,15 +87,15 @@ the prefix command is ***?***, e.g ?krigjo25
 
 ***Bot Post Moderation Utility***
 
-> Roles :
->> mod,<br>
->> Mod,<br>
->> admin,<br>
->> Admin,<br>
->> Moderator,<br>
->> moderator,<br>
->> Administrator,<br>
->> administrator,<br>
+Roles :
+> mod,<br>
+> Mod,<br>
+> admin,<br>
+> Admin,<br>
+> Moderator,<br>
+> moderator,<br>
+> Administrator,<br>
+> administrator,<br>
 
 *Moderator module*
 
@@ -145,9 +145,6 @@ The bot serving you, as a humble bot
  
 
 ## Credentials
-
-Copyright notice
-
 ***Disclaimers:***<br>
 ***The developer can only have the responsibility, for how it's created, how it is used by people. Is another story.***
 
