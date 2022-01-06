@@ -32,9 +32,8 @@ Other activities Gym and living life as a human.
 
 ***The bot***
 
-I'm a bot made for Discord, intentionally<br>
-helping out as a Discord administrator
-
+krigjo25 made for Discord, intentionally<br>
+helping out as a Discord administrator, miniGames mananger and Server configuriations for games
 ***Contact Information***
 
 Discord : krigjo25#5588.<br>
@@ -109,7 +108,8 @@ the prefix command is ***?***, e.g ?krigjo25
             Kicks a member from the server, stores in a log
             file.
 
-*Admin module*
+*Administrator module*
+
         ban
             Ban a discord user from the server
             records the username into a .log file
@@ -125,14 +125,16 @@ the prefix command is ***?***, e.g ?krigjo25
         Admin commands
 
 *What makes krigjo25 unique*
-    The bot serving you, as a humble bot
+
+The bot serving you, as a humble bot
 
 ## Resposories
 
 Responsories used
 
 - [discord.py by Rapptz](https://github.com/Rapptz/discord.py),  
-- [python_dotenv by Saurabh Kumar](https://github.com/motdotla/dotenv),  
+- [python_dotenv by Saurabh Kumar](https://github.com/motdotla/dotenv),
+- [MariaDB](https://github.com/mariadb-corporation/mariadb-connector-python),
 - [Anti-spam by Skelmis](https://github.com/Skelmis/DPY-Anti-Spam/commits?author=Skelmis), 
 
 ## Credentials
@@ -142,11 +144,14 @@ Copyright notice
 ***Disclaimers:***<br>
 The developer can only have the responsibility, for how it's created, how it is used by people. Is another story.
 
-***References: *** 
+***References: ***
+
 [ObjectOriented Discord Bot](https://nik.re/posts/2021-09-25/object_oriented_discord_bot), by Nikola Cucakovic,
 
-Books used while learning Python
-learn Python and learn it well, by Jamie Chan
+***Books used while learning Python***
+
+[learn Python with-in one day and learn it well, by Jamie Chan](https://learncodingfast.com/)
+[learn SQL with-in one day and learn it well, by Jamie Chan](https://learncodingfast.com/)
 
 ## Project Summary
 
