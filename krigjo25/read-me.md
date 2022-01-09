@@ -59,7 +59,7 @@ the prefix command is ***?***, e.g ?krigjo25
 
 **Bot Member Utility:**
 
-*Member module*
+*Community-module*
 
 > krigjo25 (optional: log )
 >> Information about the bot
@@ -73,7 +73,12 @@ the prefix command is ***?***, e.g ?krigjo25
 > randint (integer one) (integer two)
 >> generate a random integer
 
-*miniGames module*
+> afk (message)
+>> To notify other members to go afk, 
+>> a text-channel will be created, and a message will be sent there.
+>> on mention the author recieves an afk message, and a error, that the person is not to be disturbed.
+
+*miniGames-module*
 
 > 8ball<br>
 > jumble<br>
@@ -98,7 +103,7 @@ Roles :
 > Administrator,<br>
 > administrator,<br>
 
-*Moderator module*
+*Moderator-module*
 
 > cls (channel name) (int)
 >> Clear the chat limit 100 lines each time the command
@@ -112,7 +117,7 @@ Roles :
 >> Kicks a member from the server, stores in a log
 >> file.
 
-*Administrator module*
+*Administrator-module*
 
 > ban
 >> Ban a discord user from the server

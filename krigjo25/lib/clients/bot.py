@@ -1,5 +1,10 @@
+import mariadb
+
+from os import getenv
 from sys import api_version
+from dotenv import load_dotenv
 from discord.ext.commands import Bot
+
 # Anti-Spam Plugins
 #from antispam import AntiSpamHandler
 
@@ -20,7 +25,10 @@ class DiscordBot(Bot):
     async def on_ready(self):
         print(f'Discord.py v{api_version}, loaded.\n {self.user.name} has establized a connection with {self.guilds}')
 
-    #async def on_message(self, message):
+
+#    async def on_message(self, message):
+#        pass
+
         #await self.handler.propagate(message)
         #await self.tracker.do_punishment(message)
         #await self.process_commands(message)

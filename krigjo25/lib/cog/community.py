@@ -1,17 +1,20 @@
-import discord
+
 import aiohttp
 
+import mariadb
+
+#   Importing Python Resposories
 from os import getenv
 from random import randint, randrange
 from dotenv import load_dotenv
 
-from discord.member import Member
-from discord.client import Client
+#   Importing Discord Resposories
+from discord import Status
 from discord.utils import get
 from discord.colour import Color
 from discord.embeds import Embed
-from discord import Status
 from discord.ext.commands import Cog, command
+from discord.permissions import PermissionOverwrite
 
 load_dotenv()
 
@@ -50,15 +53,15 @@ class Community(Cog, name='Community Module'):
 
             :new: Whats new:
                 
-                *  
-                * 
-                *  
+                *   | * Afk to go dnd, a message will be added in a channel named afk-channel, and a message will be given to a user if you get mentioned
+                *   | * back, get back from dnd mode
+                *   |
 
             :tools: Fixes / changes made
                 
-                *
-                *
-                *
+                *   |   Some database related issues, fixes
+                *   |
+                *   |
 
             
             Hope you will have fun with the new updates.
@@ -89,7 +92,7 @@ class Community(Cog, name='Community Module'):
             #   Declare variables
             status = str(member.status)
             nick = str(member.nick)
-            user = self.bot.user
+            botUser = self.bot.user
 
             #   Add emoji to status
             if status == 'online':
@@ -109,7 +112,7 @@ class Community(Cog, name='Community Module'):
                 nick = ' '
             else:
                 nick = f'Nick : {member.nick}\n'
-            if member != user:
+            if member != botUser:
                 self.embed.add_field(name=f'{member.name}#{member.discriminator}',value=f'{nick} Status : {status} ', inline=False)
         await ctx.send(embed = self.embed)
         self.embed.clear_fields()
@@ -141,4 +144,78 @@ class Community(Cog, name='Community Module'):
         x = randint(arg, arg2)
 
         await ctx.send(x)
+
+
+#   AFK
+    @command (name='dnd')
+    #   This function creates a status update for a given member of the server
+    #   The player should not be able to retrieve notifications from the server,
+    #   Not get mentions.
+    #   The mentioner, should retrieve a message, from the bot 
+    #   "I regret to inform you the member you asking for is busy at the moment. due to (reason)"
+    async def AwayFromKeyBoard(self, ctx, *, reason):
         
+        #   Creating a connection to mariadb database
+        conn = mariadb.connect(
+                        host = getenv('HOST'),
+                        user = getenv('USER'),
+                        port = int(getenv('PORT')),
+                        password = getenv('PASSWORD'),
+                        database = getenv('DATABASE')
+                    )
+        cur = conn.cursor()
+
+        # Declearing the user argument
+        args = str(reason)
+        user = str(ctx.author.name)
+        id = str(ctx.author. id)#,"{id}");
+
+        #   Creating a statement to send to the database and execute the statement
+        query = f'CALL AfkMember("{user}","{args}");'#,"{id}");'
+        cur.execute(query)
+
+        #   retrieve the channel if it exists
+        svr = ctx.guild
+        ch = get(svr.channels, name ='afk-channel')
+
+        #   Overwriting the permission for the channel
+        permission =  {
+            svr.default_role:PermissionOverwrite(   send_messages=False, 
+                                                    add_reactions=True,
+                                                    read_messages=True)
+        }
+        if not ch:
+            await svr.create_text_channel(f'afk-channel', overwrites=permission)
+        print (ch)
+        #   Send a message to the channel
+        await ch.send(f'{user} has just gone in Do not disturb mode. Due to {reason}')
+
+# Back
+    @command (name='back')
+    #   The Afk user should be removed from the database, 
+    #   The afk user is now allowed to be mentioned,
+    async def BackToKeyBoard(self, ctx):
+        
+        #   Creating a connection to mariadb database
+        conn = mariadb.connect(
+                        host = getenv('HOST'),
+                        user = getenv('USER'),
+                        port = int(getenv('PORT')),
+                        password = getenv('PASSWORD'),
+                        database = getenv('DATABASE')
+                    )
+        cur = conn.cursor()
+        # Declearing the user argument
+        user = str(ctx.author.name)
+        
+
+        #   Creating a statement to send to the database and execute the statement
+        query = f'CALL removeAFKmessage("{user}");'#,"{id}");'
+        cur.execute(query)
+
+        #   retrieve the channel if it exists
+        svr = ctx.guild
+        ch = get(svr.channels, name ='afk-channel')
+
+        #   Send a message to the channel
+        await ch.send(f'{user} just came back from dnd mode')

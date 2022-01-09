@@ -12,7 +12,7 @@ class Dictionaries():
     def __init__(self):
         self.bot = getenv('BotName')
 
-    def EmojiDictionary (self):
+    def EmojiDictionary ():
         
         #   Creating a dictionary for emojies
         dictionary = {

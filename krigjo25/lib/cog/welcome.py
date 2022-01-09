@@ -54,7 +54,7 @@ class Welcome(Cog, name='Welcome module'):
         shuffle(args)
         x = randrange(0,13)
 
-        await ch.send(f'{args}')#(f'{args[x]}')
+        await ch.send(f'{args[x]}')
 
 #   When a member leaves the channel
     @Cog.listener()
@@ -115,11 +115,12 @@ class Welcome(Cog, name='Welcome module'):
                     6:f'{member.mention} Just got eaten by a {animal}.{emoji}.',
                     7:f'{member.mention} just became a lost boy {emoji}.',
                     8:f'{member.mention} went to work. {emoji}.',
-                    9:f' {member.mention} blow up {emoji}.',
-                    10:f' Farewell {member.mention}. {emoji}.',
-                    11:f' {member.mention} Transformed into a {animal}. {emoji}.',
-                    12:f' {member.mention} used one of his nuts, and disapeared into the jungle {emoji}',
+                    9:f'{member.mention} blow up {emoji}.',
+                    10:f'Farewell {member.mention}. {emoji}.',
+                    11:f'{member.mention} Transformed into a {animal}. {emoji}.',
+                    12:f'{member.mention} used one of his nuts, and disapeared into the jungle {emoji}',
                     13:f'{member.mention}, used a time machine back to 1800s',
+                    14:f'{member} just dropped out',
 
                 }
         

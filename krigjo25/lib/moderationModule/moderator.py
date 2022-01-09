@@ -32,7 +32,7 @@ class Moderator(Cog, name='Moderator-module'):
             role4 = get(svr.roles, name='mod')
 
             overWrites = {
-                            role: PermissionOverwrite(read_messages=True),
+                            role:PermissionOverwrite(read_messages=True),
                             role2:PermissionOverwrite(read_messages=True),
                             role3:PermissionOverwrite(read_messages=True),
                             role4:PermissionOverwrite(read_messages=True),
@@ -40,11 +40,10 @@ class Moderator(Cog, name='Moderator-module'):
                             #svr.default_role:PermissionOverwrite(read_messages=False)
                             
                         }
-            print(svr, chName)
-            ChanExist = get(svr.channels, name=chName)
+            ch = get(svr.channels, name=chName)
 
             # set permission to secret
-            if not ChanExist:
+            if not ch:
                 await svr.create_text_channel(f'{chName}', overwrites=overWrites)
                 await ctx.send(f'Sir, the channel, **{chName}** is created.')
             else :
@@ -173,6 +172,7 @@ class Moderator(Cog, name='Moderator-module'):
             option3 = str(arg.content)
 
             options = f':one:{option}\n:two: {option2}\n :three:{option3}'
+
         elif x == 4:
             #   First option
             self.embed.description = 'Name your first option'
@@ -271,6 +271,7 @@ class Moderator(Cog, name='Moderator-module'):
             await r.add_reaction(one)
             await r.add_reaction(two)
             await r.add_reaction(three)
+
         elif x==4:
             await r.add_reaction(one)
             await r.add_reaction(two)
@@ -283,7 +284,7 @@ class Moderator(Cog, name='Moderator-module'):
             await r.add_reaction(three)
             await r.add_reaction(four)
             await r.add_reaction(five)
-        
+
         if quiz == 'q' or ch == 'q':
             return await ctx.send('The poll has ended')
 
