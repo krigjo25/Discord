@@ -6,6 +6,7 @@ from random import randrange, shuffle
 # DotEnv Repososary
 from dotenv import load_dotenv
 
+
 load_dotenv()
 
 class Dictionaries():
@@ -141,6 +142,7 @@ class Dictionaries():
         arg = dictionary.get(x)
 
         return arg
+
     #   Reaction Game
     def RockScissorPaper():
         dictionary = {
