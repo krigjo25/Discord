@@ -1,7 +1,8 @@
 import discord
-from discord import Color
+
 from discord.utils import get
 from discord.embeds import Embed
+from discord import Color, Member
 from discord.ext.commands import command, Cog
 from discord.ext.commands.core import has_any_role
 
@@ -12,25 +13,8 @@ class HelpCommand(Cog):
 #   Help-Module
     @command(name='help', pass_context=True)
     
-    async def FAQ(self, ctx, args=None):
+    async def FrequentlyAskedQuestions(self, ctx, args=None):
 
-        '''        # Retrieve roles
-        srv = discord.Member.guild
-
-        memberRole = get(srv.roles, name='Member')
-
-        #Moderator    
-        mod = get(srv.roles, name = 'mod')
-        Mod = get(srv.roles, name = 'Mod')
-        Moderator = get(srv.roles, name = 'mod')
-        moderator = get(srv.roles, name = 'mod')
-        
-        #Administrators
-        admin = get(srv.roles, name = 'Software-Technican')
-        Admin = get(srv.roles, name = 'Admin')
-        administrator = get(srv.roles, name = 'administrator')
-        Administrator = get(srv.roles, name = 'Administrator')
-        '''
 
         if args==None:
 

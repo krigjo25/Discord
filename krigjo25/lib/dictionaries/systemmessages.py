@@ -12,6 +12,7 @@ class Dictionaries():
     def __init__(self):
         self.bot = getenv('BotName')
 
+    #   Emojies
     def EmojiDictionary ():
         
         #   Creating a dictionary for emojies
@@ -48,7 +49,7 @@ class Dictionaries():
 
         return arg
     
-        # When the game is over due to to many attempts
+    #   When the game is over due to to many attempts
     def GameOver():
         dictionary = {
                         0:f'Game Over',
@@ -75,6 +76,7 @@ class Dictionaries():
 
         return arg
 
+    #   Standard DificultyError    
     def DifficultyError():
         dictionary = {
                         0:f'let\'s fake it ',
@@ -94,6 +96,7 @@ class Dictionaries():
 
         return arg
 
+    #   AskQ dictionaries
     def PhiliosopicAnswer():
         dictionary = {
                     0:'What do you sense about it?',
@@ -138,7 +141,7 @@ class Dictionaries():
         arg = dictionary.get(x)
 
         return arg
-    
+    #   Reaction Game
     def RockScissorPaper():
         dictionary = {
                     0:'\U0001FAA8',       #  somewhat rock
@@ -147,10 +150,21 @@ class Dictionaries():
 
                 }
 
-        # Randomize the dictionary
+        #   Randomize the dictionary
         x = randrange(0,2)
         shuffle (dictionary)
 
         arg = dictionary.get(x)
 
         return arg
+
+    #  Frequently Asked Questions
+
+    def HelpMember():
+    #   Retrieve roles
+        pass
+    def HelpModerator():
+        pass
+
+    def HelpAdministrator():
+        pass
