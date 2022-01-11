@@ -167,12 +167,19 @@ class Community(Cog, name='Community Module'):
 
         # Declearing the user argument
         args = str(reason)
-        user = str(ctx.author.name)
-        id = str(ctx.author. id)#,"{id}");
+        user = str(ctx.author)
+
+        id = str(ctx.author.id)
+        values = (user, args)
 
         #   Creating a statement to send to the database and execute the statement
-        query = f'CALL AfkMember("{user}","{args}");'#,"{id}");'
-        cur.execute(query)
+        query = 'INSERT INTO discordAfkMessages (memberName, afkMessage) VALUES (%s, %s)'
+        print (query)
+
+        #   Execute the statement, and commit the changes, then close the connection
+        cur.execute(query, values)
+        conn.commit()
+        conn.close()
 
         #   retrieve the channel if it exists
         svr = ctx.guild
@@ -186,7 +193,7 @@ class Community(Cog, name='Community Module'):
         }
         if not ch:
             await svr.create_text_channel(f'afk-channel', overwrites=permission)
-        print (ch)
+
         #   Send a message to the channel
         await ch.send(f'{user} has just gone in Do not disturb mode. Due to {reason}')
 
@@ -209,9 +216,14 @@ class Community(Cog, name='Community Module'):
         user = str(ctx.author.name)
         
 
+        values = (user)
         #   Creating a statement to send to the database and execute the statement
-        query = f'CALL removeAFKmessage("{user}");'#,"{id}");'
-        cur.execute(query)
+        query = 'DELETE FROM discordAfkMessages WHERE memberName="%s"'
+
+        #   Execute the statement, and commit the changes, then close the connection
+        cur.execute(query, values)
+        conn.commit()
+        conn.close()
 
         #   retrieve the channel if it exists
         svr = ctx.guild

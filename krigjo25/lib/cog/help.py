@@ -68,7 +68,8 @@ class HelpCommand(Cog):
                 self.embed.description='Use ** *help (Category)**, for more details, sir.\n\n'
                 self.embed.add_field(name='*krigjo25 \n(optional parameter: log)', value='- how did the bot fail the exam? She was a bit rusty', inline=True)
                 self.embed.add_field(name='*memberlist', value ='list of members', inline=True)
-                self.embed.add_field(name=':x: *dnd (message) ', value='- Busy, or going afk, notify your friends', inline=True)
+                self.embed.add_field(name='*dnd (message) ', value='- Busy, or going afk, notify your friends', inline=True)
+                self.embed.add_field(name='*back ', value='- Welcome back', inline=True)
                 self.embed.add_field(name='*meme', value='- What do you call a gamer whom works at an abortion clinic? :rofl:\n Spawn Camper ', inline=True)
                 self.embed.add_field(name='/', value='- for built-ins ', inline=True)
                 
