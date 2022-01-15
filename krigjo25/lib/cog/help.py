@@ -24,7 +24,9 @@ class HelpCommand(Cog):
             self.embed.add_field(name=':people_holding_hands: Community', value='- Did you hear about the guy whom joined a community? \n he were never seen again. ', inline=True)
             self.embed.add_field(name=':people_wrestling: miniGames', value='- Gamers don\'t take hot showers, only steamy ones', inline=True)
             #self.embed.add_field(name=':x: :gear: Support', value= '- Im stuck, lets get\nchildsupport :exclamation:', inline=True)
-            #self.embed.add_field(name=':x: Stream ', value= '- ', inline=True)
+            #self.embed.add_field(name=':x: Stream', value= '- ', inline=True)
+            #self.embed.add_field(name=':x: Moderator', value= '- Post moderator module. ', inline=True)
+            #self.embed.add_field(name=':x: Administrator', value= '- Post Administration ', inline=True)
 
             await ctx.send(embed=self.embed)
 
@@ -117,8 +119,6 @@ class HelpCommand(Cog):
                 self.embed.description='Use ** *help (Command/Category)**, for more details, sir.\n\n'
                 self.embed.add_field(name=':bar_chart: *poll', value='-Run a poll', inline=True)
                 self.embed.add_field(name='*unban (member Name)', value= '- unban a member ', inline=True)
-                self.embed.add_field(name='*log (ban/kick)', value='- Checking ban / kick log', inline=True)
-                self.embed.add_field(name='*clean (ban/kick/both)', value= '- Cleans the logs ', inline=True)
                 self.embed.add_field(name='kick (member) (reason)', value='- Kicks a user off the server ', inline=True)
                 self.embed.add_field(name=':x:*crech (Channel Name)', value='- Create a new channel default : hidden ', inline=True)
                 self.embed.add_field(name='*announce (channelName) (message)', value= '- Talk as the bot in a given channel', inline=True)
@@ -137,6 +137,8 @@ class HelpCommand(Cog):
                 self.embed.add_field(name=':people_wrestling: miniGames', value='- Gamers don\'t take hot showers, only steamy ones', inline=True)
                 #self.embed.add_field(name=':x: :gear: Support', value= '- Im stuck, lets get\nchildsupport :exclamation:', inline=True)
                 #self.embed.add_field(name=':x: Stream ', value= '- ', inline=True)
+                #self.embed.add_field(name=':x: Moderator', value= '- Post moderator module. ', inline=True)
+                #self.embed.add_field(name=':x: Administrator', value= '- Post Administration ', inline=True)
 
                 await ctx.send(embed=self.embed)
 

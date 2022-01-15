@@ -62,15 +62,15 @@ class DiscordBot(Bot):
             query = f'SELECT * FROM discordAfkMessages WHERE memberName = "{mention}"'
             cur.execute(query)
             data = cur.fetchall()
-
+            conn.close()
             for i in data:
                 dndList.append(i[1])
                 dndList.append(i[2])
+            print(bool(dndList)) 
+            if bool(dndList) == True:
 
-            conn.close()
-
-        #   Send the message into the given channel
-            await message.channel.send(f'Greetings fellas, ***{dndList[0]}*** is in **Do Not Disturb** Mode. *{dndList[1]}***')
+            #   Send the message into the given channel
+                await message.channel.send(f' ***{dndList[0]}*** is in **Do Not Disturb** Mode. *{dndList[1]}***')
 
        # await mention.channel.send('lol')
 

@@ -161,12 +161,3 @@ class Dictionaries():
         return arg
 
     #  Frequently Asked Questions
-
-    def HelpMember():
-    #   Retrieve roles
-        pass
-    def HelpModerator():
-        pass
-
-    def HelpAdministrator():
-        pass

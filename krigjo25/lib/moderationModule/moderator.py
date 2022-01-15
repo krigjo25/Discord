@@ -407,3 +407,17 @@ class Moderator(Cog, name='Moderator-module'):
                 self.embed.description = 'End of List'
                 await ctx.send(embed = self.embed)
                 self.embed.clear_fields()
+
+    #   Warn
+    @command(name="warn")
+    @has_any_role('Moderator', 'moderator', 'mod', 'Admin', 'admin', 'administrator', 'Administrator', 'Software-Technican')
+    
+    async def UserWarn(self, ctx, chName):
+        #   First - second Warning Just warn
+        #   Third, snooze a server member
+        #   Fourth warn, Kick
+
+        #   The member should recieve the warning by message
+        #   The warn should be logged in a channel which is viewable for moderators and administrators
+        
+        pass
