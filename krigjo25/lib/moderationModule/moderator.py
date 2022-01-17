@@ -412,12 +412,13 @@ class Moderator(Cog, name='Moderator-module'):
     @command(name="warn")
     @has_any_role('Moderator', 'moderator', 'mod', 'Admin', 'admin', 'administrator', 'Administrator', 'Software-Technican')
     
-    async def UserWarn(self, ctx, chName):
+    async def UserWarn(self, ctx, userName, reason=None):
+        
         #   First - second Warning Just warn
         #   Third, snooze a server member
         #   Fourth warn, Kick
 
         #   The member should recieve the warning by message
         #   The warn should be logged in a channel which is viewable for moderators and administrators
-        
+
         pass
