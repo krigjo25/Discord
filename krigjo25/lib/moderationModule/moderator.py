@@ -429,7 +429,7 @@ class Moderator(Cog, name='Moderator-module'):
                 self.warn += 1
 
                 if self.warn == 3:
-                    #Snooze the member
+                    #Snooze / mute the member
                     pass
 
                 elif self.warn == 10:
@@ -462,7 +462,7 @@ class Moderator(Cog, name='Moderator-module'):
                 #   Creating the channel
                 await srv.create_text_channel('warnings', overwrite=overwrite)
             
-            message = f'The Staff Team has decided to warn in  **{ctx.guild.name}** \n Due to :\n **{reason}**\nBy {ctx.author}\n\nPlease read and follow the suggested guidelines for behavior in our disocrd channel'
+            message = f'The Staff Team has decided to warn you in  **{ctx.guild.name}** \n\n Due to :\n **{reason}**\n\nBy **{ctx.author}**\n\nPlease read and follow the suggested guidelines for behavior in our disocrd channel'
             await member.send(message)
 
             self.embed.title = f'{member} has been warned by {ctx.author} for {reason}'
@@ -473,7 +473,5 @@ class Moderator(Cog, name='Moderator-module'):
     @has_permissions(manage_messages=True)
     async def TimeSnozze(self, ctx, member:Member, *, reason=None):
          pass
-    @command(name='test')
-    def testCode(self, ctx):
-        print(self.warn)
+
 

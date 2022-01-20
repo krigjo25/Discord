@@ -138,6 +138,11 @@ class ErrorHandler(Cog):
                 self.embed.title = '*ask (question)'
                 self.embed.description = requiredArgs
                 await ctx.send(embed = self.embed)
+            
+            elif cmd == 'Afk' or cmd == 'afk':
+                self.embed.title = '*afk (Status update)'
+                self.embed.description = requiredArgs
+                await ctx.send(embed = self.embed)
 
 
             #   Moderator-module
@@ -157,6 +162,17 @@ class ErrorHandler(Cog):
                 self.embed.title = '*crech [ChannelName]'
                 self.embed.description = requiredArgs
                 await ctx.send(embed=self.embed)
+
+            elif cmd ==  'Warn' or cmd == 'warn':
+                self.embed.title = '*warn (name) (reason)'
+                self.embed.description == requiredArgs
+                await ctx.send(embed = self.embed)
+
+            elif cmd ==  'Snooze' or cmd == 'snooze':
+                self.embed.title = '*snooze (name) (reason)'
+                self.embed.url = 'https://www.google.com'
+                self.embed.description == requiredArgs
+                await ctx.send(embed = self.embed)
             
             #   Administrator module     
             elif cmd == 'Ban' or cmd == 'ban':
@@ -180,6 +196,11 @@ class ErrorHandler(Cog):
                 self.embed.description = requiredArgs
                 await ctx.send(embed = self.embed)
             
+            elif cmd == 'Unban' or cmd == 'unban':
+                self.embed.title = '*unban (Member Name)'
+                self.embed.description = requiredArgs
+                await ctx.send(embed = self.embed)
+            
             else:
                 # If the command is not listed 
                 await ctx.send('Meep, Morp, Zeep')
@@ -191,22 +212,22 @@ class ErrorHandler(Cog):
             # Dictionary for the error message to send insted of the normal one
             MemberMessage = {   0:'meep, morp, zeep :(\n',
                                 1:'Sir, imagne the member where found\n',
-                                2:'Sir, if the error continues, use google instead \n',
+                                2:'Sir, if the error continues, check your spelling \n',
                                 3:'I regret to inform you, sir. the selected member does not exist, should i make one? \n',
                                 4:'010110010110111101110101001000000100010001101111001000000110111001101111011101000010000001101000011000010111011001100101001000000111010001101000011001010010000001110010011001010111000101110101011010010111001001100101011001000010000001110010011011110110110001100101\n',
                                 5:'I\'m the bot version for the 99th emoji !',
-                                6:f'Just sent out an APB of {ctx.member}',
+                                6:f'Just sent out an APB of {ctx.author}',
                                 7:'We all do mistakes, this time the user doesn\'t exist',
                             }
 
             # Randomizing the dictonary, choose a random value and retrieve the value
-            x = randrange(0,6)
+            x = randrange(0,7)
             shuffle(MemberMessage)
-            mMessage = MemberMessage.get(x)
+            mError = MemberMessage.get(x)
 
             #   sends the message
             self.embed.title = 'Member were not Found in the server'
-            self.embed.description = f'{mMessage}'
+            self.embed.description = f'{mError}'
             await ctx.send(embed=self.embed)
 
         # Non Discord errors
