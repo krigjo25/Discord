@@ -109,10 +109,11 @@ class Dictionaries():
                     6:'If an human is a genious, then The best answers always comes from with-in, just believe in your self enough',
                     7:'As Socrets once said, you already know the answer of the question, since you had an idea of asking the question',
                     8:'Would you be able to let it go?',
+                    9:'A Question does not arise with out it\'s answer, so place your attention on where the question has arised',
         }
 
         # Randomize the dictionary
-        x = randrange(0,8)
+        x = randrange(0,9)
         shuffle (dictionary)
 
         arg = dictionary.get(x)

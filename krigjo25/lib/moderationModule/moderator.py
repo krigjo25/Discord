@@ -414,15 +414,29 @@ class Moderator(Cog, name='Moderator-module'):
     
     async def UserWarn(self, ctx, member:Member, *, reason=None):
 
-        self.embed = Embed(color=Colour.dark_red(), description= '')
         srv = ctx.guild
-        i = TextChannel
         counter = 0
+        channel= get(srv.channels, name='warnings')
+        self.embed = Embed(color=Colour.dark_red(), description= '')
+
+        #   Counting warnings
+        async for message in channel.history(limit=3):
+            if member == member:
+                counter += 1
+                #  add to database
+                if counter == 3:
+                    #Snooze the member
+
+                    pass
+
+                elif counter == 10:
+                    self.Kick(reason= 'You have been warned to many times')
+                    member.send(reason)
 
         if reason == None:
             self.embed.title  = 'Warning not sent'
             self.embed.description = ' please provide a reason for the warn'
-            await ctx.send(embed=self.embed)
+            await channel.send(embed=self.embed)
 
         elif member == ctx.author:
             self.embed.title = 'An error occoured'
@@ -432,8 +446,6 @@ class Moderator(Cog, name='Moderator-module'):
         else:
             #   Creating a channel to log the warning 
             #   Make the channel hidden by default
-            
-            channel= get(srv.channels, name='warnings')
 
             if not channel:
 
@@ -446,22 +458,15 @@ class Moderator(Cog, name='Moderator-module'):
                 #   Creating the channel
                 await srv.create_text_channel('warnings', overwrite=overwrite)
             
-            message = f'The Staff Team has decided to warn in  **{ctx.guild.name}** \n Due to :\n **{reason}**\nPlease read and follow the suggested guidelines for behavior in our disocrd channel'
+            message = f'The Staff Team has decided to warn in  **{ctx.guild.name}** \n Due to :\n **{reason}**\nBy {ctx.author}\n\nPlease read and follow the suggested guidelines for behavior in our disocrd channel'
             await member.send(message)
 
-            #   Counting warnings
-            '''
-            async for j in i.history:
-                if member == member:
-                    counter += 1
-                    print(j)
-                    if counter == 3:
-                        #Snooze the member
-                        pass
-                    elif counter == 10:
-                        self.Kick(reason= 'You have been warned to many times')
-            '''
             self.embed.title = f'{member} has been warned by {ctx.author} for {reason}'
             self.embed.description = ''
             await channel.send(embed=self.embed)
+    
+    @command(name="snooze")
+    @has_permissions(manage_messages=True)
+    async def TimeSnozze(self, ctx, member:Member, *, reason=None):
+         pass
 

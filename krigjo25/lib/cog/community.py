@@ -55,7 +55,7 @@ class Community(Cog, name='Community Module'):
                 
                 *   | * Afk to go dnd, a message will be added in a channel named afk-channel, and a message will be given to a user if you get mentioned
                 *   | * back, get back from dnd mode
-                *   |
+                *   | * Updates for moderator-module
 
             :tools: Fixes / changes made
                 
