@@ -21,11 +21,11 @@ class Welcome(Cog, name='Welcome module'):
 
         #   Creating a new role for new members
         srv = member.guild
-        memberRole = get(srv.roles, name='@Members')
+        memberRole = get(srv.roles, name='Member')
 
         if not memberRole:
             overwrite = Permissions(speak=True, send_messages=True, read_message_history=True, read_messages=True)
-            memberRole = await srv.create_role(name='@Members', permissions= overwrite, reason= 'Automatic Role assignment')
+            memberRole = await srv.create_role(name='Member', permissions= overwrite, reason= 'Automatic Role assignment')
         else:
             await member.add_roles(memberRole)
         

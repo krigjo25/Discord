@@ -1,14 +1,14 @@
 import datetime
-from os import name
 
 #   Discord library
 
 from discord import Member
+from discord import TextChannel
 from discord.utils import get
-from discord.embeds import Embed, Colour
 from discord import PermissionOverwrite
+from discord.embeds import Embed, Colour
 from discord.ext.commands.core import has_permissions
-from discord.ext.commands import Cog, command, has_role, has_any_role
+from discord.ext.commands import Cog, command, has_any_role
 
 class Moderator(Cog, name='Moderator-module'):
     def __init__(self, bot):
@@ -19,7 +19,7 @@ class Moderator(Cog, name='Moderator-module'):
 
         #Creating a channel
     @command(name="crech", help='Creating a channel')
-    @has_any_role('Moderator', 'moderator', 'mod', 'Admin', 'admin', 'administrator', 'Administrator', 'Software-Technican')
+    @has_permissions(manage_messages=True)
     
     async def CreateChannel(self, ctx, chName):
 
@@ -410,15 +410,58 @@ class Moderator(Cog, name='Moderator-module'):
 
     #   Warn
     @command(name="warn")
-    @has_any_role('Moderator', 'moderator', 'mod', 'Admin', 'admin', 'administrator', 'Administrator', 'Software-Technican')
+    @has_permissions(manage_messages=True)
     
-    async def UserWarn(self, ctx, userName, reason=None):
-        
-        #   First - second Warning Just warn
-        #   Third, snooze a server member
-        #   Fourth warn, Kick
+    async def UserWarn(self, ctx, member:Member, *, reason=None):
 
-        #   The member should recieve the warning by message
-        #   The warn should be logged in a channel which is viewable for moderators and administrators
+        self.embed = Embed(color=Colour.dark_red(), description= '')
+        srv = ctx.guild
+        i = TextChannel
+        counter = 0
 
-        pass
+        if reason == None:
+            self.embed.title  = 'Warning not sent'
+            self.embed.description = ' please provide a reason for the warn'
+            await ctx.send(embed=self.embed)
+
+        elif member == ctx.author:
+            self.embed.title = 'An error occoured'
+            self.embed.description = 'Can not warn your self'
+            ctx.send(embed=self.embed)
+
+        else:
+            #   Creating a channel to log the warning 
+            #   Make the channel hidden by default
+            
+            channel= get(srv.channels, name='warnings')
+
+            if not channel:
+
+                #   Channel Permissions
+                overwrite = PermissionOverwrite()
+                overwrite.send_messages = False
+                overwrite.read_messages = True
+                overwrite.read_message_history = True
+
+                #   Creating the channel
+                await srv.create_text_channel('warnings', overwrite=overwrite)
+            
+            message = f'The Staff Team has decided to warn in  **{ctx.guild.name}** \n Due to :\n **{reason}**\nPlease read and follow the suggested guidelines for behavior in our disocrd channel'
+            await member.send(message)
+
+            #   Counting warnings
+            '''
+            async for j in i.history:
+                if member == member:
+                    counter += 1
+                    print(j)
+                    if counter == 3:
+                        #Snooze the member
+                        pass
+                    elif counter == 10:
+                        self.Kick(reason= 'You have been warned to many times')
+            '''
+            self.embed.title = f'{member} has been warned by {ctx.author} for {reason}'
+            self.embed.description = ''
+            await channel.send(embed=self.embed)
+
