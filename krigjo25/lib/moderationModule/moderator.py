@@ -13,9 +13,10 @@ from discord.ext.commands import Cog, command, has_any_role
 class Moderator(Cog, name='Moderator-module'):
     def __init__(self, bot):
         self.bot = bot
-        self.embed = Embed(color=Colour.dark_purple(), description= '')
+        self.warn = 0    
         self.now = datetime.datetime.now()
-        self.curTime = self.now.strftime('%d.%m - %Y')      
+        self.curTime = self.now.strftime('%d.%m - %Y')  
+        self.embed = Embed(color=Colour.dark_purple(), description= '')
 
         #Creating a channel
     @command(name="crech", help='Creating a channel')
@@ -299,7 +300,6 @@ class Moderator(Cog, name='Moderator-module'):
             #   Retriving the server
             svr = ctx.guild
             user = self.bot.user
-            warn = ''
             self.embed.title = 'Server Members'
             self.embed.description = 'List of members'
             
@@ -328,7 +328,7 @@ class Moderator(Cog, name='Moderator-module'):
                 else:
                     nick = f'Nick : {member.nick}\n'
                 if member != user:
-                    self.embed.add_field(name=f'{member.name}#{member.discriminator}',value=f'{nick}\n Status : {status}\n Warnings : {warn}', inline=False)
+                    self.embed.add_field(name=f'{member.name}#{member.discriminator}',value=f'{nick}\n Status : {status}\n Warnings : {self.warn}', inline=False)
             await ctx.send(embed = self.embed)
             self.embed.clear_fields()
         if args != None:
@@ -415,22 +415,26 @@ class Moderator(Cog, name='Moderator-module'):
     async def UserWarn(self, ctx, member:Member, *, reason=None):
 
         srv = ctx.guild
-        counter = 0
+        
         channel= get(srv.channels, name='warnings')
         self.embed = Embed(color=Colour.dark_red(), description= '')
 
         #   Counting warnings
-        async for message in channel.history(limit=3):
-            if member == member:
-                counter += 1
-                #  add to database
-                if counter == 3:
-                    #Snooze the member
+        #   How to make sure only the user retrieve the warning?
 
+        async for message in channel.history():
+            # 3 month interval
+
+            if member == member:
+                self.warn += 1
+
+                if self.warn == 3:
+                    #Snooze the member
                     pass
 
-                elif counter == 10:
-                    self.Kick(reason= 'You have been warned to many times')
+                elif self.warn == 10:
+                    reason = ' As we can see your behavior has not changed, so you have been kicked by the bot'
+                    member.Kick(reason)
                     member.send(reason)
 
         if reason == None:
@@ -469,4 +473,7 @@ class Moderator(Cog, name='Moderator-module'):
     @has_permissions(manage_messages=True)
     async def TimeSnozze(self, ctx, member:Member, *, reason=None):
          pass
+    @command(name='test')
+    def testCode(self, ctx):
+        print(self.warn)
 
