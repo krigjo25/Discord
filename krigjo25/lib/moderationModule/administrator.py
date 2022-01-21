@@ -1,9 +1,11 @@
 import datetime
 from discord import Member
-from discord.colour import Color
-from discord.embeds import Embed
-from discord.ext.commands.core import has_permissions
 from discord.utils import get
+
+from discord.colour import Color
+from discord.embeds import Embed, Colour
+from discord import PermissionOverwrite
+from discord.ext.commands.core import has_permissions
 from discord.ext.commands import Cog, command, has_role, has_any_role
 
 class Administrator(Cog, name='Admin-module'):
@@ -44,9 +46,31 @@ class Administrator(Cog, name='Admin-module'):
 
     async def UnBan(self, ctx, member:Member, reason=None):
 
-        
+        srv = ctx.guild
+
         #   1:  Check if there is a channel called moderation log
-        #   2:  Log the unban
+        ch = get(srv.channels, name='moderationlog')
+
+        #   Create a new channel if not found
+        if not ch:
+            
+            #   Creating channel permissions
+            perms = PermissionOverwrite(read_messages=False)
+
+            await srv.create_text_channel(f'{ch}', overwrites=perms)
+
+            self.embed = Embed(color=Colour.dark_red(), description= '')
+            self.embed.title = 'Auto generated channel'
+            self.embed.description = 'This channel is used for every Moderation in this server, it is made to avoid abusage of the Moderation / administration commands'
+            await ch.send(embed=self.embed)
+            
+            #   2:  Log the unban
+        self.embed = Embed(color=Colour.dark_red(), description= '')
+        self.embed.title = f'**{member}** has been Unbanned by **{ctx.author}** Date : **{self.curTime}**'
+        self.embed.description = ''
+        await ch.send(embed=self.embed)
+
+        self.embed = Embed(color=Colour.dark_purple(), description= '')
 
         #   3:  Unban the given member
         BannedUsers= await ctx.guild.bans()
@@ -57,11 +81,11 @@ class Administrator(Cog, name='Admin-module'):
 
             if (user.name, user.discriminator) == (MemberName, member_discriminator):
                 await ctx.guild.unban(user)
-                
-                message = f'the Administrator Team has decided to unban you from  **{ctx.guild.name}**'
+            
+                message = f'You have now been unbanned from  **{ctx.guild.name}**'
                 await member.send(message)
                 
-            return
+        return
 
     #   Announcements
     @command(name='announce')

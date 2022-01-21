@@ -148,7 +148,7 @@ class ErrorHandler(Cog):
             #   Moderator-module
             elif cmd == 'Kick' or cmd == 'kick':
 
-                self.embed.title = '*Kick [member] [reason]'
+                self.embed.title = '*kick [member] [reason]'
                 self.embed.url = 'https://www.dictionary.com/browse/kick#'
                 self.embed.description = requiredArgs
                 await ctx.send(embed = self.embed)
@@ -232,7 +232,7 @@ class ErrorHandler(Cog):
                                 1:'Sir, the BOENG 437 just left the airport',
                                 2:'Sir, do you need more time?',
                                 3:f'The game is over, {ctx.author.mention} just ran out of time.',
-                                4:'You just missed the train',
+                                4:'Try again',
                                 5:'Decided to cancel the game.',
                                 6:'Never got a response in time'
                                 
@@ -252,7 +252,7 @@ class ErrorHandler(Cog):
             elif isinstance(error.original, self.attribute):
 
                 owner = self.bot.get_user(340540581174575107)
-                await owner.send(f'Master, an attribute (parameter) error were found, in, {error.original}', tts = True)
+                await owner.send(f'Master, an attribute {self.attribute} error were found, in, {error.original}', tts = True)
                 await ctx.send(f'{runTimeError}')
             
             elif isinstance(error.original, self.BadRequest):

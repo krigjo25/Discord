@@ -1,8 +1,8 @@
 import datetime
 import asyncio
+
 #   Discord library
 from discord import Member
-from discord import TextChannel
 from discord.utils import get
 from discord import PermissionOverwrite
 from discord.embeds import Embed, Colour
