@@ -123,8 +123,7 @@ class Administrator(Cog, name='Admin-module'):
         # Find the given channel to send an announcement
         srv = ctx.guild
         channel = get(srv.channels, name=ch)
-
-        await channel.send(message)
+        await channel.send(f'{message} \n Sincerely, \n **{ctx.author}** \n Date : **{self.curTime}**')
 
     @command(name='createRole')
     @has_any_role('admin','Admin', 'Software-Technican')
