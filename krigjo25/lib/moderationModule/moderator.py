@@ -92,7 +92,7 @@ class Moderator(Cog, name='Moderator-module'):
                 await ch.send(embed=self.embed)
             
             self.embed = Embed(color=Colour.dark_red(), description= '')
-            self.embed.title = f'***{self.curTime}*** **{member}** has been kicked by **{ctx.author}**, for  **{reason}.** Date : **{self.curTime}**'
+            self.embed.title = f'**{member}** has been kicked by **{ctx.author}**, for  **{reason}.** Date : **{self.curTime}**'
             self.embed.description = ''
             await ch.send(embed=self.embed)
 
@@ -480,10 +480,11 @@ class Moderator(Cog, name='Moderator-module'):
     @command(name="snooze")
     @has_permissions(manage_messages=True)
     async def TimeSnozze(self, ctx, member:Member, sec, *, reason=None):
-        #   *snooze (memberName) (sec) (reason)
-        #   remove roles, add own role for Mute
+
+        sec = int(sec)
+
         if reason == None:
-            self.embed.title = 'An eccured'
+            self.embed.title = 'An erro occurred'
             self.description = f'Provide me a reason to mute **{member}** for **{sec}** sec'
             await ctx.send(embed=self.embed)
 
@@ -492,6 +493,10 @@ class Moderator(Cog, name='Moderator-module'):
             srv = ctx.guild
             sushedRole = get(srv.roles, name ='@sushed')
             memberRole = get(srv.roles, name ='@Members')
+
+            if not sushedRole:
+                #perm = PermissionOverwrite (speak=False, send_messages=False, read_message_history=False, read_messages=False)
+                await srv.create_role(name='@sushed', reason = 'Automatic Role assignment')
         
         #   Removing and set a new role to the player
 
@@ -518,7 +523,7 @@ class Moderator(Cog, name='Moderator-module'):
                 await ch.send(embed=self.embed)
             
             self.embed = Embed(color=Colour.dark_red(), description= '')
-            self.embed.title = f' **{member}** has been sushed by **{ctx.author}**, for  **{reason}.** Date : **{self.curTime}**'
+            self.embed.title = f' **{member}** has been sushed by **{ctx.author}**, for {sec} sec Due to  **{reason}.** Date : **{self.curTime}**'
             self.embed.description = ''
             await ch.send(embed=self.embed)
 

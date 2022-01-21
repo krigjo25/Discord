@@ -169,8 +169,8 @@ class ErrorHandler(Cog):
                 await ctx.send(embed = self.embed)
 
             elif cmd ==  'Snooze' or cmd == 'snooze':
-                self.embed.title = '*snooze (name) (reason)'
-                self.embed.url = 'https://www.google.com'
+                self.embed.title = '*snooze (name) (sec) (reason)'
+                self.embed.url = 'https://www.urbandictionary.com/define.php?term=snooze'
                 self.embed.description == requiredArgs
                 await ctx.send(embed = self.embed)
             
@@ -181,21 +181,11 @@ class ErrorHandler(Cog):
                 self.embed.description = requiredArgs
                 await ctx.send(embed=self.embed)
 
-            elif cmd == 'Log' or cmd == 'log':
-                self.embed.title = '*log [Ban/Kick]'
-                self.description = requiredArgs
-                await ctx.send(embed=self.embed)
-
             elif cmd == 'Announce' or cmd == 'announce':
                 self.embed.title = '*announce (channelName)'
                 self.embed.description = requiredArgs
                 await ctx.send(embed = self.embed)
 
-            elif cmd == 'Clean' or cmd == 'clean':
-                self.embed.title = '*clean (ban/kick/both)'
-                self.embed.description = requiredArgs
-                await ctx.send(embed = self.embed)
-            
             elif cmd == 'Unban' or cmd == 'unban':
                 self.embed.title = '*unban (Member Name)'
                 self.embed.description = requiredArgs

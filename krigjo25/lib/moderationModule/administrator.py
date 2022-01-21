@@ -13,6 +13,7 @@ class Administrator(Cog, name='Admin-module'):
         self.curTime = self.now.strftime('%d.%m - %Y')
         self.embed = Embed(color=Color.dark_purple())
 
+    # Ban / Unban
 
         # Prohbit a user to enter the channel again
     @command(name='Ban', help='prohbit a user to enter the channel again')
@@ -24,12 +25,12 @@ class Administrator(Cog, name='Admin-module'):
         if reason == None: # required a reason
             await ctx.send(f'Please provide me a reason to ban {member}')
 
-        elif reason != None: # logs the reason
-            #   1:  Logging the ban
-            with open('krigjo25\\lib\\log\\ban-log.log', 'a') as f:
-                f.write(f'{member} has been banned for {reason}, by {ctx.author.name} ban-date : {self.curTime}\n')
+        elif reason != None: # logs the reason in a given channel
 
-            #   2:  Creating a message to send the user, so he get a notice of the ban, and ban the member
+            #   1:  Check if there is a channel called moderation log
+            #   2:  Log the ban
+
+            #   3:  Creating a message to send the user, so he get a notice of the ban, and ban the member
             message = f'the Administrator Team has decided to probhid you for using  **{ctx.guild.name}** \n \n Due to :\n **{reason}**'
             await member.send(message)
             await member.ban(reason=reason)
@@ -42,6 +43,12 @@ class Administrator(Cog, name='Admin-module'):
     @has_permissions(administrator= True)
 
     async def UnBan(self, ctx, member:Member, reason=None):
+
+        
+        #   1:  Check if there is a channel called moderation log
+        #   2:  Log the unban
+
+        #   3:  Unban the given member
         BannedUsers= await ctx.guild.bans()
         MemberName, member_discriminator = member.split('#')
 
@@ -51,62 +58,12 @@ class Administrator(Cog, name='Admin-module'):
             if (user.name, user.discriminator) == (MemberName, member_discriminator):
                 await ctx.guild.unban(user)
                 
-                message = f'the Administrator Team has decided to unban you out from  **{ctx.guild.name}**'
+                message = f'the Administrator Team has decided to unban you from  **{ctx.guild.name}**'
                 await member.send(message)
                 
             return
-    #   Checking the logs
-    @command(name='log', help='Read the ban or kick log')
-    @has_any_role('Admin', 'admin', 'Software-Technican', 'Software-Technican')
-    
-    async def ReadClearLog(self, ctx, log, *args):
 
-        log = str(log)
-        args = str(args)
-        if log == 'Ban':  # Opens and reads the ban log
-            with open('krigjo25\\lib\\log\\ban-log.log', 'r') as f:
-                self.embed.title = 'List of banned members'
-                for i in f:
-                    self.embed.description = f'`{i}`'
-                    await ctx.send(embed=self.embed)
-
-        elif log =='Kick': # Opens and reads the kick log
-            with open('krigjo25\\lib\\log\\kick-log.log', 'r') as f:
-                self.embed.title = 'List of Kicked members'
-                for i in f:
-                    self.embed.description = f'`{i}`'
-                    await ctx.send(embed=self.embed)
-
-        else:
-            await ctx.send('Sir, the requested log could not be found !')
-
-    @command(name= 'Clean', help= 'Cleans the log(s)')
-    @has_any_role('Admin', 'admin', 'Software-Technican', 'Software-Technican')
-
-    async def CleanLog(self, ctx, log):
-
-            if log == 'Ban': # clearing the ban log
-
-                with open('krigjo25\\lib\\log\\ban-log.log', 'w') as f:
-                    f.write(f'Log has been cleared by {ctx.author.name}\n')
-                await ctx.send(f'Sir, {ctx.author.name} i would like to notify you the ban log has been clared.')
-        
-            elif log == 'Kick': # clearing the kick log
-
-                with open('krigjo25\\lib\\log\\kick-log.log', 'w') as f:
-                    f.write(f'Ban log has been cleared by {ctx.author.name}\n')
-                await ctx.send(f'Sir, {ctx.author.name} i would like to notify you the kick log has been clared.')
-
-            elif log == 'Both': # Clears the both logs
-                with open('krigjo25\\lib\\log\\kick-log.log', 'w') as f:
-                    f.write(f'Cleared by {ctx.author.name}\n')
-
-                with open('krigjo25\\lib\\log\\ban-log.log', 'w') as f:
-                    f.write(f'Cleared by {ctx.author.name}')
-                await ctx.send(f'Sir, {ctx.author.name} i would like to notify you the requested logs has been clared.')
-            else:
-                await ctx.send('Sir, the requested log could not be found !')
-
+    #   Announcements
     @command(name='announce')
     @has_any_role('admin','Admin', 'Software-Technican')
     async def botSay(self, ctx, ch ):
@@ -124,6 +81,9 @@ class Administrator(Cog, name='Admin-module'):
         srv = ctx.guild
         channel = get(srv.channels, name=ch)
         await channel.send(f'{message} \n Sincerely, \n **{ctx.author}** \n Date : **{self.curTime}**')
+        return
+
+    #   Role Managements
 
     @command(name='createRole')
     @has_any_role('admin','Admin', 'Software-Technican')
@@ -139,7 +99,7 @@ class Administrator(Cog, name='Admin-module'):
     async def removeMemberRole(self, ctx, ch ):
         pass
     
-    @command(name='removeRole')
+    @command(name='delRole')
     @has_any_role('admin','Admin', 'Software-Technican')
     async def removeRole(self, ctx, ch ):
         pass
