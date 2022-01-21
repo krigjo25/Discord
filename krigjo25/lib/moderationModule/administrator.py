@@ -3,10 +3,10 @@ from discord import Member
 from discord.utils import get
 
 from discord.colour import Color
-from discord.embeds import Embed, Colour
 from discord import PermissionOverwrite
+from discord.embeds import Embed, Colour
 from discord.ext.commands.core import has_permissions
-from discord.ext.commands import Cog, command, has_role, has_any_role
+from discord.ext.commands import Cog, command,has_any_role
 
 class Administrator(Cog, name='Admin-module'):
     def __init__(self, bot):
