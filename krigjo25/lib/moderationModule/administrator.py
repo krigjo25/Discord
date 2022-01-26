@@ -16,6 +16,12 @@ class Administrator(Cog, name='Admin-module'):
         self.embed = Embed(color=Color.dark_purple())
 
     # Ban / Unban
+    @command(name='banned')
+    #@has_permission(ban_members=True)
+    async def BannedList(self, ctx):
+        
+        #   Retrieve the list of banned members
+        return
 
         # Prohbit a user to enter the channel again
     @command(name='Ban', help='prohbit a user to enter the channel again')
@@ -29,13 +35,26 @@ class Administrator(Cog, name='Admin-module'):
 
         elif reason != None: # logs the reason in a given channel
 
-            #   1:  Check if there is a channel called moderation log
-            #   2:  Log the ban
 
-            #   3:  Creating a message to send the user, so he get a notice of the ban, and ban the member
+            #   1:  Creating a message to send the user, so he get a notice of the ban, and ban the member
             message = f'the Administrator Team has decided to probhid you for using  **{ctx.guild.name}** \n \n Due to :\n **{reason}**'
             await member.send(message)
             await member.ban(reason=reason)
+
+            #   2:  Check if there is a channel called moderation log
+            srv = ctx.guild
+            ch= get(srv, name='moderationlog')
+
+            if not ch:
+                pass
+
+            #   3:  Log the ban
+            self.embed = Embed(color=Color.dark_red())
+            self.embed.title = f'{member} has been banned from {ctx.guild.name} by {ctx.author} due to {reason} '
+            self.embed.description=''
+            
+            await ch.send(embed=self.embed)
+            self.embed = Embed(color=Color.dark_purple())
         return
 
 
