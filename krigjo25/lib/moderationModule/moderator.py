@@ -72,6 +72,7 @@ class Moderator(Cog, name='Moderator-module'):
     @has_permissions(kick_members= True)
 
     async def Kick(self, ctx, member:Member, *, reason=None):
+
         if reason == None:
             await ctx.send(f'Please provide me a reason to kick **{member}**')
 

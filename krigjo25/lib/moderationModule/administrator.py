@@ -16,25 +16,18 @@ class Administrator(Cog, name='Admin-module'):
         self.embed = Embed(color=Color.dark_purple())
 
     # Ban / Unban
-    @command(name='banned')
-    #@has_permission(ban_members=True)
-    async def BannedList(self, ctx):
-        
-        #   Retrieve the list of banned members
-        return
 
         # Prohbit a user to enter the channel again
-    @command(name='Ban', help='prohbit a user to enter the channel again')
+    @command(name='ban')
     @has_any_role('Admin', 'admin', 'Software-Technican')
     @has_permissions(ban_members= True)
 
     async def BanMember(self, ctx, member:Member, *, reason=None):
 
         if reason == None: # required a reason
-            await ctx.send(f'Please provide me a reason to ban {member}')
+            await ctx.send(f'We do not ban, {member} for No-reason, provide one')
 
         elif reason != None: # logs the reason in a given channel
-
 
             #   1:  Creating a message to send the user, so he get a notice of the ban, and ban the member
             message = f'the Administrator Team has decided to probhid you for using  **{ctx.guild.name}** \n \n Due to :\n **{reason}**'
@@ -42,11 +35,19 @@ class Administrator(Cog, name='Admin-module'):
             await member.ban(reason=reason)
 
             #   2:  Check if there is a channel called moderation log
+
             srv = ctx.guild
-            ch= get(srv, name='moderationlog')
+            ch = get(srv.channels, name='moderationlog')
 
             if not ch:
-                pass
+                perms = PermissionOverwrite(read_messages=False)
+
+                await srv.create_text_channel(f'{ch}', overwrites=perms)
+
+                self.embed = Embed(color=Colour.dark_red(), description= '')
+                self.embed.title = 'Auto generated channel'
+                self.embed.description = 'This channel is used for every Moderation in this server, it is made to avoid abusage of the Moderation / administration commands'
+                await ch.send(embed=self.embed)
 
             #   3:  Log the ban
             self.embed = Embed(color=Color.dark_red())
@@ -58,12 +59,13 @@ class Administrator(Cog, name='Admin-module'):
         return
 
 
-    #   allows a user to enter the channel again 
-    @command(name='Unban', help='allow a user to enter the channel again')
+    #   allows a user to enter the channel again
+ 
+    @command(name='unban')
     @has_any_role('Admin', 'admin', 'Software-Technican', 'Software-Technican')
     @has_permissions(administrator= True)
 
-    async def UnBan(self, ctx, member:Member, reason=None):
+    async def UnBan(self, ctx, *, member:Member, reason=None):
 
         srv = ctx.guild
 
