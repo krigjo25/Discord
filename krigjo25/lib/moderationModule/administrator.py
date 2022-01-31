@@ -16,7 +16,24 @@ class Administrator(Cog, name='Admin-module'):
         self.embed = Embed(color=Color.dark_purple())
 
     # Ban / Unban
+    @command(name='banned')
+    @has_permissions(ban_members=True)
+    async def BannedList(self, ctx, member):
+        
+        srv = ctx.guild
+        #   3:  Unban the given member
+        BannedUsers= await srv.bans()
+        MemberName, member_discriminator = member.split('#')
 
+        for entry in BannedUsers:
+            user = entry.user
+
+            if (user.name, user.discriminator) == (MemberName, member_discriminator):
+                await srv.unban(user)
+            
+                message = f'You have now been unbanned from  **{ctx.guild.name}**'
+                dm = Member()
+                await dm.send(message)
         # Prohbit a user to enter the channel again
     @command(name='ban')
     @has_any_role('Admin', 'admin', 'Software-Technican')
@@ -65,7 +82,7 @@ class Administrator(Cog, name='Admin-module'):
     @has_any_role('Admin', 'admin', 'Software-Technican', 'Software-Technican')
     @has_permissions(administrator= True)
 
-    async def UnBan(self, ctx, *, member:Member, reason=None):
+    async def UnBan(self, ctx, *, member):
 
         srv = ctx.guild
 
@@ -85,7 +102,7 @@ class Administrator(Cog, name='Admin-module'):
             self.embed.description = 'This channel is used for every Moderation in this server, it is made to avoid abusage of the Moderation / administration commands'
             await ch.send(embed=self.embed)
             
-            #   2:  Log the unban
+        #   2:  Log the unban
         self.embed = Embed(color=Colour.dark_red(), description= '')
         self.embed.title = f'**{member}** has been Unbanned by **{ctx.author}** Date : **{self.curTime}**'
         self.embed.description = ''
@@ -94,17 +111,18 @@ class Administrator(Cog, name='Admin-module'):
         self.embed = Embed(color=Colour.dark_purple(), description= '')
 
         #   3:  Unban the given member
-        BannedUsers= await ctx.guild.bans()
+        BannedUsers= await srv.bans()
         MemberName, member_discriminator = member.split('#')
 
         for entry in BannedUsers:
             user = entry.user
 
             if (user.name, user.discriminator) == (MemberName, member_discriminator):
-                await ctx.guild.unban(user)
+                await srv.unban(user)
             
                 message = f'You have now been unbanned from  **{ctx.guild.name}**'
-                await member.send(message)
+                dm = Member()
+                await dm.send(message)
                 
         return
 
