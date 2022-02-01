@@ -53,13 +53,13 @@ class Community(Cog, name='Community Module'):
 
             :new: Whats new:
                 
-                *   | * Afk to go dnd, a message will be added in a channel named afk-channel, and a message will be given to a user if you get mentioned
-                *   | * back, get back from dnd mode
-                *   | * Updates for moderator-module
+                *   | The new command prefix is **?**
+                *   | 
+                *   | 
 
             :tools: Fixes / changes made
                 
-                *   |   Some database related issues, fixes
+                *   |   Some command related bugs fixed,
                 *   |
                 *   |
 

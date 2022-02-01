@@ -22,7 +22,7 @@ from discord.ext.commands import Bot
 load_dotenv()
 
 class DiscordBot(Bot):
-    def __init__(self, command_prefix='*', help_command=None, description=None, **options):
+    def __init__(self, command_prefix='?', help_command=None, description=None, **options):
         super().__init__(command_prefix, help_command=help_command, description=description, **options)
         #self.handler = AntiSpamHandler(self, options=Options(ignore_bots=False, no_punish=True))
         #self.tracker = SpamTracker(self.handler, 3)

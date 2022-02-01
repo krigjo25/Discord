@@ -21,7 +21,7 @@ class Welcome(Cog, name='Welcome module'):
 
         #   Creating a new role for new members
         srv = member.guild
-        memberRole = get(srv.roles, name='Member')
+        memberRole = get(srv.roles, name='@Members')
 
         if not memberRole:
             overwrite = Permissions(speak=True, send_messages=True, read_message_history=True, read_messages=True)

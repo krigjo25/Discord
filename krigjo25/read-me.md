@@ -13,7 +13,7 @@
 >> Features
 >> Updates
 
-> [Responsories](#Responsories)
+> [Resposonries](#Resposonries)
 
 > [Credentials](#Credentials)
 >> Disclaimers
@@ -25,9 +25,19 @@
 
 ***About the Developer***
 
-krigjo25 is the nickname, were born in 94, Norway.<br>
-Been using python since 2021, krigjo25 has used 2/3 of the time on Python and SQL.<br>
-Other activities Gym and living life as a human.
+kristoffer Gjøsund, born in 94, Norway, part the time goes to python, SQL otherwise, Gym and living life as a human
+
+**Project info**
+
+The idea for the discord bot is just for fun, and a learning progress how to use the documentation, and how to code Python
+    project start :
+
+    1.01-22
+
+    Last Update :
+
+    SQL Database:
+    mariaDB
 
 
 ***The bot***
@@ -35,31 +45,26 @@ Other activities Gym and living life as a human.
 krigjo25 made for Discord, intentionally<br>
 helping out as a Discord administrator, miniGames mananger and Server configuriations for games
 
-***Contact Information***
-
-Discord : krigjo25#5588.<br>
-website : krigjo25.com
-
-Only One advice.
-« The importance of creating is just have fun.
-
 ## About-Krigjo25
 
 ***Project Information***
-> Project started: **23.10-21.**<br>
-> last update: **05.01-22.**<br>
-> current verison:**1.0.0 RC 1**
+> Project started: <br>
+>**23.10-21.**<br>
+> last update: <br>
+>**01.02-22.**<br>
+> current verison:<br>
+**1.0.0 RC 1**
 
-***How do the bot work***
+**How do the bot work**
 
 The bot is there to help you to manage your server, with the given tasks which is available to be used, and for other members to have fun with-in discord,
-the prefix command is ***?***, e.g ?krigjo25
+the prefix command is **'?help'**, e.g ?krigjo25
 
 ***Feautures***
 
-**Bot Member Utility:**
+***Bot Member Utility:***
 
-*Community-module*
+**Community-module**
 
 > krigjo25 (optional: log )
 >> Information about the bot
@@ -78,7 +83,10 @@ the prefix command is ***?***, e.g ?krigjo25
 >> a text-channel will be created, and a message will be sent there.
 >> on mention the author recieves an afk message, and a error, that the person is not to be disturbed.
 
-*miniGames-module*
+> back
+>> Deletes the status update
+
+**miniGames-module**
 
 > 8ball<br>
 > jumble<br>
@@ -87,9 +95,11 @@ the prefix command is ***?***, e.g ?krigjo25
 
 ***Bot Pre Moderation Utility***
 
-*Member joins:*
+**Member joins:**
     When a member joins the server, the bot will create a role called "@Members"
     the user will be added to the role.
+
+    (A counter will start, so there will be a leveling up experience)
 
 ***Bot Post Moderation Utility***
 
@@ -122,7 +132,10 @@ Roles :
 > ban
 >> Ban a discord user from the server
 >> records the username into a .log file
-                           
+>
+> Banned
+>> View a list of banned server members
+>                           
 > Unban
 >> Unban a discord user from the server
 
@@ -141,18 +154,28 @@ Roles :
 
 The bot serving you, as a humble bot
 
-## Resposories
+## Responsories
 
-- [MariaDB](https://github.com/mariadb-corporation/mariadb-connector-python),
-- [Anti-spam by Skelmis](https://github.com/Skelmis/DPY-Anti-Spam/commits?author=Skelmis),
-- [discord.py by Rapptz](https://github.com/Rapptz/discord.py),  
-- [python_dotenv by Saurabh Kumar](https://github.com/motdotla/dotenv),
+- MariaDB, [MariaDB Community](https://github.com/mariadb-corporation/mariadb-connector-python), <br>
+- Anti-Spam, [Skelmis](https://github.com/Skelmis/DPY-Anti-Spam/commits?author=Skelmis),<br>
+- discord.py, [Rapptz](https://github.com/Rapptz/discord.py),  <br>
+- python_dotenv, [Saurabh Kumar](https://github.com/motdotla/dotenv),<br>
 
  
 
 ## Credentials
+
 ***Disclaimers:***<br>
+
 ***The developer can only have the responsibility, for how it's created, how it is used by people. Is another story.***
+
+***Contact Information***
+
+Discord : krigjo25#5588.<br>
+website : krigjo25.com
+
+Only One advice.<br>
+« The importance of creating is just have fun.
 
 ***References: ***
 
@@ -165,12 +188,8 @@ The bot serving you, as a humble bot
 
 ## Project Summary
 
-
-*   
+   
 *   Since i do not have any particular experience in Phyton or SQL language then i did have a lot of challanges<br> 
     regarding connecting to a database, creating a reaction based game, working with the different modules in the<br>
     python library, finding ways to protect the database inputs, creating an advanced command handler to have some<br>
-    control over the different parts of the bot
-
-Written and developed by,
-@krigjo25
+    control over the different parts of the bot.
