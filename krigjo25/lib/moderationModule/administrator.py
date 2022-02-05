@@ -248,7 +248,28 @@ class Administrator(Cog, name='Admin-module'):
     @command(name='delRole')
     @has_any_role('admin','Admin', 'Software-Technican')
 
-    async def removeRole(self, ctx, ch ):
+    async def removeRole(self, ctx, role ):
             #   1   Simply remove a role, ask for confirmation
-        return
+            self.embed.title = f'Removing {role}'
+            self.embed.description = f'Do you want to remove the role? True / False'
+            await ctx.send(embed=self.embed)
+
+            answer = await self.bot.wait_for('message', timeout=60.0)
+            answer = answer.content
+
+
+            if answer == 'True' or answer == 'true':
+                srv = ctx.guild
+                findRole = get(srv.roles, name=f'{role}')
+                await findRole.delete()
+
+                self.embed.title = f'{role} has been removed'
+                self.embed.description = ''
+                await ctx.send(embed=self.embed)
+
+            else:
+                self.embed.title = f'Role removal canceled'
+                self.embed.description = ''
+                await ctx.send(embed=self.embed)
+            return
  
