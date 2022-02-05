@@ -23,7 +23,7 @@ class Administrator(Cog, name='Admin-module'):
         self.embed = Embed(color=Color.dark_purple())
 
     #   Ban management
-    @command(name='banlist')
+    @command(name='banned')
     @has_permissions(ban_members=True)
     async def BannedList(self, ctx):
         

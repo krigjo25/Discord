@@ -58,7 +58,7 @@ helping out as a Discord administrator, miniGames mananger and Server configuria
 **How do the bot work**
 
 The bot is there to help you to manage your server, with the given tasks which is available to be used, and for other members to have fun with-in discord,
-the prefix command is **'?help'**, e.g ?krigjo25
+the prefix command is **'?'**, e.g **'?help'**
 
 ***Feautures***
 
@@ -68,13 +68,13 @@ the prefix command is **'?help'**, e.g ?krigjo25
 
 > krigjo25 (optional: log )
 >> Information about the bot
-
+>
 > meme
 >> Generates a random meme from Reddit
- 
+>
 > memberlist
 >> list of members in the server
-  
+>
 > randint (integer one) (integer two)
 >> generate a random integer
 
@@ -82,7 +82,7 @@ the prefix command is **'?help'**, e.g ?krigjo25
 >> To notify other members to go afk, 
 >> a text-channel will be created, and a message will be sent there.
 >> on mention the author recieves an afk message, and a error, that the person is not to be disturbed.
-
+>
 > back
 >> Deletes the status update
 
@@ -103,45 +103,50 @@ the prefix command is **'?help'**, e.g ?krigjo25
 
 ***Bot Post Moderation Utility***
 
-Roles :
-> mod,<br>
-> Mod,<br>
-> admin,<br>
-> Admin,<br>
-> Moderator,<br>
-> moderator,<br>
-> Administrator,<br>
-> administrator,<br>
+Roles used in the project :
 
-*Moderator-module*
+> Nenber        --  Automatic role assignment
+> sushed        --  Muted players
+> Moderator,<br>
+> Administrator,<br>
+
+*Moderator-modules*
 
 > cls (channel name) (int)
->> Clear the chat limit 100 lines each time the command
->> is used
+>> Clear the chat limit 100 lines each time the command is used
 
 > crech (channel name)
->> Create a channel, by default it is only visible 
->> for admins & moderator roles
+>> Create a channel, by default it is only visible for admins & moderator roles
 
 > kick (member name) (reason)
->> Kicks a member from the server, stores in a log
+>> Kicks a member from the server, stores in a log in the channel modereationlog
 >> file.
 
 *Administrator-module*
 
-> ban
+> ban (member) (reason)
 >> Ban a discord user from the server
->> records the username into a .log file
+>> records the username stores in the channel moderationlog
 >
-> Banned
+> banned
 >> View a list of banned server members
 >                           
-> Unban
+> unban (member)
 >> Unban a discord user from the server
-
-> Log (kick / ban
->> Open up and read the .log file
-
+>
+> setRole (member) (role)
+>> Set a member's role
+>
+> delRole (roleName)
+>> Deletes a role from the server
+>
+>poll
+>> Creates a poll in a given channel
+>
+>announce (channelName)
+>> Creates an announcement in the given channel
+>
+>
 > Software-Technician, Software-technician
 >> Moderator commands
 >> Admin commands
@@ -167,7 +172,7 @@ The bot serving you, as a humble bot
 
 ***Disclaimers:***<br>
 
-***The developer can only have the responsibility, for how it's created, how it is used by people. Is another story.***
+***The developer can only have the responsibility, for how the projects is created, how it is used,  is another story.***
 
 ***Contact Information***
 
