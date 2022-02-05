@@ -1,13 +1,20 @@
+#   Python library
+
 import datetime
+
+#   Discord.py libraries
 from discord import Member
 from discord.utils import get
-
 from discord.colour import Color
 from discord import PermissionOverwrite
 from discord.embeds import Embed, Colour
+from discord.permissions import Permissions
 from discord.ext.commands.core import has_permissions
 from discord.ext.commands import Cog, command,has_any_role
 
+#   Library
+
+#from permissionModule import roleManagement
 class Administrator(Cog, name='Admin-module'):
     def __init__(self, bot):
         self.bot = bot
@@ -15,7 +22,7 @@ class Administrator(Cog, name='Admin-module'):
         self.curTime = self.now.strftime('%d.%m - %Y')
         self.embed = Embed(color=Color.dark_purple())
 
-    # Ban / Unban
+    #   Ban management
     @command(name='banlist')
     @has_permissions(ban_members=True)
     async def BannedList(self, ctx):
@@ -149,22 +156,99 @@ class Administrator(Cog, name='Admin-module'):
     @command(name='createRole')
     @has_any_role('admin','Admin', 'Software-Technican')
     async def CreateRole(self, ctx, ch ):
+        
+        #   1   Create the role if not exist, if it exist send out a warning message
+
+        #   2   Choose the permission of the role
+
+        #   3   Choose the colour of the role with hexdecimals
         pass
 
     @command(name='setRole')
     @has_any_role('admin','Admin', 'Software-Technican')
-    async def setRole(self, ctx, ch ):
-        pass
+    async def setRole(self, ctx, member:Member, role):
+
+        srv = ctx.guild
+        memberRole = get(srv.roles, name=f'{role}')
+
+
+
+
+        if not memberRole:
+            
+            return #roleManagement.RolePermissions
+
+        else:
+
+            await member.add_roles(memberRole)
+        return
+
     @command(name='remove')
     @has_any_role('admin','Admin', 'Software-Technican')
-    async def removeMemberRole(self, ctx, ch ):
-        pass
+    async def removeMemberRole(self, ctx, *, member:Member, role, reason=None ):
+
+        srv=ctx.guild
+        mRole = get(srv.roles, name=f'{role}')
+        member.remove_roles(member, mRole)
+        ch = get(srv.channels, name='moderationlog')
+
+        
+
+        #   1   Creating a confirmation to remove a member from a role
+        self.embed.title = f'removing {member} from {role}'
+        self.embed.description = f'Are you sure you\'d like to remove {member} from {role}'
+        await ctx.send(embed=self.embed)
+
+        submit = await self.bot.wait_for('message')
+        submit = str(submit.content)
+
+
+        #   2   Simply remove a users role
+        if submit == 'Yes' or 'yes':
+
+            if not ch:
+                perms = PermissionOverwrite(read_messages=False)
+
+                await srv.create_text_channel(f'{ch}', overwrites=perms)
+
+                self.embed = Embed(color=Colour.dark_red(), description= '')
+                self.embed.title = 'Auto generated channel'
+                self.embed.description = 'This channel is used to log every Moderation in this server, it is made to avoid abusage of the Moderation / administration commands'
+                await ch.send(embed=self.embed)
+
+            #   3:  Log the ban
+            self.embed = Embed(color=Color.dark_red())
+            self.embed.title = f'{member} has been removed from {role} by {ctx.author} due to {reason} '
+            self.embed.description=''
+            
+            await ch.send(embed=self.embed)
+
+
+        else:
+
+            if not ch:
+                perms = PermissionOverwrite(read_messages=False)
+
+                await srv.create_text_channel(f'{ch}', overwrites=perms)
+
+                self.embed = Embed(color=Colour.dark_red(), description= '')
+                self.embed.title = 'Auto generated channel'
+                self.embed.description = 'This channel is used to log every Moderation in this server, it is made to avoid abusage of the Moderation / administration commands'
+                await ch.send(embed=self.embed)
+
+            #   3:  Log the ban
+            self.embed = Embed(color=Color.dark_red())
+            self.embed.title = f'{member} has been removed from {role} by {ctx.author} due to {reason} '
+            self.embed.description=''
+            
+            await ch.send(embed=self.embed)
+
+        return
     
     @command(name='delRole')
     @has_any_role('admin','Admin', 'Software-Technican')
+
     async def removeRole(self, ctx, ch ):
-        pass
- 
- 
- 
+            #   1   Simply remove a role, ask for confirmation
+        return
  

@@ -1,5 +1,5 @@
 #   Discord Responsory
-from discord import  Member
+from discord import  Member, Colour
 from discord.utils import get
 from discord.ext.commands import Cog
 from discord import PermissionOverwrite
@@ -24,8 +24,12 @@ class Welcome(Cog, name='Welcome module'):
         memberRole = get(srv.roles, name='@Members')
 
         if not memberRole:
-            overwrite = Permissions(speak=True, send_messages=True, read_message_history=True, read_messages=True)
-            memberRole = await srv.create_role(name='Member', permissions= overwrite, reason= 'Automatic Role assignment')
+            overwrite = Permissions(    speak=True,
+                                        send_messages=True,
+                                        read_messages=True,
+                                        read_message_history=True)
+            memberRole = await srv.create_role(name='@Members', permissions=overwrite, reason= 'Automatic Role assignment')
+            await memberRole.edit(colour=Colour(0x567d46))
         else:
             await member.add_roles(memberRole)
         
