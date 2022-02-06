@@ -105,7 +105,7 @@ the prefix command is **'?'**, e.g **'?help'**
 
 Roles used in the project :
 
-> Nenber        --  Automatic role assignment
+> Member        --  Automatic role assignment
 > sushed        --  Muted players
 > Moderator,<br>
 > Administrator,<br>
@@ -114,13 +114,25 @@ Roles used in the project :
 
 > cls (channel name) (int)
 >> Clear the chat limit 100 lines each time the command is used
-
+>
 > crech (channel name)
 >> Create a channel, by default it is only visible for admins & moderator roles
-
+>
 > kick (member name) (reason)
 >> Kicks a member from the server, stores in a log in the channel modereationlog
 >> file.
+>
+> poll
+>> Creates a poll
+>
+>   Online
+>>  Checks whom is online/offline
+>
+>   Warn
+>>  Manually warn a member
+>
+>   sush ()
+>   Manually mutes the member for some seconds
 
 *Administrator-module*
 
@@ -139,9 +151,6 @@ Roles used in the project :
 >
 > delRole (roleName)
 >> Deletes a role from the server
->
->poll
->> Creates a poll in a given channel
 >
 >announce (channelName)
 >> Creates an announcement in the given channel
@@ -181,6 +190,7 @@ website : krigjo25.com
 
 Only One advice.<br>
 « Everything is perfect as it is.
+
 ***References: ***
 
 [ObjectOriented Discord Bot](https://nik.re/posts/2021-09-25/object_oriented_discord_bot), by Nikola Cucakovic,

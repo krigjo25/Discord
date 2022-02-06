@@ -124,7 +124,9 @@ class HelpCommand(Cog):
                 self.embed.add_field(name='?kick (member) (reason)', value='- Kicks a user off the server ', inline=True)
                 self.embed.add_field(name='?crech (Channel Name)', value='- Create a new channel default : hidden ', inline=True)
                 self.embed.add_field(name='?cls (channel name) (int)', value= '- Clears the given channel Chat:bangbang:', inline=True)
-                self.embed.add_field(name='?online (on/off', value= '- Checks whom is online / offline', inline=True)
+                self.embed.add_field(name='?online (on/off)', value= '- Checks whom is online / offline', inline=True)
+                self.embed.add_field(name='?warn (MemberName) (Reason)', value= '- Manually Warn a member for their behavior', inline=True)
+                self.embed.add_field(name='?sush (MemberName) (sec) (reason)', value= '- Shush a member for a number of sec', inline=True)
                 await ctx.send(embed=self.embed)
                 self.embed.clear_fields()
 

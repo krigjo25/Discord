@@ -478,7 +478,7 @@ class Moderator(Cog, name='Moderator-module'):
             self.embed = Embed(color=Colour.dark_purple(), description= '')
             return
     
-    @command(name="snooze")
+    @command(name="sush")
     @has_permissions(manage_messages=True)
     async def TimeSnozze(self, ctx, member:Member, sec, *, reason=None):
 
