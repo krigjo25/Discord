@@ -180,8 +180,7 @@ Discord : krigjo25#5588.<br>
 website : krigjo25.com
 
 Only One advice.<br>
-« The importance of creating is just have fun.
-
+« Everything is perfect as it is.
 ***References: ***
 
 [ObjectOriented Discord Bot](https://nik.re/posts/2021-09-25/object_oriented_discord_bot), by Nikola Cucakovic,

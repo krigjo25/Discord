@@ -1,3 +1,4 @@
+from unicodedata import name
 import discord
 
 from discord.utils import get
@@ -17,8 +18,7 @@ class HelpCommand(Cog):
     async def FrequentlyAskedQuestions(self,ctx, args=None):
 
         if args == None:
-            '''
-            if ctx.author.guild_permissions.kick:
+            if ctx.author.guild.Permissions.kick:
                 self.embed.title = 'Frequently Asked Questions:question:'
                 self.embed.title = ' Usage ** ?help (Category)** for more details\n\n'
                 self.embed.add_field(name=':handshake: Welcome-Module', value='This is our new home', inline=True)
@@ -29,8 +29,8 @@ class HelpCommand(Cog):
                 self.embed.add_field(name='Moderator-Module', value = 'A joke here', inline=True)
                 await ctx.send(embed=self.embed)
                 self.embed.clear_fields()
-            '''
-            if ctx.author.guild_permissions.administrator:
+
+            elif ctx.author.guild.Permissions.administrator:
                 self.embed.title = 'Frequently Asked Questions:question:'
                 self.embed.title = ' Usage ** ?help (Category)** for more details\n\n'
                 self.embed.add_field(name=':handshake: Welcome-Module', value='This is our new home', inline=True)
@@ -139,4 +139,5 @@ class HelpCommand(Cog):
                 self.embed.add_field(name=':no_pedestrians: ?ban (member) (reason)', value='- Probhits a Discord user to enter your channel', inline=True)
                 await ctx.send(embed=self.embed)
                 self.embed.clear_fields()
-            return
+
+        #   Commands in greater details
