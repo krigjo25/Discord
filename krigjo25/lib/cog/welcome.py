@@ -27,7 +27,8 @@ class Welcome(Cog, name='Welcome module'):
             overwrite = Permissions(    speak=True,
                                         send_messages=True,
                                         read_messages=True,
-                                        read_message_history=True)
+                                        view_channels=True)
+
             memberRole = await srv.create_role(name='@Members', permissions=overwrite, reason= 'Automatic Role assignment')
             await memberRole.edit(colour=Colour(0x567d46))
         else:
