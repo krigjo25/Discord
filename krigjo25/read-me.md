@@ -30,11 +30,7 @@ kristoffer Gjøsund, born in 94, Norway, part the time goes to python, SQL other
 **Project info**
 
 The idea for the discord bot is just for fun, and a learning progress how to use the documentation, and how to code Python
-    project start :
 
-    1.01-22
-
-    Last Update :
 
     SQL Database:
     mariaDB
@@ -48,14 +44,19 @@ helping out as a Discord administrator, miniGames mananger and Server configuria
 ## About-Krigjo25
 
 ***Project Information***
-> Project started: <br>
->**23.10-21.**<br>
-> last update: <br>
->**01.02-22.**<br>
-> current verison:<br>
+Project started: <br>
+**23.10-21.**<br>
+
+Last update: <br>
+**12.02-22.**<br>
+
+Current verison:<br>
 **1.0.0 RC 1**
 
-**How do the bot work**
+SQL Language Used :<br>
+**MariaDB**
+
+**How to**
 
 The bot is there to help you to manage your server, with the given tasks which is available to be used, and for other members to have fun with-in discord,
 the prefix command is **'?'**, e.g **'?help'**
@@ -88,29 +89,32 @@ the prefix command is **'?'**, e.g **'?help'**
 
 **miniGames-module**
 
-> 8ball<br>
-> jumble<br>
+> 8ball <br>
+> jumble <br>
 > guess The Number<br>
 > reaction game (Rock, Scissor & paper)<br>
 
 ***Bot Pre Moderation Utility***
 
-**Member joins:**
+**Auto role-assignment**
+
+*Member joins:*
     When a member joins the server, the bot will create a role called "@Members"
     the user will be added to the role.
 
     (A counter will start, so there will be a leveling up experience)
 
+
 ***Bot Post Moderation Utility***
 
 Roles used in the project :
 
-> Member        --  Automatic role assignment
-> sushed        --  Muted players
+> Member        --  Automatic role assignment<br>
+> sushed        --  Muted players<br>
 > Moderator,<br>
 > Administrator,<br>
 
-*Moderator-modules*
+*Moderator-module*
 
 > cls (channel name) (int)
 >> Clear the chat limit 100 lines each time the command is used

@@ -23,10 +23,10 @@ from lib.communityModule.community import Community                     #   Comm
 #from lib.supportModule.support import Support                          #   The Support module
 
 #   miniGames Repositories
-from lib.miniGamesModule.askQ import EightBall                          #   EightBall
-from lib.miniGamesModule.jumble import JumbleGame                       #   Jumble Game
-from lib.miniGamesModule.int import GuessTheNumber                      #   Guess the number
-from lib.miniGamesModule.reactGame import RockScissorPaper              #   Rock, Scissors & Paper
+from lib.gameModule.miniGamesModule.askQ import EightBall                          #   EightBall
+from lib.gameModule.miniGamesModule.jumble import JumbleGame                       #   Jumble Game
+from lib.gameModule.miniGamesModule.int import GuessTheNumber                      #   Guess the number
+from lib.gameModule.miniGamesModule.reactGame import RockScissorPaper              #   Rock, Scissors & Paper
 
 # Bot Utility
 

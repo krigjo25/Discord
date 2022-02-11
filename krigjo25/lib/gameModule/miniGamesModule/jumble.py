@@ -15,8 +15,8 @@ from discord.ext.commands import Cog, command
 
 #   Jumble Repositories
 #from lib.miniGamesModule.jumbleGame.movies import Movies
-from lib.miniGamesModule.jumbleGame.disney import Disney
-from lib.miniGamesModule.jumbleGame.jumble import Jumble
+from lib.gameModule.miniGamesModule.jumbleGame.disney import Disney
+from lib.gameModule.miniGamesModule.jumbleGame.jumble import Jumble
 #from lib.miniGamesModule.jumbleGame.dcComics import DCComics
 #from lib.miniGamesModule.jumbleGame.marvelComics import MarvelComics
 

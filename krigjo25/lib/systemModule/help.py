@@ -22,10 +22,9 @@ class HelpCommand(Cog):
             self.embed.title = ' Usage ** ?help (Category)** for more details\n\n'
             self.embed.add_field(name=':handshake: Welcome-Module', value='This is our new home', inline=True)
             self.embed.add_field(name=':people_holding_hands: Community-Module', value='Ever heard of the guy whom joined a community? \n He were never seen again.', inline=True)
-            self.embed.add_field(name=':people_wrestling: Minigames', value='-Gamers does not take showers they do steamy once', inline=True)
+            self.embed.add_field(name=':people_wrestling: Game-Module', value='-Gamers does not take showers they do steamy once', inline=True)
             #self.embed.add_field(name=':tv: Stream-Module',value='An Irishman arrived at J.F.K. Airport and wandered around the terminal with tears streaming down his cheeks...', inline=True)
             #self.embed.add_field(name=':gear: Suport-Module', value='Erectile disfunction support group has been cancelled', inline=True)
-
             if ctx.author.guild_permissions.kick_members:
                 self.embed.add_field(name='Moderator-Module', value = 'A joke here', inline=True)
 
@@ -68,11 +67,17 @@ class HelpCommand(Cog):
                 
                 self.embed.clear_fields()
 
-        #   MiniGames-Module
-            elif args == 'minigames' or args == 'minigames-module':
+        #   Games-Module
+            elif args == 'game' or args == 'game-module':
 
-                self.embed.title=':people_wrestling: miniGames-Module'
+                self.embed.title=':people_wrestling: Games-Module'
                 self.embed.description='Use ** ?help (Command/Category)**, for more details, sir.\n\n'
+                self.embed.add_field(name='miniGames-Module', value='- :rock:, :scissors:, :page_facing_up:', inline=True)
+                #self.embed.add_field(name='discordGames', value='- ServerInfo, stats etc', inline=True)
+                await ctx.send(embed=self.embed)    
+                self.embed.clear_fields()
+            
+            elif args == 'minigames' or args == 'minigames-module':
                 self.embed.add_field(name='?rsp', value='- :rock:, :scissors:, :page_facing_up:', inline=True)
                 self.embed.add_field(name=':question: ?jumble', value=' - unscrabble a jumble', inline=True)
                 self.embed.add_field(name=':person_in_lotus_position: ?ask (Question)', value='- How can cops be the worst pool players?\n They always shoot the eight ball first', inline=True)
