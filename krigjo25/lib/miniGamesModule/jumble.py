@@ -14,11 +14,11 @@ from discord.colour import Color
 from discord.ext.commands import Cog, command
 
 #   Jumble Repositories
-#from lib.jumbles.movies import Movies
-from lib.jumbles.disney import Disney
-from lib.jumbles.jumble import Jumble
-#from lib.jumbles.dcComics import DCComics
-#from lib.jumbles.marvelComics import MarvelComics
+#from lib.miniGamesModule.jumbleGame.movies import Movies
+from lib.miniGamesModule.jumbleGame.disney import Disney
+from lib.miniGamesModule.jumbleGame.jumble import Jumble
+#from lib.miniGamesModule.jumbleGame.dcComics import DCComics
+#from lib.miniGamesModule.jumbleGame.marvelComics import MarvelComics
 
  #  Custom Library
 from lib.dictionaries.systemmessages import Dictionaries
