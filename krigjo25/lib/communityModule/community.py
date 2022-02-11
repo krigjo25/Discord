@@ -1,8 +1,3 @@
-
-import aiohttp
-
-import mariadb
-
 #   Importing Python Resposories
 from os import getenv
 from random import randint, randrange
@@ -15,6 +10,10 @@ from discord.colour import Color
 from discord.embeds import Embed
 from discord.ext.commands import Cog, command
 from discord.permissions import PermissionOverwrite
+
+import aiohttp
+
+import mariadb
 
 load_dotenv()
 
