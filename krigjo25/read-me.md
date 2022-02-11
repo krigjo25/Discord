@@ -32,9 +32,6 @@ kristoffer Gjøsund, born in 94, Norway, part the time goes to python, SQL other
 The idea for the discord bot is just for fun, and a learning progress how to use the documentation, and how to code Python
 
 
-    SQL Database:
-    mariaDB
-
 
 ***The bot***
 
@@ -44,6 +41,7 @@ helping out as a Discord administrator, miniGames mananger and Server configuria
 ## About-Krigjo25
 
 ***Project Information***
+
 Project started: <br>
 **23.10-21.**<br>
 
