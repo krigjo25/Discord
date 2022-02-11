@@ -13,7 +13,7 @@
 >> Features
 >> Updates
 
-> [Resposonries](#Resposonries)
+> [Responsories](#Responsories)
 
 > [Credentials](#Credentials)
 >> Disclaimers
