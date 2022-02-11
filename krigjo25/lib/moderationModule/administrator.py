@@ -23,7 +23,7 @@ class Administrator(Cog, name='Admin-module'):
         self.embed = Embed(color=Color.dark_purple())
 
     #   Ban management
-    @command(name='banned')
+    @command(name='banlist')
     @has_permissions(ban_members=True)
     async def BannedList(self, ctx):
         
@@ -38,10 +38,15 @@ class Administrator(Cog, name='Admin-module'):
             bannedList.append(entry.reason)
 
         self.embed.title = 'List of banned server members'
-        self.embed.description =' User name | User discriminator | Reason'
-        self.embed.add_field(name= f'{bannedList[0]}, {bannedList[1]}', value = f'{bannedList[2]}')
+        self.embed.description ='No-one banned yet, Hurray :party:'
+
+        if bool(bannedList) == True:
+            self.embed.description =' User name | User discriminator | Reason'
+            self.embed.add_field(name= f'{bannedList[0]}, {bannedList[1]}', value = f'{bannedList[2]}')
+        
+        self.embed.add_field(name= ' End of List', value = ':-)')
         await ctx.send(embed=self.embed)
-            
+        self.embed.clear_fields()    
             
         # Prohbit a user to enter the channel again
     @command(name='ban')

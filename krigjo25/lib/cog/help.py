@@ -17,41 +17,24 @@ class HelpCommand(Cog):
     async def FrequentlyAskedQuestions(self,ctx, args=None):
 
         if args == None:
-            '''
-            if ctx.author.guild_permissions.kick:
-                self.embed.title = 'Frequently Asked Questions:question:'
-                self.embed.title = ' Usage ** ?help (Category)** for more details\n\n'
-                self.embed.add_field(name=':handshake: Welcome-Module', value='This is our new home', inline=True)
-                self.embed.add_field(name=':people_holding_hands: Community-Module', value='Ever heard of the guy whom joined a community? \n He were never seen again.', inline=True)
-                self.embed.add_field(name=':people_wresteling: Minigames', value='-Gamers does not take showers they do steamy once', inline=True)
-                self.embed.add_field(name=':tv: Stream-Module',value='a joke here', inline=True)
-                self.embed.add_field(name=':gear: Suport-Module', value='a joke here', inline=True)
+
+            self.embed.title = 'Frequently Asked Questions:question:'
+            self.embed.title = ' Usage ** ?help (Category)** for more details\n\n'
+            self.embed.add_field(name=':handshake: Welcome-Module', value='This is our new home', inline=True)
+            self.embed.add_field(name=':people_holding_hands: Community-Module', value='Ever heard of the guy whom joined a community? \n He were never seen again.', inline=True)
+            self.embed.add_field(name=':people_wrestling: Minigames', value='-Gamers does not take showers they do steamy once', inline=True)
+            #self.embed.add_field(name=':tv: Stream-Module',value='An Irishman arrived at J.F.K. Airport and wandered around the terminal with tears streaming down his cheeks...', inline=True)
+            #self.embed.add_field(name=':gear: Suport-Module', value='Erectile disfunction support group has been cancelled', inline=True)
+
+            if ctx.author.guild_permissions.kick_members:
                 self.embed.add_field(name='Moderator-Module', value = 'A joke here', inline=True)
-                await ctx.send(embed=self.embed)
-                self.embed.clear_fields()
-            '''
+
             if ctx.author.guild_permissions.administrator:
-                self.embed.title = 'Frequently Asked Questions:question:'
-                self.embed.title = ' Usage ** ?help (Category)** for more details\n\n'
-                self.embed.add_field(name=':handshake: Welcome-Module', value='This is our new home', inline=True)
-                self.embed.add_field(name=':people_holding_hands: Community-Module', value='Ever heard of the guy whom joined a community? \n He were never seen again.', inline=True)
-                self.embed.add_field(name=':people_wresteling: Minigames', value='-Gamers does not take showers they do steamy once', inline=True)
-                self.embed.add_field(name=':tv: Stream-Module',value='a joke here', inline=True)
-                self.embed.add_field(name=':gear: Suport-Module', value='a joke here', inline=True)
-                self.embed.add_field(name='Moderator-Module', value = 'A joke here', inline=True)
                 self.embed.add_field(name='Administrator-Module', value='A joke here', inline=True)
-                await ctx.send(embed=self.embed)
-                self.embed.clear_fields()
-            else:
-                self.embed.title = 'Frequently Asked Questions:question:'
-                self.embed.title = ' Usage ** ?help (Category)** for more details\n\n'
-                self.embed.add_field(name=':handshake: Welcome-Module', value='This is our new home', inline=True)
-                self.embed.add_field(name=':people_holding_hands: Community-Module', value='Ever heard of the guy whom joined a community? \n He were never seen again.', inline=True)
-                self.embed.add_field(name=':people_wresteling: Minigames', value='-Gamers does not take showers they do steamy once', inline=True)
-                self.embed.add_field(name=':tv: Stream-Module',value='a joke here', inline=True)
-                self.embed.add_field(name=':gear: Suport-Module', value='a joke here', inline=True)
-                await ctx.send(embed=self.embed)
-                self.embed.clear_fields()
+                
+            await ctx.send(embed=self.embed)
+            self.embed.clear_fields()
+
         else:
             args = str(args)
             args.lower()
@@ -123,10 +106,11 @@ class HelpCommand(Cog):
                 self.embed.add_field(name=':bar_chart: ?poll', value='- Run a poll', inline=True)
                 self.embed.add_field(name='?kick (member) (reason)', value='- Kicks a user off the server ', inline=True)
                 self.embed.add_field(name='?crech (Channel Name)', value='- Create a new channel default : hidden ', inline=True)
-                self.embed.add_field(name='?cls (channel name) (int)', value= '- Clears the given channel Chat:bangbang:', inline=True)
+                self.embed.add_field(name='?cls (channel name) (1-100)', value= '- Clears the given channel Chat:bangbang:', inline=True)
                 self.embed.add_field(name='?online (on/off)', value= '- Checks whom is online / offline', inline=True)
                 self.embed.add_field(name='?warn (MemberName) (Reason)', value= '- Manually Warn a member for their behavior', inline=True)
                 self.embed.add_field(name='?sush (MemberName) (sec) (reason)', value= '- Shush a member for a number of sec', inline=True)
+
                 await ctx.send(embed=self.embed)
                 self.embed.clear_fields()
 
@@ -136,9 +120,14 @@ class HelpCommand(Cog):
                 self.embed.add_field(name=':bar_chart: ?banlist', value='-View banned members', inline=True)
                 self.embed.add_field(name=':bar_chart: ?poll', value='-Run a poll', inline=True)
                 self.embed.add_field(name='?unban (member Name)', value= '- unban a member ', inline=True)
-                self.embed.add_field(name='?announce (channelName) (message)', value= '- Talk as the bot in a given channel', inline=True)
-                self.embed.add_field(name='?cls (channel name) (int)', value= '- Clears the given channel Chat:bangbang:', inline=True)
                 self.embed.add_field(name=':no_pedestrians: ?ban (member) (reason)', value='- Probhits a Discord user to enter your channel', inline=True)
+                self.embed.add_field(name='?announce (channelName) (message)', value= '- Talk as the bot in a given channel', inline=True)
+                self.embed.add_field(name='?demote (name)', value='- Demote a person from the role', inline=True)
+                self.embed.add_field(name=':x:?promote (name)', value='- Promotes a regular user to given role', inline=True)
+                self.embed.add_field(name=':x:?roleCreate (name))', value='- Creates a role in the server', inline=True)
+                self.embed.add_field(name='?delRole (Name)', value='- Deletes a role from the server', inline=True)
+            
+
                 await ctx.send(embed=self.embed)
                 self.embed.clear_fields()
             return
