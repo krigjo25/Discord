@@ -8,18 +8,25 @@ from dotenv import load_dotenv
 from discord import Intents
 
 # library Repositories
-from lib.cog.welcome import Welcome                             #   Welcome Module 
-#from lib.cog.support import Support                            #   The Support module
-from lib.cog.help import HelpCommand                            #   Help module
-from lib.clients.bot import DiscordBot                          #   Client
-from lib.cog.community import Community                         #   Community module
-from lib.cog.commandError import ErrorHandler                   #   Error Handling Module
+
+#   System module
+
+from lib.systemModule.krigjo25bot import DiscordBot                     #   The Client
+from lib.systemModule.welcome import Welcome                            #   Welcome Module 
+from lib.systemModule.help import HelpCommand                           #   Help module
+from lib.systemModule.commandError import ErrorHandler                  #   Error Handling Module
+
+#   Community Module
+from lib.communityModule.community import Community                     #   Community module
+
+#   Support Module
+#from lib.supportModule.support import Support                          #   The Support module
 
 #   miniGames Repositories
-from lib.miniGames.askQ import EightBall                        #   EightBall
-from lib.miniGames.jumble import JumbleGame                     #   Jumble Game
-from lib.miniGames.int import GuessTheNumber                    #   Guess the number
-from lib.miniGames.reactGame import RockScissorPaper            #   Rock, Scissors & Paper
+from lib.miniGamesModule.askQ import EightBall                          #   EightBall
+from lib.miniGamesModule.jumble import JumbleGame                       #   Jumble Game
+from lib.miniGamesModule.int import GuessTheNumber                      #   Guess the number
+from lib.miniGamesModule.reactGame import RockScissorPaper              #   Rock, Scissors & Paper
 
 # Bot Utility
 
@@ -27,8 +34,8 @@ from lib.miniGames.reactGame import RockScissorPaper            #   Rock, Scisso
 #from lib.BotModerationModule.antiSpam import AntiSpam
 
     # Moderation Utility
-from lib.moderationModule.moderator import Moderator            #   Moderator Module
-from lib.moderationModule.administrator import Administrator    #   Administrator module
+from lib.postModerationModule.moderator import Moderator                #   Moderator Module
+from lib.postModerationModule.administrator import Administrator        #   Administrator module
 
 # Importing .evn file
 load_dotenv()
