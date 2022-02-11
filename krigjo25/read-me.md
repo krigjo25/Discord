@@ -172,9 +172,9 @@ The bot serving you, as a humble bot
 
 ## Responsories
 
-- MariaDB, [MariaDB Community](https://github.com/mariadb-corporation/mariadb-connector-python), <br>
-- Anti-Spam, [Skelmis](https://github.com/Skelmis/DPY-Anti-Spam/commits?author=Skelmis),<br>
 - discord.py, [Rapptz](https://github.com/Rapptz/discord.py),  <br>
+- ~~Anti-Spam, [Skelmis](https://github.com/Skelmis/DPY-Anti-Spam/commits?author=Skelmis),~~<br>
+- MariaDB, [MariaDB Community](https://github.com/mariadb-corporation/mariadb-connector-python), <br>
 - python_dotenv, [Saurabh Kumar](https://github.com/motdotla/dotenv),<br>
 
  
@@ -188,12 +188,12 @@ The bot serving you, as a humble bot
 ***Contact Information***
 
 Discord : krigjo25#5588.<br>
-website : krigjo25.com
+~~website : krigjo25.com~~
 
 Only One advice.<br>
 « Everything is perfect as it is.
 
-***References: ***
+***References:***
 
 [ObjectOriented Discord Bot](https://nik.re/posts/2021-09-25/object_oriented_discord_bot), by Nikola Cucakovic,
 
