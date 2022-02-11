@@ -57,7 +57,7 @@ SQL Language Used :<br>
 **How to**
 
 The bot is there to help you to manage your server, with the given tasks which is available to be used, and for other members to have fun with-in discord,
-the prefix command is **'?'**, e.g **'?help'**
+the prefix command used in the project  **?'**, e.g **'?help'**
 
 ***Feautures***
 
@@ -65,7 +65,7 @@ the prefix command is **'?'**, e.g **'?help'**
 
 **Community-module**
 
-> krigjo25 (optional: log )
+> botinfo (optional: log )
 >> Information about the bot
 >
 > meme
@@ -78,7 +78,7 @@ the prefix command is **'?'**, e.g **'?help'**
 >> generate a random integer
 
 > afk (message)
->> To notify other members to go afk, 
+>> To notify other server members that you're going afk, 
 >> a text-channel will be created, and a message will be sent there.
 >> on mention the author recieves an afk message, and a error, that the person is not to be disturbed.
 >
@@ -92,15 +92,22 @@ the prefix command is **'?'**, e.g **'?help'**
 > guess The Number<br>
 > reaction game (Rock, Scissor & paper)<br>
 
+new games added in the feauture
+
 ***Bot Pre Moderation Utility***
 
 **Auto role-assignment**
 
 *Member joins:*
-    When a member joins the server, the bot will create a role called "@Members"
-    the user will be added to the role.
 
-    (A counter will start, so there will be a leveling up experience)
+When a member joins the server, the bot will create a role called "@Members"<br>
+the user will be added to the role.<br>
+
+*Member leveling System*
+
+~~Members will be able to level up to gain new roles~~<br>
+~~Current max level is 100, roles+ changes every 25 level~~<br>
+
 
 
 ***Bot Post Moderation Utility***
@@ -122,7 +129,7 @@ Roles used in the project :
 >
 > kick (member name) (reason)
 >> Kicks a member from the server, stores in a log in the channel modereationlog
->> file.
+>> records the the kick in the channel moderationlog
 >
 > poll
 >> Creates a poll
@@ -132,21 +139,24 @@ Roles used in the project :
 >
 >   Warn
 >>  Manually warn a member
+>> records the the warn in the channel moderationlog
 >
->   sush ()
->   Manually mutes the member for some seconds
+>   sush
+>>   Manually mutes the member for some seconds
+>> records the the mute in the channel moderationlog
 
 *Administrator-module*
 
 > ban (member) (reason)
 >> Ban a discord user from the server
->> records the username stores in the channel moderationlog
+>> records the the ban in the channel moderationlog
 >
-> banned
+> banlist
 >> View a list of banned server members
 >                           
 > unban (member)
 >> Unban a discord user from the server
+>> records the the unban in the channel moderationlog
 >
 > setRole (member) (role)
 >> Set a member's role

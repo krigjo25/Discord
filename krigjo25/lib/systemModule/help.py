@@ -55,7 +55,7 @@ class HelpCommand(Cog):
 
                 self.embed.title=':people_holding_hands: Community-Module'
                 self.embed.description='Use ** ?help (Command)**, for more details, sir.\n\n'
-                self.embed.add_field(name='?krigjo25 \n(optional parameter: log)', value='- how did the bot fail the exam? She was a bit rusty', inline=True)
+                self.embed.add_field(name='?botinfo \n(optional parameter: log)', value='- how did the bot fail the exam? She was a bit rusty', inline=True)
                 self.embed.add_field(name='?memberlist', value ='list of members', inline=True)
                 self.embed.add_field(name='?dnd (message) ', value='- Busy, or going afk, notify your friends that you have a life', inline=True)
                 self.embed.add_field(name='?back ', value='- Shows that you\'re a no lifer again', inline=True)

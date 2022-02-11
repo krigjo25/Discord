@@ -25,7 +25,7 @@ class Community(Cog, name='Community Module'):
 
 
 #   Bot Info
-    @command(name="krigjo25")
+    @command(name="botinfo")
     async def BotInfo(self, ctx, args=None):
         svr = len(self.bot.guilds)
         owner = self.bot.get_user(340540581174575107)
