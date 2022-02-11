@@ -40,7 +40,7 @@ helping out as a Discord administrator, miniGames mananger and Server configuria
 
 ## About-Krigjo25
 
-***Project Information***
+***Project Information***<br>
 
 Project started: <br>
 **23.10-21.**<br>
