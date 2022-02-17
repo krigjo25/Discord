@@ -23,7 +23,7 @@ class HelpCommand(Cog):
             self.embed.add_field(name=':handshake: Welcome-Module', value='This is our new home', inline=True)
             self.embed.add_field(name=':people_holding_hands: Community-Module', value='Ever heard of the guy whom joined a community? \n He were never seen again.', inline=True)
             self.embed.add_field(name=':people_wrestling: Game-Module', value='-Gamers does not take showers they do steamy once', inline=True)
-            #self.embed.add_field(name=':tv: Stream-Module',value='An Irishman arrived at J.F.K. Airport and wandered around the terminal with tears streaming down his cheeks...', inline=True)
+            self.embed.add_field(name=':tv: Stream-Module',value='An Irishman arrived at J.F.K. Airport and wandered around the terminal with tears streaming down his cheeks...', inline=True)
             #self.embed.add_field(name=':gear: Suport-Module', value='Erectile disfunction support group has been cancelled', inline=True)
             if ctx.author.guild_permissions.kick_members:
                 self.embed.add_field(name='Moderator-Module', value = 'A joke here', inline=True)
@@ -78,6 +78,8 @@ class HelpCommand(Cog):
                 self.embed.clear_fields()
             
             elif args == 'minigames' or args == 'minigames-module':
+
+                self.embed.title = 'Minigames Module'
                 self.embed.add_field(name='?rsp', value='- :rock:, :scissors:, :page_facing_up:', inline=True)
                 self.embed.add_field(name=':question: ?jumble', value=' - unscrabble a jumble', inline=True)
                 self.embed.add_field(name=':person_in_lotus_position: ?ask (Question)', value='- How can cops be the worst pool players?\n They always shoot the eight ball first', inline=True)
@@ -88,26 +90,59 @@ class HelpCommand(Cog):
         #   Stream-Module    
             elif args == 'stream'  or args == 'stream-module':
 
-                self.embed.title=':woman_raising_hand: Stream-Module'
-                self.embed.description='Use ** ?help (Command/Category)**, for more details, sir.\n\n'
-                self.embed.add_field(name=':x:?youtube', value= '- to view the most important changes for current release', inline=True)
-                self.embed.add_field(name=':x:?spotify ', value='- Would you like to hear a joke about parking tickets?\n Thats fine.', inline=True)
-                self.embed.add_field(name=':x:?SoundCloud ', value='- Music never dies.', inline=True)
+                self.embed.title=':woman_raising_hand: Stream Module'
+                self.embed.add_field(name='RSS-Feeds', value='Summury for blogs, news etc.')
+                #self.embed.add_field(name=':x:?youtube', value= '- to view the most important changes for current release', inline=True)
+                #self.embed.add_field(name=':x:?spotify ', value='- Would you like to hear a joke about parking tickets?\n Thats fine.', inline=True)
+                #self.embed.add_field(name=':x:?SoundCloud ', value='- Music never dies.', inline=True)
                 await ctx.send(embed=self.embed)
                 self.embed.clear_fields()
-        
+            
+            elif args == 'rss' or args == 'rss-feeds':
+                self.embed.title = 'RSS-Module'
+                self.embed.add_field(name='CNN-News', value = 'Cnn RSS feeds')
+                await ctx.send(embed=self.embed)
+                self.embed.clear_fields()
+
+            elif args == 'cnn' or args == 'cnn-news':
+                self.embed.title = 'CNN News'
+                self.embed.add_field(name ='World', value ='Cnn World News')
+                self.embed.add_field(name ='CNN-Misc', value ='Cnn Misc News')
+                await ctx.send(embed=self.embed)
+                self.embed.clear_fields()
+
+            elif args == 'cnnworld' or args == 'cnn-world':
+                self.embed.title = 'CNN World News'
+                self.embed.add_field(name ='World', value ='Cnn World News')
+                self.embed.add_field(name ='CNN-Misc', value ='Cnn Misc News')
+                await ctx.send(embed=self.embed)
+                self.embed.clear_fields()
+
+            elif args == 'cworld' or args == 'cnn-news':
+                self.embed.title = 'CNN News'
+                self.embed.add_field(name ='?cworld', value ='Cnn World News')
+                await ctx.send(embed=self.embed)
+                self.embed.clear_fields()
+
+            elif args == 'cnnmisc' or args == 'cnn-news':
+                self.embed.title = 'CNN Misc News'
+                self.embed.add_field(name ='?cnntop', value ='Top 5 Cnn News')
+                await ctx.send(embed=self.embed)
+                self.embed.clear_fields()
+
         #   Support-Module
             elif args == 'support'  or args == 'support-module':
 
-                self.embed.description='Use ** ?help (Command/Category)**, for more details, sir.\n\n'
-                self.embed.add_field(name=':x:?report', value= '- to view the most important changes for current release', inline=True)
-                self.embed.add_field(name=':x:?ticket (issue)', value='- Would you like to hear a joke about parking tickets?\n Thats fine.', inline=True)
+                self.embed.title = 'Support Module'
+                #self.embed.add_field(name=':x:?report', value= '- to view the most important changes for current release', inline=True)
+                #self.embed.add_field(name=':x:?ticket (issue)', value='- Would you like to hear a joke about parking tickets?\n Thats fine.', inline=True)
                 await ctx.send(embed=self.embed)
                 self.embed.clear_fields()
 
         #   Moderator-Module
             elif args == 'moderator'  or args == 'moderator-module':
 
+                self.embed.title = 'Moderator Module'
                 self.embed.add_field(name=':bar_chart: ?poll', value='- Run a poll', inline=True)
                 self.embed.add_field(name='?kick (member) (reason)', value='- Kicks a user off the server ', inline=True)
                 self.embed.add_field(name='?crech (Channel Name)', value='- Create a new channel default : hidden ', inline=True)
@@ -122,6 +157,7 @@ class HelpCommand(Cog):
         #   Administrator-Module
             elif args == 'administrator'  or args == 'administrator-module':
 
+                self.embed.title = 'Administrator Module'
                 self.embed.add_field(name=':bar_chart: ?banlist', value='-View banned members', inline=True)
                 self.embed.add_field(name=':bar_chart: ?poll', value='-Run a poll', inline=True)
                 self.embed.add_field(name='?unban (member Name)', value= '- unban a member ', inline=True)

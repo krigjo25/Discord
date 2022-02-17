@@ -18,7 +18,7 @@ class Moderator(Cog, name='Moderator-module'):
         self.embed = Embed(color=Colour.dark_purple(), description= '')
 
         #Creating a channel
-    @command(name="crech", help='Creating a channel')
+    @command(name="crech")
     @has_permissions(manage_messages=True)
     
     async def CreateChannel(self, ctx, chName):
@@ -26,28 +26,21 @@ class Moderator(Cog, name='Moderator-module'):
         # Declaring variables
             svr = ctx.guild
             member = ctx.author
-            role = get(svr.roles, name='Moderator')
-            role2 = get(svr.roles, name='moderator')
-            role3 = get(svr.roles, name='Mod')
-            role4 = get(svr.roles, name='mod')
+
+            ch = get(svr.channels, name=chName)
 
             overWrites = {
-                            role:PermissionOverwrite(read_messages=True),
-                            role2:PermissionOverwrite(read_messages=True),
-                            role3:PermissionOverwrite(read_messages=True),
-                            role4:PermissionOverwrite(read_messages=True),
-                            member:PermissionOverwrite(read_messages = True),
-                            #svr.default_role:PermissionOverwrite(read_messages=False)
+                            member:PermissionOverwrite(read_messages_history = True),
+                            svr.default_role:PermissionOverwrite(view_channels=False)
                             
                         }
-            ch = get(svr.channels, name=chName)
 
             # set permission to secret
             if not ch:
                 await svr.create_text_channel(f'{chName}', overwrites=overWrites)
-                await ctx.send(f'Sir, the channel, **{chName}** is created.')
+                await ch.send(f'Sir, the channel, **{chName}** is created.')
             else :
-                await ctx.send(f'the channel, **{chName}** already exists.')
+                await ch.send(f'the channel, **{chName}** already exists.')
         
         # Clearing all messages
     @command(name="cls",)
@@ -465,7 +458,7 @@ class Moderator(Cog, name='Moderator-module'):
                 self.embed.title = 'Auto generated channel'
                 self.embed.description = 'This channel is used for every Moderation in this server, it is made to avoid abusage of the Moderation / administration commands'
                 self.embed.add_field(name= f'**{member}** has been warned by **{ctx.author}** for **{reason}**', value='.')
-                await ctx.send(embed=self.embed)
+                await ch.send(embed=self.embed)
             
             message = f'Greetings **{member}**.\n You recieve this message, because you have been warned by **{ctx.author}**,  \n\n Due to :\n **{reason}**\n\nPlease read and follow the suggested guidelines for behavior in our disocrd channel'
             await member.send(message)

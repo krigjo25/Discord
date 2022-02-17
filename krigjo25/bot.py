@@ -22,6 +22,15 @@ from lib.communityModule.community import Community                     #   Comm
 #   Support Module
 #from lib.supportModule.support import Support                          #   The Support module
 
+#   Stream Module
+
+#   RSS-Feed Module
+#   Cnn News
+from lib.streamModule.rssFeed.cnnNews import CnnWorld, CnnMisc
+
+# Music module
+
+
 #   miniGames Repositories
 from lib.gameModule.miniGamesModule.askQ import EightBall                          #   EightBall
 from lib.gameModule.miniGamesModule.jumble import JumbleGame                       #   Jumble Game
@@ -62,7 +71,6 @@ def botSetup ():
     bot.add_cog(Welcome(bot))
     bot.add_cog(Community(bot))
     bot.add_cog(HelpCommand(bot))
-    #bot.add_cog(Support(bot))
 
     #   miniGames
     bot.add_cog(EightBall(bot))
@@ -75,6 +83,12 @@ def botSetup ():
     bot.add_cog(Moderator(bot))
     bot.add_cog(ErrorHandler(bot))
     bot.add_cog(Administrator(bot))
+
+    #   RSS-Feeds
+
+    #   Cnn News
+    bot.add_cog(CnnMisc(bot))
+    bot.add_cog(CnnWorld(bot))
 
     bot.run(botKey)
 
