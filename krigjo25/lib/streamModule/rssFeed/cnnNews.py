@@ -89,6 +89,7 @@ class CnnMisc(Cog):
     @command(name='cnntop')
     async def topNews(self, ctx):
 
+        #   Retrieve the guild information
         x = 0
         srv = ctx.guild
         role = get(srv.roles, name='@Members')
@@ -106,18 +107,20 @@ class CnnMisc(Cog):
 
             await srv.create_text_channel(f'newsfeed', overwrites=perms)
 
-        
-        #   Creating and fetch the feed
+        #   Creating the feed
         rssNews = feedparser.parse('http://rss.cnn.com/rss/edition.rss')
         entry = rssNews.entries[x]
 
-        # Process the embed, and send it
+        #   Create the embed information
         self.embed.title = f'{rssNews.feed.title}'
         self.embed.description = f'{rssNews.feed.description}'
-        self.embed.url = f'{rssNews.feed.link}' # Note : problems with description / symmary 
-        self.embed.add_field(name=f'{entry.title}\n {entry.link}', value=f' {entry.published}')
+        self.embed.url = f'{rssNews.feed.link}' # Note : problems with description / summary 
+        #self.embed.add_field(name=f'{entry.image}\n{entry.title}', value=f'{entry.link} {entry.published}')
+        
+        print(f'{rssNews.feed.title} \n {rssNews.feed.description} \n {rssNews.feed.link} \n\n {entry.title} \n {rssNews.feed.image}\n {entry.link} \n {entry.published} ')
 
-        await ch.send(embed=self.embed)
+        #   Send the information, and reset embed
+        #await ch.send(embed=self.embed)
         self.embed = Embed(color=Color.dark_purple())
         self.embed.clear_fields()
                 
