@@ -88,7 +88,7 @@ def botSetup ():
 
     #   Cnn News
     bot.add_cog(CnnMisc(bot))
-    bot.add_cog(CnnWorld(bot))
+    #bot.add_cog(CnnWorld(bot))
 
     bot.run(botKey)
 
