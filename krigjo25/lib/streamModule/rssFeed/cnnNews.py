@@ -109,18 +109,18 @@ class CnnMisc(Cog):
 
         #   Creating the feed
         rssNews = feedparser.parse('http://rss.cnn.com/rss/edition.rss')
-        entry = rssNews.entries[x]
+        entry =  rssNews.entries[x]
 
         #   Create the embed information
         self.embed.title = f'{rssNews.feed.title}'
         self.embed.description = f'{rssNews.feed.description}'
         self.embed.url = f'{rssNews.feed.link}' # Note : problems with description / summary 
-        #self.embed.add_field(name=f'{entry.image}\n{entry.title}', value=f'{entry.link} {entry.published}')
+        self.embed.add_field(name=f'{entry.title}', value=f'{rssNews.entries[0].summary}\n {entry.link} \n ')
         
-        print(f'{rssNews.feed.title} \n {rssNews.feed.description} \n {rssNews.feed.link} \n\n {entry.title} \n {rssNews.feed.image}\n {entry.link} \n {entry.published} ')
+        print(f' {entry} ')
 
         #   Send the information, and reset embed
-        #await ch.send(embed=self.embed)
+        await ch.send(embed=self.embed)
         self.embed = Embed(color=Color.dark_purple())
         self.embed.clear_fields()
                 

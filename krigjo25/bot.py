@@ -67,28 +67,41 @@ def botSetup ():
     #   retrieving the module
     bot = DiscordBot(intents=intents)
 
-    #   Adding cogs into the bot
+    #   System Module
     bot.add_cog(Welcome(bot))
-    bot.add_cog(Community(bot))
     bot.add_cog(HelpCommand(bot))
+    bot.add_cog(ErrorHandler(bot))
 
+    #   Community - module
+    bot.add_cog(Community(bot))
+
+    #   Game-Module
     #   miniGames
     bot.add_cog(EightBall(bot))
     bot.add_cog(JumbleGame(bot))
     bot.add_cog(GuessTheNumber(bot))
     bot.add_cog(RockScissorPaper(bot))
     
-    #   Moderation
+    #   Moderation - Module
     #bot.add_cog(Anti-Spam(bot))
     bot.add_cog(Moderator(bot))
-    bot.add_cog(ErrorHandler(bot))
     bot.add_cog(Administrator(bot))
+
+    #   Stream - Module
+    #   Youtube
+
+
+    #   Spotify
+
+
+    #   SoundCloud
+
 
     #   RSS-Feeds
 
     #   Cnn News
-    bot.add_cog(CnnMisc(bot))
-    #bot.add_cog(CnnWorld(bot))
+#   bot.add_cog(CnnMisc(bot))
+#   bot.add_cog(CnnWorld(bot))
 
     bot.run(botKey)
 
