@@ -9,7 +9,7 @@ from discord import PermissionOverwrite
 from discord.ext.commands import Cog, command
 
 #   RSS responsory
-
+from bs4 import BeautifulSoup
 import feedparser
 
 class CnnWorld(Cog):
@@ -109,13 +109,25 @@ class CnnMisc(Cog):
 
         #   Creating the feed
         rssNews = feedparser.parse('http://rss.cnn.com/rss/edition.rss')
-        entry =  rssNews.entries[x]
+        entries =  rssNews.entries[x]
 
+        # looping through the RSS feed
+        for article in entries:
+            print(article)
+            #   Calling the soupd module
+            soup = BeautifulSoup(article.summary)
+            thumbNail = soup.find('img')['src']
+            print(thumbNail)
+        '''    
+            #   If image equal true:
+            if thumbNail:
+                pass
         #   Create the embed information
+
         self.embed.title = f'{rssNews.feed.title}'
         self.embed.description = f'{rssNews.feed.description}'
         self.embed.url = f'{rssNews.feed.link}' # Note : problems with description / summary 
-        self.embed.add_field(name=f'{entry.title}', value=f'{rssNews.entries[0].summary}\n {entry.link} \n ')
+        self.embed.add_field(name=f'{ent.title}', value=f'{entry.published}\n {entry.link} \n ')
         
         print(f' {entry} ')
 
@@ -123,7 +135,7 @@ class CnnMisc(Cog):
         await ch.send(embed=self.embed)
         self.embed = Embed(color=Color.dark_purple())
         self.embed.clear_fields()
-                
+        '''       
         return
 
 
