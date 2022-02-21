@@ -51,9 +51,9 @@ class Community(Cog, name='Community Module'):
             Changelog for current version {getenv('BotVersion')}
 
             :new: Whats new:
-                
+
+                *   | RSS-Feeds : CNN-News    
                 *   | The new command prefix is **?**
-                *   | 
                 *   | 
 
             :tools: Fixes / changes made

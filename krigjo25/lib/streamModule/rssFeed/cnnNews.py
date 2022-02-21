@@ -17,12 +17,12 @@ class CnnWorld(Cog):
         self.embed = Embed(color=Color.dark_blue())
 
     #   CNN World
-    @command(name='cnnWorld')
+    @command(name='cWorld')
     async def worldNews(self, ctx):
             #   Retrieve the guild information
         srv = ctx.guild
         role = get(srv.roles, name='@Members')
-        chName = 'news'
+        chName = 'rssfeed'
         ch = get(srv.channels, name=f'{chName}')
 
         #   Create the channel
@@ -96,13 +96,14 @@ class CnnMisc(Cog):
         self.embed = Embed(color=Color.dark_blue())
     
         #   Top News 10
-    @command(name='cnntop')
+    @command(name='ctop')
     async def topNews(self, ctx):
 
             #   Retrieve the guild information
         srv = ctx.guild
         role = get(srv.roles, name='@Members')
-        ch = get(srv.channels, name='newsfeed')
+        chName = 'rssfeed'
+        ch = get(srv.channels, name=f'{chName}')
 
         #   Create the channel
         if not ch:
@@ -114,7 +115,7 @@ class CnnMisc(Cog):
                     role:PermissionOverwrite(view_channel=True, read_message_history = True),
                 }
 
-            await srv.create_text_channel(f'newsfeed', overwrites=perms)
+            await srv.create_text_channel(f'{chName}', overwrites=perms)
 
         #   Creating the feed
         rssNews = feedparser.parse('http://rss.cnn.com/rss/edition.rss')
