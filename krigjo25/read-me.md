@@ -63,7 +63,7 @@ the prefix command used in the project  **?'**, e.g **'?help'**
 
 ***Bot Member Utility:***
 
-**Community-module**
+**Community-Module**
 
 > botinfo (optional: log )
 >> Information about the bot
@@ -84,13 +84,22 @@ the prefix command used in the project  **?'**, e.g **'?help'**
 >
 > back
 >> Deletes the status update
+**Stream-Module**
 
-**miniGames-module**
+**RSS-Feeds**
+CNN-News<br>
+    Top News : Gives you the top 5 news in CNN-Module<br>
+    World News : Gives you the top 5 news in World-News<br>
 
-> 8ball <br>
-> jumble <br>
-> guess The Number<br>
-> reaction game (Rock, Scissor & paper)<br>
+~~BBC-News~~
+
+
+**Games-Module**
+>   MiniGames<br>
+>> 8ball <br>
+>> jumble <br>
+>> guess The Number<br>
+>> reaction game (Rock, Scissor & paper)<br>
 
 new games added in the feauture
 

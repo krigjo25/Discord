@@ -24,10 +24,13 @@ class HelpCommand(Cog):
             self.embed.add_field(name=':people_holding_hands: Community-Module', value='Ever heard of the guy whom joined a community? \n He were never seen again.', inline=True)
             self.embed.add_field(name=':people_wrestling: Game-Module', value='-Gamers does not take showers they do steamy once', inline=True)
             self.embed.add_field(name=':tv: Stream-Module',value='An Irishman arrived at J.F.K. Airport and wandered around the terminal with tears streaming down his cheeks...', inline=True)
-            #self.embed.add_field(name=':gear: Suport-Module', value='Erectile disfunction support group has been cancelled', inline=True)
+            self.embed.add_field(name=':gear: Suport-Module', value='Erectile disfunction support group', inline=True)
+
+            #   Moderator Commands
             if ctx.author.guild_permissions.kick_members:
                 self.embed.add_field(name='Moderator-Module', value = 'A joke here', inline=True)
 
+            #   Administrator Commands
             if ctx.author.guild_permissions.administrator:
                 self.embed.add_field(name='Administrator-Module', value='A joke here', inline=True)
                 
@@ -98,23 +101,26 @@ class HelpCommand(Cog):
                 await ctx.send(embed=self.embed)
                 self.embed.clear_fields()
             
+        #   RRS - Feeds
             elif args == 'rss' or args == 'rss-feeds':
                 self.embed.title = 'RSS-Module'
                 self.embed.add_field(name='CNN-News', value = 'Cnn RSS feeds')
+                #self.embed.add_field(name='BBC-News', value = 'BBC RSS feeds')
+                #self.embed.add_field(name='Miscerillious commands', value = '*rss (rss url)')
                 await ctx.send(embed=self.embed)
                 self.embed.clear_fields()
 
             elif args == 'cnn' or args == 'cnn-news':
                 self.embed.title = 'CNN News'
-                self.embed.add_field(name ='World', value ='Cnn World News')
+                self.embed.add_field(name ='CNN-World', value ='Cnn World News')
                 self.embed.add_field(name ='CNN-Misc', value ='Cnn Misc News')
                 await ctx.send(embed=self.embed)
                 self.embed.clear_fields()
 
-            elif args == 'cnnworld' or args == 'cnn-world':
+            elif args == 'world' or args == 'cnn-world':
                 self.embed.title = 'CNN World News'
-                self.embed.add_field(name ='World', value ='Cnn World News')
-                self.embed.add_field(name ='CNN-Misc', value ='Cnn Misc News')
+                self.embed.add_field(name ='?cWorld', value ='Cnn World News')
+                self.embed.add_field(name ='?c(continentName)', value ='To get the news from your coutinent eg. ?camerica')
                 await ctx.send(embed=self.embed)
                 self.embed.clear_fields()
 
@@ -126,7 +132,7 @@ class HelpCommand(Cog):
 
             elif args == 'cnnmisc' or args == 'cnn-news':
                 self.embed.title = 'CNN Misc News'
-                self.embed.add_field(name ='?cnntop', value ='Top 5 Cnn News')
+                self.embed.add_field(name ='?ctop', value ='Top 5 Cnn News')
                 await ctx.send(embed=self.embed)
                 self.embed.clear_fields()
 
@@ -134,6 +140,7 @@ class HelpCommand(Cog):
             elif args == 'support'  or args == 'support-module':
 
                 self.embed.title = 'Support Module'
+                self.embed.add_field(name='Warning', value= '- This module is under maintance', inline=True)
                 #self.embed.add_field(name=':x:?report', value= '- to view the most important changes for current release', inline=True)
                 #self.embed.add_field(name=':x:?ticket (issue)', value='- Would you like to hear a joke about parking tickets?\n Thats fine.', inline=True)
                 await ctx.send(embed=self.embed)
