@@ -100,9 +100,16 @@ def botSetup ():
     #   RSS-Feeds
 
     #   Cnn News
-#   bot.add_cog(CnnMisc(bot))
-#   bot.add_cog(CnnWorld(bot))
+    bot.add_cog(CnnMisc(bot))
+    bot.add_cog(CnnWorld(bot))
+    #bot.add_cog(CnnSport(bot))
+    #bot.add_cog(CnnEntertainment(bot))
 
+    #   BBC News
+
+    #   Pandamic News
+
+    #   Games News
     bot.run(botKey)
 
 if __name__ == '__main__':
