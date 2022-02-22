@@ -22,7 +22,7 @@ class CnnWorld(Cog):
             #   Retrieve the guild information
         srv = ctx.guild
         role = get(srv.roles, name='@Members')
-        chName = 'rssfeed'
+        chName = 'news'
         ch = get(srv.channels, name=f'{chName}')
 
         #   Create the channel
@@ -52,11 +52,11 @@ class CnnWorld(Cog):
             summary = article.get('summary', 'There is no summary for this article')
             updated = rssNews.feed.get('updated', ' No Date to be shown')
             author = article.get('author', 'Unkown') # Get the authors name
-            image = article.get('image', 'Unkown') # Get the image
+            image = article.get('media_thumbnail', 'No images to be shown') # Get the image
             print(author)
             
             if summary != 'There is no summary for this article':
-                self.embed.add_field(name=f'{artnr}. {article.title}', value=f'\n{summary}\n{updated}\n{article.link}\n')
+                self.embed.add_field(name=f'{artnr}. {article.title} {image}', value=f'\n{summary}\n{updated}\n{article.link}\n')
             
             #   Drop the loop when the counter is reached
             if artnr == 5:

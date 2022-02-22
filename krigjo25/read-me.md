@@ -87,6 +87,7 @@ the prefix command used in the project  **?'**, e.g **'?help'**
 **Stream-Module**
 
 **RSS-Feeds**
+
 CNN-News<br>
     Top News : Gives you the top 5 news in CNN-Module<br>
     World News : Gives you the top 5 news in World-News<br>
@@ -195,6 +196,7 @@ The bot serving you, as a humble bot
 - ~~Anti-Spam, [Skelmis](https://github.com/Skelmis/DPY-Anti-Spam/commits?author=Skelmis),~~<br>
 - MariaDB, [MariaDB Community](https://github.com/mariadb-corporation/mariadb-connector-python), <br>
 - python_dotenv, [Saurabh Kumar](https://github.com/motdotla/dotenv),<br>
+- feedparser, [kurtmckee](https://github.com/kurtmckee/feedparser)<br>
 
  
 
