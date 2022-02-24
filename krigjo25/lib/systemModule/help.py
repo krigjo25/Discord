@@ -98,6 +98,7 @@ class HelpCommand(Cog):
                 #self.embed.add_field(name=':x:?youtube', value= '- to view the most important changes for current release', inline=True)
                 #self.embed.add_field(name=':x:?spotify ', value='- Would you like to hear a joke about parking tickets?\n Thats fine.', inline=True)
                 #self.embed.add_field(name=':x:?SoundCloud ', value='- Music never dies.', inline=True)
+                #self.embed.add_field(name=':x:?podCast', value = 'podcasts')
                 await ctx.send(embed=self.embed)
                 self.embed.clear_fields()
             
@@ -124,15 +125,16 @@ class HelpCommand(Cog):
                 await ctx.send(embed=self.embed)
                 self.embed.clear_fields()
 
-            elif args == 'cworld' or args == 'cnn-news':
-                self.embed.title = 'CNN News'
-                self.embed.add_field(name ='?cworld', value ='Cnn World News')
-                await ctx.send(embed=self.embed)
-                self.embed.clear_fields()
-
-            elif args == 'cnnmisc' or args == 'cnn-news':
+            elif args == 'cnnmisc' or args == 'cnn-misc':
                 self.embed.title = 'CNN Misc News'
-                self.embed.add_field(name ='?ctop', value ='Top 5 Cnn News')
+                self.embed.add_field(name ='?ctop', value ='Top 10 Cnn News')
+                #self.embed.add_field(name ='?cetn', value ='Top 10 Cnn Entertainment News')
+                #self.embed.add_field(name ='?css', value ='Top 10 Cnn Space & Science News')
+                #self.embed.add_field(name ='?ccash', value ='Top 10 Cnn Money News')
+                #self.embed.add_field(name ='?cvideo', value ='Top 10 Cnn Videos')
+                #self.embed.add_field(name ='?cmr', value ='Top 10 Cnn Motor Sport News')
+                #self.embed.add_field(name ='?ctravel', value ='Top 10 Cnn Travel News')¨
+                #self.embed.add_field(name ='?ctech', value ='Top 10 Cnn Technologies News')
                 await ctx.send(embed=self.embed)
                 self.embed.clear_fields()
 

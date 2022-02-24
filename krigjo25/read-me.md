@@ -84,6 +84,7 @@ the prefix command used in the project  **?'**, e.g **'?help'**
 >
 > back
 >> Deletes the status update
+
 **Stream-Module**
 
 **RSS-Feeds**
@@ -91,6 +92,7 @@ the prefix command used in the project  **?'**, e.g **'?help'**
 CNN-News<br>
     Top News : Gives you the top 5 news in CNN-Module<br>
     World News : Gives you the top 5 news in World-News<br>
+    and many more
 
 ~~BBC-News~~
 
@@ -192,11 +194,12 @@ The bot serving you, as a humble bot
 
 ## Responsories
 
-- discord.py, [Rapptz](https://github.com/Rapptz/discord.py),  <br>
-- ~~Anti-Spam, [Skelmis](https://github.com/Skelmis/DPY-Anti-Spam/commits?author=Skelmis),~~<br>
-- MariaDB, [MariaDB Community](https://github.com/mariadb-corporation/mariadb-connector-python), <br>
-- python_dotenv, [Saurabh Kumar](https://github.com/motdotla/dotenv),<br>
-- feedparser, [kurtmckee](https://github.com/kurtmckee/feedparser)<br>
+- discord.py [Rapptz](https://github.com/Rapptz/discord.py),  <br>
+- ~~Anti-Spam [Skelmis](https://github.com/Skelmis/DPY-Anti-Spam/commits?author=Skelmis),~~<br>
+- feedparser [kurtmckee](https://github.com/kurtmckee/feedparser),<br>
+- MariaDB [MariaDB Community](https://github.com/mariadb-corporation/mariadb-connector-python), <br>
+- python_dotenv [Saurabh Kumar](https://github.com/motdotla/dotenv),<br>
+
 
  
 
