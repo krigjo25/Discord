@@ -392,7 +392,7 @@ class CnnMisc(Cog):
 
         #   Retrieve the guild information
         srv = ctx.guild
-        chName = 'news'
+        chName = 'rssfeed'
         role = get(srv.roles, name='@Members')
         ch = get(srv.channels, name=f'{chName}')
 
