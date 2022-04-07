@@ -20,19 +20,8 @@ class HelpCommand(Cog):
 
             self.embed.title = 'Frequently Asked Questions:question:'
             self.embed.title = ' Usage ** ?help (Category)** for more details\n\n'
-            self.embed.add_field(name=':handshake: Welcome-Module', value='This is our new home', inline=True)
             self.embed.add_field(name=':people_holding_hands: Community-Module', value='Ever heard of the guy whom joined a community? \n He were never seen again.', inline=True)
             self.embed.add_field(name=':people_wrestling: Game-Module', value='-Gamers does not take showers they do steamy once', inline=True)
-            self.embed.add_field(name=':tv: Stream-Module',value='An Irishman arrived at J.F.K. Airport and wandered around the terminal with tears streaming down his cheeks...', inline=True)
-            self.embed.add_field(name=':gear: Suport-Module', value='Erectile disfunction support group', inline=True)
-
-            #   Moderator Commands
-            if ctx.author.guild_permissions.kick_members:
-                self.embed.add_field(name='Moderator-Module', value = 'A joke here', inline=True)
-
-            #   Administrator Commands
-            if ctx.author.guild_permissions.administrator:
-                self.embed.add_field(name='Administrator-Module', value='A joke here', inline=True)
                 
             await ctx.send(embed=self.embed)
             self.embed.clear_fields()
@@ -42,19 +31,9 @@ class HelpCommand(Cog):
             args.lower()
 
         #   Bot-Modules
-
-        #   Welcome Module
-            if args == 'welcome' or args == 'welcome-module':
-
-                self.embed.title=':handshake: Welcome-Module'
-                self.embed.description='Use ** ?help (Command)**, for more details, sir.\n\n'
-                self.embed.add_field(name='On member join / leave ', value='- Over 100 Welcome messages and leave messages. In order for \n it to work, set a channel as\n"system message channel ', inline=True)
-                self.embed.add_field(name='Force-readRules', value=' Customize a rule set and the person has to agree in order to get a role / be able to view other channels', inline=True)
-                await ctx.send(embed=self.embed)
-                self.embed.clear_fields()
         
         #   Community-Module
-            elif args == 'community' or args == 'community-module':
+            if args == 'community' or args == 'community-module':
 
                 self.embed.title=':people_holding_hands: Community-Module'
                 self.embed.description='Use ** ?help (Command)**, for more details, sir.\n\n'
@@ -65,9 +44,9 @@ class HelpCommand(Cog):
                 self.embed.add_field(name='?meme', value='- What do you call a gamer whom works at an abortion clinic? :rofl:\n Spawn Camper ', inline=True)
                 self.embed.add_field(name='/', value='- for built-ins ', inline=True)
                 self.embed.add_field(name=':x:?pre-mod', value='How does the pre-mod work')
-                
+
                 await ctx.send(embed=self.embed)
-                
+
                 self.embed.clear_fields()
 
         #   Games-Module
@@ -75,11 +54,13 @@ class HelpCommand(Cog):
 
                 self.embed.title=':people_wrestling: Games-Module'
                 self.embed.description='Use ** ?help (Command/Category)**, for more details, sir.\n\n'
+                #   self.embed.add_field(name='pyGames', value='- ServerInfo, stats etc', inline=True)
+                #   self.embed.add_field(name='GameServer-Module', value='- ServerInfo, stats etc', inline=True)
                 self.embed.add_field(name='miniGames-Module', value='- :rock:, :scissors:, :page_facing_up:', inline=True)
-                #self.embed.add_field(name='discordGames', value='- ServerInfo, stats etc', inline=True)
+
                 await ctx.send(embed=self.embed)    
                 self.embed.clear_fields()
-            
+
             elif args == 'minigames' or args == 'minigames-module':
 
                 self.embed.title = 'Minigames Module'
@@ -89,94 +70,6 @@ class HelpCommand(Cog):
                 self.embed.add_field(name=':seven:, :eight:, :nine: ?int (easiest / easy / normal / hard / kimpossible)', value='- How could the two four skip a meal?\n they already eight ', inline=True)
                 await ctx.send(embed=self.embed)    
                 self.embed.clear_fields()
-
-        #   Stream-Module    
-            elif args == 'stream'  or args == 'stream-module':
-
-                self.embed.title=':woman_raising_hand: Stream Module'
-                self.embed.add_field(name='RSS-Feeds', value='Summury for blogs, news etc.')
-                #self.embed.add_field(name=':x:?youtube', value= '- to view the most important changes for current release', inline=True)
-                #self.embed.add_field(name=':x:?spotify ', value='- Would you like to hear a joke about parking tickets?\n Thats fine.', inline=True)
-                #self.embed.add_field(name=':x:?SoundCloud ', value='- Music never dies.', inline=True)
-                #self.embed.add_field(name=':x:?podCast', value = 'podcasts')
-                await ctx.send(embed=self.embed)
-                self.embed.clear_fields()
-            
-        #   RRS - Feeds
-            elif args == 'rss' or args == 'rss-feeds':
-                self.embed.title = 'RSS-Module'
-                self.embed.add_field(name='CNN-News', value = 'Cnn RSS feeds')
-                #self.embed.add_field(name='BBC-News', value = 'BBC RSS feeds')
-                #self.embed.add_field(name='Miscerillious commands', value = '*rss (rss url)')
-                await ctx.send(embed=self.embed)
-                self.embed.clear_fields()
-
-            elif args == 'cnn' or args == 'cnn-news':
-                self.embed.title = 'CNN News'
-                self.embed.add_field(name ='CNN-World', value ='Cnn World News')
-                self.embed.add_field(name ='CNN-Misc', value ='Cnn Misc News')
-                await ctx.send(embed=self.embed)
-                self.embed.clear_fields()
-
-            elif args == 'world' or args == 'cnn-world':
-                self.embed.title = 'CNN World News'
-                self.embed.add_field(name ='?cWorld', value ='Cnn World News')
-                self.embed.add_field(name ='?c(continentName)', value ='To get the news from your coutinent eg. ?camerica')
-                await ctx.send(embed=self.embed)
-                self.embed.clear_fields()
-
-            elif args == 'cnnmisc' or args == 'cnn-misc':
-                self.embed.title = 'CNN Misc News'
-                self.embed.add_field(name ='?ctop', value ='Top 10 Cnn News')
-                #self.embed.add_field(name ='?cetn', value ='Top 10 Cnn Entertainment News')
-                #self.embed.add_field(name ='?css', value ='Top 10 Cnn Space & Science News')
-                #self.embed.add_field(name ='?ccash', value ='Top 10 Cnn Money News')
-                #self.embed.add_field(name ='?cvideo', value ='Top 10 Cnn Videos')
-                #self.embed.add_field(name ='?cmr', value ='Top 10 Cnn Motor Sport News')
-                #self.embed.add_field(name ='?ctravel', value ='Top 10 Cnn Travel News')¨
-                #self.embed.add_field(name ='?ctech', value ='Top 10 Cnn Technologies News')
-                await ctx.send(embed=self.embed)
-                self.embed.clear_fields()
-
-        #   Support-Module
-            elif args == 'support'  or args == 'support-module':
-
-                self.embed.title = 'Support Module'
-                self.embed.add_field(name='Warning', value= '- This module is under maintance', inline=True)
-                #self.embed.add_field(name=':x:?report', value= '- to view the most important changes for current release', inline=True)
-                #self.embed.add_field(name=':x:?ticket (issue)', value='- Would you like to hear a joke about parking tickets?\n Thats fine.', inline=True)
-                await ctx.send(embed=self.embed)
-                self.embed.clear_fields()
-
-        #   Moderator-Module
-            elif args == 'moderator'  or args == 'moderator-module':
-
-                self.embed.title = 'Moderator Module'
-                self.embed.add_field(name=':bar_chart: ?poll', value='- Run a poll', inline=True)
-                self.embed.add_field(name='?kick (member) (reason)', value='- Kicks a user off the server ', inline=True)
-                self.embed.add_field(name='?crech (Channel Name)', value='- Create a new channel default : hidden ', inline=True)
-                self.embed.add_field(name='?cls (channel name) (1-100)', value= '- Clears the given channel Chat:bangbang:', inline=True)
-                self.embed.add_field(name='?online (on/off)', value= '- Checks whom is online / offline', inline=True)
-                self.embed.add_field(name='?warn (MemberName) (Reason)', value= '- Manually Warn a member for their behavior', inline=True)
-                self.embed.add_field(name='?sush (MemberName) (sec) (reason)', value= '- Shush a member for a number of sec', inline=True)
-
-                await ctx.send(embed=self.embed)
-                self.embed.clear_fields()
-
-        #   Administrator-Module
-            elif args == 'administrator'  or args == 'administrator-module':
-
-                self.embed.title = 'Administrator Module'
-                self.embed.add_field(name=':bar_chart: ?banlist', value='-View banned members', inline=True)
-                self.embed.add_field(name=':bar_chart: ?poll', value='-Run a poll', inline=True)
-                self.embed.add_field(name='?unban (member Name)', value= '- unban a member ', inline=True)
-                self.embed.add_field(name=':no_pedestrians: ?ban (member) (reason)', value='- Probhits a Discord user to enter your channel', inline=True)
-                self.embed.add_field(name='?announce (channelName) (message)', value= '- Talk as the bot in a given channel', inline=True)
-                self.embed.add_field(name='?demote (name)', value='- Demote a person from the role', inline=True)
-                self.embed.add_field(name=':x:?promote (name)', value='- Promotes a regular user to given role', inline=True)
-                self.embed.add_field(name=':x:?roleCreate (name))', value='- Creates a role in the server', inline=True)
-                self.embed.add_field(name='?delRole (Name)', value='- Deletes a role from the server', inline=True)
-            
 
                 await ctx.send(embed=self.embed)
                 self.embed.clear_fields()

@@ -12,18 +12,18 @@ from discord import Intents
 #   System module
 
 
-from pylib.systemModule.help import HelpCommand                             #   Help module
-from pylib.systemModule.discordBot import DiscordBot                           #   The Client
-from pylib.systemModule.commandError import ErrorHandler                    #   Error Handling Module
+from pylib.systemModule.help import HelpCommand                                             #   Help module
+from pylib.systemModule.discordBot import DiscordBot                                        #   The Client
+from pylib.systemModule.commandError import ErrorHandler                                    #   Error Handling Module
 
 #   Community Module
-from pylib.communityModule.community import Community                       #   Community module
+from pylib.communityModule.community import Community                                       #   Community module
 
 #   miniGames Repositories
-from pylib.gameModule.miniGamesModule.askQ import EightBall                 #   EightBall
-from pylib.gameModule.miniGamesModule.jumble import JumbleGame              #   Jumble Game
-from pylib.gameModule.miniGamesModule.int import GuessTheNumber             #   Guess the number
-from pylib.gameModule.miniGamesModule.reactGame import RockScissorPaper     #   Rock, Scissors & Paper
+from pylib.gameModule.miniGamesModule.EightBall.askQ import EightBall                       #   EightBall
+from pylib.gameModule.miniGamesModule.jumbleGame.jumble import JumbleGame                   #   Jumble Game
+from pylib.gameModule.miniGamesModule.GuessTheNumber.int import GuessTheNumber              #   Guess the number
+from pylib.gameModule.miniGamesModule.reactionsGames.reactGame import RockScissorPaper       #   Rock, Scissors & Paper
 
 
 # Importing .evn file
@@ -53,6 +53,7 @@ def botSetup ():
 
     #   Community - module
     bot.add_cog(Community(bot))
+
     #   miniGames
     bot.add_cog(EightBall(bot))
     bot.add_cog(JumbleGame(bot))

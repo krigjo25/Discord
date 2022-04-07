@@ -41,14 +41,15 @@ class ErrorHandler(Cog):
         # Calls when there is an error
     async def on_command_error(self, ctx, error):
         '''
-        The event triggered when an error is raised while invoking a command.
-        Parameters
-        ------------
-        ctx: commands.Context
-            The context used for command invocation.
+            The event triggered when an error is raised while invoking a command.
+            Parameters
 
-        error: commands.CommandError
-            The Exception raised.
+            ctx:    commands.Context
+                The context used for command invocation.
+
+            error:  commands.CommandError
+                The Exception raised.
+
         '''
 
 
@@ -128,7 +129,7 @@ class ErrorHandler(Cog):
                 self.embed.description = requiredArgs
                 await ctx.send(embed = self.embed)
 
-            #   Minigames- Module
+            #   Minigames Module
             elif cmd == 'Int' or cmd == 'int':
                 self.embed.title = '*int (easiest / easy / normal / hard / kimpossible)'
                 self.embed.description = requiredArgs
@@ -141,53 +142,6 @@ class ErrorHandler(Cog):
             
             elif cmd == 'Afk' or cmd == 'afk':
                 self.embed.title = '*afk (Status update)'
-                self.embed.description = requiredArgs
-                await ctx.send(embed = self.embed)
-
-
-            #   Moderator-module
-            elif cmd == 'Kick' or cmd == 'kick':
-
-                self.embed.title = '*kick [member] [reason]'
-                self.embed.url = 'https://www.dictionary.com/browse/kick#'
-                self.embed.description = requiredArgs
-                await ctx.send(embed = self.embed)
-
-            elif cmd == 'Cls' or cmd == 'cls':
-                self.embed.title = '*cls (channelid) (int)'
-                self.embed.description = requiredArgs
-                await ctx.send(embed=self.embed)
-            
-            elif cmd == 'Crech' or cmd == 'crech':
-                self.embed.title = '*crech [ChannelName]'
-                self.embed.description = requiredArgs
-                await ctx.send(embed=self.embed)
-
-            elif cmd ==  'Warn' or cmd == 'warn':
-                self.embed.title = '*warn (name) (reason)'
-                self.embed.description == requiredArgs
-                await ctx.send(embed = self.embed)
-
-            elif cmd ==  'Snooze' or cmd == 'snooze':
-                self.embed.title = '*snooze (name) (sec) (reason)'
-                self.embed.url = 'https://www.urbandictionary.com/define.php?term=snooze'
-                self.embed.description == requiredArgs
-                await ctx.send(embed = self.embed)
-            
-            #   Administrator module     
-            elif cmd == 'Ban' or cmd == 'ban':
-                self.embed.title = '*ban [member] [reason]'
-                self.embed.url = 'https://www.dictionary.com/browse/ban'
-                self.embed.description = requiredArgs
-                await ctx.send(embed=self.embed)
-
-            elif cmd == 'Announce' or cmd == 'announce':
-                self.embed.title = '*announce (channelName)'
-                self.embed.description = requiredArgs
-                await ctx.send(embed = self.embed)
-
-            elif cmd == 'Unban' or cmd == 'unban':
-                self.embed.title = '*unban (Member Name)'
                 self.embed.description = requiredArgs
                 await ctx.send(embed = self.embed)
             
