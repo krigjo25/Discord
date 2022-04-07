@@ -11,9 +11,9 @@ from dotenv import load_dotenv
 load_dotenv()
 
 #   Selecting, Inserting or updates a table
-class mariaDB():
+class MariaDB():
 
-    '''         mariaDB
+    '''         MariaDB
 
         Connects to the preferably used database from
         mariaDB. with Commands, such as SELECT, INSERT,

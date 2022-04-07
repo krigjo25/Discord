@@ -11,7 +11,7 @@ from dotenv import load_dotenv
 load_dotenv()
 
 #   Selecting, Inserting or updates a table
-class mariaDB():
+class MariaDB():
 
     '''         mariaDB
 

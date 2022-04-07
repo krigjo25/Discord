@@ -1,4 +1,5 @@
 #   Discord Responsory
+from os import getenv
 from discord import  Member, Colour
 from discord.utils import get
 from discord.ext.commands import Cog
@@ -9,7 +10,9 @@ from discord.permissions import Permissions
 from random import shuffle,randrange
 
 # Library Responsory
+from pylib.systemModule.databasePython import MariaDB
 from pylib.dictionaries.systemmessages import Dictionaries
+
 
 class Welcome(Cog, name='Welcome module'):
     def __init__(self, bot, *kwargs):
@@ -19,8 +22,10 @@ class Welcome(Cog, name='Welcome module'):
     @Cog.listener()
     async def on_member_join(self, member:Member):
 
+
         #   Creating a new role for new members
         srv = member.guild
+        ch = srv.system_channel
         memberRole = get(srv.roles, name='@Members')
 
         if not memberRole:
@@ -35,31 +40,9 @@ class Welcome(Cog, name='Welcome module'):
             await member.add_roles(memberRole)
         
         #   Sending a random Greetings message
-        ch = srv.system_channel
-        emoji = Dictionaries.EmojiDictionary()
+        args = self.welcomeMember()
 
-        args = {    0:f' :boom: {member.mention} appeared. {emoji}',
-                    1:f'Can you catch em all? {member.mention}. {emoji}',
-                    2:f'finally a genious came {member.mention}. {emoji}',
-                    3:f'we are pleased to meat you, {member.mention}. {emoji}',
-                    4:f'noOne:\n  {member.mention}: just arrived. {emoji}',
-                    5:f'a genious came {member.mention}. {emoji}',
-                    6:f'{member.mention} Just threw a cupcake. {emoji}.',
-                    7:f'oh dang, I just dropped a {member.mention}. {emoji}.',
-                    8:f'Captn. {member.mention} Just appeared from nowhere {emoji}.',
-                    9:f'Laugh more, worry less {member.mention}. {emoji}.',
-                    10:f'I inveted a new {member.mention}. {emoji}.',
-                    11:f'The server recieved a gift, after unwrapping it,  {member.mention}? {emoji}.',
-                    12:f'A new Crazy {member.mention} arrived !',
-                    13:f'I hope you brought a nut {member.mention}'
-                    
-        }
-
-        # Ranomizing the message
-        shuffle(args)
-        x = randrange(0,13)
-
-        await ch.send(f'{args[x]}')
+        await ch.send(f'{args}')
 
 #   When a member leaves the channel
     @Cog.listener()
@@ -107,30 +90,48 @@ class Welcome(Cog, name='Welcome module'):
 
         shuffle(emojiDict)
         shuffle(animal)
+
         x = randrange(0,14)
         emoji = emojiDict.get(x)
         animal = animal.get(x)
 
-        args = {    0:f' :dash: {member.mention} vanished.',
-                    1:f'Swoosh, {member.mention} went  off the server {emoji}',
-                    2:f'{member.mention} ghosted us. {emoji}',
-                    3:f'I hope you find happyness anywhere else, {member.mention}. {emoji}',
-                    4:f'noOne:\n  {member.mention}: just flew away. {emoji}',
-                    5:f'Suddenly {member.mention} disapeared in the woods {emoji}',
-                    6:f'{member.mention} Just got eaten by a {animal}.{emoji}.',
-                    7:f'{member.mention} just became a lost boy {emoji}.',
-                    8:f'{member.mention} went to work. {emoji}.',
-                    9:f'{member.mention} blow up {emoji}.',
-                    10:f'Farewell {member.mention}. {emoji}.',
-                    11:f'{member.mention} Transformed into a {animal}. {emoji}.',
-                    12:f'{member.mention} used one of his nuts, and disapeared into the jungle {emoji}',
-                    13:f'{member.mention}, used a time machine back to 1800s',
-                    14:f'{member} just dropped out',
 
-                }
+
         
-        #   Ranomizing the args
-        shuffle(args)
-        x = randrange(0,12)
+        args = self.removeMember()
+        #await ch.send(f'{args[x][2]}')
 
-        await ch.send(f'{args.get(x)}')
+        return
+ 
+    def welcomeMember(self):
+
+        #   Configure database Connection
+        db = MariaDB()
+        database = getenv('databse1')
+        query = 'SELECT welcomeMessages from table;'
+        args = db.selectFromTable(database, query)
+
+        #   Retrieve a number of rows in the guild
+        x = db.RowCount(database, query)
+        x = randrange(0,x)
+
+        db.closeConnection()
+
+        return args[x][1]
+
+    
+    def removeMember(self):
+
+        #   Configure database Connection
+        db = MariaDB()
+        database = getenv('databse1')
+        query = 'SELECT absenceMessages from table;'
+        args = db.selectFromTable(database, query)
+
+        #   Retrieve a number of rows in the guild
+        x = db.RowCount(database, query)
+        x = randrange(0,x)
+
+        db.closeConnection()
+
+        return args[x][2]
