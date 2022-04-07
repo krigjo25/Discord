@@ -14,7 +14,7 @@ from discord import Intents
 
 from pylib.systemModule.welcome import Welcome                            #   Welcome Module 
 from pylib.systemModule.help import HelpCommand                           #   Help module
-from pylib.systemModule.krigjo25bot import DiscordBot                     #   The Client
+from pylib.systemModule.discordBot import DiscordBot                     #   The Client
 from pylib.systemModule.commandError import ErrorHandler                  #   Error Handling Module
 
 #   Community Module

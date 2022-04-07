@@ -4,7 +4,7 @@ from discord.colour import Color
 from discord.ext.commands import Cog, command
 
 #   Custom Library
-from lib.dictionaries.systemmessages import Dictionaries
+from pylib.dictionaries.systemmessages import Dictionaries
 
 class EightBall(Cog):
     def __init__(self, bot):

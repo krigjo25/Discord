@@ -31,7 +31,7 @@ load_dotenv()
 def botSetup ():
     
      # necsessary values from .env
-    botKey = getenv('TestToken')
+    botKey = getenv('BotTokenTest')
     
 
             #   Discord configs

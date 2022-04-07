@@ -1,4 +1,3 @@
-import mariadb
 #   Python Reporosity
 from os import getenv
 from sys import api_version
@@ -9,6 +8,9 @@ from dotenv import load_dotenv
 #   Discord Reporosory
 from discord.message import Message
 from discord.ext.commands import Bot
+
+#   pylib Reporosory
+from pylib.systemModule.databasePython import mariaDB
 
 # Anti-Spam Plugins
 #from antispam import AntiSpamHandler
@@ -35,47 +37,53 @@ class DiscordBot(Bot):
         for i in svr:
             srv.append(i)
 
-        print(f'Discord.py v{api_version} is loaded.\n {self.user.name} has establized a connection with {srv[0]} and {srv[1]}')
+        print(f'''Discord.py v{api_version} has been loaded.
+{self.user.name} has establized a connection following servers :\n
+{srv[0]} & {srv[1]}''')
 
+        return
+
+        
     async def on_message(self, message:Message):
 
+        #   Selecting mentioned members from the database
         mention = bool(message.mentions)
+
         #   If a member is mentioned send this message
         if mention == True:
 
         #   Declearing a list
             dndList = []
             mention = message.mentions[0]
-                
-        #   Creating a connection to the database
-            conn = mariadb.connect(
-                                    host=getenv('HOST'),
-                                    user=getenv('USER'),
-                                    port=int(getenv('PORT')),
-                                    database=getenv('DATABASE'),
-                                    password=getenv('PASSWORD'),
-                )
+            
+        #   Initializing classes
+        db = mariaDB
 
-            cur = conn.cursor()
+        #   Initializing the variables for the connection
+        table = getenv('table1')
+        column = getenv('column1')
+        database = getenv('database1')
 
-        #   Creating a statement, execute and add the results to the list
-            query = f'SELECT * FROM discordAfkMessages WHERE memberName = "{mention}"'
-            cur.execute(query)
-            data = cur.fetchall()
-            conn.close()
-            for i in data:
-                dndList.append(i[1])
-                dndList.append(i[2])
-            print(bool(dndList)) 
-            if bool(dndList) == True:
+        query = f'SELECT * FROM {table} WHERE {column} = "{mention}"'
+
+        data = db.selectFromTable(database, query)
+
+        for i in data:
+            dndList.append(i[1])
+            dndList.append(i[2])
+
+        if bool(dndList) == True:
 
             #   Send the message into the given channel
-                await message.channel.send(f' ***{dndList[0]}*** is in **Do Not Disturb** Mode. *{dndList[1]}***')
-
+                await message.channel.send(f' ***{dndList[0]}*** is away from the keyboard, the note : **{dndList[1]}**')
+        
        # await mention.channel.send('lol')
+    #   Anti-Spam
 
         #await self.handler.propagate(message)
         #await self.tracker.do_punishment(message)
 
     #   Procsess commands
         await self.process_commands(message)
+
+        return

@@ -10,24 +10,13 @@ from discord import Intents
 # library Repositories
 
 #   System module
-
-
 from pylib.systemModule.welcome import Welcome                            #   Welcome Module 
 from pylib.systemModule.help import HelpCommand                           #   Help module
-from pylib.systemModule.krigjo25bot import DiscordBot                     #   The Client
+from pylib.systemModule.discordBot import DiscordBot                     #   The Client
 from pylib.systemModule.commandError import ErrorHandler                  #   Error Handling Module
 
 #   Community Module
 from pylib.communityModule.community import Community                     #   Community module
-
-#   RSS-Feed Module
-
-#   Cnn News
-from pylib.streamModule.rssFeed.cnnNews import CnnWorld, CnnMisc
-
-#   Music module
-
-#   Video-Stream
 
 #   miniGames Repositories
 from pylib.gameModule.miniGamesModule.askQ import EightBall                          #   EightBall
@@ -85,31 +74,6 @@ def botSetup ():
     #bot.add_cog(Anti-Spam(bot))
     bot.add_cog(Moderator(bot))
     bot.add_cog(Administrator(bot))
-
-    #   Stream - Module
-
-    #   Youtube
-
-
-    #   Spotify
-
-
-    #   SoundCloud
-
-
-    #   RSS-Feeds
-
-    #   Cnn News
-    bot.add_cog(CnnMisc(bot))
-    bot.add_cog(CnnWorld(bot))
-    #bot.add_cog(CnnSport(bot))
-    #bot.add_cog(CnnEntertainment(bot))
-
-    #   BBC News
-
-    #   Pandamic News
-
-    #   Games News
 
     bot.run(botKey)
 

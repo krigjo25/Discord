@@ -15,13 +15,13 @@ from discord.ext.commands import Cog, command
 
 #   Jumble Repositories
 #from lib.miniGamesModule.jumbleGame.movies import Movies
-from lib.gameModule.miniGamesModule.jumbleGame.disney import Disney
-from lib.gameModule.miniGamesModule.jumbleGame.jumble import Jumble
+from pylib.gameModule.miniGamesModule.jumbleGame.disney import Disney
+from pylib.gameModule.miniGamesModule.jumbleGame.jumble import Jumble
 #from lib.miniGamesModule.jumbleGame.dcComics import DCComics
 #from lib.miniGamesModule.jumbleGame.marvelComics import MarvelComics
 
  #  Custom Library
-from lib.dictionaries.systemmessages import Dictionaries
+from pylib.dictionaries.systemmessages import Dictionaries
 
 load_dotenv()
 
@@ -35,7 +35,7 @@ class JumbleGame(Cog):
         self.embed = Embed(color=Color.dark_purple(), description='')
         self.conn = mariadb.connect(
             port = int(getenv('PORT')),
-            user = getenv('USER'),
+            user = getenv('MASTER'),
             host = getenv('HOST'),
             db = getenv('DATABASE'),
             password = getenv('PASSWORD'))
