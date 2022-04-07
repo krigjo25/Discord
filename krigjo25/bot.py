@@ -12,33 +12,28 @@ from discord import Intents
 #   System module
 
 
-from lib.systemModule.welcome import Welcome                            #   Welcome Module 
-from lib.systemModule.help import HelpCommand                           #   Help module
-from lib.systemModule.krigjo25bot import DiscordBot                     #   The Client
-from lib.systemModule.commandError import ErrorHandler                  #   Error Handling Module
+from pylib.systemModule.welcome import Welcome                            #   Welcome Module 
+from pylib.systemModule.help import HelpCommand                           #   Help module
+from pylib.systemModule.krigjo25bot import DiscordBot                     #   The Client
+from pylib.systemModule.commandError import ErrorHandler                  #   Error Handling Module
 
 #   Community Module
-from lib.communityModule.community import Community                     #   Community module
-
-#   Support Module
-#from lib.supportModule.support import Support                          #   The Support module
-
-#   Stream Module
+from pylib.communityModule.community import Community                     #   Community module
 
 #   RSS-Feed Module
 
 #   Cnn News
-from lib.streamModule.rssFeed.cnnNews import CnnWorld, CnnMisc
+from pylib.streamModule.rssFeed.cnnNews import CnnWorld, CnnMisc
 
 #   Music module
 
 #   Video-Stream
 
 #   miniGames Repositories
-from lib.gameModule.miniGamesModule.askQ import EightBall                          #   EightBall
-from lib.gameModule.miniGamesModule.jumble import JumbleGame                       #   Jumble Game
-from lib.gameModule.miniGamesModule.int import GuessTheNumber                      #   Guess the number
-from lib.gameModule.miniGamesModule.reactGame import RockScissorPaper              #   Rock, Scissors & Paper
+from pylib.gameModule.miniGamesModule.askQ import EightBall                          #   EightBall
+from pylib.gameModule.miniGamesModule.jumble import JumbleGame                       #   Jumble Game
+from pylib.gameModule.miniGamesModule.int import GuessTheNumber                      #   Guess the number
+from pylib.gameModule.miniGamesModule.reactGame import RockScissorPaper              #   Rock, Scissors & Paper
 
 # Bot Utility
 
@@ -46,8 +41,9 @@ from lib.gameModule.miniGamesModule.reactGame import RockScissorPaper           
 #from lib.BotModerationModule.antiSpam import AntiSpam
 
     # Moderation Utility
-from lib.postModerationModule.moderator import Moderator                #   Moderator Module
-from lib.postModerationModule.administrator import Administrator        #   Administrator module
+from pylib.postModerationModule.moderator import Moderator                #   Moderator Module
+from pylib.postModerationModule.administrator import Administrator        #   Administrator module
+
 
 # Importing .evn file
 load_dotenv()
