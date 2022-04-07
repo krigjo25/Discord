@@ -86,15 +86,18 @@ The bot is made with love for python.
 
 ## Credentials
 
-***Disclaimers:***<br>
+### Disclaimer
 
-***The developer can only have the responsibility, for how the projects is created, how it is used,  is another story.***
+The developer can only have the responsibility,<br>
+for how the projects is created, how it is used,<br>
+is another story.
 
-### Contact information can be found in readme***Contact Information***
+### Contact information
 
 
 [ContactInformation](https://github.com/krigjo25/Discord/blob/main/krigjo25/read-me.md)
 
-Only One advice.<br>
-« Everything is perfect as it is.
+### References
+
+[references](https://github.com/krigjo25/Discord/blob/main/krigjo25/read-me.md)
 
