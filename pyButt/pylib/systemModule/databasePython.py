@@ -41,6 +41,7 @@ class MariaDB():
             exit(1)
 
         return
+
     def closeConnection (self):
 
         #   Closing the connection to the database
