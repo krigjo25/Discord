@@ -13,7 +13,7 @@ from discord.permissions import PermissionOverwrite
 
 #  Local resposories
 
-from pylib.systemModule.databasePython import mariaDB
+from pylib.systemModule.databasePython import MariaDB
 
 load_dotenv()
 
@@ -169,7 +169,7 @@ class Community(Cog, name='Community Module'):
             "I regret to inform you the member you asking for is busy at the moment. due to (reason)"
         """
         #   initializing classes
-        db = mariaDB
+        db = MariaDB
         database = getenv('database')
 
         # Declearing the user & reason arguments
@@ -210,7 +210,7 @@ class Community(Cog, name='Community Module'):
         """
 
         #   initializing classes
-        db = mariaDB
+        db = MariaDB
         database = getenv('database1')
 
         # Declearing the user argument

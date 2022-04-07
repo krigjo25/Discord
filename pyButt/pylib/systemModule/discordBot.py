@@ -10,7 +10,7 @@ from discord.message import Message
 from discord.ext.commands import Bot
 
 #   pylib Reporosory
-from pylib.systemModule.databasePython import mariaDB
+from pylib.systemModule.databasePython import MariaDB
 
 # Anti-Spam Plugins
 #from antispam import AntiSpamHandler
@@ -57,7 +57,7 @@ class DiscordBot(Bot):
             mention = message.mentions[0]
             
         #   Initializing classes
-        db = mariaDB
+        db = MariaDB
 
         #   Initializing the variables for the connection
         table = getenv('table1')
