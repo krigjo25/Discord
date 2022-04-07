@@ -41,7 +41,6 @@ class mariaDB():
             exit(1)
 
         return
-
     def closeConnection (self):
 
         #   Closing the connection to the database
@@ -89,14 +88,38 @@ class mariaDB():
 
         return counter
 
-    def newRecord(self, database, query):
+    def newRecord(self, database, clm1, clm2):
 
-        pass
+        #   Database selection
+        self.conn.database = database
+
+        #   Retrieve values from the .env file
+        table = getenv('table1')
+        column1 = getenv('column1')
+        column2 = getenv('column2')
+
+        #   Creating a query to be executed
+        query = f'INSERT INTO {table}({column1}, {column2}) VALUES (%s, %s)' & (clm1, clm2)
+
+        #   Executes the query 
+        self.cur.execute(query)
+        self.conn.commit()
 
         return
-    def DelRecord(self, database, table, vID):
+    def DelRecord(self, database, query):
 
-        query = 'DELETE FROM %s WHERE id = %s' (table, vID)
-        self.cur(query)
+        #   Database selection
+        self.conn.database = database
+
+        #   Retrieve values from the .env file
+        table = getenv('table1')
+        column1 = getenv('column1')
+        
+        #   Creating a query to be executed
+        query = f'DELETE FROM {table} WHERE {column1} = {query}'
+
+        #   Executes the query 
+        self.cur.execute(query)
+        self.conn.commit()
 
         return

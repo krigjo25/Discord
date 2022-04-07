@@ -10,6 +10,15 @@ from dotenv import load_dotenv
 from discord.message import Message
 from discord.ext.commands import Bot
 
+# Anti-Spam Plugins
+#from antispam import AntiSpamHandler
+
+# Anti-Spam Options
+#from antispam.dataclasses.options import Options
+
+# Anti-Spam Consequenses
+#from lib.BotModerationModule.plugins.spamTracker import SpamTracker
+
 load_dotenv()
 
 class DiscordBot(Bot):

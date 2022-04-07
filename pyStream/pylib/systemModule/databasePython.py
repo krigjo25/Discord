@@ -88,60 +88,38 @@ class mariaDB():
 
         return counter
 
-    def updateTable (self, database, query):
+    def newRecord(self, database, clm1, clm2):
 
         #   Database selection
         self.conn.database = database
 
-        self.database = database
+        #   Retrieve values from the .env file
+        table = getenv('table1')
+        column1 = getenv('column1')
+        column2 = getenv('column2')
 
-        #   Executes the query and close the connection
+        #   Creating a query to be executed
+        query = f'INSERT INTO {table}({column1}, {column2}) VALUES (%s, %s)' & (clm1, clm2)
 
+        #   Executes the query 
         self.cur.execute(query)
-        self.conn.close()
+        self.conn.commit()
 
         return
+    def DelRecord(self, database, query):
 
-    def callProcedure (self, database, query):
-
-        #   Database Connection 
-        self.conn.database = database
-
-        #   calling a procedure
-        self.cur.callproc(f'{query}')
-
-        return
-
-    def CreateDatabase(self, name):
-
-        query = f'CREATE DATABASE IF NOT EXISTS {name}'
-        self.cur.execute(query)
-        self.conn.database = name
-
-        if self.conn == True:
-            msg = f'{name}, were successfully created'
-        else:
-            msg = ' An error occurred'
-
-        return print(msg)
-
-    def DropDatabase(self, name):
-
-        query = f'DROP DATABASE IF NOT EXISTS {name}'
-        self.cur.execute(query)
-
-        if self.conn == False:
-            msg = f'{name}, were successfully deleted'
-        else:
-            msg = ' An error occurred'
-
-        return print(msg)
-    def DropTable(self, database, name):
         #   Database selection
         self.conn.database = database
 
-        #   Creating a query and execute it
-        query = f'DROP TABLE IF EXISTS {name};'
+        #   Retrieve values from the .env file
+        table = getenv('table1')
+        column1 = getenv('column1')
+        
+        #   Creating a query to be executed
+        query = f'DELETE FROM {table} WHERE {column1} = {query}'
+
+        #   Executes the query 
         self.cur.execute(query)
+        self.conn.commit()
 
         return
