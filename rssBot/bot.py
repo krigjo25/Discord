@@ -31,7 +31,7 @@ load_dotenv()
 def botSetup ():
     
      # necsessary values from .env
-    botKey = getenv('BotToken')
+    botKey = getenv('TestToken')
     
 
             #   Discord configs
@@ -51,6 +51,7 @@ def botSetup ():
 
     #   Community - module
     bot.add_cog(Community(bot))
+
     #   Cnn News
     bot.add_cog(CnnMisc(bot))
     bot.add_cog(CnnWorld(bot))
