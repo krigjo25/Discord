@@ -1,10 +1,7 @@
-import discord
-
-from discord.utils import get
 from discord.embeds import Embed
-from discord import Color, Member
+from discord import Color
 from discord.ext.commands import command, Cog
-from discord.ext.commands.core import has_any_role
+
 
 class HelpCommand(Cog):
     def __init__(self,bot):
@@ -14,8 +11,8 @@ class HelpCommand(Cog):
 #   Frequently Asked Question
 
     @command(name='help', pass_context=True)
-    async def FrequentlyAskedQuestions(self,ctx, args=None):
-        print('help me')
+    async def FrequentlyAskedQuestions(self, ctx, args=None):
+        print('test')
         if args == None:
 
             self.embed.title = 'Frequently Asked Questions:question:'
@@ -73,4 +70,5 @@ class HelpCommand(Cog):
 
                 await ctx.send(embed=self.embed)
                 self.embed.clear_fields()
-            return
+
+            #return

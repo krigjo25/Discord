@@ -10,19 +10,19 @@ from discord import Intents
 # library Repositories
 
 #   System module
-from pylib.systemModule.welcome import Welcome                            #   Welcome Module 
-from pylib.systemModule.help import HelpCommand                           #   Help module
-from pylib.systemModule.discordBot import DiscordBot                     #   The Client
-from pylib.systemModule.commandError import ErrorHandler                  #   Error Handling Module
+from pylib.systemModule.welcome import Welcome                              #   Welcome Module 
+from pylib.systemModule.help import HelpCommand                             #   Help module
+from pylib.systemModule.discordBot import DiscordBot                        #   The Client
+from pylib.systemModule.commandError import ErrorHandler                    #   Error Handling Module
 
 #   Community Module
-from pylib.communityModule.community import Community                     #   Community module
+from pylib.communityModule.community import Community                       #   Community module
 
 #   miniGames Repositories
-#from pylib.gameModule.miniGamesModule.askQ import EightBall                          #   EightBall
-#from pylib.gameModule.miniGamesModule.jumble import JumbleGame                       #   Jumble Game
-#from pylib.gameModule.miniGamesModule.int import GuessTheNumber                      #   Guess the number
-#from pylib.gameModule.miniGamesModule.reactGame import RockScissorPaper              #   Rock, Scissors & Paper
+#from pylib.gameModule.miniGamesModule.askQ import EightBall                #   EightBall
+#from pylib.gameModule.miniGamesModule.jumble import JumbleGame             #   Jumble Game
+#from pylib.gameModule.miniGamesModule.int import GuessTheNumber            #   Guess the number
+#from pylib.gameModule.miniGamesModule.reactGame import RockScissorPaper    #   Rock, Scissors & Paper
 
 # Bot Utility
 
@@ -30,8 +30,8 @@ from pylib.communityModule.community import Community                     #   Co
 #from lib.BotModerationModule.antiSpam import AntiSpam
 
     # Moderation Utility
-from pylib.postModerationModule.moderator import Moderator                #   Moderator Module
-from pylib.postModerationModule.administrator import Administrator        #   Administrator module
+from pylib.postModerationModule.moderator import Moderator                  #   Moderator Module
+from pylib.postModerationModule.administrator import Administrator          #   Administrator module
 
 
 # Importing .evn file

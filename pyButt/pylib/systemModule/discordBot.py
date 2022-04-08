@@ -46,18 +46,13 @@ class DiscordBot(Bot):
         
     async def on_message(self, message:Message):
 
-        #   Selecting mentioned members from the database
-        mention = bool(message.mentions)
-
-        #   If a member is mentioned send this message
-        if mention == True:
-
-        #   Declearing a list
-            dndList = []
-            mention = message.mentions[0]
-            
         #   Initializing classes
         db = MariaDB
+
+        mention = bool(message.mentions)
+
+        if mention == True:
+            mention = message.mentions[0]
 
         #   Initializing the variables for the connection
         table = getenv('table1')
@@ -68,6 +63,8 @@ class DiscordBot(Bot):
 
         data = db.selectFromTable(database, query)
 
+        dndList = []
+
         for i in data:
             dndList.append(i[1])
             dndList.append(i[2])
@@ -76,8 +73,8 @@ class DiscordBot(Bot):
 
             #   Send the message into the given channel
                 await message.channel.send(f' ***{dndList[0]}*** is away from the keyboard, the note : **{dndList[1]}**')
-        
-       # await mention.channel.send('lol')
+                await mention.channel.send('The user can not be mentioned')
+
     #   Anti-Spam
 
         #await self.handler.propagate(message)

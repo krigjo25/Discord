@@ -42,6 +42,7 @@ class MariaDB():
             exit(1)
 
         return
+
     def closeConnection (self):
 
         #   Closing the connection to the database
@@ -107,6 +108,7 @@ class MariaDB():
         self.conn.commit()
 
         return
+
     def DelRecord(self, database, query):
 
         #   Database selection
