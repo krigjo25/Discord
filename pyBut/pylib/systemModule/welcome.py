@@ -1,15 +1,15 @@
-#   Discord Responsory
-from os import getenv
-from discord import  Member, Colour
+
+#   Discord Repositories
 from discord.utils import get
+from discord import  Member, Colour
 from discord.ext.commands import Cog
-from discord import PermissionOverwrite
 from discord.permissions import Permissions
 
-#   System Responsory
+#   System Repositories
+from os import getenv
 from random import shuffle,randrange
 
-# Library Responsory
+# pyLib Repositories
 from pylib.systemModule.databasePython import MariaDB
 from pylib.dictionaries.systemmessages import Dictionaries
 

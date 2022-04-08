@@ -1,7 +1,9 @@
+
+#   Python Repositories
 import datetime
 import asyncio
 
-#   Discord library
+#   Discord Repositories
 from discord import Member
 from discord.utils import get
 from discord import PermissionOverwrite

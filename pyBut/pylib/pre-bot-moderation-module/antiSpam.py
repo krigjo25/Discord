@@ -1,8 +1,9 @@
 
+#   Discord Repositories
 from discord.ext.commands import Cog
 
 
-# Anti-Spam Plugins
+# Anti-Spam Repositories
 from antispam import AntiSpamHandler
 
 # Anti-Spam Options

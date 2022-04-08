@@ -1,9 +1,9 @@
-#   Python Resposories
+#   Python Repositories
 from os import getenv
 from random import randint, randrange
 from dotenv import load_dotenv
 
-#   Discord Resposories
+#   Discord Repositories
 import aiohttp
 from discord.utils import get
 from discord.colour import Color
@@ -11,7 +11,7 @@ from discord.embeds import Embed
 from discord.ext.commands import Cog, command
 from discord.permissions import PermissionOverwrite
 
-#  Local resposories
+#  pyLib Repositories
 
 from pylib.systemModule.databasePython import MariaDB
 

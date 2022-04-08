@@ -1,6 +1,8 @@
-from os import name
-import discord
 
+#   Python Repositories
+from os import name
+
+#   Discord Repositories
 from discord.embeds import Embed
 from discord.utils import get
 from discord.ext.commands import Cog

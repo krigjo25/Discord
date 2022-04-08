@@ -18,7 +18,7 @@ from pylib.systemModule.commandError import ErrorHandler                    #   
 #   Community Module
 from pylib.communityModule.community import Community                       #   Community module
 
-#   miniGames Repositories
+#   miniGames Module
 #from pylib.gameModule.miniGamesModule.askQ import EightBall                #   EightBall
 #from pylib.gameModule.miniGamesModule.jumble import JumbleGame             #   Jumble Game
 #from pylib.gameModule.miniGamesModule.int import GuessTheNumber            #   Guess the number
@@ -30,8 +30,8 @@ from pylib.communityModule.community import Community                       #   
 #from lib.BotModerationModule.antiSpam import AntiSpam
 
     # Moderation Utility
-from pylib.postModerationModule.moderator import Moderator                  #   Moderator Module
-from pylib.postModerationModule.administrator import Administrator          #   Administrator module
+from pylib.postModerationModule.moderatorModule.moderator import Moderator                  #   Moderator Module
+from pylib.postModerationModule.administratorModule.administrator import Administrator          #   Administrator module
 
 
 # Importing .evn file
@@ -71,7 +71,6 @@ def botSetup ():
 #    bot.add_cog(RockScissorPaper(bot))
     
     #   Moderation - Module
-    #bot.add_cog(Anti-Spam(bot))
     bot.add_cog(Moderator(bot))
     bot.add_cog(Administrator(bot))
 

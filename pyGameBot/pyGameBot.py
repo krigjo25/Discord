@@ -7,11 +7,9 @@ from dotenv import load_dotenv
 #   Discord Repositories
 from discord import Intents
 
-# library Repositories
+# pyLib Repositories
 
 #   System module
-
-
 from pylib.systemModule.help import HelpCommand                                             #   Help module
 from pylib.systemModule.discordBot import DiscordBot                                        #   The Client#
 from pylib.systemModule.commandError import ErrorHandler                                    #   Error Handling Module
@@ -19,7 +17,7 @@ from pylib.systemModule.commandError import ErrorHandler                        
 #   Community Module
 from pylib.communityModule.community import Community                                       #   Community module
 
-#   miniGames Repositories
+#   miniGames Module
 from pylib.gameModule.miniGamesModule.EightBall.askQ import EightBall                       #   EightBall
 from pylib.gameModule.miniGamesModule.jumbleGame.jumble import JumbleGame                   #   Jumble Game
 from pylib.gameModule.miniGamesModule.GuessTheNumber.int import GuessTheNumber              #   Guess the number

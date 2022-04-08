@@ -1,9 +1,9 @@
-# System repososary
+# System Repositories
 from os import getenv
 from random import randrange, shuffle
 
 
-# DotEnv Repososary
+# DotEnv Repositories
 from dotenv import load_dotenv
 
 

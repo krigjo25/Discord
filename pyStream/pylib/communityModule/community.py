@@ -1,9 +1,10 @@
-#   Python Resposories
+
+#   Python Repositories
 from os import getenv
 from random import randint, randrange
 from dotenv import load_dotenv
 
-#   Discord Resposories
+#   Discord Repositories
 import aiohttp
 from discord.utils import get
 from discord.colour import Color
@@ -11,9 +12,9 @@ from discord.embeds import Embed
 from discord.ext.commands import Cog, command
 from discord.permissions import PermissionOverwrite
 
-#  Local resposories
+#  pyLib Repositories
 
-from pylib.systemModule.databasePython import mariaDB
+from pylib.systemModule.databasePython import MariaDB
 
 load_dotenv()
 
@@ -28,7 +29,7 @@ class Community(Cog, name='Community Module'):
     async def BotInfo(self, ctx, args=None):
         svr = len(self.bot.guilds)
         botMaster = self.bot.get_user(340540581174575107)
-        botName = 'pyStream'
+        botName = 'pyButt'
         if args == None:
 
             self.embed.title = f':notebook: About {botName}'
@@ -169,7 +170,7 @@ class Community(Cog, name='Community Module'):
             "I regret to inform you the member you asking for is busy at the moment. due to (reason)"
         """
         #   initializing classes
-        db = mariaDB
+        db = MariaDB
         database = getenv('database')
 
         # Declearing the user & reason arguments
@@ -210,7 +211,7 @@ class Community(Cog, name='Community Module'):
         """
 
         #   initializing classes
-        db = mariaDB
+        db = MariaDB
         database = getenv('database1')
 
         # Declearing the user argument

@@ -1,12 +1,12 @@
-#   Python responsories
+#   Python Repositories
 from sys import exit
 from os import getenv
 from datetime import datetime, date
 
-#   Database responsories
+#   Database Repositories
 import mariadb
 
-#   dotenv Responsories
+#   dotenv Repositories
 from dotenv import load_dotenv
 load_dotenv()
 
@@ -25,6 +25,7 @@ class MariaDB():
     def __init__(self):
 
         try:
+
             #   Initializing the database connection
             self.conn = mariadb.connect(
                                         host = getenv('H0ST'), 
@@ -63,7 +64,7 @@ class MariaDB():
         #   Fetching the sql selection
         sql = self.cur.fetchall()
 
-        #   Initializing a list to return
+        #   Returning a list
         sqlData = []
 
         #   append to the list

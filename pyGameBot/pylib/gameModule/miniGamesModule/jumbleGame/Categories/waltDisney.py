@@ -19,7 +19,7 @@ class WaltDisney():
     def __init__(self, word):
         return
    
-    def Classics():
+    def Classics(self):
         """
             Retrieve a Disney movie from the database,
             choose one of the selected values
@@ -43,7 +43,7 @@ class WaltDisney():
 
         return  word[x]
 
-    def Characters():
+    def Characters(self):
 
         """
             Retrieve a character name from the database,

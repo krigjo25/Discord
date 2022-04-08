@@ -1,8 +1,8 @@
-#   Python library
+#   Python Repositories
 
 import datetime
 
-#   Discord.py libraries
+#   Discord Repositories
 from discord import Member
 from discord.utils import get
 from discord.colour import Color
@@ -12,8 +12,7 @@ from discord.permissions import Permissions
 from discord.ext.commands.core import has_permissions
 from discord.ext.commands import Cog, command,has_any_role
 
-#   Library
-
+#   pyLib Repositories
 #from permissionModule import roleManagement
 class Administrator(Cog, name='Admin-module'):
     def __init__(self, bot):

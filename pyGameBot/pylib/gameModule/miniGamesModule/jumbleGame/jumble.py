@@ -1,8 +1,9 @@
-#    Python Library
+
+#   Python Repositories
 from os import getenv
 from random import sample
 
-# dotenv Library
+#   dotenv Repositories
 from dotenv import load_dotenv
 
 #   Discord Repositories
@@ -11,14 +12,12 @@ from discord.colour import Color
 from discord.ext.commands import Cog, command
 
 #   Categories
-from categories.waltDisney import WaltDisney
-from categories.JumbleDictionaries import JumbleCategory
-
+from jumbleGame.categories.waltDisney import WaltDisney
+from jumbleGame.categories.JumbleDictionaries import JumbleCategory
 
 #   pylib resposories
 from pylib.systemModule.databasePython import MariaDB
-from pylib.dictionaries.gameDictionaries import GameDictionary
-from pyGameBot.pylib.dictionaries.gameDictionaries import GameError
+from pylib.dictionaries.gameDictionaries import GameError, GameDictionary, JumbleCategory
 
 load_dotenv()
 

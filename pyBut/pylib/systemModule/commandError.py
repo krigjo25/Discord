@@ -1,17 +1,11 @@
-'''
-# Name 
-   CommandError.py
 
-#  About
-        Handling errors
-
-# Author
-    krigjo25
-
-'''
+#   Python Repositories
 import sys
-import discord
 import traceback
+
+from random import shuffle, randrange
+#   Discord Repositories
+import discord
 
 from discord.embeds import Embed
 from discord.ext.commands import Cog
@@ -19,7 +13,7 @@ from discord.errors import HTTPException
 from discord.ext.commands.help import HelpCommand
 from discord.ext.commands.errors import CheckFailure, CommandNotFound, MissingRequiredArgument, BadArgument, MemberNotFound, CommandInvokeError
 
-from random import shuffle, randrange
+#   Asynico Repositories
 from asyncio.exceptions import TimeoutError
 
 class ErrorHandler(Cog):

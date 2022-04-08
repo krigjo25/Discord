@@ -1,15 +1,16 @@
-#   Python Reporosity
+
+#   Python Repositories
 from os import getenv
 from sys import api_version
 
-#   dotenv Reporosory
+#   dotenv Repositories
 from dotenv import load_dotenv
 
-#   Discord Reporosory
+#   Discord Repositories
 from discord.message import Message
 from discord.ext.commands import Bot
 
-#   pylib Reporosory
+#   pylib Repositories
 from pylib.systemModule.databasePython import MariaDB
 
 # Anti-Spam Plugins

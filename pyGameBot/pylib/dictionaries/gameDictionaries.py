@@ -1,9 +1,10 @@
-# System repososary
+
+# Python Repositories
 from os import getenv
 from random import randrange, shuffle
 
 
-# DotEnv Repososary
+#   Dotenv Repositories
 from dotenv import load_dotenv
 
 
@@ -18,7 +19,7 @@ class GameDictionary():
         self.bot = getenv('BotName')
 
     #   After a game ends
-    def CorrectAnswer():
+    def CorrectAnswer(self):
         dictionary =  {
                         1:f'Congratulation you guessed correct',
                     }
@@ -31,7 +32,7 @@ class GameDictionary():
         dictionary = dictionary.get(x)
         return dictionary
 
-    def GameOver():
+    def GameOver(self):
         dictionary = {
                         1:f'Game Over',
                     }
@@ -46,7 +47,7 @@ class GameDictionary():
 
     #   Guess the number
 
-    def CustomAnswer(num, x):
+    def CustomAnswer(self, num, x):
 
         if num > x:
 
@@ -80,7 +81,7 @@ class GameDictionary():
 
 class GameError():
         #   Game Errors    
-    def GameError(error):
+    def GameError(self, error):
 
         #   Classes Initilzion
 
@@ -110,7 +111,7 @@ class GameError():
 
 class PhiliosopicAnswer():
     #   AskQ dictionaries
-    def PhiliosopicAnswer():
+    def PhiliosopicAnswer(self):
 
         dictionary = {
                     1:'What do you sense about it?',
@@ -133,7 +134,7 @@ class PhiliosopicAnswer():
         dictionary = dictionary.get(x)
         return dictionary
 
-    def DumbFacts():
+    def DumbFacts(self):
 
         dictionary = {
                     1:'The earth is oval',
@@ -161,7 +162,7 @@ class PhiliosopicAnswer():
 
 class ReactionGame():
     #   arg Game Dictionaries
-    def RockScissorPaper():
+    def RockScissorPaper(self):
 
         dictionary = {
                     1:'\U0001FAA8',          #  somewhat rock
@@ -178,7 +179,7 @@ class ReactionGame():
 
         return dictionary
 
-    def TowTie():
+    def TowTie(self):
         dictionary = {
 
                     1:f'Pybut draws a **tie**',
@@ -196,7 +197,7 @@ class ReactionGame():
 
         return dictionary
     
-    def BotWin(arg):
+    def BotWin(self, arg):
 
         #   Initializing variables
         bot = getenv('botName')
@@ -236,7 +237,7 @@ class ReactionGame():
 
         return dictionary
 
-    def MemberWin(arg, arg1):
+    def MemberWin(self, arg, arg1):
 
         #   Initializing variables
         bot = getenv('botName')
@@ -275,3 +276,31 @@ class ReactionGame():
         dictionary = dictionary.get(x)
 
         return dictionary
+
+class JumbleCategory():
+
+    def __init__(self) -> None:
+        pass
+
+    def Titles(self):
+        category = [
+                    ['randomJumbles', 'selecting a random jumble category\n'],
+                    ['waltDisney', '- Classics,\n- Heros,\n- Princesses,\n - Villians\n'],
+                    ['Animal kingdom', '- flyingCreatures \n- Cats\n'],
+                    ]
+        return category
+
+    def SubTitle(self, sub):
+
+        sub = str(sub)
+        sub.lower()
+
+        if sub == 'waltdisney':
+            category = [
+                            f'{sub}', '- Characters\n- Classics,\n- Roles']
+        if sub == 'animalkingdom':
+
+            category = [
+                        f'{sub}', '- flyingCreatures \n- Cats,\n- Dogs']
+
+        return category
