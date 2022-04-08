@@ -25,6 +25,7 @@ class MariaDB():
     def __init__(self):
 
         try:
+
             #   Initializing the database connection
             self.conn = mariadb.connect(
                                         host = getenv('H0ST'), 
@@ -32,7 +33,7 @@ class MariaDB():
                                         port = int(getenv('PORT')), 
                                         password = getenv('PASSWORD'),
                                         database = getenv('database'))
-            
+
             #   Creating a cursor to execute the statements
             self.cur = self.conn.cursor()
 
@@ -64,7 +65,7 @@ class MariaDB():
 
         #   Initializing a list to return
         sqlData = []
-
+    
         #   append to the list
         for i in sql:
             sqlData.append(i)

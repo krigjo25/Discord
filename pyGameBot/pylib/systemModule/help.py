@@ -15,7 +15,7 @@ class HelpCommand(Cog):
 
     @command(name='help', pass_context=True)
     async def FrequentlyAskedQuestions(self,ctx, args=None):
-
+        print('help me')
         if args == None:
 
             self.embed.title = 'Frequently Asked Questions:question:'

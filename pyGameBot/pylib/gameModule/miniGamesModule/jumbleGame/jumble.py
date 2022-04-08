@@ -2,10 +2,8 @@
 from os import getenv
 from random import sample
 
-
 # dotenv Library
 from dotenv import load_dotenv
-
 
 #   Discord Repositories
 from discord.embeds import Embed
@@ -13,15 +11,12 @@ from discord.colour import Color
 from discord.ext.commands import Cog, command
 
 #   Categories
-from Categories.waltDisney import WaltDisney
-from Categories.JumbleDictionaries import JumbleCategory
-
-
-from pyButt.pylib.systemModule.databasePython import MariaDB
-
+from categories.waltDisney import WaltDisney
+from categories.JumbleDictionaries import JumbleCategory
 
 #   pylib resposories
-from pylib.dictionaries.systemmessages import Dictionaries
+from pylib.dictionaries.gameDictionaries import GameDictionary
+from pyButt.pylib.systemModule.databasePython import MariaDB
 
 load_dotenv()
 
@@ -29,9 +24,8 @@ class JumbleGame(Cog):
 
     def __init__(self, bot):
         self.bot = bot
-        self.GameOver = Dictionaries.GameOver()
-        self.Answer = Dictionaries.CorrectAnswer()
-        self.modeError = Dictionaries.DifficultyError()
+        self.Answer = GameDictionary.CorrectAnswer()
+        self.modeError = GameDictionary.DifficultyError()
         self.embed = Embed(color=Color.dark_purple(), description='') 
 
     def GenerateJumble(self, word):
@@ -64,7 +58,7 @@ class JumbleGame(Cog):
         #   initializing the connection
         db = MariaDB()
         wd = WaltDisney()
-        d = Dictionaries()
+        d = GameDictionary()
         categories = JumbleCategory()
         
         #   Configure the jumble Settings
@@ -119,7 +113,7 @@ class JumbleGame(Cog):
                 # Creating and prepare a embeded message to the user
 
                 answer = wd.Characters(sub)
-                print(answer)
+
                 self.embed.title = f'The jumbled Character is seen in \\ You have **{sec}** and **{limit}** attempts to resolve which Character it is '
                 self.embed.description = f'{virvel}'
                 await ctx.send(embed=self.embed)
@@ -144,8 +138,8 @@ class JumbleGame(Cog):
                 atNum +=1
                 word.append(choice)
 
-                self.embed.title = f'{self.Answer}'
-                self.embed.description = f'{self.Answer}\n**Summuary**\n words : **{word}** \n Attempts : **{atNum}** of **{limit}** \n'
+                self.embed.title = f'{d.CorrectAnswer()}'
+                self.embed.description = f'**Game Summuary**\n words : **{word}** \n Attempts : **{atNum}** of **{limit}** \n'
 
                 await ctx.send(embed=self.embed)
 
@@ -163,6 +157,6 @@ class JumbleGame(Cog):
 
                 #   Prepare and send the embed message
                 self.embed.title = 'The Game is over'
-                self.embed.description = f'**Results**\n words : **{word}** \n Attempts : **{atNum}** of **{limit}** \n {self.GameOver} **{answer}**'
+                self.embed.description = f'**Game Summuary**\nWords tried : **{word}** \nGame Attempts : **4** of **4** \n{d.GameOver()}\nThe correct answer : **{answer}**'
                 await ctx.send(embed=self.embed)
         return

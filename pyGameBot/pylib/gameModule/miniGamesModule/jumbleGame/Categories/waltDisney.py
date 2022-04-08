@@ -43,7 +43,7 @@ class WaltDisney():
 
         return  word[x]
 
-    def Characters(self, sub):
+    def Characters():
 
         """
             Retrieve a character name from the database,

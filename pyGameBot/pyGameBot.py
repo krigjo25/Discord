@@ -21,9 +21,9 @@ from pylib.communityModule.community import Community                           
 
 #   miniGames Repositories
 from pylib.gameModule.miniGamesModule.EightBall.askQ import EightBall                       #   EightBall
-from pylib.gameModule.miniGamesModule.jumbleGame.jumble import JumbleGame                   #   Jumble Game
-from pylib.gameModule.miniGamesModule.GuessTheNumber.int import GuessTheNumber              #   Guess the number
-from pylib.gameModule.miniGamesModule.reactionsGames.reactGame import RockScissorPaper       #   Rock, Scissors & Paper
+#from pylib.gameModule.miniGamesModule.jumbleGame.jumble import JumbleGame                   #   Jumble Game
+#from pylib.gameModule.miniGamesModule.GuessTheNumber.int import GuessTheNumber              #   Guess the number
+#from pylib.gameModule.miniGamesModule.reactionsGames.reactGame import RockScissorPaper       #   Rock, Scissors & Paper
 
 
 # Importing .evn file
@@ -45,7 +45,7 @@ def botSetup ():
     #intents.guild_reactions = True  #
 
     #   retrieving the module
-    bot = DiscordBot(intents=intents)
+    bot = DiscordBot()#intents=intents)
 
     #   System Module
     bot.add_cog(HelpCommand(bot))
@@ -56,9 +56,9 @@ def botSetup ():
 
     #   miniGames
     bot.add_cog(EightBall(bot))
-    bot.add_cog(JumbleGame(bot))
-    bot.add_cog(GuessTheNumber(bot))
-    bot.add_cog(RockScissorPaper(bot))
+    #bot.add_cog(JumbleGame(bot))
+    #bot.add_cog(GuessTheNumber(bot))
+    #bot.add_cog(RockScissorPaper(bot))
 
     bot.run(botKey)
 
