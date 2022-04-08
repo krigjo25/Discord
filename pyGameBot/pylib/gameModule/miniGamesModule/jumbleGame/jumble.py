@@ -1,12 +1,11 @@
 #    Python Library
 from os import getenv
-from random import randrange, sample
+from random import sample
+
 
 # dotenv Library
 from dotenv import load_dotenv
 
-#   Connection to Mariadb
-import mariadb
 
 #   Discord Repositories
 from discord.embeds import Embed
@@ -14,9 +13,11 @@ from discord.colour import Color
 from discord.ext.commands import Cog, command
 
 #   Categories
-from Categories.randomJumble import weelyJumbles
+from Categories.waltDisney import WaltDisney
+from Categories.JumbleDictionaries import JumbleCategory
 
-from Categories.waltDisney import Disney
+
+from pyButt.pylib.systemModule.databasePython import MariaDB
 
 
 #   pylib resposories
@@ -50,6 +51,7 @@ class JumbleGame(Cog):
     @command(name='jumble')
     
     async def JumbleGame(self, ctx):
+
         """                             JumbleGame
 
             Send a welcome message to the user, ask him to select first a category, then a sub category
@@ -57,18 +59,13 @@ class JumbleGame(Cog):
             When the user recieves the word, he has 120 seconds on easiest mode to decode it. easy- kimpossible : 60 , 
 
         """
-        #   Initializing the classes
-        d = Dictionaries
 
-        # Categories list  x - Database
-        titles = [ 
-                        # First Category
-                        [   'Random Jumble',
-                            'Animations', 
-                            '- WaltDisney\n'
-                        ],
-                        
-                    ]
+        #   Initializing the classes
+        #   initializing the connection
+        db = MariaDB()
+        wd = WaltDisney()
+        d = Dictionaries()
+        categories = JumbleCategory()
         
         #   Configure the jumble Settings
         word = []
@@ -79,10 +76,8 @@ class JumbleGame(Cog):
         #   Prepare and send the embeded message
         self.embed.title = 'Jumble Game'
         self.embed.description = f'Welcome to the jumble Game\n You grant {limit} attempts and default time limit : {sec} please select one of the sub-categories below:\n'
-            
-        # Creating a for loop to handle the list
-        for category, genre, sub in titles:
-            self.embed.add_field(name = f'{category}\n{genre}', value=f'{sub}',inline=True)
+        for genre, sub in categories.Titles():
+            self.embed.add_field(name = f'{genre}', value=f'{sub}',inline=True)
 
         await ctx.send(embed=self.embed)
 
@@ -90,274 +85,84 @@ class JumbleGame(Cog):
         self.embed.clear_fields()
         
         #   Handling the retrieved message
-        subChoice = await self.bot.wait_for('message', timeout=sec)
-        subChoice = str(subChoice.content)
-        subChoice = subChoice.capitalize()
+        sub = await self.bot.wait_for('message', timeout=sec)
+        sub = str(sub.content)
+        sub = sub.lower()
 
-        #  Disney
-        if subChoice == 'Disney':
+        #   Genre : randomCategory
+        
+        if sub == 'randomCategory':
+            pass
             
-            titles = [
-                        [ 
-                            f'{subChoice}', 
-                            ' - Heros \n- Villans\n- Princess\n- Villans\n- Classics'
-                        ],
-                        
-                    ]
+
+        elif sub == 'waltdisney':
+
+            genre = categories.SubTitle(sub)
+
 
             #   Prepare and send embed message
-            self.embed.title = f'Genre : {subChoice}'
-            self.embed.description = f' please select one of the sub-genres below:\n'
-            
-            #   Creating a for loop to handle the list
-            for category, sub in titles:
-                self.embed.add_field(name = f'{category}', value=f'{sub}',inline=True)
+            self.embed.title = f'Genre : {sub}'
+            self.embed.description = f' please select one of the sub-genres below:\n {sub}'
+
             await ctx.send(embed=self.embed)
         
             #   Clearing the fields
             self.embed.clear_fields()
         
             #   Assigning message from the user and handle it
-            subGenre = await self.bot.wait_for('message', timeout=sec)
-            subGenre = str(subGenre.content)
-            subGenre = subGenre.capitalize()
+            sub = await self.bot.wait_for('message', timeout=sec)
+            sub = str(sub.content)
+            sub = sub.lower()
 
+            if sub == 'characters':
+
+                # Creating and prepare a embeded message to the user
+
+                answer = wd.Characters(sub)
+                print(answer)
+                self.embed.title = f'The jumbled Character is seen in \\ You have **{sec}** and **{limit}** attempts to resolve which Character it is '
+                self.embed.description = f'{virvel}'
+                await ctx.send(embed=self.embed)
             
-            #  if a sub-category is choosen
-            if subGenre == 'Heros':
-
-                #   Calling the choice function
-                answer = Disney.DisneyEasyHeros()
-                virvel = self.GenerateJumble(answer)
-
-                # Creating a list to fetch the query inside, and procsess the request to the database
-                ch = []
-                query = f'SELECT animation FROM disneyCharactersEasy WHERE characterName = "{answer}"'
-                self.cur.execute(query)
-                data = self.cur.fetchall()
-
-                for i in data:
-                    ch.append(i[0])
-                print(ch)
-                # Creating and prepare a embeded message to the user
-                self.embed.title = f'The jumbled Character is seen in \"{ch[0]}\" You have **{sec}** and **{limit}** attempts to resolve which Character it is '
-                self.embed.description = f'{virvel}'
-                await ctx.send(embed=self.embed)
-
-                while True:
+        while True:
                     
-                    #   Calling the jumbled function
-                    virvel = self.GenerateJumble(answer)
+            #   Calling the jumbled function
+            virvel = self.GenerateJumble(answer)
 
-                    #   Retrieve the user's word choice
-                    choice = await self.bot.wait_for('message', timeout=sec)
-                    choice = str(choice.content)
+            #   Retrieve the user's word choice
+            choice = await self.bot.wait_for('message', timeout=sec)
+            choice = str(choice.content)
 
-                    #   If the choosen answer is the same as the answer
-                    if choice == answer:
-                        atNum +=1
-                        word.append(choice)
-                        self.embed.title = f'{self.Answer}'
-                        self.embed.description = f'{self.Answer}\n**Summuary**\n words : **{word}** \n Attempts : **{atNum}** of **{limit}** \n'
-                        await ctx.send(embed=self.embed)
-                        break
-        
-                    # else if  the counter reaches max attempts 
-                    elif atNum == limit:
+            #   Initializing variables
+            word = []
+            atNum = 0
+            limit = 4
 
-                        #   Prepare and send the embed message
-                        self.embed.title = 'The Game is over'
-                        self.embed.description = f'**Results**\n words : **{word}** \n Attempts : **{atNum}** of **{limit}** \n {self.GameOver} **{answer}**'
-                        await ctx.send(embed=self.embed)
+            #   checking wheter the answer is equal or not
+            if choice == answer:
 
-                        # Get out of the loop
-                        break
+                atNum +=1
+                word.append(choice)
 
-                    #   Else if the choice is not equal to the answer
-                    else:
-                        atNum += 1
-                        word.append(choice)
-
-                        self.embed.title = f'**{atNum}** / **{limit}** | attempted words : **{word}**'
-                        self.embed.description = f'{virvel}'
-                        await ctx.send(embed=self.embed)
-
-                        #   Continue the loop
-                        continue            
-
-            elif subGenre == 'Princess':
-                
-                #   Calling the choice function
-                answer = Disney.DisneyEasyPrincesses()
-                virvel = self.GenerateJumble(answer)
-
-                #   Creating a list to fetch the query inside, and procsess the request to the database
-                ch = []
-                query = f'SELECT animation FROM disneyCharactersEasy WHERE characterName = "{answer}"'
-                self.cur.execute(query)
-                data = self.cur.fetchall()
-
-                for i in data:
-                    ch.append(i)
-
-                # Creating and prepare a embeded message to the user
-                self.embed.title = f'The selected Character is from the Movie {ch[0]} You have **{sec}** and **{limit}** attempts to resolve the word. '
-                self.embed.description = f'{virvel}'
-
+                self.embed.title = f'{self.Answer}'
+                self.embed.description = f'{self.Answer}\n**Summuary**\n words : **{word}** \n Attempts : **{atNum}** of **{limit}** \n'
 
                 await ctx.send(embed=self.embed)
 
-                while True:
-
-                    #   Calling the jumbled function
-                    virvel = self.GenerateJumble(answer)
-
-                    #   Retrieve the user's word choice
-                    choice = await self.bot.wait_for('message', timeout=sec)
-                    choice = str(choice.content)
-
-                    #   If the choosen answer is the same as the answer
-                    if choice == answer:
-                        await ctx.send(f'**Results**\n words : **{word}** \n Attempts : **{atNum}** of **{limit}** \n {self.Answer} **{answer}**')
-                        break
-
-                    # else if  the counter reaches max attempts 
-                    elif atNum == limit:
-    
-                        #   Prepare and send the embed message
-                        self.embed.title = 'The Game is over'
-                        self.embed.description = f'**Results**\n words : **{word}** \n Attempts : **{atNum}** of **{limit}** \n {self.GameOver} **{answer}**'
-                        await ctx.send(embed=self.embed)
-
-                        # Get out of the loop
-                        break
-
-                    #   Else if the choice is not equal to the answer
-                    else:
-                        atNum += 1
-                        word.append(choice)
-
-                        self.embed.title = f'**{atNum}** / **{limit}** | attempted words : **{word}**'
-                        self.embed.description = f'{virvel}'
-                        await ctx.send(embed=self.embed)
-
-                        #   Continue the loop
-                        continue
+                break
             
-            elif subGenre == 'Villans':
-                
-                #   Calling the choice function
-                answer = Disney.DisneyEasyVillans()
-                virvel = self.GenerateJumble(answer)
+            elif choice != answer:
+                atNum += 1
+                word.append(choice)
 
-                #   Creating a list to fetch the query inside, and procsess the request to the database
-                ch = []
-                query = f'SELECT animation FROM disneyCharactersEasy WHERE characterName = "{answer}"'
-                self.cur.execute(query)
-                data = self.cur.fetchall()
-
-                for i in data:
-                    ch.append(i[0])
-
-                # Creating and prepare a embeded message to the user
-                self.embed.title = f'The selected character is from the movie {ch[0]} You have **{sec}** and **{limit}** attempts to resolve the word. '
+                self.embed.title = f'**{atNum}** / **{limit}** | attempted words : **{word}**'
                 self.embed.description = f'{virvel}'
-
-
                 await ctx.send(embed=self.embed)
 
-                while True:
+            elif atNum == limit:
 
-                    #   Calling the jumbled function
-                    virvel = self.GenerateJumble(answer)
-
-                    #   Retrieve the user's word choice
-                    choice = await self.bot.wait_for('message', timeout=sec)
-                    choice = str(choice.content)
-
-                    #   If the choosen answer is the same as the answer
-                    if choice == answer:
-                        await ctx.send(f'**Results**\n words : **{word}** \n Attempts : **{atNum}** of **{limit}** \n {self.Answer} **{answer}**')
-                        break
-
-                    # else if  the counter reaches max attempts 
-                    elif atNum == limit:
-    
-                        #   Prepare and send the embed message
-                        self.embed.title = 'The Game is over'
-                        self.embed.description = f'**Results**\n words : **{word}** \n Attempts : **{atNum}** of **{limit}** \n {self.GameOver} **{answer}**'
-                        await ctx.send(embed=self.embed)
-
-                        # Get out of the loop
-                        break
-
-                    #   Else if the choice is not equal to the answer
-                    else:
-                        atNum += 1
-                        word.append(choice)
-
-                        self.embed.title = f'**{atNum}** / **{limit}** | attempted words : **{word}**'
-                        self.embed.description = f'{virvel}'
-                        await ctx.send(embed=self.embed)
-
-                        #   Continue the loop
-                        continue
-
-            elif subGenre == 'Classics':
-
-                #   Calling the choice function
-                answer = Disney.DisneyEasyClassics()
-                virvel = self.GenerateJumble(answer)
-
-                #   Creating a list to fetch the query inside, and procsess the request to the database
-                ch = []
-                query = f'SELECT animation FROM disneyCharactersEasy WHERE animation = "{answer}"'
-                self.cur.execute(query)
-                data = self.cur.fetchall()
-                
-                for i in data:
-                    ch.append(i[0])
-                    
-                # Creating and prepare a embeded message to the user
-                self.embed.title = f'The selected animation, has {ch[0]} as one of the main characters. You have **{sec}** and **{limit}** attempts to resolve the word. '
-                self.embed.description = f'{virvel}'
-
-
+                #   Prepare and send the embed message
+                self.embed.title = 'The Game is over'
+                self.embed.description = f'**Results**\n words : **{word}** \n Attempts : **{atNum}** of **{limit}** \n {self.GameOver} **{answer}**'
                 await ctx.send(embed=self.embed)
-
-                while True:
-
-                    #   Calling the jumbled function
-                    virvel = self.GenerateJumble(answer)
-
-                    #   Retrieve the user's word choice
-                    choice = await self.bot.wait_for('message', timeout=sec)
-                    choice = str(choice.content)
-
-                    #   If the choosen answer is the same as the answer
-                    if choice == answer:
-                        await ctx.send(f'**Results**\n words : **{word}** \n Attempts : **{atNum}** of **{limit}** \n {self.Answer} **{answer}**')
-                        break
-
-                    # else if  the counter reaches max attempts 
-                    elif atNum == limit:
-    
-                        #   Prepare and send the embed message
-                        self.embed.title = 'The Game is over'
-                        self.embed.description = f'**Results**\n words : **{word}** \n Attempts : **{atNum}** of **{limit}** \n {self.GameOver} **{answer}**'
-                        await ctx.send(embed=self.embed)
-
-                        # Get out of the loop
-                        break
-
-                    #   Else if the choice is not equal to the answer
-                    else:
-                        atNum += 1
-                        word.append(choice)
-
-                        self.embed.title = f'**{atNum}** / **{limit}** | attempted words : **{word}**'
-                        self.embed.description = f'{virvel}'
-                        await ctx.send(embed=self.embed)
-
-                        #   Continue the loop
-                        continue
+        return

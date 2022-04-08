@@ -11,7 +11,7 @@ from discord.message import Message
 from discord.ext.commands import Bot
 
 #   pylib Reporosory
-from pylib.systemModule.databasePython import mariaDB
+from pylib.systemModule.databasePython import MariaDB
 
 load_dotenv()
 

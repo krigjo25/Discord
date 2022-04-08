@@ -1,6 +1,6 @@
 # System reporosory
 from os import getenv
-from random import randrange, shuffle
+from random import randint, randrange, shuffle
 
 # Database reporosory
 import mariadb
@@ -14,30 +14,41 @@ from pylib.systemModule.databasePython import MariaDB
 load_dotenv()
 
 # Creating a function to choose a random word
-class Disney():
+class WaltDisney():
    
     def __init__(self, word):
         return
+   
+    def Classics():
+        """
+            Retrieve a Disney movie from the database,
+            choose one of the selected values
+        """
 
-    # Family movies   
-    def DisneyEasyClassics():
-        
         #   Initializing database connection
         db = MariaDB()
         database = getenv('database1')
         table = getenv('table')
         column = getenv('column')
-
         query = f'SELECT {table} FROM {table}'
         word = db.selectFromTable(database, query)
+
+        #   Counting the rows in the database
+        x = db.RowCount(database, query)
+        x -=1
+        x = randint(0,x)
 
         #   Closing the connection
         db.closeConnection()
 
-        return  word
+        return  word[x]
 
-    #   Retrieve Disney Princesses
-    def DisneyEasyPrincesses():
+    def Characters(self, sub):
+
+        """
+            Retrieve a character name from the database,
+            choose one of the selected values
+        """
 
         # Selecting character name from the database, and procsessing it
         
@@ -46,49 +57,15 @@ class Disney():
         database = getenv('database1')
         table = getenv('table')
         column = getenv('column')
-
-        query = f'SELECT characterName FROM disneyCharactersEasy WHERE role = "Princess"'
-
+        query = f'SELECT * characterName FROM disneyCharactersEasy;'
         word = db.selectFromTable(database, query)
+
+        #   Counting the rows in the database
+        x = db.RowCount(database, query)
+        x -=1
+        x = randint(0,x)
 
         #   Closing the connection
         db.closeConnection()
 
-        return  word
-
-    #   Retrieve Disney Heros
-    def DisneyEasyHeros():
-        
-        #   Initializing database connection
-        db = MariaDB()
-        database = getenv('database1')
-        table = getenv('table')
-        column = getenv('column')
-
-        query = f'SELECT characterName FROM disneyCharactersEasy WHERE role = "Heros"'
-
-        word = db.selectFromTable(database, query)
-
-        #   Closing the connection
-        db.closeConnection()
-
-        return  word
-
-
-    #   Retrieve Disney Villians
-    def DisneyEasyVillians():
-        
-        #   Initializing database connection
-        db = MariaDB()
-        database = getenv('database1')
-        table = getenv('table')
-        column = getenv('column')
-
-        query = f'SELECT characterName FROM disneyCharactersEasy WHERE role = "Villians"'
-
-        word = db.selectFromTable(database, query)
-
-        #   Closing the connection
-        db.closeConnection()
-
-        return  word
+        return  word[x]

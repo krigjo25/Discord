@@ -13,7 +13,7 @@ from discord.permissions import PermissionOverwrite
 
 #  Local resposories
 
-from pylib.systemModule.databasePython import mariaDB
+from pylib.systemModule.databasePython import MariaDB
 
 load_dotenv()
 
