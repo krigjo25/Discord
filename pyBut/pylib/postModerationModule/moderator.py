@@ -52,7 +52,7 @@ class Moderator(Cog, name='Moderator-module'):
             srv = ctx.guild
             channel = get(srv.channels, name=chName)
 
-            if x <= 100:
+            if x <= 10000:
                 await channel.purge(limit=x)
                 await ctx.send(f'Sir, i purged **{x}** lines, in **{channel}**')
             else:

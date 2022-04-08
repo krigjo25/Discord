@@ -12,7 +12,7 @@ class HelpCommand(Cog):
 
     @command(name='help', pass_context=True)
     async def FrequentlyAskedQuestions(self, ctx, args=None):
-        print('test')
+
         if args == None:
 
             self.embed.title = 'Frequently Asked Questions:question:'
@@ -71,4 +71,4 @@ class HelpCommand(Cog):
                 await ctx.send(embed=self.embed)
                 self.embed.clear_fields()
 
-            #return
+            return

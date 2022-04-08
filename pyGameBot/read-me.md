@@ -1,4 +1,4 @@
-# Discord bot gameBot
+# Discord bot GameBot
 
 ## Table of content
 

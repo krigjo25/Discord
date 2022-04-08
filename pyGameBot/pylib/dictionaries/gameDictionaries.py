@@ -10,21 +10,26 @@ from dotenv import load_dotenv
 load_dotenv()
 
 class GameDictionary():
+
+    """
+        Dictionary for the gameModule
+    """
     def __init__(self):
         self.bot = getenv('BotName')
 
     #   After a game ends
     def CorrectAnswer():
         dictionary =  {
-                        0:f'Congratulation you guessed correct',
+                        1:f'Congratulation you guessed correct',
                     }
-        # Randomize the dictionary
-        x = randrange(0,10)
+
+        #   Randomize the dictionary
+        x = len(dictionary)
+        x = randrange(1,x)
         shuffle (dictionary)
 
-        arg = dictionary.get(0)
-
-        return arg
+        dictionary = dictionary.get(x)
+        return dictionary
 
     def GameOver():
         dictionary = {
@@ -39,28 +44,74 @@ class GameDictionary():
         arg = dictionary.get(x)
         return arg
 
-    #   Game Errors    
-    def DifficultyError():
-        dictionary = {
-                        1:f'let\'s fake it ',
-                        2:f'difficulty mode IMPOSSIBLE enabled.',
-                        3:f'bo, it looks like you wrote an unavailable mode, thanks',
-                        4:f'This is an empty error string',
-                        5:f'Created by @krigjo25',
-                        6:f'Went looking for the selected mode couldn\'t solve the type issue',
-                        7:f'Not mine mistake this time '
-        }
+    #   Guess the number
+
+    def CustomAnswer(num, x):
+
+        if num > x:
+
+            dictionary = {
+                            1:'Well well, we like the answer more humble than a greater answer',
+                            2:'The given number is not humble enough, try again.',
+                            3:'is greater than the answer ',1:'Do you know why the equal sign are so humble? neither were less or greater !',
+                            }
+
+        elif num < x:
+
+            dictionary = {
+                            1:f'**{num}** is less, we want more',
+                            2:f'**{num}** is less than i ask for',
+                            3:f'**{num}** is less akward than :100:',
+                            4:f'**{num}** is less humble',
+                            }
+
+        else:
+            dictionary = {
+                            1:f' Thank you for the humble answer, sir ',
+                           }
 
         #   Randomize the dictionary
         x = len(dictionary)
         x = randrange(1,x)
         shuffle (dictionary)
 
-        arg = dictionary.get(x)
-        return arg
+        dictionary = dictionary.get(x)
+        return dictionary
 
+class GameError():
+        #   Game Errors    
+    def GameError(error):
+
+        #   Classes Initilzion
+
+        #   Difficulty doesnt not exist
+        #   looping Through difficulties available
+        diff = {}
+
+        if error != diff:
+
+            dictionary = {
+                            1:f'let\'s fake it ',
+                            2:f'difficulty mode IMPOSSIBLE enabled.',
+                            3:f'bo, it looks like you wrote an unavailable mode, thanks',
+                            4:f'This is an empty error arg',
+                            5:f'Created by @krigjo25',
+                            6:f'Went looking for the selected mode couldn\'t solve the type issue',
+                            7:f'Not mine mistake this time '
+            }
+
+        #   Randomize the dictionary
+        x = len(dictionary)
+        x = randrange(1,x)
+        shuffle (dictionary)
+
+        dictionary = dictionary.get(x)
+        return dictionary
+
+class PhiliosopicAnswer():
     #   AskQ dictionaries
     def PhiliosopicAnswer():
+
         dictionary = {
                     1:'What do you sense about it?',
                     2:'What would you do about it?',
@@ -79,10 +130,11 @@ class GameDictionary():
         x = randrange(1,x)
         shuffle (dictionary)
 
-        arg = dictionary.get(x)
-        return arg
+        dictionary = dictionary.get(x)
+        return dictionary
 
     def DumbFacts():
+
         dictionary = {
                     1:'The earth is oval',
                     2:'The gravity exists',
@@ -103,16 +155,18 @@ class GameDictionary():
         x = randrange(1,x)
         shuffle (dictionary)
 
-        arg = dictionary.get(x)
-        return arg
+        dictionary = dictionary.get(x)
 
-    #   Reaction Game Dictionaries
+        return dictionary
+
+class ReactionGame():
+    #   arg Game Dictionaries
     def RockScissorPaper():
-        dictionary = {
-                    1:'\U0001FAA8',       #  somewhat rock
-                    2:'\U00002702',       #  ✂️
-                    3: '\U0001F4C4'       #  📄
 
+        dictionary = {
+                    1:'\U0001FAA8',          #  somewhat rock
+                    2:'\U00002702',          #  ✂️
+                    3:'\U0001F4C4'           #  📄
                 }
 
         #   Randomize the dictionary
@@ -120,11 +174,9 @@ class GameDictionary():
         x = randrange(1,x)
         shuffle (dictionary)
 
-        arg = dictionary.get(x)
-        return arg
+        dictionary = dictionary.get(x)
 
-
-        return arg
+        return dictionary
 
     def TowTie():
         dictionary = {
@@ -140,15 +192,16 @@ class GameDictionary():
         x = randrange(1,x)
         shuffle (dictionary)
 
-        arg = dictionary.get(x)
-        return arg
+        dictionary = dictionary.get(x)
+
+        return dictionary
     
-    def BotWin(string):
+    def BotWin(arg):
 
         #   Initializing variables
         bot = getenv('botName')
         
-        if string == '\U0001FAA8':
+        if arg == '\U0001FAA8':
 
             dictionary = {
                     1:f'That moment, when you realize :stone doesn\'t play along with :Scissors',
@@ -157,31 +210,13 @@ class GameDictionary():
                     4:f'pyBot Says : look behind you. **running away **.',
                     }
 
-            #   Randomize the dictionary
-            x = len(dictionary)
-            x = randrange(1,x)
-            shuffle (dictionary)
-
-            arg = dictionary.get(x)
-
-            return arg
-
-        elif string == 'paper':
+        elif arg == '\U0001F4C4':
 
             dictionary = {
                         1:f'{bot} sent your stone to North-Korea !',
                         2:f'You recieved a new stone as a christmas :gift:',
                         3:f'You have been mumified by {bot}',
                     }
-
-            #   Randomize the dictionary
-            x = len(dictionary)
-            x = randrange(1,x)
-            shuffle (dictionary)
-
-            arg = dictionary.get(x)
-
-            return arg
 
         else:
         
@@ -192,11 +227,51 @@ class GameDictionary():
                         4:f'i won '
                     }
 
-            #   Randomize the dictionary
-            x = len(dictionary)
-            x = randrange(1,x)
-            shuffle (dictionary)
+        #   Randomize the dictionary
+        x = len(dictionary)
+        x = randrange(1,x)
+        shuffle (dictionary)
 
-            arg = dictionary.get(x)
+        dictionary = dictionary.get(x)
 
-            return arg
+        return dictionary
+
+    def MemberWin(arg, arg1):
+
+        #   Initializing variables
+        bot = getenv('botName')
+
+        if arg == '\U0001FAA8':
+
+            dictionary = {
+                            0:f'{bot} had the idea of using a {arg1} against your {arg}, {bot} thought the {arg1} were strong enough to cut thorugh your {arg}, lets do a wii-match',
+                            1:f'Congratulations, lets do it again',
+                            2:f'You just had a {arg}, while {bot} had the thought of {arg1} would be a grate choice.',
+                            3:f'OH SNAP, you just scared {bot}, he never returned to the battle field.',
+                    }
+
+        elif arg == '\U0001F4C4':
+
+            dictionary = {
+                            0:f'{bot} threw {arg1} at you, but you grabbed it with his {arg}, and wrapped it into a :package: \n you gave a :package: to {bot}, how considerate of you !',
+                            1:f'You wrappend {bot}\'s {arg1} into a :gift: and sent it to the North-Pole, Santa were stoned for the Christmas ',
+                            2:f'You made a mumified version of {bot}',
+                    }
+
+        else:
+        
+            dictionary = {
+                            0:f'Noone : \'\'\n{bot} : Oh snap',
+                            1:f'You succsessfully cut the {arg1} with a {arg}',
+                            2:f'you showed of with his :scissors: which he thought were a knife, but the goal were reached, {bot} ran.',
+                            3:f'you won '
+                    }
+
+        #   Randomize the dictionary
+        x = len(dictionary)
+        x = randrange(1,x)
+        shuffle (dictionary)
+
+        dictionary = dictionary.get(x)
+
+        return dictionary

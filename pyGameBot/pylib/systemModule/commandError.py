@@ -51,10 +51,7 @@ class ErrorHandler(Cog):
                 The Exception raised.
 
         '''
-
-
-
-
+        botCreator = self.bot.get_user(340540581174575107)
 
         # Command Not Found
         if isinstance(error, self.NotFound):
@@ -205,21 +202,21 @@ class ErrorHandler(Cog):
 
             elif isinstance(error.original, self.attribute):
 
-                owner = self.bot.get_user(340540581174575107)
-                await owner.send(f'Master, an attribute {self.attribute} error were found, in, {error.original}', tts = True)
+                await botCreator.send(f'Master, an attribute {self.attribute} error were found, in, {error.original}', tts = True)
+
                 await ctx.send(f'{runTimeError}')
             
             elif isinstance(error.original, self.BadRequest):
 
-                owner = self.bot.get_user(340540581174575107)
-                await owner.send(f'Master, there were a bad request in, {error.original}', tts = True)
+                await botCreator.send(f'Master, there were a bad request in, {error.original}', tts = True)
                 await ctx.send(f'{runTimeError}')
             
             else:
-                owner = self.bot.get_user(340540581174575107)
-                await owner.send(f'Master, an undentified error were found, in, {error.original}', tts = True)
-                await ctx.send(f'{runTimeError}')        
+
+                await ctx.send(f'{error.original}') 
+                await botCreator.send(f'Master, There were found an error in {error.original}', tts = True)
+                await ctx.send(f'{error.original}, {runTimeError}')        
         else:
             # If none of the above, print it in the terminal
-            print('Ignoring exception in command {}:\n'.format(ctx.command), file=sys.stderr)
+            print('Ignoring exception in command {}:\n\n'.format(ctx.command), file=sys.stderr)
             traceback.print_exception(type(error), error, error.__traceback__, file=sys.stderr)

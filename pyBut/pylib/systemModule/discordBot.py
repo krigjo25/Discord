@@ -54,26 +54,26 @@ class DiscordBot(Bot):
         if mention == True:
             mention = message.mentions[0]
 
-        #   Initializing the variables for the connection
-        table = getenv('table1')
-        column = getenv('column1')
-        database = getenv('database1')
+            #   Initializing the variables for the connection
+            table = getenv('table1')
+            column = getenv('column1')
+            database = getenv('database1')
 
-        query = f'SELECT * FROM {table} WHERE {column} = "{mention}"'
+            query = f'SELECT * FROM {table} WHERE {column} = "{mention}"'
 
-        data = db.selectFromTable(database, query)
+            data = db.selectFromTable(database, query)
 
-        dndList = []
+            dndList = []
 
-        for i in data:
-            dndList.append(i[1])
-            dndList.append(i[2])
+            for i in data:
+                dndList.append(i[1])
+                dndList.append(i[2])
 
-        if bool(dndList) == True:
+            if bool(dndList) == True:
 
-            #   Send the message into the given channel
-                await message.channel.send(f' ***{dndList[0]}*** is away from the keyboard, the note : **{dndList[1]}**')
-                await mention.channel.send('The user can not be mentioned')
+                #   Send the message into the given channel
+                    await message.channel.send(f' ***{dndList[0]}*** is away from the keyboard, the note : **{dndList[1]}**')
+                    await mention.channel.send('The user can not be mentioned')
 
     #   Anti-Spam
 

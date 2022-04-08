@@ -16,7 +16,7 @@ from pylib.systemModule.databasePython import MariaDB
 load_dotenv()
 
 class DiscordBot(Bot):
-    def __init__(self, command_prefix='?', help_command=None, description=None, **options):
+    def __init__(self, command_prefix='*', help_command=None, description=None, **options):
         super().__init__(command_prefix, help_command=help_command, description=description, **options)
 
 
@@ -33,5 +33,8 @@ class DiscordBot(Bot):
 
         
     async def on_message(self, message:Message):
-        print(message)
+
+
+    #   Process commands
+        await self.process_commands(message)
         return
