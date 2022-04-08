@@ -12,8 +12,7 @@ from discord.colour import Color
 from discord.ext.commands import Cog, command
 
 #   Categories
-from jumbleGame.categories.waltDisney import WaltDisney
-from jumbleGame.categories.JumbleDictionaries import JumbleCategory
+from category.waltDisney import WaltDisney
 
 #   pylib resposories
 from pylib.systemModule.databasePython import MariaDB

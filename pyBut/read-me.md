@@ -25,15 +25,23 @@
 
 ### About the Developer
 
-Kristoffer Gjøsund, born in 94, Norway, part the time goes to python, SQL
+Kristoffer Gjøsund, born in 94, Norway,<br>
+ 1/3 of the times goes to python, SQL<br>
 otherwise, Gym and living life as a human being.
 
 ### Project info
 
-Information about the design can be found in the given links below
-includes the text files below,
+Information about the design for each modules<br>
+can be found in the given links below includes<br>
+the text files below,
 
-*   [GameBot](https://github.com/krigjo25/Discord/tree/main/gameBot/design/gameBot.md)
+*   [pyGameBot](https://github.com/krigjo25/Discord/tree/main/pyGameBot/design/gameBot.md)
+
+* [pyStream](https://github.com/krigjo25/Discord/tree/main/pyStream/design/pyStream.md)
+
+* [RSSBot](https://github.com/krigjo25/Discord/tree/main/RSSBot/design/RSSBot.md)
+
+* [theGeneral](https://github.com/krigjo25/Discord/tree/main/theGeneral/design/theGeneral.md)
 
 
 #### Status
@@ -48,10 +56,6 @@ includes the text files below,
     1.0.0
     SQL Database:
         mariaDB
-
-### gameBot
-
-the game bot is made as an Discord bot<br>
 
 ## About-Krigjo25
 The bot is created as an moderator for the discord server
@@ -185,7 +189,7 @@ Roles used in the project :
 ## What has been learned 
 
 
-## What makes krigjo25 unique
+## What makes pyBut unique
 
 The bot serving you, as a humble bot
 
@@ -220,10 +224,10 @@ Only One advice.<br>
 
 [ObjectOriented Discord Bot](https://nik.re/posts/2021-09-25/object_oriented_discord_bot), by Nikola Cucakovic,
 
-***Books used while learning Python***
+### Books used while learning about Python and SQL
 
-[learn Python with-in one day and learn it well, by Jamie Chan](https://learncodingfast.com/)<br>
-[learn SQL with-in one day and learn it well, by Jamie Chan](https://learncodingfast.com/)
+*   [learn Python with-in one day and learn it well, by Jamie Chan](https://learncodingfast.com/)
+*   [learn SQL with-in one day and learn it well, by Jamie Chan](https://learncodingfast.com/)
 
 ## Project Summary
 

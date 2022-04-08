@@ -1,14 +1,12 @@
-# System reporosory
+
+#   Python Repositories
 from os import getenv
 from random import randint, randrange, shuffle
 
-# Database reporosory
-import mariadb
-
-# dotenv reporosory
+# dotenv Repositories
 from dotenv import load_dotenv
 
-#   pylib Resposory
+#   pylib Repositories
 from pylib.systemModule.databasePython import MariaDB
 
 load_dotenv()
