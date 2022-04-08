@@ -14,9 +14,11 @@ from discord.ext.commands import Cog, command
 from categories.waltDisney import WaltDisney
 from categories.JumbleDictionaries import JumbleCategory
 
+
 #   pylib resposories
+from pylib.systemModule.databasePython import MariaDB
 from pylib.dictionaries.gameDictionaries import GameDictionary
-from pyButt.pylib.systemModule.databasePython import MariaDB
+from pyGameBot.pylib.dictionaries.gameDictionaries import GameError
 
 load_dotenv()
 
@@ -24,8 +26,6 @@ class JumbleGame(Cog):
 
     def __init__(self, bot):
         self.bot = bot
-        self.Answer = GameDictionary.CorrectAnswer()
-        self.modeError = GameDictionary.DifficultyError()
         self.embed = Embed(color=Color.dark_purple(), description='') 
 
     def GenerateJumble(self, word):
@@ -46,6 +46,7 @@ class JumbleGame(Cog):
     
     async def JumbleGame(self, ctx):
 
+
         """                             JumbleGame
 
             Send a welcome message to the user, ask him to select first a category, then a sub category
@@ -55,12 +56,14 @@ class JumbleGame(Cog):
         """
 
         #   Initializing the classes
-        #   initializing the connection
+
         db = MariaDB()
+        e = GameError()
         wd = WaltDisney()
         d = GameDictionary()
         categories = JumbleCategory()
-        
+
+        #   initializing the connection
         #   Configure the jumble Settings
         word = []
         atNum = 0
