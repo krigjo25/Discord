@@ -12,32 +12,42 @@ from discord.ext.commands import Cog, command
 import feedparser
 
 class CnnMisc(Cog):
+    """     CnnMisc
+            Class contains miscellaneouss news from CNN
+
+    """
+
     def __init__(self, bot) -> None:
         self.embed = Embed(color=Color.dark_blue())
     
         #   Top News 10
     @command(name='ctop')
-    async def topNews(self, ctx):
+    async def TopNews(self, ctx):
 
-        #   Retrieve the guild information
+        """              TopNews
+            Retrieves the top 5 News in the world
+
+        """
+
+        #   Initializing variables
         srv = ctx.guild
-        chName = 'rssfeed'
-        role = get(srv.roles, name='@Members')
+        chName = 'rsstestnews'
+        role = get(srv.roles, name='@Moderator')
         ch = get(srv.channels, name=f'{chName}')
 
-        #   Create the channel
+        #   Create a channel
         if not ch:
 
             #   Creating channel permissions
             perms = {
-                            
+    
                     srv.default_role:PermissionOverwrite(read_messages=False),
                     role:PermissionOverwrite(view_channel=True, read_message_history = True),
                 }
 
             await srv.create_text_channel(f'{chName}', overwrites=perms)
 
-        #   Creating the feed
+        #   Scraping the feed
         rssNews = feedparser.parse('http://rss.cnn.com/rss/edition.rss')
         entries =  rssNews.entries
 
@@ -51,20 +61,20 @@ class CnnMisc(Cog):
             #   Searching for selected list items
             summary = article.get('summary', 'There is no summary for this article')
             updated = rssNews.feed.get('updated', ' No Date to be shown')
-            
+
             if summary != 'There is no summary for this article':
                 self.embed.add_field(name=f'{artnr}. {article.title}', value=f'\n{summary}\n{updated}\n{article.link}\n ')
-            
+
             #   Drop the loop when the counter is reached
             if artnr == 10:
                 break
-            
+
             #   Send the information, and reset embed
         await ch.send(embed=self.embed)
         self.embed = Embed(color=Color.dark_purple())
         self.embed.clear_fields()
 
-        return
+
 
     @command(name='cetn')
     async def EntertainmentNews(self, ctx):

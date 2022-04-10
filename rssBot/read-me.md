@@ -35,27 +35,33 @@ includes the text files below,
 
 *   [GameBot](https://github.com/krigjo25/Discord/tree/main/gameBot/design/gameBot.md)
 
+*   [RSSBot](https://github.com/krigjo25/Discord/tree/main/gameBot/design/rssBot.md)
+
+
 
 #### Status
 
     project start :<br>
-        23.10-21
+        10.04-21
 
    Last Update :<br>
-        12.02-22
+        10.04-22
 
     Current verison:<br>
     1.0.0
+
     SQL Database:
-        mariaDB
 
 ### RSS-bot
 
-the RSS-bot is made as an Discord bot<br>
+the RSS bot is made as an Discord bot<br>
 easier to access news with-in the server.
 
 ## About-RSSBot
-The bot is created to gather top news for the players<br>
+
+The bot is created to scrape news from the news sites<br>
+for the players, to read them on discord.
+
 the prefix command used in the project  **?'**, e.g **'?help'**
 
 ## Feautures
@@ -64,10 +70,13 @@ the prefix command used in the project  **?'**, e.g **'?help'**
 
 CNN-News<br>
     Top News : Gives you the top 5 news in CNN-Module<br>
+
     World News : Gives you the top 5 news in World-News<br>
     and many more
 
 ~~BBC-News~~
+
+~~Local News~~
 
 
 ### Challanges 
@@ -98,9 +107,9 @@ is another story.
 ### Contact information
 
 
-[ContactInformation](https://github.com/krigjo25/Discord/blob/main/krigjo25/read-me.md)
+[ContactInformation](https://github.com/krigjo25/Discord/blob/main/pyBut/read-me.md#Credentials)
 
 ### References
 
-[references](https://github.com/krigjo25/Discord/blob/main/krigjo25/read-me.md)
+[references](https://github.com/krigjo25/Discord/blob/main/pyBut/read-me.md#Credentials)
 

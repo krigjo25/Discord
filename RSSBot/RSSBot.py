@@ -38,12 +38,12 @@ def botSetup ():
     
 
             #   Discord configs
-    intents= Intents().default()     #  Only allows Default intents
+    intents= Intents().default()        #  Only allows Default intents
     
-    #intents.members = True          #  Retrieve guild Members
-    #intents.messages = True         #  Allows the bot to send messages
-    #intents.presences = True        #
-    #intents.guild_reactions = True  #
+    #intents.members = True             #  Allows the bot to track member updates, fetch members
+    #intents.messages = True            #  Allows the bot to send messages
+    #intents.presences = True           #  Allows the bot to track member activty
+    #intents.reactions = True           #  Allows the bot to react to a message
 
     #   retrieving the module
     bot = DiscordBot(intents=intents)

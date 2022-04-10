@@ -47,10 +47,10 @@ def botSetup ():
             #   Discord configs
     intents= Intents().all()         #  Allows every intents
     
-    #intents.members = True          #  Allows to add a role.
-    #intents.messages = True         #  Allows the bot to send messages
-    #intents.presences = True        #
-    #intents.guild_reactions = True  #
+    #intents.members = True             #  Allows the bot to track member updates, fetch members
+    #intents.messages = True            #  Allows the bot to send messages
+    #intents.presences = True           #  Allows the bot to track member activty
+    #intents.reactions = True           #  Allows the bot to react to a message
 
     #   retrieving the module
     bot = DiscordBot(intents=intents)

@@ -41,10 +41,8 @@ class Dictionaries():
         #   Randomize the dictionary
         x = len(dictionary)
         x = randrange(1,x)
-        shuffle (dictionary)
 
-        arg = dictionary.get(x)
-        return arg
+        return dictionary.get(x)
 
 class CommandDictionary():
     def __init__(self) -> None:
@@ -108,7 +106,7 @@ class CommandDictionary():
                             6:'We all do mistakes. You\'re missing some requred arguments ',
 }
 
-        elif errorModule == 'MissingRequiredArgument':
+        elif errorModule == 'TimeoutError':
 
             dictionary = {
                             1:'meep, morp, zeep :(\n',
@@ -121,6 +119,7 @@ class CommandDictionary():
 }
 
         else:
+            print(errorModule)
             dictionary = {
                             1:'the content of the command which where sent is raising "DivisionByZero" a detailed report is sent.',
 }
@@ -128,8 +127,5 @@ class CommandDictionary():
         #   Randomize the dictionary
         x = len(dictionary)
         x = randrange(1,x)
-        shuffle (dictionary)
 
-        arg = dictionary.get(x)
-
-        return arg
+        return dictionary.get(x)

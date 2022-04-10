@@ -17,7 +17,7 @@ class CnnWorld(Cog):
 
     #   CNN World
     @command(name='cworld')
-    async def worldNews(self, ctx):
+    async def WorldNews(self, ctx):
 
             #   Retrieve the guild information
         srv = ctx.guild

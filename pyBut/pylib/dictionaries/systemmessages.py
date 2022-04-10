@@ -106,7 +106,7 @@ class CommandDictionary():
                             6:'We all do mistakes. You\'re missing some requred arguments ',
 }
 
-        elif errorModule == 'MissingRequiredArgument':
+        elif errorModule == 'TimeoutError':
 
             dictionary = {
                             1:'meep, morp, zeep :(\n',
@@ -119,6 +119,7 @@ class CommandDictionary():
 }
 
         else:
+            print(errorModule)
             dictionary = {
                             1:'the content of the command which where sent is raising "DivisionByZero" a detailed report is sent.',
 }
