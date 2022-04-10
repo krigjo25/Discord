@@ -21,8 +21,8 @@ from pylib.communityModule.community import Community                           
 #   miniGames Module
 from pylib.gameModule.miniGamesModule.EightBall.askQ import EightBall                       #   EightBall
 from pylib.gameModule.miniGamesModule.jumbleGame.jumble import JumbleGame                   #   Jumble Game
-from pylib.gameModule.miniGamesModule.GuessTheNumber.int import GuessTheNumber              #   Guess the number
-from pylib.gameModule.miniGamesModule.reactionsGames.reactGame import RockScissorPaper       #   Rock, Scissors & Paper
+from pylib.gameModule.miniGamesModule.integerGame.guessTheNumber import GuessTheNumber              #   Guess the number
+from pylib.gameModule.miniGamesModule.reactionsGames.rockPaperScissors import RockScissorPaper       #   Rock, Scissors & Paper
 
 
 # Importing .evn file

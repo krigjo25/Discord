@@ -1,4 +1,3 @@
-
 #   Python Repositories
 from os import getenv
 from random import randint, randrange
