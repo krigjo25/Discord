@@ -14,10 +14,19 @@
 *   cmeast, retrieves news from the Middle East
 *   casia, retrieves news from Asia
 *   camerica, retrieves news from America
-
+*   
 ####    Local News
 
 *   cus, retrieves news from United States of America
+
+####   CnnMisc
+* ctop, top 10 news articles  may be less
+
+## Feature implentations
+
+*   cmr, Most Recent News.
+*   cvideo, Videos from CNN
+*   cWorldSports, news about the sports in the world
 
 ##  Requirements
 

@@ -33,9 +33,9 @@ otherwise, Gym and living life as a human being.
 Information about the design can be found in the given links below
 includes the text files below,
 
-*   [GameBot](https://github.com/krigjo25/Discord/tree/main/gameBot/design/gameBot.md)
+*   [GameBot](https://github.com/krigjo25/Discord/blob/main/gameBot/design/gameBot.md)
 
-*   [RSSBot](https://github.com/krigjo25/Discord/tree/main/gameBot/design/rssBot.md)
+*   [RSSBot](https://github.com/krigjo25/Discord/blob/main/RSSBot/design/RSSBot.md)
 
 
 

@@ -12,19 +12,19 @@ from discord.ext.commands import Cog, command
 #   RSS Responsories
 import feedparser
 
-class CnnWorld(Cog):
+class UnitedStatesofAmerica(Cog):
     def __init__(self, bot) -> None:
+        self.channelName = 'rssfeedtest'
         self.embed = Embed(color=Color.dark_blue())
 
 
-    @command(name='cus')
-    async def USNews(self,ctx):
+    @command(name = 'nusa')
+    async def NationalNews(self,ctx):
         
             #   Retrieve the guild information
         srv = ctx.guild
         role = get(srv.roles, name='@Members')
-        chName = 'news'
-        ch = get(srv.channels, name=f'{chName}')
+        ch = get(srv.channels, name=f'{self.channelName}')
 
         #   Create the channel
         if not ch:
@@ -36,7 +36,7 @@ class CnnWorld(Cog):
                     #role:PermissionOverwrite(view_channel=True, read_message_history = True),
                 }
 
-            await srv.create_text_channel(f'{chName}', overwrites=perms)
+            await srv.create_text_channel(f'{self.channelName}', overwrites=perms)
 
         #   Creating the feed
         rssNews = feedparser.parse('http://rss.cnn.com/rss/edition_us.rss')
@@ -68,3 +68,7 @@ class CnnWorld(Cog):
         self.embed.clear_fields()
      
         return
+
+    @command(name = 'wpost')
+    async def WarshingtonNews(self, ctx):
+        pass

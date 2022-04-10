@@ -105,7 +105,8 @@ class CommandDictionary():
                             5:'Still missing some leads..',
                             6:'We all do mistakes. You\'re missing some requred arguments ',
 }
-
+        elif errorModule == 'AttributeError':
+            pass
         elif errorModule == 'TimeoutError':
 
             dictionary = {
@@ -119,7 +120,7 @@ class CommandDictionary():
 }
 
         else:
-            print(errorModule)
+            print(f'Something went wrong.\n{errorModule}')
             dictionary = {
                             1:'the content of the command which where sent is raising "DivisionByZero" a detailed report is sent.',
 }

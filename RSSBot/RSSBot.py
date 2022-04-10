@@ -6,6 +6,8 @@ from dotenv import load_dotenv
 
 #   Discord Repositories
 from discord import Intents
+from RSSBot.pylib.rssModule.gameNews.gameInformer import GameInformer
+from RSSBot.pylib.rssModule.gameNews.gameRadar import GamesRadar
 
 # library Repositories
 
@@ -20,12 +22,27 @@ from pylib.communityModule.community import Community                       #   
 
 #   RSS-Feed Module
 
-#   Cnn News
-from pylib.rssModule.cnn.cnnMisc import CnnMisc
-#from pylib.rssModule.cnn.cnnWorld import CnnWorld
-#from pylib.rssModule.cnn.cnnSports import CnnSport
+#   World News
+#   CNN
+from pylib.rssModule.international.cnn.misc import CnnMisc
+from pylib.rssModule.international.cnn.world import CnnWorld
+from pylib.rssModule.international.cnn.sports import CnnSport
 
+#   BBC
 
+#   Game News
+from pylib.rssModule.gameNews.gameSpot import GameSpot
+#from pylib.rssModule.gameNews.gameRadar import GamesRadar
+#from pylib.rssModule.gameNews.metacritic import Metacritic
+#from pylib.rssModule.gameNews.destructoid import Destructoid
+#from pylib.rssModule.gameNews.gameInformer import GameInformer
+#from pylib.rssModule.gameNews.nintendoLife import NintendoLife
+#from pylib.rssModule.gameNews.christCenteredGamer import ChristCenteredGamer
+
+#   National news
+
+#   USA
+#from pylib.rssModule.national.unitedStatesofAmerica import UnitedStatesofAmerica
 
 # Importing .evn file
 load_dotenv()
@@ -57,15 +74,21 @@ def botSetup ():
 
     #   Cnn News
     bot.add_cog(CnnMisc(bot))
-    #bot.add_cog(CnnWorld(bot))
-    #bot.add_cog(CnnSport(bot))
-    #bot.add_cog(CnnEntertainment(bot))
-
-    #   BBC News
-
-    #   Pandamic News
+    bot.add_cog(CnnWorld(bot))
+    bot.add_cog(CnnSport(bot))
 
     #   Games News
+    bot.add_cog(GameSpot(bot))
+#    bot.add_cog(Metacritic(bot))
+#    bot.add_cog(Destructoid(bot))
+#    bot.add_cog(GameInformer(bot))
+#    bot.add_cog(NintendoLife(bot))
+#    bot.add_cog(ChristCenteredGamer(bot))
+
+
+    #   NationalNews
+    #bot.add_cog(UnitedStatesofAmerica(bot))
+    bot.add_cog()
 
     bot.run(botKey)
 
