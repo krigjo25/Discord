@@ -21,7 +21,11 @@ from pylib.communityModule.community import Community                       #   
 #   RSS-Feed Module
 
 #   Cnn News
-from pylib.streamModule.rssFeed.cnnNews import CnnWorld, CnnMisc
+from pylib.rssModule.cnn.cnnMisc import CnnMisc
+from pylib.rssModule.cnn.cnnWorld import CnnWorld
+
+from pylib.rssModule.cnn.cnnSports import CnnSport
+
 
 
 # Importing .evn file
@@ -55,7 +59,7 @@ def botSetup ():
     #   Cnn News
     bot.add_cog(CnnMisc(bot))
     bot.add_cog(CnnWorld(bot))
-    #bot.add_cog(CnnSport(bot))
+    bot.add_cog(CnnSport(bot))
     #bot.add_cog(CnnEntertainment(bot))
 
     #   BBC News
