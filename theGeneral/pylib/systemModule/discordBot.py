@@ -1,14 +1,17 @@
-import mariadb
-#   Python Reporosity
+
+#   Python Repositories
 from os import getenv
 from sys import api_version
 
-#   dotenv Reporosory
+#   dotenv Repositories
 from dotenv import load_dotenv
 
-#   Discord Reporosory
+#   Discord Repositories
 from discord.message import Message
 from discord.ext.commands import Bot
+
+#   pylib Repositories
+from pylib.systemModule.databasePython import MariaDB
 
 # Anti-Spam Plugins
 #from antispam import AntiSpamHandler
@@ -21,49 +24,9 @@ from discord.ext.commands import Bot
 
 load_dotenv()
 
-
-#   Python Reporosity
-from os import getenv
-from sys import api_version
-
-#   dotenv Reporosory
-from dotenv import load_dotenv
-
-#   Discord Reporosory
-from discord.message import Message
-from discord.ext.commands import Bot
-
-#   pylib Reporosory
-from pylib.systemModule.databasePython import mariaDB
-
-load_dotenv()
-
 class DiscordBot(Bot):
-    def __init__(self, command_prefix='?', help_command=None, description=None, **options):
-        super().__init__(command_prefix, help_command=help_command, description=description, **options)
-
-
-    async def on_ready(self):
-        srv= []
-        svr = self.guilds
-
-        for i in svr:
-            srv.append(i)
-
-        print(f'''Discord.py v{api_version} has been loaded.
-{self.user.name} has establized a connection following servers :\n
-{srv[0]} & {srv[1]}''')
-
-        return
-
-        
-
-
-        return
-
-class DiscordBot(Bot):
-    def __init__(self, command_prefix='?', help_command=None, description=None, **options):
-        super().__init__(command_prefix, help_command=help_command, description=description, **options)
+    def __init__(self, command_prefix='?', help_command=None, description=None, owner_id = 340540581174575107, **options):
+        super().__init__(command_prefix, help_command=help_command, description=description, owner_id = owner_id, **options)
         #self.handler = AntiSpamHandler(self, options=Options(ignore_bots=False, no_punish=True))
         #self.tracker = SpamTracker(self.handler, 3)
         #self.handler.register_plugin(self.tracker)
@@ -81,45 +44,44 @@ class DiscordBot(Bot):
 
         return
 
-
+        
     async def on_message(self, message:Message):
 
-        #   Selecting mentioned members from the database
+        #   Initializing classes
+        db = MariaDB
+
         mention = bool(message.mentions)
 
-        #   If a member is mentioned send this message
         if mention == True:
-
-        #   Declearing a list
-            dndList = []
             mention = message.mentions[0]
-            
-        #   Initializing classes
-        db = mariaDB
 
-        #   Initializing the variables for the connection
-        table = getenv('table1')
-        column = getenv('column1')
-        database = getenv('database1')
+            #   Initializing the variables for the connection
+            table = getenv('table1')
+            column = getenv('column1')
+            database = getenv('database1')
 
-        query = f'SELECT * FROM {table} WHERE {column} = "{mention}"'
+            query = f'SELECT * FROM {table} WHERE {column} = "{mention}"'
 
-        data = db.selectFromTable(database, query)
+            data = db.selectFromTable(database, query)
 
-        for i in data:
-            dndList.append(i[1])
-            dndList.append(i[2])
+            dndList = []
 
-        if bool(dndList) == True:
+            for i in data:
+                dndList.append(i[1])
+                dndList.append(i[2])
 
-            #   Send the message into the given channel
-                await message.channel.send(f' ***{dndList[0]}*** is away from the keyboard, the note : **{dndList[1]}**')
+            if bool(dndList) == True:
 
-       # await mention.channel.send('lol')
+                #   Send the message into the given channel
+                    await message.channel.send(f' ***{dndList[0]}*** is away from the keyboard, the note : **{dndList[1]}**')
+                    await mention.channel.send('The user can not be mentioned')
 
     #   Anti-Spam
+
         #await self.handler.propagate(message)
         #await self.tracker.do_punishment(message)
 
     #   Procsess commands
         await self.process_commands(message)
+
+        return

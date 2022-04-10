@@ -1,19 +1,19 @@
-#   Python Repositories
+#   Python responsories
 from sys import exit
 from os import getenv
 from datetime import datetime, date
 
-#   Database Repositories
+#   Database responsories
 import mariadb
 
-#   dotenv Repositories
+#   dotenv Responsories
 from dotenv import load_dotenv
 load_dotenv()
 
 #   Selecting, Inserting or updates a table
 class MariaDB():
 
-    '''         MariaDB
+    '''         mariaDB
 
         Connects to the preferably used database from
         mariaDB. with Commands, such as SELECT, INSERT,
@@ -33,12 +33,12 @@ class MariaDB():
                                         port = int(getenv('PORT')), 
                                         password = getenv('PASSWORD'),
                                         database = getenv('database'))
-            
+
             #   Creating a cursor to execute the statements
             self.cur = self.conn.cursor()
 
         except mariadb.Error as e:
-            print(f"Error connecting to the database: \n {e}")
+            print(f"\nError connecting to the database: \n {e}")
             exit(1)
 
         return
@@ -64,9 +64,9 @@ class MariaDB():
         #   Fetching the sql selection
         sql = self.cur.fetchall()
 
-        #   Returning a list
+        #   Initializing a list to return
         sqlData = []
-
+    
         #   append to the list
         for i in sql:
             sqlData.append(i)
@@ -108,6 +108,7 @@ class MariaDB():
         self.conn.commit()
 
         return
+
     def DelRecord(self, database, query):
 
         #   Database selection

@@ -1,5 +1,6 @@
 #   Python Repositories
 from os import getenv
+import random
 
 #   Dotenv Repositories
 from dotenv import load_dotenv
@@ -29,15 +30,15 @@ load_dotenv()
 
 
 def botSetup ():
-    
-     # necsessary values from .env
+
+     #  Necsessary values from .env
     botKey = getenv('BotTokenTest')
     
 
             #   Discord configs
-    intents= Intents().all()         #  Allows every intents
+    intents= Intents().default()         #  Allows every intents
     
-    #intents.members = True          #  Allows to add a role.
+    intents.members = True           #  Retrieve guild Members
     #intents.messages = True         #  Allows the bot to send messages
     #intents.presences = True        #
     #intents.guild_reactions = True  #
@@ -45,7 +46,7 @@ def botSetup ():
     #   retrieving the module
     bot = DiscordBot()#intents=intents)
 
-    #   System Module
+    #   System Modules
     bot.add_cog(HelpCommand(bot))
     bot.add_cog(ErrorHandler(bot))
 

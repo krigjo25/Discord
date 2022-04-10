@@ -38,7 +38,7 @@ class MariaDB():
             self.cur = self.conn.cursor()
 
         except mariadb.Error as e:
-            print(f"Error connecting to the database: \n {e}")
+            print(f"\nError connecting to the database: \n {e}")
             exit(1)
 
         return

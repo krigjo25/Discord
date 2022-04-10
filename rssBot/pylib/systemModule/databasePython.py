@@ -11,7 +11,7 @@ from dotenv import load_dotenv
 load_dotenv()
 
 #   Selecting, Inserting or updates a table
-class mariaDB():
+class MariaDB():
 
     '''         mariaDB
 
@@ -25,6 +25,7 @@ class mariaDB():
     def __init__(self):
 
         try:
+
             #   Initializing the database connection
             self.conn = mariadb.connect(
                                         host = getenv('H0ST'), 
@@ -32,15 +33,16 @@ class mariaDB():
                                         port = int(getenv('PORT')), 
                                         password = getenv('PASSWORD'),
                                         database = getenv('database'))
-            
+
             #   Creating a cursor to execute the statements
             self.cur = self.conn.cursor()
 
         except mariadb.Error as e:
-            print(f"Error connecting to the database: \n {e}")
+            print(f"\nError connecting to the database: \n {e}")
             exit(1)
 
         return
+
     def closeConnection (self):
 
         #   Closing the connection to the database
@@ -64,7 +66,7 @@ class mariaDB():
 
         #   Initializing a list to return
         sqlData = []
-
+    
         #   append to the list
         for i in sql:
             sqlData.append(i)
@@ -106,6 +108,7 @@ class mariaDB():
         self.conn.commit()
 
         return
+
     def DelRecord(self, database, query):
 
         #   Database selection

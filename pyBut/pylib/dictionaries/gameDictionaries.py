@@ -171,11 +171,10 @@ class ReactionGame():
         x = len(dictionary)
         x = randrange(1,x)
 
-        dictionary = dictionary.get(x)
-
-        return dictionary
+        return dictionary.get(x)
 
     def TowTie(self):
+
         dictionary = {
 
                     1:f'Pybut draws a **tie**',
@@ -187,11 +186,8 @@ class ReactionGame():
         #   Randomize the dictionary
         x = len(dictionary)
         x = randrange(1,x)
-        shuffle (dictionary)
 
-        dictionary = dictionary.get(x)
-
-        return dictionary
+        return dictionary.get(x)
     
     def BotWin(self, arg):
 
@@ -227,11 +223,9 @@ class ReactionGame():
         #   Randomize the dictionary
         x = len(dictionary)
         x = randrange(1,x)
-        shuffle (dictionary)
 
-        dictionary = dictionary.get(x)
 
-        return dictionary
+        return dictionary.get(x)
 
     def MemberWin(self, arg, arg1):
 
@@ -267,11 +261,8 @@ class ReactionGame():
         #   Randomize the dictionary
         x = len(dictionary)
         x = randrange(1,x)
-        shuffle (dictionary)
 
-        dictionary = dictionary.get(x)
-
-        return dictionary
+        return dictionary.get(x)
 
 class JumbleCategory():
 
@@ -300,7 +291,6 @@ class JumbleCategory():
         if sub == 'animal kingdom':
 
             category = ['- flyingCreatures \n- Cats,\n- Dogs']
-
         else:
             category = ['An unexpected error']
 
