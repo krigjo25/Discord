@@ -40,7 +40,7 @@ class DiscordBot(Bot):
 
         print(f'''Discord.py v{api_version} has been loaded.
 {self.user.name} has establized a connection following servers :\n
-{srv[0]} & {srv[1]}''')
+{srv[0]}''')
 
         return
 

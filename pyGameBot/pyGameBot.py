@@ -36,7 +36,7 @@ def botSetup ():
     
 
             #   Discord configs
-    intents= Intents().default()         #  Allows every intents
+    intents= Intents().default()         #  Allows default intents
     
     intents.members = True           #  Retrieve guild Members
     #intents.messages = True         #  Allows the bot to send messages

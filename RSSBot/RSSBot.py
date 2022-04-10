@@ -22,9 +22,8 @@ from pylib.communityModule.community import Community                       #   
 
 #   Cnn News
 from pylib.rssModule.cnn.cnnMisc import CnnMisc
-from pylib.rssModule.cnn.cnnWorld import CnnWorld
-
-from pylib.rssModule.cnn.cnnSports import CnnSport
+#from pylib.rssModule.cnn.cnnWorld import CnnWorld
+#from pylib.rssModule.cnn.cnnSports import CnnSport
 
 
 
@@ -35,13 +34,13 @@ load_dotenv()
 def botSetup ():
     
      # necsessary values from .env
-    botKey = getenv('TestToken')
+    botKey = getenv('BotTokenTest')
     
 
             #   Discord configs
-    intents= Intents().all()         #  Allows every intents
+    intents= Intents().default()     #  Only allows Default intents
     
-    #intents.members = True          #  Allows to add a role.
+    #intents.members = True          #  Retrieve guild Members
     #intents.messages = True         #  Allows the bot to send messages
     #intents.presences = True        #
     #intents.guild_reactions = True  #
@@ -58,8 +57,8 @@ def botSetup ():
 
     #   Cnn News
     bot.add_cog(CnnMisc(bot))
-    bot.add_cog(CnnWorld(bot))
-    bot.add_cog(CnnSport(bot))
+    #bot.add_cog(CnnWorld(bot))
+    #bot.add_cog(CnnSport(bot))
     #bot.add_cog(CnnEntertainment(bot))
 
     #   BBC News

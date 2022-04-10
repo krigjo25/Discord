@@ -19,10 +19,10 @@ from pylib.systemModule.commandError import ErrorHandler                    #   
 from pylib.communityModule.community import Community                       #   Community module
 
 #   miniGames Module
-from pyGameBot.pylib.gameModule.miniGamesModule.EightBall.askQ import EightBall                             #   EightBall
-from pyGameBot.pylib.gameModule.miniGamesModule.jumbleGame.jumble import JumbleGame                         #   Jumble Game
-from pyGameBot.pylib.gameModule.miniGamesModule.integerGame.guessTheNumber import GuessTheNumber            #   Guess the number
-from pyGameBot.pylib.gameModule.miniGamesModule.reactionsGames.rockPaperScissors import RockScissorPaper    #   Rock, Scissors & Paper
+from pylib.gameModule.miniGamesModule.EightBall.askQ import EightBall                             #   EightBall
+from pylib.gameModule.miniGamesModule.jumbleGame.jumble import JumbleGame                         #   Jumble Game
+from pylib.gameModule.miniGamesModule.integerGame.guessTheNumber import GuessTheNumber            #   Guess the number
+from pylib.gameModule.miniGamesModule.reactionsGames.rockPaperScissors import RockScissorPaper    #   Rock, Scissors & Paper
 
 # Bot Utility
 
@@ -64,7 +64,7 @@ def botSetup ():
     bot.add_cog(Community(bot))
 
     #   Game-Module
-    #   miniGames
+        #   miniGames
     bot.add_cog(EightBall(bot))
     bot.add_cog(JumbleGame(bot))
     bot.add_cog(GuessTheNumber(bot))
