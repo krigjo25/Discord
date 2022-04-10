@@ -6,8 +6,7 @@ from dotenv import load_dotenv
 
 #   Discord Repositories
 from discord import Intents
-from RSSBot.pylib.rssModule.gameNews.gameInformer import GameInformer
-from RSSBot.pylib.rssModule.gameNews.gameRadar import GamesRadar
+
 
 # library Repositories
 
@@ -88,7 +87,7 @@ def botSetup ():
 
     #   NationalNews
     #bot.add_cog(UnitedStatesofAmerica(bot))
-    bot.add_cog()
+
 
     bot.run(botKey)
 

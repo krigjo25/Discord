@@ -15,6 +15,7 @@ import feedparser
 
 
 class CnnSport(Cog):
+
     def __init__(self, bot) -> None:
         self.channelName = 'rssfeed'
         self.embed = Embed(color=Color.dark_blue())
