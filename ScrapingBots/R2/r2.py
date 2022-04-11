@@ -1,7 +1,6 @@
 
 #   Python Responsories
 import time
-from typing_extensions import Self
 
 #   Selenium Responsories
 from selenium.webdriver import Chrome, Firefox, Edge, Safari
@@ -11,9 +10,10 @@ class R2():
 
     """         R2
         Voting with-out prompting
-
     """
+
     def __init__(self):
+
         self.EdgeDriver = Edge()
         self.SafariDriver = Safari()
         self.firefoxDriver = Firefox()
@@ -21,7 +21,6 @@ class R2():
 
         return
 
-    #   Voting 
     def Vote(self):
 
         #   Initializing variables
@@ -37,6 +36,8 @@ class R2():
         return
 
 i=0
-while i < 10:
+while i<10:
+
+    #   Keeps sending attribute error (self is required?)
     R2.Vote()
     i += 1
