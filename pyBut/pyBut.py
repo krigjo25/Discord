@@ -16,7 +16,7 @@ from pylib.systemModule.discordBot import DiscordBot                        #   
 from pylib.systemModule.commandError import ErrorHandler                    #   Error Handling Module
 
 #   Community Module
-from pylib.communityModule.community import Community                       #   Community module
+from pylib.communityModule.community import CommunityModule                       #   Community module
 
 #   miniGames Module
 from pylib.gameModule.miniGamesModule.EightBall.askQ import EightBall                             #   EightBall
@@ -61,7 +61,7 @@ def botSetup ():
     bot.add_cog(ErrorHandler(bot))
 
     #   Community - module
-    bot.add_cog(Community(bot))
+    bot.add_cog(CommunityModule(bot))
 
     #   Game-Module
         #   miniGames
