@@ -1,4 +1,4 @@
-# Discord bot gameBot
+# Discord bot RSSBot
 
 ## Table of content
 
@@ -62,7 +62,7 @@ easier to access news with-in the server.
 The bot is created to scrape news from the news sites<br>
 for the players, to read them on discord.
 
-the prefix command used in the project  **?'**, e.g **'?help'**
+the prefix command used in the project  **@'**, e.g **'@help'**
 
 ## Feautures
 

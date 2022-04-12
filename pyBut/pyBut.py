@@ -42,7 +42,7 @@ class DiscordSetup():
     def __init__(self) -> None:
         self.intents= Intents().all()               #  Only allows Default intents
         self.bot = DiscordBot(intents=self.intents)
-        pass
+ 
 
     def SystemSetup(self):
 

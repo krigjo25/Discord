@@ -15,6 +15,11 @@ class HelpCommand(Cog):
     @command(name='help', pass_context=True)
     async def FrequentlyAskedQuestions(self,ctx, args=None):
 
+        #   Initializing Classes
+        pygame = PyGames()
+        sys =SystemModule()
+        avs =AdminiralVonSnider()
+
         if args == None:
 
             self.embed.title = 'Frequently Asked Questions:question:'
@@ -22,7 +27,7 @@ class HelpCommand(Cog):
             self.embed.add_field(name=':handshake: Welcome-Module', value='This is our new home', inline=True)
             self.embed.add_field(name=':people_holding_hands: Community-Module', value='Ever heard of the guy whom joined a community? \n He were never seen again.', inline=True)
             self.embed.add_field(name=':people_wrestling: Game-Module', value='-Gamers does not take showers they do steamy once', inline=True)
-            self.embed.add_field(name=':tv: RSS-Module',value='An Irishman arrived at J.F.K. Airport and wandered around the terminal with tears streaming down his cheeks...', inline=True)
+            #self.embed.add_field(name=':signal_strength: RSS-Module',value='An Irishman arrived at J.F.K. Airport and wandered around the terminal with tears streaming down his cheeks...', inline=True)
 
             #   Moderator Commands
             if ctx.author.guild_permissions.kick_members:
@@ -38,33 +43,40 @@ class HelpCommand(Cog):
 
         #   Bot-Modules
 
-            if args == 'game' or args == 'game-module': self.GameModule()
-            elif args == 'minigames' or args == 'minigames-module': self.miniGamesModule()
-            elif args == 'welcome' or args == 'welcome-module':self.embed = self.WelcomeModule()
-            elif args == 'community' or args == 'community-module': self.embed = self.CommunityModule()
+            if args == 'game' or args == 'game-module': pygame.GameModule()
+            elif args == 'minigames' or args == 'minigames-module': pygame.miniGamesModule()
 
-            #   RSS Module
-            elif args == 'rss' or args == 'rss-feeds': self.embed = self.RSSModule()
-            elif args == 'cnnnews' or args == 'cnnworld' or args == 'cnnmisc':self.embed = self.CNNNews(args)
+            elif args == 'welcome' or args == 'welcome-module':self.embed = sys.WelcomeModule()
+            elif args == 'community' or args == 'community-module': self.embed = sys.CommunityModule()
 
         #   Administration
-            elif args == 'moderator'  or args == 'moderator-module': self.ModeratorModule()
-            elif args == 'administrator'  or args == 'administrator-module': self.AdministratorModule()
+            elif args == 'moderator'  or args == 'moderator-module': avs.ModeratorModule()
+            elif args == 'administrator'  or args == 'administrator-module': avs.AdministratorModule()
 
-            await ctx.send(embed=self.embed)
-            self.embed.clear_fields()
-            return
+        await ctx.send(embed=self.embed)
+        self.embed.clear_fields()
+
+        return
+
+class SystemModule(Cog):
+
+    def __init__(self, bot):
+        self.bot = bot
+        self.embed = Embed(color=Color.dark_purple())
+
+        return
 
     def WelcomeModule(self):
 
         self.embed.title=':handshake: Welcome-Module'
         self.embed.description='Use ** ?help (Command)**, for more details, sir.\n\n'
-        self.embed.add_field(name='On member join / leave ', value='- Over 100 Welcome messages and leave messages. In order for \n it to work, set a channel as\n"system message channel ', inline=True)
+        self.embed.add_field(name='On member connect / absence ', value='- Over 100 Welcome messages and leave messages. In order for \n it to work, set a channel as\n"system message channel ', inline=True)
         self.embed.add_field(name='Force-readRules', value=' Customize a rule set and the person has to agree in order to get a role / be able to view other channels', inline=True)
 
         return self.embed
 
     def CommunityModule(self):
+
         self.embed.title=':people_holding_hands: Community-Module'
         self.embed.description='Use ** ?help (Command)**, for more details, sir.\n\n'
         self.embed.add_field(name='?botinfo \n(optional parameter: log)', value='- how did the bot fail the exam? She was a bit rusty', inline=True)
@@ -76,6 +88,14 @@ class HelpCommand(Cog):
         self.embed.add_field(name=':x:?pre-mod', value='How does the pre-mod work')
 
         return self.embed
+
+class PyGames(Cog):
+
+    def __init__(self, bot):
+        self.bot = bot
+        self.embed = Embed(color=Color.dark_purple())
+
+        return
 
     def GameModule(self):
 
@@ -96,69 +116,13 @@ class HelpCommand(Cog):
 
         return self.embed
 
-    def RSSModule(self):
+class AdminiralVonSnider(Cog):
 
-        self.embed.title = 'RSS Module'
-        self.embed.add_field(name='CNNnews', value = 'Cnn RSS feeds')
-        #self.embed.add_field(name='BBCNews', value = 'BBC RSS feeds')
-        self.embed.add_field(name='GameNews', value = 'Game RSS feeds')
-        #self.embed.add_field(name='PandemicNews', value = 'Pandemic RSS feeds')
-        self.embed.add_field(name='Miscerillious commands', value = '*rss (rss url)')
-        self.embed.add_field(name='NationalNews', value = 'National News for selected country')
+    def __init__(self, bot):
+        self.bot = bot
+        self.embed = Embed(color=Color.dark_purple())
 
-        return self.embed
-
-    def CNNNews(self, args):
-
-        if args == 'cnnworld':
-
-            self.embed.title = 'CNN World News'
-            self.embed.add_field(name ='?cafrica', value ='To get the news from the region')
-            self.embed.add_field(name ='?camerica', value ='To get the news from the region')
-            self.embed.add_field(name ='?casia', value ='To get the news from the region')
-            self.embed.add_field(name ='?ceurope', value ='To get the news from the region')
-            self.embed.add_field(name ='?cWorld', value ='Cnn World News')
-
-        elif args == 'cnnmisc':
-
-            self.embed.title = 'CNN Misc News'
-            self.embed.add_field(name ='?ctop', value ='Top 10 Cnn News')
-            self.embed.add_field(name ='?cetn', value ='Top 10 Cnn Entertainment News')
-            self.embed.add_field(name ='?css', value ='Top 10 Cnn Space & Science News')
-            self.embed.add_field(name ='?ccash', value ='Top 10 Cnn Money News')
-            self.embed.add_field(name ='?cvideo', value ='Top 10 Cnn Videos')
-            self.embed.add_field(name ='?cmr', value ='Top 10 Cnn Motor Sport News')
-            self.embed.add_field(name ='?ctravel', value ='Top 10 Cnn Travel News')
-            self.embed.add_field(name ='?ctech', value ='Top 10 Cnn Technologies News')
-
-        elif args == 'nationalNews':
-            self.embed.title = 'National News'
-            self.embed.add_field(name ='?cusa', value ='Top 10 Cnn News of USA')
-
-        else:
-
-            self.embed.title = 'CNN News'
-            self.embed.description = 'Cnn offical News'
-            self.embed.add_field(name ='CNNWorld', value ='Cnn World News')
-            self.embed.add_field(name ='CNNMisc', value ='Cnn Misc News')
-
-        return self.embed
-
-    def NationalNews(self):
-
-        self.embed.title = 'World Wide National news'
-        self.embed.description = 'National news'
-        self.embed.add_field(name ='nusa', value ='National news for United States of America')
-
-        return self.embed
-
-    def GameFAQ (self):
-
-        self.embed.title = 'Game News'
-        self.embed.description = ' Gives you top 5 game news\n'
-        self.embed.add_field(name ='?gsnews', value ='GameSpot news')
-
-        return self.embed
+        return
 
     #   Administration
     def ModeratorModule(self):

@@ -49,7 +49,7 @@ class ErrorHandler(Cog):
         invokeError = CommandInvokeError
         misingargs = MissingRequiredArgument
  
-        dmCreator = self.bot.get_user(340540581174575107)
+        #dmCreator = self.bot.get_user(340540581174575107)
 
             #   Member Not Found 
         if isinstance(error, NotFound):
@@ -146,10 +146,8 @@ class ErrorHandler(Cog):
                 self.embed.description = f'{dictionary}'
                 await ctx.send(embed=self.embed)
 
-                if dmCreator != None:
-                    await dmCreator.send(f'Master, an attribute {attribute}. Error were found, in, {error.original}', tts = True)
-                else:
-                    print(dmCreator)
+                #    await dmCreator.send(f'Master, an attribute {attribute}. Error were found, in, {error.original}', tts = True)
+
 
             elif isinstance(error.original, BadArgs):
 
@@ -160,10 +158,8 @@ class ErrorHandler(Cog):
                 self.embed.description = f'{dictionary}'
                 await ctx.send(embed=self.embed)
    
-                if dmCreator != None:
-                    await dmCreator.send(f'Master, Some Bad Arguments appeard {BadArgs}. Error were found, in, {error.original}', tts = True)
-                else:
-                    print(dmCreator)
+
+                #    await dmCreator.send(f'Master, Some Bad Arguments appeard {BadArgs}. Error were found, in, {error.original}', tts = True)
 
             else:
 
@@ -175,10 +171,8 @@ class ErrorHandler(Cog):
                 #self.embed.description = f'{dictionary}'
                 #await ctx.send(embed=self.embed)
 
-                if dmCreator != None:
-                    await dmCreator.send(f'Master, an Unknown Error appeard. Error were found in, {error.original}', tts = True)
-                else:
-                    print(dmCreator)
+
+            #    await dmCreator.send(f'Master, an Unknown Error appeard. Error were found in, {error.original}', tts = True)
 
         else:
 

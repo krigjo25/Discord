@@ -138,9 +138,9 @@ class Administrator(Cog, name='Admin-module'):
     #   Announcements
     @command(name='announce')
     @has_any_role('admin','Admin', 'Software-Technican')
-    async def botSay(self, ctx, ch ):
+    async def botSay(self, ctx, ch):
         
-        #   Prepare and send an embeded message
+        #   Prepare & send embeded message
         self.embed.title = ''
         self.embed.description = 'What would you like to announce?'
         await ctx.send(embed=self.embed)
@@ -152,7 +152,9 @@ class Administrator(Cog, name='Admin-module'):
         # Find the given channel to send an announcement
         srv = ctx.guild
         channel = get(srv.channels, name=ch)
+
         await channel.send(f'{message} \n Sincerely, \n **{ctx.author}** \n Date : **{self.curTime}**')
+
         return
 
     #   Role Managements
