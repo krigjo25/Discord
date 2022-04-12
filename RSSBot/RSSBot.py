@@ -7,12 +7,7 @@ from dotenv import load_dotenv
 #   Discord Repositories
 from discord import Intents
 
-
-# pyBut Repositories
-
-
 #   System module
-
 from pylib.systemModule.help import HelpCommand, InternationalModule, NationalModule                                     #   Help module
 from pylib.systemModule.discordBot import DiscordBot                                #   The Client
 from pylib.systemModule.commandError import ErrorHandler                          #   Error Handling Module
@@ -21,7 +16,6 @@ from pylib.systemModule.commandError import ErrorHandler                        
 from pylib.communityModule.community import CommunityModule                       #   Community module
 
 #   RSS-Feed Module
-
 #   World News
 from pylib.rssModule.international.cnn.cnnMisc import CnnMisc
 from pylib.rssModule.international.cnn.cnnWorld import CnnWorld
@@ -29,12 +23,7 @@ from pylib.rssModule.international.cnn.cnnSports import CnnSport
 
 #   National news
 from pylib.rssModule.national.usNational import USANational
-#from pylib.rssModule.gameNews.gameRadar import GamesRadar
-#from pylib.rssModule.gameNews.metacritic import Metacritic
-#from pylib.rssModule.gameNews.destructoid import Destructoid
-#from pylib.rssModule.gameNews.gameInformer import GameInformer
-#from pylib.rssModule.gameNews.nintendoLife import NintendoLife
-#from pylib.rssModule.gameNews.christCenteredGamer import ChristCenteredGamer
+
 
 
 # Importing .evn file
@@ -66,10 +55,12 @@ class DiscordSetup():
 
     def InternationalNewsSetup(self):
 
-            #   Cnn News
+        #   Cnn News
         self.bot.add_cog(CnnMisc(bot))
         self.bot.add_cog(CnnWorld(bot))
         self.bot.add_cog(CnnSport(bot))
+
+        #   CNBC News
 
         return
 
@@ -80,24 +71,20 @@ class DiscordSetup():
 
         return
 
+    def miscSetup(self):
+
+        self.bot.add_cog(CommunityModule(bot))
+
+        return
     def RSSBotStartConfiguration (self):
         
         # necsessary values from .env
         botKey = getenv('BotTokenTest')
 
-                
-        
-
-        #   Initializing classes
-
-        
         self.SystemSetup()
+        self.miscSetup()
         self.NationalNewsSetup()
         self.InternationalNewsSetup()
-        
-
-        #   Community - module
-        self.bot.add_cog(CommunityModule(bot))
 
         self.bot.run(botKey)
         
