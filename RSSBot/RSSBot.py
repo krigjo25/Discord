@@ -38,6 +38,7 @@ from pylib.rssModule.gameNews.gameSpot import GameSpot
 #from pylib.rssModule.gameNews.nintendoLife import NintendoLife
 #from pylib.rssModule.gameNews.christCenteredGamer import ChristCenteredGamer
 
+from pylib.scrapeBot.q90 import Q90
 #   National news
 
 #   USA
@@ -61,7 +62,8 @@ def botSetup ():
     #intents.presences = True           #  Allows the bot to track member activty
     #intents.reactions = True           #  Allows the bot to react to a message
 
-    #   retrieving the module
+    #   Initializing classes
+    rss = Q90()
     bot = DiscordBot(intents=intents)
 
     #   System Module
@@ -91,5 +93,10 @@ def botSetup ():
 
     bot.run(botKey)
 
+    #   Urls to parse through
+    url= 'https://rss.nytimes.com/services/xml/rss/nyt/NYRegion.xml'
+    
+    #rss.LoadXML(url)
+    #rss.praseXML(url)
 if __name__ == '__main__':
     botSetup()

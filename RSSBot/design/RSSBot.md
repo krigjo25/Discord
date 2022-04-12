@@ -44,13 +44,13 @@
 
 *  Had to create a own scraping bot to get items, which does not raise 400 Bad Request from feedparser.
 
-##  Requirements
-
 ### Intents requirements
 
 *   Default intents
 
-## Responsories
+## Responsories used
 
+- discord.py [Rapptz](https://github.com/Rapptz/discord.py),  <br>
 - feedparser [kurtmckee](https://github.com/kurtmckee/feedparser),<br>
 - python_dotenv [Saurabh Kumar](https://github.com/motdotla/dotenv),<br>
+- pillow

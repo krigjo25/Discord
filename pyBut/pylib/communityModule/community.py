@@ -1,6 +1,6 @@
 #   Python Repositories
 from os import getenv
-from random import randint, randrange
+from random import randint, randrange, shuffle
 from dotenv import load_dotenv
 
 #   Discord Repositories
@@ -76,6 +76,7 @@ class Community(Cog, name='Community Module'):
             self.embed.clear_fields()
 
         return
+
 #   Online members
     @command(name='memberlist', pass_context=True)
     async def MembersList(self, ctx):
@@ -138,7 +139,7 @@ class Community(Cog, name='Community Module'):
                 self.embed.set_image(url= '')
         return
 
-
+#   Random Number
     @command (name='randint')
     async def randomInt(self, ctx, arg, argTwo):
 
@@ -158,6 +159,29 @@ class Community(Cog, name='Community Module'):
 
         return
 
+#   Random Yes / No / Maybe
+
+    @command (name='yesnomaybe')
+    async def YesNoMaybe(self, ctx, arg):
+
+        arg = str(arg)
+
+        if arg == 'yes' or arg == 'No' or arg == 'Maybe':
+
+            #   Creating a list to keep the words in
+            dictionary = ['Yes', 'No', 'Maybe']
+
+            #   Randomizing the words
+            x = randint(0,2)
+            shuffle(dictionary)
+
+            #   Prepare and send the embed
+            self.embed.title = f"{dictionary[x]}"
+            await ctx.send(embed=self.embed)
+
+            return 
+
+#   Going busy
     @command (name='dnd')
     async def AwayFromKeyBoard(self, ctx, *, reason):
 
