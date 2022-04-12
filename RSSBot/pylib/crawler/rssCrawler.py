@@ -23,8 +23,8 @@ class Q90():
     def __init__(self):
 
                 #   File paths
-        self.csvPath = 'crawler/docs/CSV/news.csv'
-        self.xmlPath = 'crawler/docs/xml/topnewsfeed.xml'
+        self.csvPath = 'rssBot/pylib/crawler/docs/csv/topnewsfeed.csv'
+        self.xmlPath = 'rssBot/pylib/crawler/docs/xml/topnewsfeed.xml'
 
         return
 
@@ -64,7 +64,7 @@ class Q90():
 
             #   Initializing the child elemets of the content
             for child in item:
-
+                print(child.tag)
                 #   Checking for namespace object
                 if child.tag == '{http://search.yahoo.com/mrss/}content':
 
@@ -73,11 +73,11 @@ class Q90():
                 elif child.tag == '{http://www.w3.org/2005/Atom}link' or child.tag == '{http://purl.org/dc/elements/1.1/}creator' or child.tag == '{http://search.yahoo.com/mrss/}credit':
                         pass
 
-                elif child.tag == '{http://search.yahoo.com/mrss/}description' or child.tag == 'guid':
+                elif child.tag == '{http://search.yahoo.com/mrss/}description' or child.tag == 'guid' or child.tag == 'relatedGames' or child.tag == 'category':
                     pass
                     
                 else:
-
+                    print(child.tag)
                     newsItems[child.tag] = child.text.encode('utf-8')
 
             content.append(newsItems)
@@ -95,6 +95,9 @@ class Q90():
         #   After we're done we are cleaning up
         if os.path.exists(self.xmlPath): os.remove(f'{self.xmlPath}') 
         else: print('could not find the OS path')
+
+        if newsItems['media'] != None:
+            print( newsItems)
 
         return
 

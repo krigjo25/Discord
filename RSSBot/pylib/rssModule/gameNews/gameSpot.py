@@ -57,10 +57,10 @@ class GameSpot(Cog):
             print(f'{artnr}. {article.title}\n{summary}\n**{updated}**\n{article.link}\n ')
             if summary != 'There is no summary for this article':
 
-                self.embed.add_field(name=f'{artnr}. {article.title}', value=f'\n{summary}\n**{updated}**\n{article.link}\n ')
+                self.embed.add_field(name=f'{artnr}. {article.title}', value=f'\n{summary[4:350]}\n**{updated}**\n{article.link}\n ')
 
             #   Drop the loop when the counter is reached
-            if artnr == 1: 
+            if artnr == 4: 
                 break
 
         #   Send the information, and reset embed
