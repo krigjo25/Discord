@@ -71,8 +71,8 @@ class USANational(Cog):
 
     @command(name = 'cnbcusa')
     async def CNBCNational(self,ctx):
-        
-            #   Retrieve the guild information
+
+        #   Retrieve the guild information
         srv = ctx.guild
         role = get(srv.roles, name='@Members')
         ch = get(srv.channels, name=f'{self.channelName}')
@@ -82,7 +82,7 @@ class USANational(Cog):
 
             #   Creating channel permissions
             perms = {
-                            
+      
                     srv.default_role:PermissionOverwrite(read_messages=False),
                     #role:PermissionOverwrite(view_channel=True, read_message_history = True),
                 }

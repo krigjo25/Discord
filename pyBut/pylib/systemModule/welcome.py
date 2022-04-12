@@ -14,7 +14,7 @@ from pylib.systemModule.databasePython import MariaDB
 from pylib.dictionaries.systemmessages import Dictionaries
 
 
-class Welcome(Cog, name='Welcome module'):
+class Welcome(Cog):
     def __init__(self, bot, *kwargs):
         self.bot = bot
 
