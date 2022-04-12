@@ -11,6 +11,9 @@ from discord.ext.commands import Cog, command
 #   RSS Responsories
 import feedparser
 
+#   pylib Responsories
+from pylib.crawler.rssCrawler import Q90
+
 class CnnMisc(Cog):
 
     """     CnnMisc
@@ -339,8 +342,11 @@ class CnnMisc(Cog):
         return
 
     #   Bad Request too long
-    @command(name='sdfsdsdfsdf')
+    @command(name='crecent')
     async def MostRecentNews(self, ctx):
+
+        #   Initializing classes
+
 
         #   Retrieve the guild information
         srv = ctx.guild
@@ -362,7 +368,7 @@ class CnnMisc(Cog):
         #   Creating the feed
         rssNews = feedparser.parse('http://rss.cnn.com/rss/cnn_latest.rss')
         entries =  rssNews.entries
-
+        
         #   Create the embed information
         self.embed.title = f'{rssNews.feed.title}'
         self.embed.description = f'{rssNews.feed.description}'
@@ -376,7 +382,7 @@ class CnnMisc(Cog):
             updated = rssNews.feed.get('updated', ' No Date to be shown')
 
             if summary != 'There is no summary for this article':
-                self.embed.add_field(name=f'{artnr}. {article.title}', value=f'\n{summary}\n ')
+                self.embed.add_field(name=f'{artnr}. {article.title}', value=f'\n{summary[0:96]}\n ')
 
             #   Drop the loop when the counter is reached
             if artnr == 5:

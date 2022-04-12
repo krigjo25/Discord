@@ -12,7 +12,6 @@ from urllib.request import urlretrieve
 import requests
 
 class Q90():
-
     """         Created following tutorials
 
             Q9-0 scrapes XML files 
@@ -24,8 +23,8 @@ class Q90():
     def __init__(self):
 
                 #   File paths
-        self.csvPath = 'ScrapingBots/rssReader/docs/CSV/news.csv'
-        self.xmlPath = 'ScrapingBots/rssReader/docs/xml/topnewsfeed.xml'
+        self.csvPath = 'crawler/docs/CSV/news.csv'
+        self.xmlPath = 'crawler/docs/xml/topnewsfeed.xml'
 
         return
 
@@ -101,11 +100,13 @@ class Q90():
 
     def openImage(self, url, name):
 
+        imgPath = f'crawler/docs/pic/{name}'
         #   Downloading image
-        urlretrieve(url, name)
+        urlretrieve(url, imgPath, name)
 
         #   Opens the image
         img = Image.open(name)
         img.show()
+        if os.path.exists(self.xmlPath): os.remove(f'{imgPath}')
 
         return

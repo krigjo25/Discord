@@ -219,7 +219,7 @@ class CnnSport(Cog):
         return
 
 #   Attribute error
-    @command(name='dgfhfghfgh')
+    @command(name='cwsport')
     async def WorldsSports(self, ctx):
 
         #   Retrieve the guild information
@@ -240,7 +240,7 @@ class CnnSport(Cog):
             await srv.create_text_channel(f'{self.channelName}', overwrites=perms)
 
         #   Creating the feed
-        rssNews = feedparser.parse('http://rss.cnn.com/rss/edition_sports.rss')
+        rssNews = feedparser.parse('http://rss.cnn.com/rss/edition_sport.rss')
         entries =  rssNews.entries
 
         #   Create the embed information

@@ -5,22 +5,20 @@ import requests
 from bs4 import BeautifulSoup
 
 url = 'https://www.smp.no/kultur/i/z733lK/ny-cd-og-ny-jobb-for-annbjoerg-lien'
-rssNews = feedparser.parse(url)
+rssNews = feedparser.parse('http://rss.cnn.com/rss/edition_sport.rss')
 entries =  rssNews.entries
+print(entries)
+
 
 for artnr, article in enumerate(entries):
-
+        print(article)
+#   Searching for selected list items
         summary = article.get('summary', 'There is no summary for this article')
-        im = Image.open(requests.get(article.img_url, stream=True).raw)
         updated = rssNews.feed.get('updated', ' No Date to be shown')
-        value = rssNews.feed.get('value' 'No values')
-        author= rssNews.feed.get('author', 'Unkown')
-
 
         if summary != 'There is no summary for this article':
-                print (f"\n{article.title} | nr. {artnr}\n{summary}\nLast Update:{updated}\n link:{article.link}\n By :{author}\n" )
+                print(f'{artnr}. {article.title}\n', f'{summary[0:96]}\n ')
 
-        #if artnr == 3:
-        #        break
-
-print(article)
+            #   Drop the loop when the counter is reached
+                if artnr == 5:
+                        break

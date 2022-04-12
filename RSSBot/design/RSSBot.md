@@ -42,7 +42,7 @@
 
 ##  Challanges
 
-*  Had to create a own scraping bot to get items, which does not raise 400 Bad Request from feedparser.
+*  Had to create a crawler to get items, which does not raise 400 Bad Request from feedparser.
 
 ### Intents requirements
 
