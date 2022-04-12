@@ -1,7 +1,0 @@
-import discord
-from discord.embeds import Embed
-
-def FrequentlyAskedQuestions(args):
-
-
-        return 

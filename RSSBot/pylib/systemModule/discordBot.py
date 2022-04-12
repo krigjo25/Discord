@@ -13,23 +13,11 @@ from discord.ext.commands import Bot
 #   pylib Repositories
 from pylib.systemModule.databasePython import MariaDB
 
-# Anti-Spam Plugins
-#from antispam import AntiSpamHandler
-
-# Anti-Spam Options
-#from antispam.dataclasses.options import Options
-
-# Anti-Spam Consequenses
-#from lib.BotModerationModule.plugins.spamTracker import SpamTracker
-
 load_dotenv()
 
 class DiscordBot(Bot):
     def __init__(self, command_prefix='?', help_command=None, description=None, owner_id = 340540581174575107, **options):
         super().__init__(command_prefix, help_command=help_command, description=description, owner_id = owner_id, **options)
-        #self.handler = AntiSpamHandler(self, options=Options(ignore_bots=False, no_punish=True))
-        #self.tracker = SpamTracker(self.handler, 3)
-        #self.handler.register_plugin(self.tracker)
 
     async def on_ready(self):
         srv= []

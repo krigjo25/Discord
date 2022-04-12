@@ -1,9 +1,0 @@
-
-#1
-
-> setPermission (role name) 
->> Set a role's permissions
->> If the role does not exist, it creates one
-
-#2
-* edit help command
