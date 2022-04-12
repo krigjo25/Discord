@@ -1,44 +1,40 @@
 # Discord bot RSSBot
 
-## News Channel
+## News Channels
 
 *   CNN News
+*   CNBC News
 
-### CNN
+### International News
 
-####   CNN World
+####   CNN World News
 
 *   cWorld, retrieves general news from the WorldNews
 *   cEuro, retrieves news from Europe
 *   cafrica, retrieves news from Africa
 *   cmeast, retrieves news from the Middle East
 *   casia, retrieves news from Asia
-*   camerica, retrieves news from America
-*   
+*   camerica, retrieves news from America  
 
-####    Local News
+#### CNBC World News
 
-*   cus, retrieves news from United States of America
 
-####   CnnMisc
+
+###     National News
+
+*   cusa    United States National News
+
+
+###     Misc News
+
+####    CNN Misc News
 * ctop, top 10 news articles  may be less
 
 
-###  Game News
-
-*   GameSpot
-*   GamesRadar
-*   Metacritic
-*   Destructoid
-*   GameInformer
-*   NintendoLife
-*   ChristCenteredGamer
 
 ## Feature implentations
 
-*   cmr, Most Recent News.
 *   cvideo, Videos from CNN
-*   cWorldSports, news about the sports in the world
 
 ##  Challanges
 
@@ -46,11 +42,11 @@
 
 ### Intents requirements
 
-*   Default intents
+*   Default intents 
+*   Non Adminstrativ bot
 
 ## Responsories used
 
 - discord.py [Rapptz](https://github.com/Rapptz/discord.py),  <br>
 - feedparser [kurtmckee](https://github.com/kurtmckee/feedparser),<br>
 - python_dotenv [Saurabh Kumar](https://github.com/motdotla/dotenv),<br>
-- pillow

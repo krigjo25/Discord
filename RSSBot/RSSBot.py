@@ -28,7 +28,7 @@ from pylib.rssModule.international.cnn.cnnWorld import CnnWorld
 from pylib.rssModule.international.cnn.cnnSports import CnnSport
 
 #   National news
-from pylib.rssModule.national.usNational import NationalNews
+from pylib.rssModule.national.usNational import USANational
 #from pylib.rssModule.gameNews.gameRadar import GamesRadar
 #from pylib.rssModule.gameNews.metacritic import Metacritic
 #from pylib.rssModule.gameNews.destructoid import Destructoid
@@ -40,48 +40,71 @@ from pylib.rssModule.national.usNational import NationalNews
 # Importing .evn file
 load_dotenv()
 
+class DiscordSetup():
 
-def botSetup ():
-    
-     # necsessary values from .env
-    botKey = getenv('BotTokenTest')
-    
+    def __init__(self) -> None:
+        self.intents= Intents().default()               #  Only allows Default intents
+        self.bot = DiscordBot(intents=self.intents)
+        pass
 
-            #   Discord configs
-    intents= Intents().default()        #  Only allows Default intents
-    
-    #intents.members = True             #  Allows the bot to track member updates, fetch members
-    #intents.messages = True            #  Allows the bot to send messages
-    #intents.presences = True           #  Allows the bot to track member activty
-    #intents.reactions = True           #  Allows the bot to react to a message
+    def SystemSetup(self):
 
-    #   Initializing classes
+        #   System Configuration
+        #self.intents.members = True             #  Allows the bot to track member updates, fetch members
+        #self.intents.messages = True            #  Allows the bot to send messages
+        #self.intents.presences = True           #  Allows the bot to track member activty
+        #self.intents.reactions = True           #  Allows the bot to react to a message
 
-    bot = DiscordBot(intents=intents)
+        #   Help command
+        self.bot.add_cog(HelpCommand(bot))
+        self.bot.add_cog(InternationalModule(bot))
+        self.bot.add_cog(NationalModule(bot))
 
-    #   System Module
+        self.bot.add_cog(ErrorHandler(bot))
 
-    #   Help command
-    bot.add_cog(HelpCommand(bot))
-    bot.add_cog(InternationalModule(bot))
-    bot.add_cog(NationalModule(bot))
+        return
 
-    bot.add_cog(ErrorHandler(bot))
+    def InternationalNewsSetup(self):
 
-    #   Community - module
-    bot.add_cog(CommunityModule(bot))
-    #   International news
-        #   Cnn News
-    bot.add_cog(CnnMisc(bot))
-    bot.add_cog(CnnWorld(bot))
-    bot.add_cog(CnnSport(bot))
+            #   Cnn News
+        self.bot.add_cog(CnnMisc(bot))
+        self.bot.add_cog(CnnWorld(bot))
+        self.bot.add_cog(CnnSport(bot))
 
-    #   NationalNews
-    bot.add_cog(NationalNews(bot))
+        return
 
-    bot.run(botKey)
-    
-    #rss.LoadXML(url)
-    #rss.praseXML(url)
+    def NationalNewsSetup(self):
+
+        #   America
+        self.bot.add_cog(USANational(bot))
+
+        return
+
+    def RSSBotStartConfiguration (self):
+        
+        # necsessary values from .env
+        botKey = getenv('BotTokenTest')
+
+                
+        
+
+        #   Initializing classes
+
+        
+        self.SystemSetup()
+        self.NationalNewsSetup()
+        self.InternationalNewsSetup()
+        
+
+        #   Community - module
+        self.bot.add_cog(CommunityModule(bot))
+
+        self.bot.run(botKey)
+        
+        #rss.LoadXML(url)
+        #rss.praseXML(url)
+
 if __name__ == '__main__':
-    botSetup()
+
+    bot = DiscordSetup()
+    bot.RSSBotStartConfiguration()

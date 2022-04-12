@@ -38,7 +38,7 @@ class CommunityModule(Cog, name='Community Module'):
             self.embed.description = ''
             self.embed.add_field(name = ':rotating_light: Released', value=getenv('BotCreated'), inline=True)
             self.embed.add_field(name = ' :new: Updated', value=getenv('BotUpdated'), inline=True)
-            self.embed.add_field(name = ':person_with_probing_cane: Current Version', value= getenv('BotVersion'), inline=True)
+            self.embed.add_field(name = ':person_with_probing_cane: Current Version', value= '0.1.0rb', inline=True)
             self.embed.add_field(name = ':toolbox: Responsory', value=getenv('Responsory'), inline=True)
             self.embed.add_field(name = ':cloud: Hosted', value=getenv('HOSTED'), inline=True)
             self.embed.add_field(name = ':man: Master', value=f'My master goes by the name, {Master} :flag_no:', inline=True)

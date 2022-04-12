@@ -37,44 +37,67 @@ from pylib.postModerationModule.administratorModule.administrator import Adminis
 # Importing .evn file
 load_dotenv()
 
+class DiscordSetup():
 
-def botSetup ():
-    
-     # necsessary values from .env
-    botKey = getenv('BotToken')
-    
+    def __init__(self) -> None:
+        self.intents= Intents().all()               #  Only allows Default intents
+        self.bot = DiscordBot(intents=self.intents)
+        pass
 
-            #   Discord configs
-    intents= Intents().all()         #  Allows every intents
-    
-    #intents.members = True             #  Allows the bot to track member updates, fetch members
-    #intents.messages = True            #  Allows the bot to send messages
-    #intents.presences = True           #  Allows the bot to track member activty
-    #intents.reactions = True           #  Allows the bot to react to a message
+    def SystemSetup(self):
 
-    #   retrieving the module
-    bot = DiscordBot(intents=intents)
+        #   System Configuration
+        #self.intents.members = True             #  Allows the bot to track member updates, fetch members
+        #self.intents.messages = True            #  Allows the bot to send messages
+        #self.intents.presences = True           #  Allows the bot to track member activty
+        #self.intents.reactions = True           #  Allows the bot to react to a message
 
-    #   System Module
-    bot.add_cog(Welcome(bot))
-    bot.add_cog(HelpCommand(bot))
-    bot.add_cog(ErrorHandler(bot))
+        self.bot.add_cog(Welcome(bot))
+        self.bot.add_cog(HelpCommand(bot))
+        self.bot.add_cog(ErrorHandler(bot))
 
-    #   Community - module
-    bot.add_cog(CommunityModule(bot))
+        return
 
-    #   Game-Module
-        #   miniGames
-    bot.add_cog(EightBall(bot))
-    bot.add_cog(JumbleGame(bot))
-    bot.add_cog(GuessTheNumber(bot))
-    bot.add_cog(RockScissorPaper(bot))
-    
+    def AdministrationSetup(self):
+
     #   Moderation - Module
-    bot.add_cog(Moderator(bot))
-    bot.add_cog(Administrator(bot))
+        self.bot.add_cog(Moderator(bot))
+        self.bot.add_cog(Administrator(bot))
+        return
 
-    bot.run(botKey)
+    def miniGamesSetup(self):
+
+        #   Game-Module
+            #   miniGames
+        self.bot.add_cog(EightBall(bot))
+        self.bot.add_cog(JumbleGame(bot))
+        self.bot.add_cog(GuessTheNumber(bot))
+        self.bot.add_cog(RockScissorPaper(bot))
+
+        return
+
+    def MiscModuleSetup(self):
+
+        #   Community module
+        self.bot.add_cog(CommunityModule(bot))
+
+        return
+
+    def RSSBotStartConfiguration (self):
+        
+        #   Necsessary values from .env
+        botKey = getenv('BotToken')
+
+        #   Initializing functions
+        self.SystemSetup()
+        self.miniGamesSetup()
+        self.MiscModuleSetup()
+        self.AdministrationSetup()
+
+        #   Run the bot
+        self.bot.run(botKey)
 
 if __name__ == '__main__':
-    botSetup()
+
+    bot = DiscordSetup()
+    bot.RSSBotStartConfiguration()
