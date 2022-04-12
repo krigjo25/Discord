@@ -4,10 +4,10 @@
 
 > [Introduction](#Introduction)
 >> About the Developer
->>> Krigjo25
+>>> RSSBot
 >>> Contact
 
-> [About-krigjo25](#About-krigjo25)
+> [About-RSSBot](#About-RSSBot)
 >> project information 
 >> How to use the bot
 >> Features
@@ -68,15 +68,19 @@ the prefix command used in the project  **?'**, e.g **'?help'**
 
 ### RSS-Feeds
 
+####    International News
+
 CNN-News<br>
-    Top News : Gives you the top 5 news in CNN-Module<br>
+    Top News : Gives you the top 5 news in CNN-Module
 
     World News : Gives you the top 5 news in World-News<br>
     and many more
 
-~~BBC-News~~
+#### National News
 
-~~Local News~~
+* United States of America
+
+#### Local News
 
 
 ### Challanges 

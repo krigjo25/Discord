@@ -8,28 +8,27 @@ from dotenv import load_dotenv
 from discord import Intents
 
 
-# library Repositories
+# pyBut Repositories
+
 
 #   System module
 
-from pylib.systemModule.help import HelpCommand                           #   Help module
-from pylib.systemModule.discordBot import DiscordBot                     #   The Client
-from pylib.systemModule.commandError import ErrorHandler                  #   Error Handling Module
+from pylib.systemModule.help import HelpCommand, InternationalModule, NationalModule                                     #   Help module
+from pylib.systemModule.discordBot import DiscordBot                                #   The Client
+from pylib.systemModule.commandError import ErrorHandler                          #   Error Handling Module
 
 #   Community Module
-from pylib.communityModule.community import Community                       #   Community module
+from pylib.communityModule.community import CommunityModule                       #   Community module
 
 #   RSS-Feed Module
 
 #   World News
-#   CNN
-from pylib.rssModule.international.cnn.misc import CnnMisc
-from pylib.rssModule.international.cnn.world import CnnWorld
-from pylib.rssModule.international.cnn.sports import CnnSport
+from pylib.rssModule.international.cnn.cnnMisc import CnnMisc
+from pylib.rssModule.international.cnn.cnnWorld import CnnWorld
+from pylib.rssModule.international.cnn.cnnSports import CnnSport
 
-
-#   Game News
-from pylib.rssModule.gameNews.gameSpot import GameSpot
+#   National news
+from pylib.rssModule.national.usNational import NationalNews
 #from pylib.rssModule.gameNews.gameRadar import GamesRadar
 #from pylib.rssModule.gameNews.metacritic import Metacritic
 #from pylib.rssModule.gameNews.destructoid import Destructoid
@@ -37,10 +36,6 @@ from pylib.rssModule.gameNews.gameSpot import GameSpot
 #from pylib.rssModule.gameNews.nintendoLife import NintendoLife
 #from pylib.rssModule.gameNews.christCenteredGamer import ChristCenteredGamer
 
-#   National news
-
-#   USA
-#from pylib.rssModule.national.unitedStatesofAmerica import UnitedStatesofAmerica
 
 # Importing .evn file
 load_dotenv()
@@ -65,29 +60,24 @@ def botSetup ():
     bot = DiscordBot(intents=intents)
 
     #   System Module
+
+    #   Help command
     bot.add_cog(HelpCommand(bot))
+    bot.add_cog(InternationalModule(bot))
+    bot.add_cog(NationalModule(bot))
+
     bot.add_cog(ErrorHandler(bot))
 
     #   Community - module
-    bot.add_cog(Community(bot))
-
-    #   Cnn News
+    bot.add_cog(CommunityModule(bot))
+    #   International news
+        #   Cnn News
     bot.add_cog(CnnMisc(bot))
     bot.add_cog(CnnWorld(bot))
     bot.add_cog(CnnSport(bot))
 
-    #   Games News
-    bot.add_cog(GameSpot(bot))
-#    bot.add_cog(Metacritic(bot))
-#    bot.add_cog(Destructoid(bot))
-#    bot.add_cog(GameInformer(bot))
-#    bot.add_cog(NintendoLife(bot))
-#    bot.add_cog(ChristCenteredGamer(bot))
-
-
     #   NationalNews
-    #bot.add_cog(UnitedStatesofAmerica(bot))
-
+    bot.add_cog(NationalNews(bot))
 
     bot.run(botKey)
     

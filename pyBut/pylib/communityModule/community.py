@@ -17,7 +17,7 @@ from pylib.systemModule.databasePython import MariaDB
 
 load_dotenv()
 
-class Community(Cog, name='Community Module'):
+class CommunityModule(Cog, name='Community Module'):
     def __init__(self, bot):
         self.bot = bot
         self.embed = Embed(color=Color.dark_purple())

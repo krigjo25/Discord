@@ -18,7 +18,7 @@ from pylib.systemModule.databasePython import MariaDB
 
 load_dotenv()
 
-class Community(Cog, name='Community Module'):
+class CommunityModule(Cog, name='Community Module'):
     def __init__(self, bot):
         self.bot = bot
         self.embed = Embed(color=Color.dark_purple())
@@ -28,8 +28,9 @@ class Community(Cog, name='Community Module'):
     @command(name="botinfo")
     async def BotInfo(self, ctx, args=None):
         svr = len(self.bot.guilds)
-        botMaster = self.bot.get_user(340540581174575107)
-        botName = 'pyButt'
+        Master = self.bot.get_user(340540581174575107)
+        botName = 'RSSBot'
+
         if args == None:
 
             self.embed.title = f':notebook: About {botName}'
@@ -40,14 +41,10 @@ class Community(Cog, name='Community Module'):
             self.embed.add_field(name = ':person_with_probing_cane: Current Version', value= getenv('BotVersion'), inline=True)
             self.embed.add_field(name = ':toolbox: Responsory', value=getenv('Responsory'), inline=True)
             self.embed.add_field(name = ':cloud: Hosted', value=getenv('HOSTED'), inline=True)
-            self.embed.add_field(name = ':man: Master', value=f'My master goes by the name, {botMaster} :flag_no:', inline=True)
+            self.embed.add_field(name = ':man: Master', value=f'My master goes by the name, {Master} :flag_no:', inline=True)
             self.embed.add_field(name = ':arrows_counterclockwise: Server Counting', value=f'Watching {svr} \nDiscord Servers', inline=True)
-            self.embed.add_field(name = ':thought_balloon: To do list', value = '[Future projects](https://github.com/krigjo25/Discord/projects/1)', inline=True)
-            await ctx.send(embed = self.embed)
-            self.embed.clear_fields()
 
         if args == 'log':
-
 
             changelog = f'''
             Changelog for current version {getenv('BotVersion')}
@@ -68,13 +65,14 @@ class Community(Cog, name='Community Module'):
             Hope you will have fun with the new updates.
 
             sincerely,
-                {botMaster} :flag_no:
+                {Master} :flag_no:
             '''
             self.embed.title = 'Whats new?'
             self.embed.url=f'https://github.com/krigjo25/{botName}/blob/main/read%20me.md'
             self.embed.description = f'{changelog}'
-            await ctx.send(embed = self.embed)
-            self.embed.clear_fields()
+
+        await ctx.send(embed = self.embed)
+        self.embed.clear_fields()
 
         return
 #   Online members
@@ -137,6 +135,7 @@ class Community(Cog, name='Community Module'):
                 await ctx.send(embed=self.embed)
                 self.embed.clear_fields()
                 self.embed.set_image(url= '')
+
         return
 
 
@@ -156,77 +155,5 @@ class Community(Cog, name='Community Module'):
         x = randint(arg, arg2)
 
         await ctx.send(x)
-
-        return
-
-    @command (name='dnd')
-    async def AwayFromKeyBoard(self, ctx, *, reason):
-
-        """                     AwayFromKeyBoard
-            This function creates a status update for a given member of the server
-            The player should not be able to retrieve notifications from the server,
-            Not get mentions.
-            The mentioner, should retrieve a message, from the bot 
-            "I regret to inform you the member you asking for is busy at the moment. due to (reason)"
-        """
-        #   initializing classes
-        db = MariaDB
-        database = getenv('database')
-
-        # Declearing the user & reason arguments
-        argTwo = str(reason)
-        argOne = str(ctx.author)
-
-        #   Inserting a new record into the database
-        db.newRecord(database, argOne, argTwo)
-
-        #   Closing the connection
-        db.closeConnection()
-
-        #   retrieve the channel if it exists
-        svr = ctx.guild
-        ch = get(svr.channels, name ='afk-channel')
-
-        #   Overwriting the permission for the channel
-        permission =  {
-            svr.default_role:PermissionOverwrite(   send_messages=False, 
-                                                    add_reactions=True,
-                                                    read_messages=True)
-        }
-        if not ch:
-            await svr.create_text_channel(f'afk-channel', overwrites=permission)
-
-        #   Send a message to the channel
-        await ch.send(f'{argOne} has just gone in Do not disturb mode. Due to {argTwo}')
-
-
-    @command (name='back')
-    async def BackToKeyBoard(self, ctx):
-
-        """         BackToKeyBoard
-
-            The user will be removed from the database,
-            the user can be mentioned again.
-
-        """
-
-        #   initializing classes
-        db = MariaDB
-        database = getenv('database1')
-
-        # Declearing the user argument
-        user = str(ctx.author.name)
-
-        db.DelRecord(database, user)
-
-        #   Closing the connection
-        db.closeConnection()
-
-        #   retrieve the channel if it exists
-        svr = ctx.guild
-        ch = get(svr.channels, name ='afk-channel')
-
-        #   Send a message to the channel
-        await ch.send(f'{user} just came back from dnd mode')
 
         return

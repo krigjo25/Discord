@@ -16,6 +16,11 @@ class HelpCommand(Cog):
     @command(name='help', pass_context=True)
     async def FrequentlyAskedQuestions(self,ctx, args=None):
 
+        #   Initialize classes
+        rss = RSSModule(bot=self.bot)
+        nl = NationalModule(bot=self.bot)
+        inl = InternationalModule(bot=self.bot)
+
         if args == None:
 
             self.embed.title = 'Frequently Asked Questions:question:'
@@ -25,14 +30,22 @@ class HelpCommand(Cog):
 
         else:
             args = str(args)
-            args.lower()
+            args = args.lower()
+            print(args)
+            
+            if args == 'community':self.embed = self.CommunityModule()
 
-            if args == 'rss':self.embed = self.RSSModule()
-            elif args == 'gamenews':self.embed = self.GameNews()
-            elif args == 'national':self.embed = self.NationalNews()
-            elif args == 'community':self.embed = self.CommunityModule()
-            elif args == 'international':self.embed = self.InternationalNews()
-            elif args == 'cnnnews' or args == 'cnn world' or args == 'cnnmisc':self.embed = self.CnnNews(args)
+            elif args == 'rss':self.embed = self.RSSModule()
+
+
+            #   National News
+            elif args == 'national':self.embed = nl.NationalNews()
+            elif args == 'usa': self.embed = nl.UnitedStatesNews()
+
+            # International news
+            elif args == 'international':self.embed = inl.InternationalNews()
+            elif args == 'cnnnews' or args == 'cnn world' or args == 'cnnmisc':self.embed = inl.CnnNews(args)
+
 
         await ctx.send(embed=self.embed)
         self.embed.clear_fields()
@@ -57,25 +70,41 @@ class HelpCommand(Cog):
     def RSSModule(self):
 
         self.embed.title = 'RSS Module'
+        self.embed.add_field(name='National', value = 'National News for selected country')
         self.embed.add_field(name='International', value = 'International rssNews RSS feeds')
-        self.embed.add_field(name='GameNews', value = 'Game RSS feeds')
-        self.embed.add_field(name='NationalNews', value = 'National News for selected country')
 
         return self.embed
+
+class RSSModule(Cog):
+
+    def __init__(self, bot):
+        self.bot = bot
+        self.embed = Embed(color=Color.dark_purple())
+
+        return
+
+    def GameNews (self):
+
+        self.embed.title = 'Game News'
+        self.embed.description = ' Gives you top 5 game news\n'
+        self.embed.add_field(name ='?gsnews', value ='GameSpot news')
+
+        return self.embed
+
+class InternationalModule(Cog):
+
+    def __init__(self, bot):
+        self.bot = bot
+        self.embed = Embed(color=Color.dark_purple())
+
+        return
 
     def InternationalNews(self):
 
         self.embed.title = 'International News'
         self.embed.description = 'News From all the world'
         self.embed.add_field(name ='CNNNews', value ='Cnn World News')
-
-        return self.embed
-
-    def NationalNews(self):
-
-        self.embed.title = 'National News'
-        self.embed.description = 'News From all the world'
-        self.embed.add_field(name ='*nus', value ='National news United States of America')
+        self.embed.add_field(name ='CNBC', value ='CNBC World News')
 
         return self.embed
 
@@ -114,22 +143,26 @@ class HelpCommand(Cog):
             self.embed.add_field(name ='CNNMisc', value ='Cnn Misc News')
 
         return self.embed
+    
+
+class NationalModule(Cog):
+
+    def __init__(self, bot):
+        self.bot = bot
+        self.embed = Embed(color=Color.dark_purple())
+
+        return
 
     def NationalNews(self):
 
-        self.embed.title = 'World Wide National news'
-        self.embed.description = 'National news'
-        self.embed.add_field(name ='nusa', value ='National news for United States of America')
-
+        self.embed.title = 'National news'
+        self.embed.description = ' '
+        self.embed.add_field(name ='USA', value ='Usa national news')
         return self.embed
 
-    def LocalNews(self):
-        pass
-
-    def GameNews (self):
-
-        self.embed.title = 'Game News'
-        self.embed.description = ' Gives you top 5 game news\n'
-        self.embed.add_field(name ='?gsnews', value ='GameSpot news')
-
+    def UnitedStatesNews(self):
+        self.embed.title = 'National news USA'
+        self.embed.description = ' United States National News '
+        self.embed.add_field(name ='?cusa', value ='CNN National news')
         return self.embed
+
