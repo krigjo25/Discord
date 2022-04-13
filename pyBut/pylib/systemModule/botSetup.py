@@ -54,52 +54,53 @@ class DiscordSetup():
         #self.intents.presences = True           #  Allows the bot to track member activty
         #self.intents.reactions = True           #  Allows the bot to react to a message
 
-        self.bot.add_cog(Welcome(bot))
-        self.bot.add_cog(HelpCommand(bot))
-        self.bot.add_cog(ErrorHandler(bot))
+        self.bot.add_cog(Welcome(self.bot))
+        self.bot.add_cog(HelpCommand(self.bot))
+        self.bot.add_cog(ErrorHandler(self.bot))
 
         return
 
     def AdministrationSetup(self):
 
     #   Moderation - Module
-        self.bot.add_cog(Moderator(bot))
-        self.bot.add_cog(Administrator(bot))
+        self.bot.add_cog(Moderator(self.bot))
+        self.bot.add_cog(Administrator(self.bot))
         return
 
     def miniGamesSetup(self):
 
         #   Game-Module
             #   miniGames
-        self.bot.add_cog(EightBall(bot))
-        self.bot.add_cog(JumbleGame(bot))
-        self.bot.add_cog(GuessTheNumber(bot))
-        self.bot.add_cog(RockScissorPaper(bot))
+        self.bot.add_cog(EightBall(self.bot))
+        self.bot.add_cog(JumbleGame(self.bot))
+        self.bot.add_cog(GuessTheNumber(self.bot))
+        self.bot.add_cog(RockScissorPaper(self.bot))
 
         return
 
     def MiscModuleSetup(self):
 
         #   Community module
-        self.bot.add_cog(CommunityModule(bot))
+        self.bot.add_cog(CommunityModule(self.bot))
 
         return
 
-    def RSSBotStartConfiguration (self):
+def RSSBotStartConfiguration ():
         
-        #   Necsessary values from .env
-        botKey = getenv('BotToken')
+        # necsessary values from .env
+        bot = DiscordSetup()
+        botKey = getenv('BotTokenTest')
 
-        #   Initializing functions
-        self.SystemSetup()
-        self.miniGamesSetup()
-        self.MiscModuleSetup()
-        self.AdministrationSetup()
+        bot.SystemSetup()
+        bot.miniGamesSetup()
+        bot.MiscModuleSetup()
+        bot.AdministrationSetup()
 
-        #   Run the bot
-        self.bot.run(botKey)
+
+        bot.bot.run(botKey)
+        
+        #rss.LoadXML(url)
+        #rss.praseXML(url)
 
 if __name__ == '__main__':
-
-    bot = DiscordSetup()
-    bot.RSSBotStartConfiguration()
+    RSSBotStartConfiguration()

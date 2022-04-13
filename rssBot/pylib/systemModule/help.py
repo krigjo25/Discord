@@ -117,14 +117,14 @@ class InternationalModule(Cog):
         elif args == 'cnnmisc':
 
             self.embed.title = 'CNN Misc News'
-            self.embed.add_field(name ='?ctop', value ='Top 5 CNN News')
-            self.embed.add_field(name ='?cetn', value ='Top 5 CNN Entertainment News')
-            self.embed.add_field(name ='?css', value ='Top 5 CNN Space & Science News')
-            self.embed.add_field(name ='?ccash', value ='Top 5 CNN Money News')
-            self.embed.add_field(name ='?cvideo', value ='Top 5 CNN Videos')
-            self.embed.add_field(name ='?cmr', value ='Top 5 CNN Motor Sport News')
-            self.embed.add_field(name ='?ctravel', value ='Top 5 CNN Travel News')
-            self.embed.add_field(name ='?ctech', value ='Top 5 CNN Technologies News')
+            self.embed.add_field(name ='?ctop', value ='CNN Top News')
+            self.embed.add_field(name ='?cetn', value ='CNN Entertainment News')
+            self.embed.add_field(name ='?css', value ='CNN Space & Science News')
+            self.embed.add_field(name ='?ccash', value ='CNN Money News')
+            self.embed.add_field(name ='?cvideo', value ='Top CNN Videos')
+            self.embed.add_field(name ='?cmr', value ='CNN Motor Sport News')
+            self.embed.add_field(name ='?ctravel', value ='CNN Travel News')
+            self.embed.add_field(name ='?ctech', value ='CNN Technologies News')
 
         else:
 
@@ -156,6 +156,7 @@ class InternationalModule(Cog):
             self.embed.add_field(name ='?cnbcenergy', value ='CNBC Energy')
             self.embed.add_field(name ='?cnbcmedia', value ='CNBC Social Media')
             self.embed.add_field(name ='?cnbsports', value ='CNBC Sports')
+            self.embed.add_field(name ='?cnbcom', value ='CNBC Commentary')
 
 
         else:

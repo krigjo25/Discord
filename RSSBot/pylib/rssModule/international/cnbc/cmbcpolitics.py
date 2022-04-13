@@ -14,7 +14,7 @@ class CNBCPolitics(Cog):
 
     def __init__(self) -> None:
         super().__init__()
-        self.channelName = 'rssfeedtest'
+        self.channelName = 'rssfeed'
         self.embed = Embed(color = Color.dark_blue())
 
         return
@@ -68,6 +68,7 @@ class CNBCPolitics(Cog):
 
         return
 
+    # Local USA
     @command(name = 'cnbcpoli')
     async def Politicts(self, ctx):
 

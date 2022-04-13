@@ -23,7 +23,7 @@ class CNNMiscellaneous(Cog):
 
     def __init__(self, bot) -> None:
         self.bot = bot,
-        self.channelName = 'rssfeedtest'
+        self.channelName = 'rssfeed'
         self.embed = Embed(color=Color.dark_blue())
     
         #   Top News 10

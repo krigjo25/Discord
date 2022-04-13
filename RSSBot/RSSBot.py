@@ -9,12 +9,12 @@ from dotenv import load_dotenv
 from discord import Intents
 
 #   System module
-from pylib.systemModule.help import HelpCommand, InternationalModule, NationalModule                                     #   Help module
-from pylib.systemModule.discordBot import DiscordBot                                #   The Client
-from pylib.systemModule.commandError import ErrorHandler                          #   Error Handling Module
+from pylib.systemModule.help import HelpCommand, InternationalModule, NationalModule                                        #   Help module
+from pylib.systemModule.discordBot import DiscordBot                                                                        #   The Client
+from pylib.systemModule.commandError import ErrorHandler                                                                    #   Error Handling Module
 
 #   Community Module
-from pylib.communityModule.community import CommunityModule                       #   Community module
+from pylib.communityModule.community import CommunityModule                                                                 #   Community module
 
 #   RSS-Feed Module
 
@@ -22,13 +22,12 @@ from pylib.communityModule.community import CommunityModule                     
 
 #   CNN
 from pylib.rssModule.international.cnn.cnnWorld import CNNWorld
-#from pylib.rssModule.international.cnn.cnnSports import CNNSport
 from pylib.rssModule.international.cnn.cnnMisc import CNNMiscellaneous
 
 #   CNBC
 from pylib.rssModule.international.cnbc.cnbcWorld import CNBCWorld
-#from pylib.rssModule.international.cnn.cnnSports import CNBCSport
 from pylib.rssModule.international.cnbc.cnbcMisc import CNBCMiscellaneous
+
 #   National news
 from pylib.rssModule.national.usNational import USANational
 
