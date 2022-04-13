@@ -103,7 +103,7 @@ class ErrorHandler(Cog):
 
             else:
                 self.embed.title = 'Command Missing some required arguments'
-            print(ctx.command)
+
             self.embed.description = cmdError.ErrorDescriptionDictionary(errorModule[36:59])
             await ctx.send(embed=self.embed)
 
@@ -111,14 +111,10 @@ class ErrorHandler(Cog):
         elif isinstance(error, cmdNotFound):
 
             #   Prepare and send the embed
-
             errorModule = str(cmdNotFound)
             self.embed.title = 'Command were not Found in the dictionary'
             self.embed.description = f'{cmdError.ErrorDescriptionDictionary(errorModule[36:51], cmd)}'
             await ctx.send(embed=self.embed)
-
-            if cmd == None:
-                botmsg = f'Master, The cmd attribute is not correct'
 
         #   Non Discord errors
         elif isinstance(error, invokeError):
@@ -154,11 +150,8 @@ class ErrorHandler(Cog):
                 self.embed.title = 'You sent me a Bad Arguments'
                 self.embed.description = cmdError.ErrorDescriptionDictionary(errorModule)
                 await ctx.send(embed=self.embed)
-                
-                   
+
                 await self.bot.send(f'{botmsg}', tts = True)
-
-
 
         else:
 

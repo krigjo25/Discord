@@ -110,10 +110,10 @@ class CNBCPolitics(Cog):
 
             if nr == 5:
                 break
+
         #   Send the information & reset embed
         await ch.send(embed=self.embed)
         self.embed = Embed(color=Color.dark_purple())
         self.embed.clear_fields()
 
         return
-

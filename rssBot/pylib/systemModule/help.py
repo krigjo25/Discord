@@ -34,9 +34,9 @@ class HelpCommand(Cog):
 
             if args == 'communitymodule':self.embed = self.CommunityModule()
 
-            elif args == 'rssmodule':self.embed = self.RSSModule()
+            elif args == 'rssmodule' or args == 'worldnews' or args == 'gamenews':self.embed = rss.RSSModule(args)
 
-                #   National News
+            #   National News
             elif args == 'national':self.embed = nl.NationalNews()
             elif args == 'usa': self.embed = nl.UnitedStatesNews()
 
@@ -44,6 +44,8 @@ class HelpCommand(Cog):
             elif args == 'international':self.embed = inl.InternationalNews()
             elif args == 'cnnnews' or args == 'cnnworld' or args == 'cnnmisc':self.embed = inl.CnnNews(args)
             elif args == 'cnbcnews' or args == 'cnbcworld' or args == 'cnbcmisc':self.embed = inl.CNBCNews(args)
+
+            #   GameNews
 
             else:
 
@@ -69,14 +71,6 @@ class HelpCommand(Cog):
 
         return self.embed
 
-    def RSSModule(self):
-
-        self.embed.title = 'RSS Module'
-        self.embed.add_field(name='National', value = 'National News for selected country')
-        self.embed.add_field(name='International', value = 'International News feeds')
-
-        return self.embed
-
 class RSSModule(Cog):
 
     def __init__(self, bot):
@@ -84,6 +78,23 @@ class RSSModule(Cog):
         self.embed = Embed(color=Color.dark_purple())
 
         return
+
+    def RSSModule(self, args):
+
+        if args == 'worldnews':
+
+            self.embed.add_field(name='National', value = 'National News for selected country')
+            self.embed.add_field(name='International', value = 'International News feeds')
+
+        elif args == 'gamenews':
+            pass
+        else:
+
+            self.embed.title = 'RSS Module'
+            self.embed.add_field(name='World News', value = 'National News for selected country')
+
+        return self.embed
+
 
 class InternationalModule(Cog):
 
@@ -158,7 +169,6 @@ class InternationalModule(Cog):
             self.embed.add_field(name ='?cnbsports', value ='CNBC Sports')
             self.embed.add_field(name ='?cnbcom', value ='CNBC Commentary')
 
-
         else:
 
             self.embed.title = 'CNBC News'
@@ -194,4 +204,15 @@ class NationalModule(Cog):
         self.embed.add_field(name = '?cnbcusa', value = 'CNBC National News')
 
         return self.embed
+
+
+class RSSBlogs(Cog):
+
+    def __init__(self, bot):
+
+        self.bot = bot
+        self.embed = Embed(color=Color.dark_purple())
+
+        return
+
 
