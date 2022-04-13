@@ -21,15 +21,15 @@ from pylib.communityModule.community import CommunityModule                     
 #   World News
 
 #   CNN
-from pylib.rssModule.international.cnn.cnnWorld import CNNWorld
-from pylib.rssModule.international.cnn.cnnMisc import CNNMiscellaneous
+from pylib.rssNews.international.cnn.cnnWorld import CNNWorld
+from pylib.rssNews.international.cnn.cnnMisc import CNNMiscellaneous
 
 #   CNBC
-from pylib.rssModule.international.cnbc.cnbcWorld import CNBCWorld
-from pylib.rssModule.international.cnbc.cnbcMisc import CNBCMiscellaneous
+from pylib.rssNews.international.cnbc.cnbcWorld import CNBCWorld
+from pylib.rssNews.international.cnbc.cnbcMisc import CNBCMiscellaneous
 
 #   National news
-from pylib.rssModule.national.usNational import USANational
+from pylib.rssNews.national.usNational import USANational
 
 
 
