@@ -15,8 +15,7 @@ import traceback
 
 from discord.embeds import Embed
 from discord.ext.commands import Cog
-from discord.errors import HTTPException 
-from discord.ext.commands.help import HelpCommand
+from discord.errors import HTTPException
 from discord.ext.commands.errors import CheckFailure, CommandNotFound, MissingRequiredArgument, BadArgument, MemberNotFound, CommandInvokeError
 
 from random import shuffle, randrange

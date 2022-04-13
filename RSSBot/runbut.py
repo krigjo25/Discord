@@ -34,7 +34,6 @@ def Runbut ():
     setupbut.CommunityModule()
     setupbut.SystemConfigurations()
     setupbut.PostModerationModule()
-
     but.run(botKey)
 
 if __name__ == '__main__':

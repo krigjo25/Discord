@@ -20,7 +20,7 @@ load_dotenv()
 class DiscordBot(Bot):
 
     def __init__(self, command_prefix='?', help_command=None, description=None, **options):
-        super().__init__(command_prefix, help_command=help_command, description=description, **options)
+        super().__init__(command_prefix=command_prefix, help_command=help_command, description=description, **options)
 
     async def on_ready(self):
         

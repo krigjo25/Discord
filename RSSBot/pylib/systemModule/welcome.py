@@ -8,7 +8,7 @@ from discord.permissions import Permissions
 #   System Responsory
 from random import shuffle,randrange
 
-# Library Responsory
+# pylib Responsory
 from pylib.dictionaries.systemmessages import Dictionaries
 
 class Welcome(Cog, name='Welcome module'):

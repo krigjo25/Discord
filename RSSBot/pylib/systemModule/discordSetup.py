@@ -1,7 +1,12 @@
 
 #   Discord Repositories
+from discord import Intents
 
-#   pylib Repositories
+#   Python Responsories
+from os import getenv
+
+#   Dotenv Responsories
+from dotenv import load_dotenv
 
 #   System module
 from pylib.systemModule.welcome import Welcome                            #   Welcome Module 
@@ -16,7 +21,7 @@ from pylib.communityModule.community import Community                     #   Co
 #   Moderation Utility
 from pylib.postModerationModule.moderatorModule.moderator import Moderator                #   Moderator Module
 from pylib.postModerationModule.administratorModule.administrator import Administrator        #   Administrator module
-
+load_dotenv()
 class DiscordSetup():
 
     def __init__(self) -> None:
@@ -44,3 +49,27 @@ class DiscordSetup():
 
         return
 
+def Runbut ():
+    
+     # necsessary values from .env
+    botKey = getenv('BotToken')
+
+    #   Intents
+    intents = Intents.all()
+
+    #intents.members = True          # 
+    #intents.messages = True         #
+    #intents.presences = True        #
+    #intents.guild_reactions = True  #
+
+    #   Iniztalate classes
+    setupbut = DiscordSetup()
+    but = DiscordBot(intents=intents)
+
+    setupbut.CommunityModule()
+    setupbut.SystemConfigurations()
+    setupbut.PostModerationModule()
+    but.run(botKey)
+
+if __name__ == '__main__':
+    Runbut()
