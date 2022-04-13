@@ -22,6 +22,7 @@ from pylib.communityModule.community import Community                     #   Co
 from pylib.postModerationModule.moderatorModule.moderator import Moderator                #   Moderator Module
 from pylib.postModerationModule.administratorModule.administrator import Administrator        #   Administrator module
 load_dotenv()
+
 class DiscordSetup():
 
     def __init__(self) -> None:
@@ -48,28 +49,3 @@ class DiscordSetup():
         self.bot.add_cog(Administrator(self.bot))
 
         return
-
-def Runbut ():
-    
-     # necsessary values from .env
-    botKey = getenv('BotToken')
-
-    #   Intents
-    intents = Intents.all()
-
-    #intents.members = True          # 
-    #intents.messages = True         #
-    #intents.presences = True        #
-    #intents.guild_reactions = True  #
-
-    #   Iniztalate classes
-    setupbut = DiscordSetup()
-    but = DiscordBot(intents=intents)
-
-    setupbut.CommunityModule()
-    setupbut.SystemConfigurations()
-    setupbut.PostModerationModule()
-    but.run(botKey)
-
-if __name__ == '__main__':
-    Runbut()

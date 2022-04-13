@@ -1,4 +1,5 @@
 
+<<<<<<< HEAD
 
 #   Python Reporosity
 from os import getenv
@@ -14,20 +15,45 @@ from discord.ext.commands import Bot
 
 #   pylib Responsories
 #from databasePython import MariaDB
+=======
+#   Python Repositories
+from os import getenv
+from sys import api_version
+
+#   dotenv Repositories
+from dotenv import load_dotenv
+
+#   Discord Repositories
+from discord.message import Message
+from discord.ext.commands import Bot
+
+#   pylib Repositories
+from pylib.systemModule.databasePython import MariaDB
+>>>>>>> parent of 9538d83 (Merge branch 'main' of https://github.com/krigjo25/Discord)
 
 load_dotenv()
 
 class DiscordBot(Bot):
+<<<<<<< HEAD
 
     def __init__(self, command_prefix='?', help_command=None, description=None, **options):
         super().__init__(command_prefix=command_prefix, help_command=help_command, description=description, **options)
 
     async def on_ready(self):
         
+=======
+    def __init__(self, command_prefix='@', help_command=None, owner_id = 340540581174575107, description=None, **options):
+        super().__init__(command_prefix, help_command=help_command, owner_id = owner_id, description=description, **options)
+        return
+
+    async def on_ready(self):
+
+>>>>>>> parent of 9538d83 (Merge branch 'main' of https://github.com/krigjo25/Discord)
         srv= []
         svr = self.guilds
 
         for i in svr:
+<<<<<<< HEAD
             
             srv.append(i)
 
@@ -66,3 +92,19 @@ class DiscordBot(Bot):
 
         #db.CloseConnection()
         await self.process_commands(message)
+=======
+            srv.append(i)
+
+        print(f'''Discord.py v{api_version} has been loaded.
+{self.user.name} has establized a connection following servers :\n
+{srv[0]}''')
+
+        return
+        
+    async def on_message(self, message:Message):
+
+    #   Procsess commands
+        await self.process_commands(message)
+
+        return
+>>>>>>> parent of 9538d83 (Merge branch 'main' of https://github.com/krigjo25/Discord)

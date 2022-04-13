@@ -4,7 +4,6 @@ from random import randrange, shuffle
 
 #   Discord
 
-<<<<<<< HEAD
 class Dictionaries():
     def __init__(self):
         pass
@@ -45,8 +44,6 @@ class Dictionaries():
 
         return dictionary.get(x)
 
-=======
->>>>>>> parent of 9538d83 (Merge branch 'main' of https://github.com/krigjo25/Discord)
 class CommandDictionary():
     def __init__(self) -> None:
         pass
@@ -108,12 +105,7 @@ class CommandDictionary():
                             5:'Still missing some leads..',
                             6:'We all do mistakes. You\'re missing some requred arguments ',
 }
-<<<<<<< HEAD
 
-=======
-        elif errorModule == 'AttributeError':
-            pass
->>>>>>> parent of 9538d83 (Merge branch 'main' of https://github.com/krigjo25/Discord)
         elif errorModule == 'TimeoutError':
 
             dictionary = {
@@ -127,11 +119,7 @@ class CommandDictionary():
 }
 
         else:
-<<<<<<< HEAD
             print(errorModule)
-=======
-            print(f'Something went wrong.\n{errorModule}')
->>>>>>> parent of 9538d83 (Merge branch 'main' of https://github.com/krigjo25/Discord)
             dictionary = {
                             1:'the content of the command which where sent is raising "DivisionByZero" a detailed report is sent.',
 }
