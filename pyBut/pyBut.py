@@ -1,3 +1,4 @@
+
 #   Python Repositories
 from os import getenv
 
@@ -42,7 +43,8 @@ class DiscordSetup():
     def __init__(self) -> None:
         self.intents= Intents().all()               #  Only allows Default intents
         self.bot = DiscordBot(intents=self.intents)
- 
+
+        return
 
     def SystemSetup(self):
 

@@ -1,3 +1,4 @@
+
 #   Python Repositories
 from os import getenv
 
@@ -16,11 +17,18 @@ from pylib.systemModule.commandError import ErrorHandler                        
 from pylib.communityModule.community import CommunityModule                       #   Community module
 
 #   RSS-Feed Module
-#   World News
-from pylib.rssModule.international.cnn.cnnMisc import CnnMisc
-from pylib.rssModule.international.cnn.cnnWorld import CnnWorld
-from pylib.rssModule.international.cnn.cnnSports import CnnSport
 
+#   World News
+
+#   CNN
+from pylib.rssModule.international.cnn.cnnWorld import CNNWorld
+from pylib.rssModule.international.cnn.cnnSports import CNNSport
+from pylib.rssModule.international.cnn.cnnMisc import CNNMiscellaneous
+
+#   CNBC
+from pylib.rssModule.international.cnbc.cnbcWorld import CNBCWorld
+from pylib.rssModule.international.cnn.cnnSports import CNBCSport
+from pylib.rssModule.international.cnbc.cnbcMisc import CNBCMiscellaneous
 #   National news
 from pylib.rssModule.national.usNational import USANational
 
@@ -34,7 +42,8 @@ class DiscordSetup():
     def __init__(self) -> None:
         self.intents= Intents().default()               #  Only allows Default intents
         self.bot = DiscordBot(intents=self.intents)
-        pass
+
+        return
 
     def SystemSetup(self):
 
@@ -45,53 +54,56 @@ class DiscordSetup():
         #self.intents.reactions = True           #  Allows the bot to react to a message
 
         #   Help command
-        self.bot.add_cog(HelpCommand(bot))
-        self.bot.add_cog(InternationalModule(bot))
-        self.bot.add_cog(NationalModule(bot))
+        self.bot.add_cog(HelpCommand(self.bot))
+        self.bot.add_cog(InternationalModule(self.bot))
+        self.bot.add_cog(NationalModule(self.bot))
 
-        self.bot.add_cog(ErrorHandler(bot))
+        self.bot.add_cog(ErrorHandler(self.bot))
 
         return
 
+    #   RSS Module
     def InternationalNewsSetup(self):
 
         #   Cnn News
-        self.bot.add_cog(CnnMisc(bot))
-        self.bot.add_cog(CnnWorld(bot))
-        self.bot.add_cog(CnnSport(bot))
+        self.bot.add_cog(CNNWorld(self.bot))
+        self.bot.add_cog(CNNSport(self.bot))
+        self.bot.add_cog(CNNMiscellaneous(self.bot))
 
         #   CNBC News
+        self.bot.add_cog(CNBCWorld(self.bot))
+        self.bot.add_cog(CNBCMiscellaneous(self.bot))
 
         return
 
     def NationalNewsSetup(self):
 
         #   America
-        self.bot.add_cog(USANational(bot))
+        self.bot.add_cog(USANational(self.bot))
 
         return
 
     def miscSetup(self):
 
-        self.bot.add_cog(CommunityModule(bot))
+        self.bot.add_cog(CommunityModule(self.bot))
 
         return
-    def RSSBotStartConfiguration (self):
+
+def RSSBotStartConfiguration ():
         
         # necsessary values from .env
+        disc = DiscordSetup()
         botKey = getenv('BotTokenTest')
 
-        self.SystemSetup()
-        self.miscSetup()
-        self.NationalNewsSetup()
-        self.InternationalNewsSetup()
+        disc.miscSetup()
+        disc.SystemSetup()
+        disc.NationalNewsSetup()
+        disc.InternationalNewsSetup()
 
-        self.bot.run(botKey)
+        disc.bot.run(botKey)
         
         #rss.LoadXML(url)
         #rss.praseXML(url)
 
 if __name__ == '__main__':
-
-    bot = DiscordSetup()
-    bot.RSSBotStartConfiguration()
+    RSSBotStartConfiguration()

@@ -14,7 +14,7 @@ import feedparser
 #   pylib Responsories
 from pylib.crawler.rssCrawler import Q90
 
-class CnnMisc(Cog):
+class CNNMiscellaneous(Cog):
 
     """     CnnMisc
             Class contains miscellaneouss news from CNN
@@ -38,7 +38,6 @@ class CnnMisc(Cog):
         srv = ctx.guild
         role = get(srv.roles, name='@Members')
         ch = get(srv.channels, name=f'{self.channelName}')
-
 
         #   Create a channel
         if not ch:
@@ -69,10 +68,10 @@ class CnnMisc(Cog):
 
             if summary != 'There is no summary for this article':
 
-                self.embed.add_field(name=f'{artnr}. {article.title}', value=f'\n{summary}\n**{updated}**\n{article.link}\n ')
+                self.embed.add_field(name=f'{artnr}. {article.title}', value=f' ')
 
             #   Drop the loop when the counter is reached
-            if artnr == 10: 
+            if artnr == 5: 
                 break
 
         #   Send the information, and reset embed

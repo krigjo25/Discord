@@ -31,7 +31,10 @@ class DiscordBot(Bot):
         #self.tracker = SpamTracker(self.handler, 3)
         #self.handler.register_plugin(self.tracker)
 
+        return
+
     async def on_ready(self):
+
         srv= []
         svr = self.guilds
 

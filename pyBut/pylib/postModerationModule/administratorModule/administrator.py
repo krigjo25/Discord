@@ -86,6 +86,7 @@ class Administrator(Cog, name='Admin-module'):
             
             await ch.send(embed=self.embed)
             self.embed = Embed(color=Color.dark_purple())
+
         return
 
 

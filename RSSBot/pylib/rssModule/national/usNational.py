@@ -14,7 +14,7 @@ import feedparser
 
 class USANational(Cog):
     def __init__(self, bot) -> None:
-        self.channelName = 'rssfeedtest'
+        self.channelName = 'rssfeed'
         self.embed = Embed(color=Color.dark_blue())
 
     @command(name = 'cusa')
@@ -90,7 +90,7 @@ class USANational(Cog):
             await srv.create_text_channel(f'{self.channelName}', overwrites=perms)
 
         #   Creating the feed
-        rssNews = feedparser.parse('http://rss.cnn.com/rss/edition_us.rss')
+        rssNews = feedparser.parse('https://search.cnbc.com/rs/search/combinedcms/view.xml?partnerId=wrss01&id=15837362')
         entries =  rssNews.entries
 
         #   Create the embed information

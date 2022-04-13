@@ -12,7 +12,7 @@ from discord.ext.commands import Cog, command
 #   RSS Responsories
 import feedparser
 
-class CnnWorld(Cog):
+class CNNWorld(Cog):
     def __init__(self, bot) -> None:
         self.channelName = 'rssfeed'
         self.embed = Embed(color=Color.dark_blue())
@@ -23,7 +23,8 @@ class CnnWorld(Cog):
 
             #   Retrieve the guild information
         srv = ctx.guild
-        role = get(srv.roles, name='@Members')
+        member = get(srv.roles, name='@Members')
+        rss = 'http://rss.cnn.com/rss/edition_world.rss'
         
         ch = get(srv.channels, name=f'{self.channelName}')
 
@@ -34,13 +35,13 @@ class CnnWorld(Cog):
             perms = {
                             
                     srv.default_role:PermissionOverwrite(read_messages=False),
-                    #role:PermissionOverwrite(view_channel=True, read_message_history = True),
+                    member:PermissionOverwrite(view_channel=True, read_message_history = True),
                 }
 
             await srv.create_text_channel(f'{self.channelName}', overwrites=perms)
 
         #   Creating the feed
-        rssNews = feedparser.parse('http://rss.cnn.com/rss/edition_world.rss')
+        rssNews = feedparser.parse(f'{rss}')
         entries =  rssNews.entries
 
         #   Create the embed information
