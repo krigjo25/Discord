@@ -1,6 +1,4 @@
 *.env
-*.pyc
-*.csv
 *.txt
 
 test.py
