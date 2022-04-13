@@ -9,7 +9,7 @@ from discord.permissions import Permissions
 from random import shuffle,randrange
 
 # Library Responsory
-from lib.dictionaries.systemmessages import Dictionaries
+from pylib.dictionaries.systemmessages import Dictionaries
 
 class Welcome(Cog, name='Welcome module'):
     def __init__(self, bot, *kwargs):

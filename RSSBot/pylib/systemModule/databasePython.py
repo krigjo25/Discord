@@ -2,7 +2,6 @@
 #   Python Responsories
 from sys import exit
 from os import getenv
-from datetime import datetime, date
 
 #   Database Responsories
 import mariadb

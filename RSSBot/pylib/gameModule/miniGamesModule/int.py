@@ -6,10 +6,10 @@ from discord.ext.commands import Cog, command
 # Python library
 from random import shuffle,randrange, randint
 
-from lib.dictionaries.systemmessages import Dictionaries
+from pylib.dictionaries.systemmessages import Dictionaries
 
 # Asynico library
-class GuessTheNumber(Cog, name='miniGames module'):
+class GuessTheNumber(Cog):
     def __init__(self, bot):
         self.bot = bot
         self.embed = Embed(color=Color.dark_purple(), description='')

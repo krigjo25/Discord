@@ -1,6 +1,5 @@
 
 #   Discord Repositories
-from discord import Intents
 
 #   pylib Repositories
 
@@ -14,25 +13,17 @@ from pylib.systemModule.commandError import ErrorHandler                  #   Er
 from pylib.communityModule.community import Community                     #   Community module
 
 
-    # Moderation Utility
-from pylib.postModerationModule.moderator import Moderator                #   Moderator Module
-from pylib.postModerationModule.administrator import Administrator        #   Administrator module
+#   Moderation Utility
+from pylib.postModerationModule.moderatorModule.moderator import Moderator                #   Moderator Module
+from pylib.postModerationModule.administratorModule.administrator import Administrator        #   Administrator module
 
 class DiscordSetup():
 
     def __init__(self) -> None:
-        self.bot = DiscordBot(intents = self.intents)
+        self.bot = DiscordBot()
 
 
     def SystemConfigurations(self):
-
-        #   Intents
-        self.intents = Intents.all()
-            
-        #intents.members = True          # 
-        #intents.messages = True         #
-        #intents.presences = True        #
-        #intents.guild_reactions = True  #
 
         self.bot.add_cog(Welcome(self.bot))
         self.bot.add_cog(HelpCommand(self.bot))

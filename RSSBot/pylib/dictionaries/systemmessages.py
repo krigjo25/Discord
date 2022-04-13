@@ -1,164 +1,131 @@
-# System repososary
-from os import getenv
+
+# Python Responsories
 from random import randrange, shuffle
 
-
-# DotEnv Repososary
-from dotenv import load_dotenv
-
-
-load_dotenv()
+#   Discord
 
 class Dictionaries():
     def __init__(self):
-        self.bot = getenv('BotName')
+        pass
 
     #   Emojies
     def EmojiDictionary ():
         
         #   Creating a dictionary for emojies
         dictionary = {
-                    0: ':astonished',
-                    1:':alien:',
-                    2:':blush:',
-                    3:':boom:',
-                    4:':cold_sweat:',
-                    5:':confounded:',
-                    6:':no_mouth:',
-                    7:':scream:',
-                    8:':joy:',
-                    9:':grin:',
-                    10:':grinning:',
-                    11:':grimacing:',
-                    12:':smiley:',
-                    13:':sparkles:',
-                    14:':smile:',
-                    15:':laughing:',
-                    16:'smirk:',
-                    17:':two_hearts:',
-                    18:':+1:',
-                    19:':muscle:',
-                    20:':question:',
-                    21:':see_no_evil:',
-                    22:':fire:',
+                    1: ':astonished',
+                    2:':alien:',
+                    3:':blush:',
+                    4:':boom:',
+                    5:':cold_sweat:',
+                    6:':confounded:',
+                    7:':no_mouth:',
+                    8:':scream:',
+                    9:':joy:',
+                    10:':grin:',
+                    11:':grinning:',
+                    12:':grimacing:',
+                    13:':smiley:',
+                    14:':sparkles:',
+                    15:':smile:',
+                    16:':laughing:',
+                    17:'smirk:',
+                    18:':two_hearts:',
+                    19:':+1:',
+                    20:':muscle:',
+                    21:':question:',
+                    22:':see_no_evil:',
+                    23:':fire:',
                 }
 
         #   Randomize the dictionary
-        shuffle(dictionary)
-        x = randrange(0,10)
-        arg = dictionary.get(x)
+        x = len(dictionary)
+        x = randrange(1,x)
 
-        return arg
-    
-    #   When the game is over due to to many attempts
-    def GameOver():
-        dictionary = {
-                        0:f'Game Over',
-                    }
+        return dictionary.get(x)
 
-        # Randomize the dictionary
-        x = randrange(0,10)
-        shuffle (dictionary)
+class CommandDictionary():
+    def __init__(self) -> None:
+        pass
 
-        arg = dictionary.get(x)
+    def ErrorDictionary (self, ctx, errorModule, *cmd):
 
-        return arg
+        cmd = str(ctx.command)
+        errorModule = str(errorModule)
 
-    #   Correct answer
-    def CorrectAnswer():
-        dictionary =  {
-                        0:f'Congratulation you guessed correct',
-                    }
-        # Randomize the dictionary
-        x = randrange(0,10)
-        shuffle (dictionary)
+        if errorModule == 'CommandNotFound':
 
-        arg = dictionary.get(0)
+            dictionary = {
+                            1:'meep morp zeep :(\n',
+                            2:f'Sir, an error has emerged \"{cmd}\" were not found in bot command dictionary',
+                            2:'Sir, have you drunken to much?',
+                            3:'Sir, you\'ve started the "Self destruction protocol", press "enter" to continue, press "esc" to stop.',
+                            4:'Sir, im sorry, could you please repeat the command?',
+                            5:'Sir The command has not been impleted in my software',
+                            6:f'Sir where did you find the "{cmd}" ',
+                            7:f'I have some good news, sir. Im a good boy, i didnt execute {cmd}',
+                            8:f'We all do mistakes, sometimes.. There is no user with {ctx.author} name',
+                            9: '0101010001101000011001010010000001100011011011110110110101101101011000010110111001100100001000000110010001101111011001010111001100100000011011100110111101110100001000000110010101111000011010010111001101110100',
+                            10:'Given command does not exists'
+}
 
-        return arg
+        elif errorModule == 'MemberNotFound':
 
-    #   Standard DificultyError    
-    def DifficultyError():
-        dictionary = {
-                        0:f'let\'s fake it ',
-                        1:f'difficulty mode IMPOSSIBLE enabled.',
-                        2:f'bo, it looks like you wrote an unavailable mode, thanks',
-                        3:f' Empty error string',
-                        4:f'Created by @krigjo25',
-                        5:f'Went looking for the selected mode couldn\'t solve the type issue',
-                        6:f'Not mine mistake this time '
-        }
+            dictionary = {
+                            1:'meep, morp, zeep :(\n',
+                            2:'Sir, imagne the member where found\n',
+                            3:'Sir, if the error continues, check your spelling \n',
+                            4:'I regret to inform you, sir. the selected member does not exist, should i make one? \n',
+                            5:'010110010110111101110101001000000100010001101111001000000110111001101111011101000010000001101000011000010111011001100101001000000111010001101000011001010010000001110010011001010111000101110101011010010111001001100101011001000010000001110010011011110110110001100101\n',
+                            6:'I\'m the bot version for the 99th emoji !',
+                            7:f'Just sent out an APB of {ctx.author}',
+                            8:'We all do mistakes, this time the user doesn\'t exist',
+}
 
-        # Randomize the dictionary
-        x = randrange(0,6)
-        shuffle (dictionary)
+        elif errorModule == 'CheckFailure':
 
-        arg = dictionary.get(x)
+            dictionary = {
+                            1:'meep, morp, zeep :(\n',
+                            2:'Sir, imagne the member where found\n',
+                            3:'Sir, if the error continues, check your spelling \n',
+                            4:'I regret to inform you, sir. the selected member does not exist, should i make one? \n',
+                            5:'010110010110111101110101001000000100010001101111001000000110111001101111011101000010000001101000011000010111011001100101001000000111010001101000011001010010000001110010011001010111000101110101011010010111001001100101011001000010000001110010011011110110110001100101\n',
+                            6:'I\'m the bot version for the 99th emoji !',
+                            7:f'Just sent out an APB of {ctx.author}',
+                            8:'We all do mistakes, this time the user doesn\'t exist',
+}
 
-        return arg
+        elif errorModule == 'MissingRequiredArgument':
 
-    #   AskQ dictionaries
-    def PhiliosopicAnswer():
-        dictionary = {
-                    0:'What do you sense about it?',
-                    1:'What would you do about it?',
-                    2:'What are you really, deep down?',
-                    3:'Just let it go, its not your issue.',
-                    4:'Just let your self, experience the question',
-                    5:'Visualize the question, and the answer will arrive.',
-                    6:'If an human is a genious, then The best answers always comes from with-in, just believe in your self enough',
-                    7:'As Socrets once said, you already know the answer of the question, since you had an idea of asking the question',
-                    8:'Would you be able to let it go?',
-                    9:'A Question does not arise with out it\'s answer, so place your attention on where the question has arised',
-        }
+            dictionary = {
+                            1:'meep, morp, meep :(\n',
+                            2:'Sir, i just executed the command with-out any arguments...',
+                            3:'Sir, should i just fake it?\n',
+                            4:'More infomation would do my job easier..',
+                            5:'Still missing some leads..',
+                            6:'We all do mistakes. You\'re missing some requred arguments ',
+}
 
-        # Randomize the dictionary
-        x = randrange(0,9)
-        shuffle (dictionary)
+        elif errorModule == 'TimeoutError':
 
-        arg = dictionary.get(x)
+            dictionary = {
+                            1:'meep, morp, zeep :(\n',
+                            2:'Sir, the BOENG 437 just left the airport',
+                            3:'Sir, do you need more time?',
+                            4:f'The game is over, {ctx.author.mention} just ran out of time.',
+                            5:'Try again',
+                            6:'Decided to cancel the game.',
+                            7:'Never got a response in time',
+}
 
-        return arg
-
-    def DumbFacts():
-        dictionary = {
-                    0:'The earth is oval',
-                    1:'The gravity exists',
-                    2:'life is why',
-                    3:'it just is',
-                    4:'The opposite sides of a die will always add up to seven.',
-                    5:'The King of Hearts is the only king in a deck of cards without a mustache.',
-                    6:'There exist no answers for your questions, if you look with-in you know its true',
-                    7:'Alaska is the only state whose name is on one row on a keyboard.',
-                    8:'A "jiffy" is about one trillionth of a second.',
-                    9:'The ocean is blue',
-                    10:'Mulan has the highest kill-count of any Disney character.',
-                    11:'The infinity sign is called a lemniscate.'
-                }
-
-        # Randomize the dictionary
-        x = randrange(0,6)
-        shuffle (dictionary)
-
-        arg = dictionary.get(x)
-
-        return arg
-
-    #   Reaction Game
-    def RockScissorPaper():
-        dictionary = {
-                    0:'\U0001FAA8',       #  somewhat rock
-                    1:'\U00002702',       #  ✂️
-                    2: '\U0001F4C4'       #  📄
-
-                }
+        else:
+            print(errorModule)
+            dictionary = {
+                            1:'the content of the command which where sent is raising "DivisionByZero" a detailed report is sent.',
+}
 
         #   Randomize the dictionary
-        x = randrange(0,2)
-        shuffle (dictionary)
+        x = len(dictionary)
+        x = randrange(1,x)
 
-        arg = dictionary.get(x)
-
-        return arg
-
-    #  Frequently Asked Questions
+        return dictionary.get(x)

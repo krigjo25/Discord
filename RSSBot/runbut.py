@@ -9,18 +9,27 @@ from dotenv import load_dotenv
 from pylib.systemModule.discordBot import DiscordBot        #   Discord Client
 from pylib.systemModule.discordSetup import DiscordSetup    #   DiscordSetup
 
+#   Discord Responsories
+from discord import Intents
 
 load_dotenv()
 
 def Runbut ():
     
      # necsessary values from .env
-    botKey = getenv('BotTokenTest')
-    
+    botKey = getenv('BotToken')
+
+    #   Intents
+    intents = Intents.all()
+
+    #intents.members = True          # 
+    #intents.messages = True         #
+    #intents.presences = True        #
+    #intents.guild_reactions = True  #
 
     #   Iniztalate classes
     setupbut = DiscordSetup()
-    but = DiscordBot()
+    but = DiscordBot(intents=intents)
 
     setupbut.CommunityModule()
     setupbut.SystemConfigurations()

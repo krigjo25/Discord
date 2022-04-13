@@ -7,7 +7,7 @@ from discord.ext.commands import Cog, command
 # Python library
 from random import shuffle,randrange
 
-from lib.dictionaries.systemmessages import Dictionaries
+from pylib.dictionaries.systemmessages import Dictionaries
 
 
 class RockScissorPaper(Cog, name='miniGames module'):

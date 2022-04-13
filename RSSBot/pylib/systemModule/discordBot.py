@@ -8,11 +8,13 @@ from sys import api_version
 from dotenv import load_dotenv
 
 #   Discord Reporosory
+from discord import Intents
 from discord.message import Message
 from discord.ext.commands import Bot
 
 #   pylib Responsories
-from databasePython import MariaDB
+#from databasePython import MariaDB
+
 load_dotenv()
 
 class DiscordBot(Bot):
@@ -21,6 +23,7 @@ class DiscordBot(Bot):
         super().__init__(command_prefix, help_command=help_command, description=description, **options)
 
     async def on_ready(self):
+        
         srv= []
         svr = self.guilds
 
@@ -35,7 +38,7 @@ class DiscordBot(Bot):
     async def on_message(self, message:Message):
 
         #   Initialize Classes
-        db = MariaDB()
+        #db = MariaDB()
 
         mention = bool(message.mentions)
 
@@ -48,7 +51,7 @@ class DiscordBot(Bot):
             #   Initializing connection to the database
             database = getenv('database1')
             query = f'SELECT * FROM discordAfkMessages WHERE memberName = "{mention}"'
-            data = db.SelectFromTable(database, query)
+            data = '#data = db.SelectFromTable(database, query)'
 
             for i in data:
                 dndList.append(i[1])
@@ -61,5 +64,5 @@ class DiscordBot(Bot):
 
     #   Procsess commands
 
-        db.CloseConnection()
+        #db.CloseConnection()
         await self.process_commands(message)
