@@ -2,39 +2,23 @@
 
 ## News Channels
 
-*   CNN News
-*   CNBC News
-
 ### International News
 
-####   CNN World News
-
-*   cWorld, retrieves general news from the WorldNews
-*   cEuro, retrieves news from Europe
-*   cafrica, retrieves news from Africa
-*   cmeast, retrieves news from the Middle East
-*   casia, retrieves news from Asia
-*   camerica, retrieves news from America  
-
-#### CNBC World News
-
-
+*   CNN Channel
+*   CNBC Channel
 
 ###     National News
 
-*   cusa    United States National News
+####   United States Of America
 
+*   CNN Channel
+*   CNBC Channel
 
-###     Misc News
+###     Finance and enocomy
 
-####    CNN Misc News
-* ctop, top 10 news articles  may be less
+*   CNN Channel
+*   CNBC Channel
 
-
-
-## Feature implentations
-
-*   cvideo, Videos from CNN
 
 ##  Challanges
 

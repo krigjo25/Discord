@@ -23,7 +23,7 @@ class CNNMiscellaneous(Cog):
 
     def __init__(self, bot) -> None:
         self.bot = bot,
-        self.channelName = 'rssfeed'
+        self.channelName = 'rssfeedtest'
         self.embed = Embed(color=Color.dark_blue())
     
         #   Top News 10
@@ -34,44 +34,44 @@ class CNNMiscellaneous(Cog):
             Retrieves the top 5 News in the world
 
         """
-        #   Initializing variables
-        srv = ctx.guild
-        role = get(srv.roles, name='@Members')
-        ch = get(srv.channels, name=f'{self.channelName}')
 
-        #   Create a channel
+            #   Retrieve the guild information
+        srv = ctx.guild
+        member = get(srv.roles, name='@Members')
+        ch = get(srv.channels, name=f'{self.channelName}')
+        rss = 'http://rss.cnn.com/rss/edition.rss'
+
+        #   Creating the channel if it does not exists
         if not ch:
 
-            #   Creating channel permissions
+            #   Inserting the channel permissions
             perms = {
-    
-                    srv.default_role:PermissionOverwrite(read_messages=False),
-                    role:PermissionOverwrite(view_channel=True, read_message_history = True),
-                }
+                        srv.default_role:PermissionOverwrite(read_messages=False),
+                        member:PermissionOverwrite(view=True, read_channel_history=True)
+}
 
             await srv.create_text_channel(f'{self.channelName}', overwrites=perms)
 
-        #   Scraping the feed
-        rssNews = feedparser.parse('http://rss.cnn.com/rss/edition.rss')
-        entries =  rssNews.entries
+        #   Creating the RSS 
+        RSSNews = feedparser.parse(f'{rss}')
+        entries = RSSNews.entries
 
-        #   Create the embed information
-        self.embed.title = f'{rssNews.feed.title}'
-        self.embed.description = f'{rssNews.feed.image.link}\n{rssNews.feed.description}'
-        self.embed.url = f'{rssNews.feed.link}'
+        #   Prepareing the embed
+        self.embed.title = f'{RSSNews.feed.title}'
+        self.embed.description = f'{RSSNews.feed.description}'
+        self.embed.url = f'{RSSNews.feed.link}'
 
-        for artnr, article in enumerate(entries):
+        #   Looping throught the entries
+        for nr, article in enumerate(entries):
 
-            #   Searching for selected list items
             summary = article.get('summary', 'There is no summary for this article')
-            updated = rssNews.feed.get('updated', ' No Date to be shown')
+            updated = RSSNews.feed.get('updated', 'There is no summary for this article')
 
             if summary != 'There is no summary for this article':
 
-                self.embed.add_field(name=f'{artnr}. {article.title}', value=f' ')
+                self.embed.add_field(name = f'{nr}. {article.title}', value = f'\n{summary}\n**{updated}**\n{article.link}\n')
 
-            #   Drop the loop when the counter is reached
-            if artnr == 5: 
+            if nr == 5:
                 break
 
         #   Send the information, and reset embed
@@ -83,204 +83,184 @@ class CNNMiscellaneous(Cog):
     @command(name='cetn')
     async def EntertainmentNews(self, ctx):
 
-        #   Retrieve the guild information
+            #   Retrieve the guild information
         srv = ctx.guild
-        role = get(srv.roles, name='@Members')
+        member = get(srv.roles, name='@Members')
         ch = get(srv.channels, name=f'{self.channelName}')
+        rss = 'http://rss.cnn.com/rss/edition_entertainment.rss'
 
-        #   Create the channel
+        #   Creating the channel if it does not exists
         if not ch:
 
-            #   Creating channel permissions
+            #   Inserting the channel permissions
             perms = {
-                            
-                    srv.default_role:PermissionOverwrite(read_messages=False),
-                    role:PermissionOverwrite(view_channel=True, read_message_history = True),
-                }
+                        srv.default_role:PermissionOverwrite(read_messages=False),
+                        member:PermissionOverwrite(view=True, read_channel_history=True)
+}
 
             await srv.create_text_channel(f'{self.channelName}', overwrites=perms)
 
-        #   Creating the feed
-        rssNews = feedparser.parse('http://rss.cnn.com/rss/edition_entertainment.rss')
-        entries =  rssNews.entries
+        #   Creating the RSS 
+        RSSNews = feedparser.parse(f'{rss}')
+        entries = RSSNews.entries
 
-        #   Create the embed information
-        self.embed.title = f'{rssNews.feed.title}'
-        self.embed.description = f'{rssNews.feed.description}'
-        self.embed.url = f'{rssNews.feed.link}'
+        #   Prepareing the embed
+        self.embed.title = f'{RSSNews.feed.title}'
+        self.embed.description = f'{RSSNews.feed.description}'
+        self.embed.url = f'{RSSNews.feed.link}'
 
-        #   looping through the RSS feed
-        for artnr, article in enumerate(entries):
-
-            #   Searching for selected list items
+        #   Looping throught the entries
+        for nr, article in enumerate(entries):
             summary = article.get('summary', 'There is no summary for this article')
-            updated = rssNews.feed.get('updated', ' No Date to be shown')
+            updated = RSSNews.feed.get('updated', 'There is no summary for this article')
 
             if summary != 'There is no summary for this article':
-                self.embed.add_field(name=f'{artnr}. {article.title}', value=f'\n{summary}\n{updated}\n{article.link}\n ')
 
-            #   Drop the loop when the counter is reached
-            if artnr == 10:
+                self.embed.add_field(name = f'{nr}. {article.title}', value = f'\n{summary}\n**{updated}**\n{article.link}\n')
+
+            if nr == 5:
                 break
 
         #   Send the information, and reset embed
         await ch.send(embed=self.embed)
-        self.embed = Embed(color=Color.dark_purple())
         self.embed.clear_fields()
 
         return
-
+ 
     @command(name='css')
     async def SpaceAndScienceNews(self, ctx):
 
-        #   Retrieve the guild information
+            #   Retrieve the guild information
         srv = ctx.guild
-        chName = 'rssfeed'
-        role = get(srv.roles, name='@Members')
+        member = get(srv.roles, name='@Members')
         ch = get(srv.channels, name=f'{self.channelName}')
+        rss = 'http://rss.cnn.com/rss/edition_space.rss'
 
-        #   Create the channel
+        #   Creating the channel if it does not exists
         if not ch:
 
-            #   Creating channel permissions
+            #   Inserting the channel permissions
             perms = {
-                            
-                    srv.default_role:PermissionOverwrite(read_messages=False),
-                    role:PermissionOverwrite(view_channel=True, read_message_history = True),
-                }
+                        srv.default_role:PermissionOverwrite(read_messages=False),
+                        member:PermissionOverwrite(view=True, read_channel_history=True)
+}
 
             await srv.create_text_channel(f'{self.channelName}', overwrites=perms)
 
-        #   Creating the feed
-        rssNews = feedparser.parse('http://rss.cnn.com/rss/edition_space.rss')
-        entries =  rssNews.entries
+        #   Creating the RSS 
+        RSSNews = feedparser.parse(f'{rss}')
+        entries = RSSNews.entries
 
-        #   Create the embed information
-        self.embed.title = f'{rssNews.feed.title}'
-        self.embed.description = f'{rssNews.feed.description}'
-        self.embed.url = f'{rssNews.feed.link}' # Note : problems with description / summary 
+        #   Prepareing the embed
+        self.embed.title = f'{RSSNews.feed.title}'
+        self.embed.description = f'{RSSNews.feed.description}'
+        self.embed.url = f'{RSSNews.feed.link}'
 
-        #   looping through the RSS feed
-        for artnr, article in enumerate(entries):
-
-            #   Searching for selected list items
+        #   Looping throught the entries
+        for nr, article in enumerate(entries):
             summary = article.get('summary', 'There is no summary for this article')
-            updated = rssNews.feed.get('updated', ' No Date to be shown')
+            updated = RSSNews.feed.get('updated', 'There is no summary for this article')
 
             if summary != 'There is no summary for this article':
-                self.embed.add_field(name=f'{artnr}. {article.title}', value=f'\n{summary}\n{updated}\n{article.link}\n ')
 
-            #   Drop the loop when the counter is reached
-            if artnr == 10:
+                self.embed.add_field(name = f'{nr}. {article.title}', value = f'\n{summary}\n**{updated}**\n{article.link}\n')
+
+            if nr == 5:
                 break
 
         #   Send the information, and reset embed
         await ch.send(embed=self.embed)
-        self.embed = Embed(color=Color.dark_purple())
         self.embed.clear_fields()
 
         return
 
     @command(name='ccash')
+
     async def MoneyNews(self, ctx):
 
-        #   Retrieve the guild information
+            #   Retrieve the guild information
         srv = ctx.guild
-        chName = 'rssfeed'
-        role = get(srv.roles, name='@Members')
+        member = get(srv.roles, name='@Members')
         ch = get(srv.channels, name=f'{self.channelName}')
+        rss = 'http://rss.cnn.com/rss/money_news_international.rss'
 
-        #   Create the channel
+        #   Creating the channel if it does not exists
         if not ch:
 
-            #   Creating channel permissions
+            #   Inserting the channel permissions
             perms = {
-                            
-                    srv.default_role:PermissionOverwrite(read_messages=False),
-                    role:PermissionOverwrite(view_channel=True, read_message_history = True),
-                }
+                        srv.default_role:PermissionOverwrite(read_messages=False),
+                        member:PermissionOverwrite(view=True, read_channel_history=True)
+}
 
             await srv.create_text_channel(f'{self.channelName}', overwrites=perms)
 
-        #   Creating the feed
-        rssNews = feedparser.parse('http://rss.cnn.com/rss/money_news_international.rss')
-        entries =  rssNews.entries
+        #   Creating the RSS 
+        RSSNews = feedparser.parse(f'{rss}')
+        entries = RSSNews.entries
 
-        #   Create the embed information
-        self.embed.title = f'{rssNews.feed.title}'
-        self.embed.description = f'{rssNews.feed.description}'
-        self.embed.url = f'{rssNews.feed.link}' # Note : problems with description / summary 
+        #   Prepareing the embed
+        self.embed.title = f'{RSSNews.feed.title}'
+        self.embed.description = f'{RSSNews.feed.description}'
+        self.embed.url = f'{RSSNews.feed.link}'
 
-        #   looping through the RSS feed
-        for artnr, article in enumerate(entries):
-
-            #   Searching for selected list items
+        #   Looping throught the entries
+        for nr, article in enumerate(entries):
             summary = article.get('summary', 'There is no summary for this article')
-            updated = rssNews.feed.get('updated', ' No Date to be shown')
+            updated = RSSNews.feed.get('updated', 'There is no summary for this article')
 
             if summary != 'There is no summary for this article':
-                self.embed.add_field(name=f'{artnr}. {article.title}', value=f'\n{summary}\n{updated}\n{article.link}\n ')
 
-            #   Drop the loop when the counter is reached
-            if artnr == 10:
+                self.embed.add_field(name = f'{nr}. {article.title}', value = f'\n{summary}\n**{updated}**\n{article.link}\n')
+
+            if nr == 5:
                 break
 
         #   Send the information, and reset embed
         await ch.send(embed=self.embed)
-        self.embed = Embed(color=Color.dark_purple())
         self.embed.clear_fields()
-
-        return
-
-    @command(name='cvideo')
-    async def VideoNews(self, ctx):
-        #   Video		http://rss.cnn.com/rss/cnn_freevideo.rss
-        ctx.send('under Development')
 
         return
 
     @command(name='cTravel')
     async def TravelNews(self, ctx):
 
-        #   Retrieve the guild information
+            #   Retrieve the guild information
         srv = ctx.guild
-        chName = 'rssfeed'
-        role = get(srv.roles, name='@Members')
+        member = get(srv.roles, name='@Members')
         ch = get(srv.channels, name=f'{self.channelName}')
+        rss = 'http://rss.cnn.com/rss/edition_travel.rss'
 
-        #   Create the channel
+        #   Creating the channel if it does not exists
         if not ch:
 
-            #   Creating channel permissions
+            #   Inserting the channel permissions
             perms = {
-                            
-                    srv.default_role:PermissionOverwrite(read_messages=False),
-                    role:PermissionOverwrite(view_channel=True, read_message_history = True),
-                }
+                        srv.default_role:PermissionOverwrite(read_messages=False),
+                        member:PermissionOverwrite(view=True, read_channel_history=True)
+}
 
             await srv.create_text_channel(f'{self.channelName}', overwrites=perms)
 
-        #   Creating the feed
-        rssNews = feedparser.parse('http://rss.cnn.com/rss/edition_travel.rss')
-        entries =  rssNews.entries
+        #   Creating the RSS 
+        RSSNews = feedparser.parse(f'{rss}')
+        entries = RSSNews.entries
 
-        #   Create the embed information
-        self.embed.title = f'{rssNews.feed.title}'
-        self.embed.description = f'{rssNews.feed.description}'
-        self.embed.url = f'{rssNews.feed.link}' # Note : problems with description / summary 
+        #   Prepareing the embed
+        self.embed.title = f'{RSSNews.feed.title}'
+        self.embed.description = f'{RSSNews.feed.description}'
+        self.embed.url = f'{RSSNews.feed.link}'
 
-        #   looping through the RSS feed
-        for artnr, article in enumerate(entries):
-
-            #   Searching for selected list items
+        #   Looping throught the entries
+        for nr, article in enumerate(entries):
             summary = article.get('summary', 'There is no summary for this article')
-            updated = rssNews.feed.get('updated', ' No Date to be shown')
+            updated = RSSNews.feed.get('updated', 'There is no summary for this article')
 
             if summary != 'There is no summary for this article':
-                self.embed.add_field(name=f'{artnr}. {article.title}', value=f'\n{summary}\n{updated}\n{article.link}\n ')
 
-            #   Drop the loop when the counter is reached
-            if artnr == 10:
+                self.embed.add_field(name = f'{nr}. {article.title}', value = f'\n{summary}\n**{updated}**\n{article.link}\n')
+
+            if nr == 5:
                 break
 
         #   Send the information, and reset embed
@@ -292,99 +272,90 @@ class CNNMiscellaneous(Cog):
     @command(name='ctech')
     async def TechnologiesNews(self, ctx):
 
-        #   Retrieve the guild information
+            #   Retrieve the guild information
         srv = ctx.guild
-        chName = 'rssfeed'
-        role = get(srv.roles, name='@Members')
+        member = get(srv.roles, name='@Members')
         ch = get(srv.channels, name=f'{self.channelName}')
+        rss = 'http://rss.cnn.com/rss/edition_technology.rss'
 
-        #   Create the channel
+        #   Creating the channel if it does not exists
         if not ch:
 
-            #   Creating channel permissions
+            #   Inserting the channel permissions
             perms = {
-                            
-                    srv.default_role:PermissionOverwrite(read_messages=False),
-                    role:PermissionOverwrite(view_channel=True, read_message_history = True),
-                }
+                        srv.default_role:PermissionOverwrite(read_messages=False),
+                        member:PermissionOverwrite(view=True, read_channel_history=True)
+}
 
             await srv.create_text_channel(f'{self.channelName}', overwrites=perms)
 
-        #   Creating the feed
-        rssNews = feedparser.parse('http://rss.cnn.com/rss/edition_technology.rss')
-        entries =  rssNews.entries
+        #   Creating the RSS 
+        RSSNews = feedparser.parse(f'{rss}')
+        entries = RSSNews.entries
 
-        #   Create the embed information
-        self.embed.title = f'{rssNews.feed.title}'
-        self.embed.description = f'{rssNews.feed.description}'
-        self.embed.url = f'{rssNews.feed.link}' # Note : problems with description / summary 
+        #   Prepareing the embed
+        self.embed.title = f'{RSSNews.feed.title}'
+        self.embed.description = f'{RSSNews.feed.description}'
+        self.embed.url = f'{RSSNews.feed.link}'
 
-        #   looping through the RSS feed
-        for artnr, article in enumerate(entries):
-
-            #   Searching for selected list items
+        #   Looping throught the entries
+        for nr, article in enumerate(entries):
             summary = article.get('summary', 'There is no summary for this article')
-            updated = rssNews.feed.get('updated', ' No Date to be shown')
+            updated = RSSNews.feed.get('updated', 'There is no summary for this article')
 
             if summary != 'There is no summary for this article':
-                self.embed.add_field(name=f'{artnr}. {article.title}', value=f'\n{summary}\n{updated}\n{article.link}\n ')
 
-            #   Drop the loop when the counter is reached
-            if artnr == 10:
+                self.embed.add_field(name = f'{nr}. {article.title}', value = f'\n{summary}\n**{updated}**\n{article.link}\n')
+
+            if nr == 5:
                 break
 
         #   Send the information, and reset embed
         await ch.send(embed=self.embed)
-        self.embed = Embed(color=Color.dark_purple())
         self.embed.clear_fields()
 
         return
 
-    #   Bad Request too long
+    #   ???
     @command(name='crecent')
     async def MostRecentNews(self, ctx):
 
-        #   Initializing classes
-
-
-        #   Retrieve the guild information
+            #   Retrieve the guild information
         srv = ctx.guild
-        role = get(srv.roles, name='@Members')
+        member = get(srv.roles, name='@Members')
         ch = get(srv.channels, name=f'{self.channelName}')
+        rss = 'http://rss.cnn.com/rss/cnn_latest.rss'
 
-        #   Create the channel
+        #   Creating the channel if it does not exists
         if not ch:
 
-            #   Creating channel permissions
+            #   Inserting the channel permissions
             perms = {
-                            
-                    srv.default_role:PermissionOverwrite(read_messages=False),
-                    role:PermissionOverwrite(view_channel=True, read_message_history = True),
-                }
+                        srv.default_role:PermissionOverwrite(read_messages=False),
+                        member:PermissionOverwrite(view=True, read_channel_history=True)
+}
 
             await srv.create_text_channel(f'{self.channelName}', overwrites=perms)
 
-        #   Creating the feed
-        rssNews = feedparser.parse('http://rss.cnn.com/rss/cnn_latest.rss')
-        entries =  rssNews.entries
-        
-        #   Create the embed information
-        self.embed.title = f'{rssNews.feed.title}'
-        self.embed.description = f'{rssNews.feed.description}'
-        self.embed.url = f'{rssNews.feed.link}' # Note : problems with description / summary 
+        #   Creating the RSS 
+        RSSNews = feedparser.parse(f'{rss}')
+        entries = RSSNews.entries
 
-        #   looping through the RSS feed
-        for artnr, article in enumerate(entries):
-            print(artnr, article.title)
-            #   Searching for selected list items
+        #   Prepareing the embed
+        self.embed.title = f'{RSSNews.feed.title}'
+        self.embed.description = f'{RSSNews.feed.description}'
+        self.embed.url = f'{RSSNews.feed.link}'
+
+        #   Looping throught the entries
+        for nr, article in enumerate(entries):
             summary = article.get('summary', 'There is no summary for this article')
-            updated = rssNews.feed.get('updated', ' No Date to be shown')
+            updated = RSSNews.feed.get('updated', 'There is no summary for this article')
 
             if summary != 'There is no summary for this article':
-                self.embed.add_field(name=f'{artnr}. {article.title}', value=f'\n{summary[0:96]}\n ')
 
-            #   Drop the loop when the counter is reached
-            if artnr == 5:
+                self.embed.add_field(name = f'{nr}. {article.title}', value = f'\n{summary}\n**{updated}**\n{article.link}\n')
+
+            if nr == 5:
                 break
 
         #   Send the information, and reset embed
@@ -392,4 +363,3 @@ class CNNMiscellaneous(Cog):
         self.embed.clear_fields()
 
         return
-

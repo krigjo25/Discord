@@ -33,7 +33,6 @@ otherwise, Gym and living life as a human being.
 Information about the design can be found in the given links below
 includes the text files below,
 
-*   [GameBot](https://github.com/krigjo25/Discord/blob/main/gameBot/design/gameBot.md)
 
 *   [RSSBot](https://github.com/krigjo25/Discord/blob/main/RSSBot/design/RSSBot.md)
 
@@ -45,10 +44,10 @@ includes the text files below,
         10.04-21
 
    Last Update :<br>
-        10.04-22
+        13.04-22
 
     Current verison:<br>
-    1.0.0
+    0.0.3br
 
     SQL Database:
 
@@ -59,7 +58,7 @@ easier to access news with-in the server.
 
 ## About-RSSBot
 
-The bot is created to scrape news from the news sites<br>
+Reading news from the web.<br>
 for the players, to read them on discord.
 
 the prefix command used in the project  **@'**, e.g **'@help'**
@@ -70,18 +69,13 @@ the prefix command used in the project  **@'**, e.g **'@help'**
 
 ####    International News
 
-CNN-News<br>
-    Top News : Gives you the top 5 news in CNN-Module
+* CNN - News
 
-    World News : Gives you the top 5 news in World-News<br>
-    and many more
+* CNBC - News
 
 #### National News
 
 * United States of America
-
-#### Local News
-
 
 ### Challanges 
 

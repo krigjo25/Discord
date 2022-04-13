@@ -22,12 +22,12 @@ from pylib.communityModule.community import CommunityModule                     
 
 #   CNN
 from pylib.rssModule.international.cnn.cnnWorld import CNNWorld
-from pylib.rssModule.international.cnn.cnnSports import CNNSport
+#from pylib.rssModule.international.cnn.cnnSports import CNNSport
 from pylib.rssModule.international.cnn.cnnMisc import CNNMiscellaneous
 
 #   CNBC
 from pylib.rssModule.international.cnbc.cnbcWorld import CNBCWorld
-from pylib.rssModule.international.cnn.cnnSports import CNBCSport
+#from pylib.rssModule.international.cnn.cnnSports import CNBCSport
 from pylib.rssModule.international.cnbc.cnbcMisc import CNBCMiscellaneous
 #   National news
 from pylib.rssModule.national.usNational import USANational
@@ -67,7 +67,7 @@ class DiscordSetup():
 
         #   Cnn News
         self.bot.add_cog(CNNWorld(self.bot))
-        self.bot.add_cog(CNNSport(self.bot))
+#        self.bot.add_cog(CNNSport(self.bot))
         self.bot.add_cog(CNNMiscellaneous(self.bot))
 
         #   CNBC News

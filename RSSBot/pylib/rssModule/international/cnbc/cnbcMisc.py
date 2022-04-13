@@ -12,9 +12,10 @@ import feedparser
 
 class CNBCMiscellaneous(Cog):
 
-    def __init__(self) -> None:
+    def __init__(self, bot) -> None:
         super().__init__()
-        self.channelName = 'rssfeedtest'
+        self.bot = bot
+        self.channelName = 'rssfeed'
         self.embed = Embed(color = Color.dark_blue())
 
         return
@@ -26,89 +27,8 @@ class CNBCMiscellaneous(Cog):
         srv = ctx.guild
         member = get(srv.roles, name='@Members')
         ch = get(srv.channels, name=f'{self.channelName}')
+        rss = 'https://search.cnbc.com/rs/search/combinedcms/view.xml?partnerId=wrss01&id=10001147'
 
-        #   Creating the channel if it does not exists
-        if not ch:
-
-            #   Inserting the channel permissions
-            perms = {
-                        srv.default_role:PermissionOverwrite(read_messages=False),
-                        member:PermissionOverwrite(view=True, read_channel_history=True)
-}
-
-            await srv.create_text_channel(f'{self.channelName}', overwrites=perms)
-
-        #   Creating the RSS 
-        RSSNews = feedparser.parse('https://search.cnbc.com/rs/search/combinedcms/view.xml?partnerId=wrss01&id=10001147')
-        entries = RSSNews.entries
-
-        #   Prepareing the embed
-        self.embed.title = f'{RSSNews.feed.title}'
-        self.embed.description = f'{RSSNews.feed.image.link}\n{RSSNews.feed.description}'
-        self.embed.url = f'{RSSNews.feed.link}'
-
-        #   Looping throught the entries
-        for nr, article in enumerate(entries):
-
-            summary = article.get('summary', 'No data to be shown')
-            updated = RSSNews.feed.get('updated', 'No data to be shown')
-
-            if summary != 'No data to be shown':
-
-                self.embed.add_field(name = f'{nr}. {article.title}', value = f'\n{summary}\n**{updated}**\n{article.link}\n')
-
-            if nr == 5:
-                break
-
-    @command(name = 'cnbcsbus')
-    async def SmallBusiness(self, ctx):
-
-        #   Initializing the variables
-        srv = ctx.guild
-        member = get(srv.roles, name='@Members')
-        ch = get(srv.channels, name=f'{self.channelName}')
-
-        #   Creating the channel if it does not exists
-        if not ch:
-
-            #   Inserting the channel permissions
-            perms = {
-                        srv.default_role:PermissionOverwrite(read_messages=False),
-                        member:PermissionOverwrite(view=True, read_channel_history=True)
-}
-
-            await srv.create_text_channel(f'{self.channelName}', overwrites=perms)
-
-        #   Creating the RSS 
-        RSSNews = feedparser.parse('https://search.cnbc.com/rs/search/combinedcms/view.xml?partnerId=wrss01&id=44877279')
-        entries = RSSNews.entries
-
-        #   Prepareing the embed
-        self.embed.title = f'{RSSNews.feed.title}'
-        self.embed.description = f'{RSSNews.feed.image.link}\n{RSSNews.feed.description}'
-        self.embed.url = f'{RSSNews.feed.link}'
-
-        #   Looping throught the entries
-        for nr, article in enumerate(entries):
-
-            summary = article.get('summary', 'No data to be shown')
-            updated = RSSNews.feed.get('updated', 'No data to be shown')
-
-            if summary != 'No data to be shown':
-
-                self.embed.add_field(name = f'{nr}. {article.title}', value = f'\n{summary}\n**{updated}**\n{article.link}\n')
-
-            if nr == 5:
-                break
-
-    @command(name = 'cnbcrealestate')
-    async def RealEstate(self, ctx):
-
-        #   Initializing the variables
-        srv = ctx.guild
-        member = get(srv.roles, name='@Members')
-        ch = get(srv.channels, name=f'{self.channelName}')
-        rss = 'https://search.cnbc.com/rs/search/combinedcms/view.xml?partnerId=wrss01&id=10000115'
         #   Creating the channel if it does not exists
         if not ch:
 
@@ -126,21 +46,120 @@ class CNBCMiscellaneous(Cog):
 
         #   Prepareing the embed
         self.embed.title = f'{RSSNews.feed.title}'
-        self.embed.description = f'{RSSNews.feed.image.link}\n{RSSNews.feed.description}'
+        self.embed.description = f'{RSSNews.feed.description}'
         self.embed.url = f'{RSSNews.feed.link}'
 
         #   Looping throught the entries
         for nr, article in enumerate(entries):
+            summary = article.get('summary', 'There is no summary for this article')
+            updated = RSSNews.feed.get('updated', 'There is no summary for this article')
 
-            summary = article.get('summary', 'No data to be shown')
-            updated = RSSNews.feed.get('updated', 'No data to be shown')
-
-            if summary != 'No data to be shown':
+            if summary != 'There is no summary for this article':
 
                 self.embed.add_field(name = f'{nr}. {article.title}', value = f'\n{summary}\n**{updated}**\n{article.link}\n')
 
             if nr == 5:
                 break
+
+        #   Send the information, and reset embed
+        await ch.send(embed=self.embed)
+        self.embed.clear_fields()
+
+        return
+
+    @command(name='cnbcsbus')
+    async def SmallBusiness(self, ctx):
+
+        #   Initializing the variables
+        srv = ctx.guild
+        member = get(srv.roles, name='@Members')
+        ch = get(srv.channels, name=f'{self.channelName}')
+        rss = 'https://search.cnbc.com/rs/search/combinedcms/view.xml?partnerId=wrss01&id=10001147'
+
+        #   Creating the channel if it does not exists
+        if not ch:
+
+            #   Inserting the channel permissions
+            perms = {
+                        srv.default_role:PermissionOverwrite(read_messages=False),
+                        member:PermissionOverwrite(view=True, read_channel_history=True)
+}
+
+            await srv.create_text_channel(f'{self.channelName}', overwrites=perms)
+
+        #   Creating the RSS 
+        RSSNews = feedparser.parse(f'{rss}')
+        entries = RSSNews.entries
+
+        #   Prepareing the embed
+        self.embed.title = f'{RSSNews.feed.title}'
+        self.embed.description = f'{RSSNews.feed.description}'
+        self.embed.url = f'{RSSNews.feed.link}'
+
+        #   Looping throught the entries
+        for nr, article in enumerate(entries):
+            summary = article.get('summary', 'There is no summary for this article')
+            updated = RSSNews.feed.get('updated', 'There is no summary for this article')
+
+            if summary != 'There is no summary for this article':
+
+                self.embed.add_field(name = f'{nr}. {article.title}', value = f'\n{summary}\n**{updated}**\n{article.link}\n')
+
+            if nr == 5:
+                break
+
+        #   Send the information, and reset embed
+        await ch.send(embed=self.embed)
+        self.embed.clear_fields()
+
+        return
+
+    @command(name = 'cnbcstate')
+    async def RealEstate(self, ctx):
+
+        #   Initializing the variables
+        srv = ctx.guild
+        member = get(srv.roles, name='@Members')
+        ch = get(srv.channels, name=f'{self.channelName}')
+        rss = 'https://search.cnbc.com/rs/search/combinedcms/view.xml?partnerId=wrss01&id=10000115'
+
+        #   Creating the channel if it does not exists
+        if not ch:
+
+            #   Inserting the channel permissions
+            perms = {
+                        srv.default_role:PermissionOverwrite(read_messages=False),
+                        member:PermissionOverwrite(view=True, read_channel_history=True)
+}
+
+            await srv.create_text_channel(f'{self.channelName}', overwrites=perms)
+
+        #   Creating the RSS 
+        RSSNews = feedparser.parse(f'{rss}')
+        entries = RSSNews.entries
+
+        #   Prepareing the embed
+        self.embed.title = f'{RSSNews.feed.title}'
+        self.embed.description = f'{RSSNews.feed.description}'
+        self.embed.url = f'{RSSNews.feed.link}'
+
+        #   Looping throught the entries
+        for nr, article in enumerate(entries):
+            summary = article.get('summary', 'There is no summary for this article')
+            updated = RSSNews.feed.get('updated', 'There is no summary for this article')
+
+            if summary != 'There is no summary for this article':
+
+                self.embed.add_field(name = f'{nr}. {article.title}', value = f'\n{summary}\n**{updated}**\n{article.link}\n')
+
+            if nr == 5:
+                break
+
+        #   Send the information, and reset embed
+        await ch.send(embed=self.embed)
+        self.embed.clear_fields()
+
+        return
 
     @command(name = 'cnbctech')
     async def Technologies(self, ctx):
@@ -168,25 +187,29 @@ class CNBCMiscellaneous(Cog):
 
         #   Prepareing the embed
         self.embed.title = f'{RSSNews.feed.title}'
-        self.embed.description = f'{RSSNews.feed.image.link}\n{RSSNews.feed.description}'
+        self.embed.description = f'{RSSNews.feed.description}'
         self.embed.url = f'{RSSNews.feed.link}'
 
         #   Looping throught the entries
         for nr, article in enumerate(entries):
+            summary = article.get('summary', 'There is no summary for this article')
+            updated = RSSNews.feed.get('updated', 'There is no summary for this article')
 
-            summary = article.get('summary', 'No data to be shown')
-            updated = RSSNews.feed.get('updated', 'No data to be shown')
-
-            if summary != 'No data to be shown':
-
+            if summary != 'There is no summary for this article':
+                print(article)
                 self.embed.add_field(name = f'{nr}. {article.title}', value = f'\n{summary}\n**{updated}**\n{article.link}\n')
 
             if nr == 5:
                 break
 
+        #   Send the information, and reset embed
+        await ch.send(embed=self.embed)
+        self.embed.clear_fields()
+
         return
 
-    @command(name = 'cnbchcare')
+
+    @command(name = 'cnbccare')
     async def HealthCare(self, ctx):
 
         #   Initializing the variables
@@ -194,6 +217,7 @@ class CNBCMiscellaneous(Cog):
         member = get(srv.roles, name='@Members')
         ch = get(srv.channels, name=f'{self.channelName}')
         rss = 'https://search.cnbc.com/rs/search/combinedcms/view.xml?partnerId=wrss01&id=10000108'
+
         #   Creating the channel if it does not exists
         if not ch:
 
@@ -211,21 +235,24 @@ class CNBCMiscellaneous(Cog):
 
         #   Prepareing the embed
         self.embed.title = f'{RSSNews.feed.title}'
-        self.embed.description = f'{RSSNews.feed.image.link}\n{RSSNews.feed.description}'
+        self.embed.description = f'{RSSNews.feed.description}'
         self.embed.url = f'{RSSNews.feed.link}'
 
         #   Looping throught the entries
         for nr, article in enumerate(entries):
+            summary = article.get('summary', 'There is no summary for this article')
+            updated = RSSNews.feed.get('updated', 'There is no summary for this article')
 
-            summary = article.get('summary', 'No data to be shown')
-            updated = RSSNews.feed.get('updated', 'No data to be shown')
-
-            if summary != 'No data to be shown':
+            if summary != 'There is no summary for this article':
 
                 self.embed.add_field(name = f'{nr}. {article.title}', value = f'\n{summary}\n**{updated}**\n{article.link}\n')
 
             if nr == 5:
                 break
+
+        #   Send the information, and reset embed
+        await ch.send(embed=self.embed)
+        self.embed.clear_fields()
 
         return
 
@@ -237,6 +264,7 @@ class CNBCMiscellaneous(Cog):
         member = get(srv.roles, name='@Members')
         ch = get(srv.channels, name=f'{self.channelName}')
         rss = 'https://search.cnbc.com/rs/search/combinedcms/view.xml?partnerId=wrss01&id=19836768'
+
         #   Creating the channel if it does not exists
         if not ch:
 
@@ -254,21 +282,24 @@ class CNBCMiscellaneous(Cog):
 
         #   Prepareing the embed
         self.embed.title = f'{RSSNews.feed.title}'
-        self.embed.description = f'{RSSNews.feed.image.link}\n{RSSNews.feed.description}'
+        self.embed.description = f'{RSSNews.feed.description}'
         self.embed.url = f'{RSSNews.feed.link}'
 
         #   Looping throught the entries
         for nr, article in enumerate(entries):
+            summary = article.get('summary', 'There is no summary for this article')
+            updated = RSSNews.feed.get('updated', 'There is no summary for this article')
 
-            summary = article.get('summary', 'No data to be shown')
-            updated = RSSNews.feed.get('updated', 'No data to be shown')
-
-            if summary != 'No data to be shown':
+            if summary != 'There is no summary for this article':
 
                 self.embed.add_field(name = f'{nr}. {article.title}', value = f'\n{summary}\n**{updated}**\n{article.link}\n')
 
             if nr == 5:
                 break
+
+        #   Send the information, and reset embed
+        await ch.send(embed=self.embed)
+        self.embed.clear_fields()
 
         return
 
@@ -298,21 +329,24 @@ class CNBCMiscellaneous(Cog):
 
         #   Prepareing the embed
         self.embed.title = f'{RSSNews.feed.title}'
-        self.embed.description = f'{RSSNews.feed.image.link}\n{RSSNews.feed.description}'
+        self.embed.description = f'{RSSNews.feed.description}'
         self.embed.url = f'{RSSNews.feed.link}'
 
         #   Looping throught the entries
         for nr, article in enumerate(entries):
+            summary = article.get('summary', 'There is no summary for this article')
+            updated = RSSNews.feed.get('updated', 'There is no summary for this article')
 
-            summary = article.get('summary', 'No data to be shown')
-            updated = RSSNews.feed.get('updated', 'No data to be shown')
-
-            if summary != 'No data to be shown':
+            if summary != 'There is no summary for this article':
 
                 self.embed.add_field(name = f'{nr}. {article.title}', value = f'\n{summary}\n**{updated}**\n{article.link}\n')
 
             if nr == 5:
                 break
+
+        #   Send the information, and reset embed
+        await ch.send(embed=self.embed)
+        self.embed.clear_fields()
 
         return
 
@@ -324,6 +358,7 @@ class CNBCMiscellaneous(Cog):
         member = get(srv.roles, name='@Members')
         ch = get(srv.channels, name=f'{self.channelName}')
         rss = 'https://search.cnbc.com/rs/search/combinedcms/view.xml?partnerId=wrss01&id=10000110'
+
 
         #   Creating the channel if it does not exists
         if not ch:
@@ -342,23 +377,27 @@ class CNBCMiscellaneous(Cog):
 
         #   Prepareing the embed
         self.embed.title = f'{RSSNews.feed.title}'
-        self.embed.description = f'{RSSNews.feed.image.link}\n{RSSNews.feed.description}'
+        self.embed.description = f'{RSSNews.feed.description}'
         self.embed.url = f'{RSSNews.feed.link}'
 
         #   Looping throught the entries
         for nr, article in enumerate(entries):
+            summary = article.get('summary', 'There is no summary for this article')
+            updated = RSSNews.feed.get('updated', 'There is no summary for this article')
 
-            summary = article.get('summary', 'No data to be shown')
-            updated = RSSNews.feed.get('updated', 'No data to be shown')
-
-            if summary != 'No data to be shown':
-
+            if summary != 'There is no summary for this article':
+                print(article)
                 self.embed.add_field(name = f'{nr}. {article.title}', value = f'\n{summary}\n**{updated}**\n{article.link}\n')
 
             if nr == 5:
                 break
 
+        #   Send the information, and reset embed
+        await ch.send(embed=self.embed)
+        self.embed.clear_fields()
+
         return
+
 
     @command(name = 'cnbcsports')
     async def Sports(self, ctx):
@@ -367,7 +406,7 @@ class CNBCMiscellaneous(Cog):
         srv = ctx.guild
         member = get(srv.roles, name='@Members')
         ch = get(srv.channels, name=f'{self.channelName}')
-        rrs = 'https://search.cnbc.com/rs/search/combinedcms/view.xml?partnerId=wrss01&id=10000101'
+        rss = 'https://search.cnbc.com/rs/search/combinedcms/view.xml?partnerId=wrss01&id=10000101'
 
         #   Creating the channel if it does not exists
         if not ch:
@@ -381,26 +420,29 @@ class CNBCMiscellaneous(Cog):
             await srv.create_text_channel(f'{self.channelName}', overwrites=perms)
 
         #   Creating the RSS 
-        RSSNews = feedparser.parse(f'{rrs}')
+        RSSNews = feedparser.parse(f'{rss}')
         entries = RSSNews.entries
 
         #   Prepareing the embed
         self.embed.title = f'{RSSNews.feed.title}'
-        self.embed.description = f'{RSSNews.feed.image.link}\n{RSSNews.feed.description}'
+        self.embed.description = f'{RSSNews.feed.description}'
         self.embed.url = f'{RSSNews.feed.link}'
 
         #   Looping throught the entries
         for nr, article in enumerate(entries):
+            summary = article.get('summary', 'There is no summary for this article')
+            updated = RSSNews.feed.get('updated', 'There is no summary for this article')
 
-            summary = article.get('summary', 'No data to be shown')
-            updated = RSSNews.feed.get('updated', 'No data to be shown')
-
-            if summary != 'No data to be shown':
+            if summary != 'There is no summary for this article':
 
                 self.embed.add_field(name = f'{nr}. {article.title}', value = f'\n{summary}\n**{updated}**\n{article.link}\n')
 
             if nr == 5:
                 break
+
+        #   Send the information, and reset embed
+        await ch.send(embed=self.embed)
+        self.embed.clear_fields()
 
         return
 

@@ -107,23 +107,24 @@ class InternationalModule(Cog):
         if args == 'cnnworld':
 
             self.embed.title = 'CNN World News'
-            self.embed.add_field(name ='?cafrica', value ='To get the news from the region')
-            self.embed.add_field(name ='?camerica', value ='To get the news from the region')
-            self.embed.add_field(name ='?casia', value ='To get the news from the region')
-            self.embed.add_field(name ='?ceurope', value ='To get the news from the region')
-            self.embed.add_field(name ='?cWorld', value ='Cnn World News')
+            self.embed.add_field(name ='?cafrica', value ='CNN News from Afria ')
+            self.embed.add_field(name ='?camerica', value ='CNN News from America')
+            self.embed.add_field(name ='?casia', value ='CNN News from Asia')
+            self.embed.add_field(name ='?ceurope', value ='CNN News from Europe')
+            self.embed.add_field(name ='?cworld', value ='Cnn News from the World')
+            self.embed.add_field(name ='?cmeast', value ='Cnn News from Middle East')
 
         elif args == 'cnnmisc':
 
             self.embed.title = 'CNN Misc News'
-            self.embed.add_field(name ='?ctop', value ='Top 10 Cnn News')
-            self.embed.add_field(name ='?cetn', value ='Top 10 Cnn Entertainment News')
-            self.embed.add_field(name ='?css', value ='Top 10 Cnn Space & Science News')
-            self.embed.add_field(name ='?ccash', value ='Top 10 Cnn Money News')
-            self.embed.add_field(name ='?cvideo', value ='Top 10 Cnn Videos')
-            self.embed.add_field(name ='?cmr', value ='Top 10 Cnn Motor Sport News')
-            self.embed.add_field(name ='?ctravel', value ='Top 10 Cnn Travel News')
-            self.embed.add_field(name ='?ctech', value ='Top 10 Cnn Technologies News')
+            self.embed.add_field(name ='?ctop', value ='Top 5 CNN News')
+            self.embed.add_field(name ='?cetn', value ='Top 5 CNN Entertainment News')
+            self.embed.add_field(name ='?css', value ='Top 5 CNN Space & Science News')
+            self.embed.add_field(name ='?ccash', value ='Top 5 CNN Money News')
+            self.embed.add_field(name ='?cvideo', value ='Top 5 CNN Videos')
+            self.embed.add_field(name ='?cmr', value ='Top 5 CNN Motor Sport News')
+            self.embed.add_field(name ='?ctravel', value ='Top 5 CNN Travel News')
+            self.embed.add_field(name ='?ctech', value ='Top 5 CNN Technologies News')
 
         else:
 
@@ -139,23 +140,23 @@ class InternationalModule(Cog):
         if args == 'cnbcworld':
 
             self.embed.title = 'CNBC World News'
-            self.embed.add_field(name ='?cnbcafrica', value ='To get the news from the region')
-            self.embed.add_field(name ='?camerica', value ='To get the news from the region')
-            self.embed.add_field(name ='?casia', value ='To get the news from the region')
-            self.embed.add_field(name ='?ceurope', value ='To get the news from the region')
-            self.embed.add_field(name ='?cWorld', value ='Cnn World News')
+            self.embed.add_field(name ='?cnbcasia', value =' CNBC News from Asia')
+            self.embed.add_field(name ='?cnbceurope', value ='CNBC News from Europe')
+            self.embed.add_field(name ='?cnbcworld', value ='CNBC News from the World')
 
         elif args == 'cnbcmisc':
 
             self.embed.title = 'CNBC Misc News'
-            self.embed.add_field(name ='?ctop', value ='Top 10 Cnn News')
-            self.embed.add_field(name ='?cetn', value ='Top 10 Cnn Entertainment News')
-            self.embed.add_field(name ='?css', value ='Top 10 Cnn Space & Science News')
-            self.embed.add_field(name ='?ccash', value ='Top 10 Cnn Money News')
-            self.embed.add_field(name ='?cvideo', value ='Top 10 Cnn Videos')
-            self.embed.add_field(name ='?cmr', value ='Top 10 Cnn Motor Sport News')
-            self.embed.add_field(name ='?ctravel', value ='Top 10 Cnn Travel News')
-            self.embed.add_field(name ='?ctech', value ='Top 10 Cnn Technologies News')
+            self.embed.add_field(name ='?cnbcbus', value ='CNBC Business')
+            self.embed.add_field(name ='?cnbcsbus', value ='CNBC Small Business')
+            self.embed.add_field(name ='?cnbcstate', value ='CNBC Real Estate')
+            self.embed.add_field(name ='?cnbctech', value ='CNBC Technologies')
+            self.embed.add_field(name ='?cnbctravel', value ='CNBC Travel')
+            self.embed.add_field(name ='?cnbccare', value ='CNBC Health Care')
+            self.embed.add_field(name ='?cnbcenergy', value ='CNBC Energy')
+            self.embed.add_field(name ='?cnbcmedia', value ='CNBC Social Media')
+            self.embed.add_field(name ='?cnbsports', value ='CNBC Sports')
+
 
         else:
 
@@ -170,6 +171,7 @@ class InternationalModule(Cog):
 class NationalModule(Cog):
 
     def __init__(self, bot):
+
         self.bot = bot
         self.embed = Embed(color=Color.dark_purple())
 
@@ -184,6 +186,7 @@ class NationalModule(Cog):
         return self.embed
 
     def UnitedStatesNews(self):
+
         self.embed.title = 'National news USA'
         self.embed.description = ' United States National News '
         self.embed.add_field(name ='?cusa', value ='CNN National news')

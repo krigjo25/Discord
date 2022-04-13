@@ -33,7 +33,6 @@ class DiscordBot(Bot):
 {srv[0]}''')
 
         return
-
         
     async def on_message(self, message:Message):
 

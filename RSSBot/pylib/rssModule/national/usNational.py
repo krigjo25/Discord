@@ -19,31 +19,31 @@ class USANational(Cog):
 
     @command(name = 'cusa')
     async def CnnNational(self,ctx):
-        
+
             #   Retrieve the guild information
         srv = ctx.guild
-        role = get(srv.roles, name='@Members')
+        member = get(srv.roles, name='@Members')
         ch = get(srv.channels, name=f'{self.channelName}')
+        rss = 'http://rss.cnn.com/rss/edition_us.rss'
 
         #   Create the channel
         if not ch:
 
-            #   Creating channel permissions
             perms = {
-                            
+
                     srv.default_role:PermissionOverwrite(read_messages=False),
-                    #role:PermissionOverwrite(view_channel=True, read_message_history = True),
-                }
+                    member:PermissionOverwrite(view_channel=True, read_message_history = True),
+}
 
             await srv.create_text_channel(f'{self.channelName}', overwrites=perms)
 
         #   Creating the feed
-        rssNews = feedparser.parse('http://rss.cnn.com/rss/edition_us.rss')
+        rssNews = feedparser.parse(f'{rss}')
         entries =  rssNews.entries
 
         #   Create the embed information
         self.embed.title = f'{rssNews.feed.title}'
-        self.embed.description = f'US National news :\n{rssNews.feed.description}'
+        self.embed.description = f'{rssNews.feed.description}'
         self.embed.url = f'{rssNews.feed.link}' # Note : problems with description / summary 
 
             #   looping through the RSS feed
@@ -54,48 +54,49 @@ class USANational(Cog):
             updated = rssNews.feed.get('updated', ' No Date to be shown')
             author = article.get('author', 'Unkown') # Get the authors name
            #image = article.get('media_thumbnail', 'No images to be shown') # Get the image
-            
+
             if summary != 'There is no summary for this article':
                 self.embed.add_field(name=f'{artnr}. {article.title}', value=f'\n{summary}\n{updated}\n{article.link}\n written by: {author}')
-            
+
             #   Drop the loop when the counter is reached
             if artnr == 5:
                 break
-            
-            #   Send the information, and reset embed
+
+        #   Send the information, and reset embed
         await ch.send(embed=self.embed)
-        self.embed = Embed(color=Color.dark_purple())
         self.embed.clear_fields()
-     
+
         return
+
+
 
     @command(name = 'cnbcusa')
     async def CNBCNational(self,ctx):
 
-        #   Retrieve the guild information
+            #   Retrieve the guild information
         srv = ctx.guild
-        role = get(srv.roles, name='@Members')
+        member = get(srv.roles, name='@Members')
         ch = get(srv.channels, name=f'{self.channelName}')
+        rss = 'https://search.cnbc.com/rs/search/combinedcms/view.xml?partnerId=wrss01&id=15837362'
 
         #   Create the channel
         if not ch:
 
-            #   Creating channel permissions
             perms = {
-      
+
                     srv.default_role:PermissionOverwrite(read_messages=False),
-                    #role:PermissionOverwrite(view_channel=True, read_message_history = True),
-                }
+                    member:PermissionOverwrite(view_channel=True, read_message_history = True),
+}
 
             await srv.create_text_channel(f'{self.channelName}', overwrites=perms)
 
         #   Creating the feed
-        rssNews = feedparser.parse('https://search.cnbc.com/rs/search/combinedcms/view.xml?partnerId=wrss01&id=15837362')
+        rssNews = feedparser.parse(f'{rss}')
         entries =  rssNews.entries
 
         #   Create the embed information
         self.embed.title = f'{rssNews.feed.title}'
-        self.embed.description = f'US National news :\n{rssNews.feed.description}'
+        self.embed.description = f'{rssNews.feed.description}'
         self.embed.url = f'{rssNews.feed.link}' # Note : problems with description / summary 
 
             #   looping through the RSS feed
@@ -106,17 +107,16 @@ class USANational(Cog):
             updated = rssNews.feed.get('updated', ' No Date to be shown')
             author = article.get('author', 'Unkown') # Get the authors name
            #image = article.get('media_thumbnail', 'No images to be shown') # Get the image
-            
+
             if summary != 'There is no summary for this article':
                 self.embed.add_field(name=f'{artnr}. {article.title}', value=f'\n{summary}\n{updated}\n{article.link}\n written by: {author}')
-            
+
             #   Drop the loop when the counter is reached
             if artnr == 5:
                 break
-            
-            #   Send the information, and reset embed
+
+        #   Send the information, and reset embed
         await ch.send(embed=self.embed)
-        self.embed = Embed(color=Color.dark_purple())
         self.embed.clear_fields()
-     
+
         return

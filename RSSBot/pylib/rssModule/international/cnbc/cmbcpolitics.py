@@ -27,6 +27,7 @@ class CNBCPolitics(Cog):
         member = get(srv.roles, name='@Members')
         ch = get(srv.channels, name=f'{self.channelName}')
         rss = 'https://search.cnbc.com/rs/search/combinedcms/view.xml?partnerId=wrss01&id=100370673'
+
         #   Creating the channel if it does not exists
         if not ch:
 
@@ -59,6 +60,11 @@ class CNBCPolitics(Cog):
 
             if nr == 5:
                 break
+
+        #   Send the information & reset embed
+        await ch.send(embed=self.embed)
+        self.embed = Embed(color=Color.dark_purple())
+        self.embed.clear_fields()
 
         return
 
@@ -70,6 +76,7 @@ class CNBCPolitics(Cog):
         member = get(srv.roles, name='@Members')
         ch = get(srv.channels, name=f'{self.channelName}')
         rss = 'https://search.cnbc.com/rs/search/combinedcms/view.xml?partnerId=wrss01&id=10000113'
+
         #   Creating the channel if it does not exists
         if not ch:
 
@@ -102,4 +109,10 @@ class CNBCPolitics(Cog):
 
             if nr == 5:
                 break
+        #   Send the information & reset embed
+        await ch.send(embed=self.embed)
+        self.embed = Embed(color=Color.dark_purple())
+        self.embed.clear_fields()
+
+        return
 
