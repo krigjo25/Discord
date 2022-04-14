@@ -12,8 +12,9 @@ import feedparser
 
 class CNBCPolitics(Cog):
 
-    def __init__(self) -> None:
+    def __init__(self, bot) -> None:
         super().__init__()
+        self.bot = bot
         self.channelName = 'rssfeed'
         self.embed = Embed(color = Color.dark_blue())
 

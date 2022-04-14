@@ -14,8 +14,6 @@ class HelpCommand(Cog):
     @command(name='help', pass_context=True)
     async def FrequentlyAskedQuestions(self, ctx, *, args=None):
 
-        #   Initialize variables
-        print('test')
         #   Initialize classes
         rss = RSSModule(bot=self.bot)
         nl = NationalModule(bot=self.bot)
@@ -34,7 +32,7 @@ class HelpCommand(Cog):
 
             if args == 'communitymodule':self.embed = self.CommunityModule()
 
-            elif args == 'rssmodule' or args == 'worldnews' or args == 'gamenews':self.embed = rss.RSSModule(args)
+            elif args == 'rssmodule' or args == 'worldnews' or args == 'finance&economy':self.embed = rss.RSSModule(args)
 
             #   National News
             elif args == 'national':self.embed = nl.NationalNews()
@@ -42,8 +40,9 @@ class HelpCommand(Cog):
 
             # International news
             elif args == 'international':self.embed = inl.InternationalNews()
-            elif args == 'cnnnews' or args == 'cnnworld' or args == 'cnnmisc':self.embed = inl.CnnNews(args)
-            elif args == 'cnbcnews' or args == 'cnbcworld' or args == 'cnbcmisc':self.embed = inl.CNBCNews(args)
+            elif args == 'cnn' or args == 'cnnworld' or args == 'cnnmisc':self.embed = inl.CnnNews(args)
+            elif args == 'cnbc' or args == 'cnbcworld' or args == 'cnbcmisc':self.embed = inl.CNBCNews(args)
+            elif args == 'euronews' or args == 'euronewsworld' or args == 'euronewsmisc':self.embed = inl.EuroNews(args)
 
             #   GameNews
 
@@ -86,15 +85,13 @@ class RSSModule(Cog):
             self.embed.add_field(name='National', value = 'National News for selected country')
             self.embed.add_field(name='International', value = 'International News feeds')
 
-        elif args == 'gamenews':
-            pass
         else:
 
             self.embed.title = 'RSS Module'
             self.embed.add_field(name='World News', value = 'National News for selected country')
+            self.embed.add_field(name='Finance & Economy', value = 'News about Enocomy and Finance')
 
         return self.embed
-
 
 class InternationalModule(Cog):
 
@@ -110,6 +107,7 @@ class InternationalModule(Cog):
         self.embed.description = 'News From all the world'
         self.embed.add_field(name ='CNN News', value ='Cnn World News')
         self.embed.add_field(name ='CNBC News', value ='CNBC World News')
+        self.embed.add_field(name ='Euronews News', value ='EuroNews World News')
 
         return self.embed
 
@@ -178,6 +176,32 @@ class InternationalModule(Cog):
 
         return self.embed
             
+    def EuroNews(self, args):
+
+        if args == 'euronewsworld':
+
+            self.embed.title = 'Euronews World News'
+            self.embed.add_field(name ='?eworld', value ='Euronews World ')
+            self.embed.add_field(name ='?europe', value ='Euronews Europe')
+            
+        elif args == 'euronewsmisc':
+
+            self.embed.title = 'CNBC Misc News'
+
+            self.embed.add_field(name ='?eports', value ='Euronews sports')
+            self.embed.add_field(name ='?etravel', value ='Euronews Travel')
+            self.embed.add_field(name ='?egreen', value ='Euronews Green')
+            self.embed.add_field(name ='?ecult', value ='Euronews Culture')
+            self.embed.add_field(name ='?enext', value ='Euronews Next')
+
+        else:
+
+            self.embed.title = 'Euronews News'
+            self.embed.description = 'Euronews Offical News Chanel'
+            self.embed.add_field(name ='Euronews World', value ='Euronews World News')
+            self.embed.add_field(name ='Euronews Misc', value ='euronews Miscellaneous News')
+
+        return self.embed
 
 class NationalModule(Cog):
 
@@ -204,15 +228,4 @@ class NationalModule(Cog):
         self.embed.add_field(name = '?cnbcusa', value = 'CNBC National News')
 
         return self.embed
-
-
-class RSSBlogs(Cog):
-
-    def __init__(self, bot):
-
-        self.bot = bot
-        self.embed = Embed(color=Color.dark_purple())
-
-        return
-
 

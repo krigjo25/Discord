@@ -28,6 +28,10 @@ from pylib.rssNews.international.cnn.cnnMisc import CNNMiscellaneous
 from pylib.rssNews.international.cnbc.cnbcWorld import CNBCWorld
 from pylib.rssNews.international.cnbc.cnbcMisc import CNBCMiscellaneous
 
+#   Euronews
+from pylib.rssNews.international.euronews.euroMisc import EuroMisc
+from pylib.rssNews.international.euronews.euroworld import EuroWorld
+
 #   National news
 from pylib.rssNews.national.usNational import USANational
 
@@ -53,11 +57,11 @@ class DiscordSetup():
         #self.intents.reactions = True           #  Allows the bot to react to a message
 
         #   Help command
-        self.bot.add_cog(HelpCommand(self.bot))
-        self.bot.add_cog(InternationalModule(self.bot))
-        self.bot.add_cog(NationalModule(self.bot))
-
         self.bot.add_cog(ErrorHandler(self.bot))
+
+        self.bot.add_cog(HelpCommand(self.bot))
+        self.bot.add_cog(NationalModule(self.bot))
+        self.bot.add_cog(InternationalModule(self.bot))
 
         return
 
@@ -72,6 +76,10 @@ class DiscordSetup():
         #   CNBC News
         self.bot.add_cog(CNBCWorld(self.bot))
         self.bot.add_cog(CNBCMiscellaneous(self.bot))
+
+        #   Euronews World
+        self.bot.add_cog(EuroWorld(self.bot))
+        self.bot.add_cog(EuroMisc(self.bot))
 
         return
 

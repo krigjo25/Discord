@@ -112,8 +112,9 @@ class ErrorHandler(Cog):
 
             #   Prepare and send the embed
             errorModule = str(cmdNotFound)
+
             self.embed.title = 'Command were not Found in the dictionary'
-            self.embed.description = f'{cmdError.ErrorDescriptionDictionary(errorModule[36:51], cmd)}'
+            self.embed.description = f'{cmdError.ErrorDescriptionDictionary(errorModule[36:51])}'
             await ctx.send(embed=self.embed)
 
         #   Non Discord errors
