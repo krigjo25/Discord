@@ -47,33 +47,13 @@ class CommunityModule(Cog, name='Community Module'):
 
         if args == 'log':
 
-
-            changelog = f'''
-            Changelog for current version {getenv('BotVersion')}
-
-            :new: Whats new:
-
-                *   |   
-                *   |
-                *   | 
-
-            :tools: Fixes / changes made
-                
-                *   |
-                *   |
-                *   |
-
-            
-            Hope you will have fun with the new updates.
-
-            sincerely,
-                {botMaster} :flag_no:
-            '''
             self.embed.title = 'Whats new?'
-            self.embed.url=f'https://github.com/krigjo25/{botName}/blob/main/read%20me.md'
-            self.embed.description = f'{changelog}'
-            await ctx.send(embed = self.embed)
+            self.embed.url=f'https://github.com/krigjo25/Discord/blob/main/{botName}/RSSBot.md'
+            changelog = f'*** What is new ***\n{CommunityFunctions.ReadChangelog()}'
+
+            await ctx.send(changelog)
             self.embed.clear_fields()
+
 
         return
 
@@ -253,3 +233,20 @@ class CommunityModule(Cog, name='Community Module'):
         await ch.send(f'{user} just came back from dnd mode')
 
         return
+
+class CommunityFunctions(Cog):
+
+    def __init__(self, bot) -> None:
+        super().__init__()
+        self.bot = bot
+
+    def ReadChangelog(self):
+
+        with open('Pybut/changelog.md', 'r') as f:
+
+            changelog = f.read()
+
+            #   Closing the document
+            f.close()
+
+        return changelog

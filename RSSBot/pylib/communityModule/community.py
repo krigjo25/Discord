@@ -18,7 +18,10 @@ from pylib.systemModule.databasePython import MariaDB
 
 load_dotenv()
 
+
 class CommunityModule(Cog, name='Community Module'):
+
+
     def __init__(self, bot):
         self.bot = bot
         self.embed = Embed(color=Color.dark_purple())
@@ -27,6 +30,7 @@ class CommunityModule(Cog, name='Community Module'):
 #   Bot Info
     @command(name="botinfo")
     async def BotInfo(self, ctx, args=None):
+        
         svr = len(self.bot.guilds)
         Master = self.bot.get_user(340540581174575107)
         botName = 'RSSBot'
@@ -46,14 +50,13 @@ class CommunityModule(Cog, name='Community Module'):
 
         if args == 'log':
 
-            self.embed.title = 'Whats new?'
-            self.embed.url=f'https://github.com/krigjo25/Discord/blob/main/{botName}/RSSBot.md'
-            self.embed.description = self.ReadChangelog()
+            changelog = f'*** What is new? ***\n{self.ReadChangelog()}\n'
 
-        await ctx.send(embed = self.embed)
-        self.embed.clear_fields()
+            await ctx.send(changelog)
+            self.embed.clear_fields()
 
         return
+
 #   Online members
     @command(name='memberlist', pass_context=True)
     async def MembersList(self, ctx):
@@ -140,10 +143,9 @@ class CommunityModule(Cog, name='Community Module'):
 
         with open('RSSBot/design/changelog.md', 'r') as f:
 
-            data = f.readlines()
+            changelog = f.read()
 
-            for i in data:
+            #   Closing the document
+            f.close()
 
-                pass
-
-        return i
+        return changelog
