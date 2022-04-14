@@ -220,12 +220,21 @@ class NationalModule(Cog):
 
         return self.embed
 
-    def UnitedStatesNews(self):
+    def UnitedStatesNews(self, args):
 
-        self.embed.title = 'National news USA'
-        self.embed.description = ' United States National News '
-        self.embed.add_field(name ='?cusa', value ='CNN National news')
-        self.embed.add_field(name = '?cnbcusa', value = 'CNBC National News')
+        if args == 'usa':
+
+            self.embed.title = 'National News USA'
+            self.embed.description = ' United States National News '
+            self.embed.add_field(name ='?cusa', value ='CNN National news')
+            self.embed.add_field(name = '?cnbcusa', value = 'CNBC National News')
+
+        else:
+
+            self.embed.title = '404 Country Not Found'
+            self.embed.description = f'There is no news shown for {args}'
+            self.embed.add_field(name ='?cusa', value ='CNN National news')
+            self.embed.add_field(name = '?cnbcusa', value = 'CNBC National News')
 
         return self.embed
 

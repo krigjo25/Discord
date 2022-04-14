@@ -17,6 +17,7 @@ class USANational(Cog):
         self.channelName = 'rssfeed'
         self.embed = Embed(color=Color.dark_blue())
 
+    #   CNN News
     @command(name = 'cusa')
     async def CnnNational(self,ctx):
 
@@ -69,7 +70,7 @@ class USANational(Cog):
         return
 
 
-
+    #   CNBC News
     @command(name = 'cnbcusa')
     async def CNBCNational(self,ctx):
 
