@@ -10,7 +10,7 @@ from dotenv import load_dotenv
 
 #   System module
 from pylib.systemModule.welcome import Welcome                            #   Welcome Module 
-from pylib.systemModule.help import HelpCommand                           #   Help module
+from pylib.systemModule.help import FrequentlyAskedQuestions                          #   Help module
 from pylib.systemModule.discordBot import DiscordBot                     #   The Client
 from pylib.systemModule.commandError import ErrorHandler                  #   Error Handling Module
 
@@ -32,8 +32,9 @@ class DiscordSetup():
     def SystemConfigurations(self):
 
         self.bot.add_cog(Welcome(self.bot))
-        self.bot.add_cog(HelpCommand(self.bot))
+        
         self.bot.add_cog(ErrorHandler(self.bot))
+        self.bot.add_cog(FrequentlyAskedQuestions(self.bot))
 
         return
 

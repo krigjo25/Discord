@@ -12,7 +12,7 @@ from discord.ext.commands import Cog, command
 import feedparser
 
 #   pylib Responsories
-from pylib.crawler.rssCrawler import Q90
+
 
 class CNNMiscellaneous(Cog):
 

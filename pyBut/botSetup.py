@@ -11,8 +11,8 @@ from discord import Intents
 # library Repositories
 
 #   System module
-from pylib.systemModule.welcome import Welcome                              #   Welcome Module 
-from pylib.systemModule.help import HelpCommand                             #   Help module
+from pylib.systemModule.welcomeModule import Welcome                              #   Welcome Module 
+from pylib.systemModule.frequentlyAskedQuestions import FrequentlyAskedQuestions                              #   Help module
 from pylib.systemModule.discordBot import DiscordBot                        #   The Client
 from pylib.systemModule.commandError import ErrorHandler                    #   Error Handling Module
 
@@ -27,9 +27,6 @@ from pylib.gameModule.miniGamesModule.reactionsGames.rockPaperScissors import Ro
 
 # Bot Utility
 
-    #   Bot Anti-spam
-#from lib.BotModerationModule.antiSpam import AntiSpam
-
     # Moderation Utility
 from pylib.postModerationModule.moderatorModule.moderator import Moderator                  #   Moderator Module
 from pylib.postModerationModule.administratorModule.administrator import Administrator          #   Administrator module
@@ -40,7 +37,8 @@ load_dotenv()
 
 class DiscordSetup():
 
-    def __init__(self) -> None:
+    def __init__(self):
+
         self.intents= Intents().all()               #  Only allows Default intents
         self.bot = DiscordBot(intents=self.intents)
 
@@ -55,7 +53,7 @@ class DiscordSetup():
         #self.intents.reactions = True           #  Allows the bot to react to a message
 
         self.bot.add_cog(Welcome(self.bot))
-        self.bot.add_cog(HelpCommand(self.bot))
+        self.bot.add_cog(FrequentlyAskedQuestions(self.bot))
         self.bot.add_cog(ErrorHandler(self.bot))
 
         return
@@ -65,6 +63,7 @@ class DiscordSetup():
     #   Moderation - Module
         self.bot.add_cog(Moderator(self.bot))
         self.bot.add_cog(Administrator(self.bot))
+
         return
 
     def miniGamesSetup(self):
@@ -86,21 +85,17 @@ class DiscordSetup():
         return
 
 def RSSBotStartConfiguration ():
-        
+
         # necsessary values from .env
-        bot = DiscordSetup()
-        botKey = getenv('BotTokenTest')
+        disc = DiscordSetup()
+        botKey = getenv('BotToken')
 
-        bot.SystemSetup()
-        bot.miniGamesSetup()
-        bot.MiscModuleSetup()
-        bot.AdministrationSetup()
+        disc.SystemSetup()
+        disc.miniGamesSetup()
+        disc.MiscModuleSetup()
+        disc.AdministrationSetup()
 
-
-        bot.bot.run(botKey)
-        
-        #rss.LoadXML(url)
-        #rss.praseXML(url)
+        disc.bot.run(botKey)
 
 if __name__ == '__main__':
     RSSBotStartConfiguration()

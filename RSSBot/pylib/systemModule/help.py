@@ -15,7 +15,7 @@ class HelpCommand(Cog):
     async def FrequentlyAskedQuestions(self, ctx, *, args=None):
 
         #   Initialize variables
-
+        print('test')
         #   Initialize classes
         rss = RSSModule(bot=self.bot)
         nl = NationalModule(bot=self.bot)

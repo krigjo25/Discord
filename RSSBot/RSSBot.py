@@ -100,9 +100,6 @@ def RSSBotStartConfiguration ():
         disc.InternationalNewsSetup()
 
         disc.bot.run(botKey)
-        
-        #rss.LoadXML(url)
-        #rss.praseXML(url)
 
 if __name__ == '__main__':
     RSSBotStartConfiguration()

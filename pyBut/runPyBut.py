@@ -6,7 +6,7 @@ from os import getenv
 from dotenv import load_dotenv
 
 #   Discord Repositories
-from pyBut.pylib.systemModule.botSetup import DiscordSetup
+
 
 # Importing .evn file
 load_dotenv()
@@ -16,7 +16,7 @@ def RSSBotStartConfiguration ():
         
         # necsessary values from .env
         bot = DiscordSetup()
-        botKey = getenv('BotTokenTest')
+        botKey = getenv('BotToken')
 
         bot.SystemSetup()
         bot.miniGamesSetup()
