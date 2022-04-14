@@ -34,42 +34,21 @@ class CommunityModule(Cog, name='Community Module'):
         if args == None:
 
             self.embed.title = f':notebook: About {botName}'
-            self.embed.url=f'https://github.com/krigjo25/Discord/blob/main/{botName}/read-me.md'
+            self.embed.url=f'https://github.com/krigjo25/Discord/blob/main/{botName}/RSSBot.md'
             self.embed.description = ''
             self.embed.add_field(name = ':rotating_light: Released', value=getenv('BotCreated'), inline=True)
             self.embed.add_field(name = ' :new: Updated', value=getenv('BotUpdated'), inline=True)
             self.embed.add_field(name = ':person_with_probing_cane: Current Version', value= '0.1.0rb', inline=True)
-            self.embed.add_field(name = ':toolbox: Responsory', value=getenv('Responsory'), inline=True)
+            self.embed.add_field(name = ':toolbox: Responsory', value='https://github.com/krigjo25/Discord/blob/main/RSSBot/RSSBot.md#Responsories', inline=True)
             self.embed.add_field(name = ':cloud: Hosted', value=getenv('HOSTED'), inline=True)
-            self.embed.add_field(name = ':man: Master', value=f'My master goes by the name, {Master} :flag_no:', inline=True)
+            self.embed.add_field(name = ':man: Master', value=f'{Master} :flag_no:', inline=True)
             self.embed.add_field(name = ':arrows_counterclockwise: Server Counting', value=f'Watching {svr} \nDiscord Servers', inline=True)
 
         if args == 'log':
 
-            changelog = f'''
-            Changelog for current version {getenv('BotVersion')}
-
-            :new: Whats new:
-
-                *   |   
-                *   |
-                *   | 
-
-            :tools: Fixes / changes made
-                
-                *   |
-                *   |
-                *   |
-
-            
-            Hope you will have fun with the new updates.
-
-            sincerely,
-                {Master} :flag_no:
-            '''
             self.embed.title = 'Whats new?'
-            self.embed.url=f'https://github.com/krigjo25/{botName}/blob/main/read%20me.md'
-            self.embed.description = f'{changelog}'
+            self.embed.url=f'https://github.com/krigjo25/Discord/blob/main/{botName}/RSSBot.md'
+            self.embed.description = self.ReadChangelog()
 
         await ctx.send(embed = self.embed)
         self.embed.clear_fields()
@@ -138,7 +117,6 @@ class CommunityModule(Cog, name='Community Module'):
 
         return
 
-
     @command (name='randint')
     async def randomInt(self, ctx, arg, argTwo):
 
@@ -157,3 +135,15 @@ class CommunityModule(Cog, name='Community Module'):
         await ctx.send(x)
 
         return
+
+    def ReadChangelog(self):
+
+        with open('RSSBot/design/changelog.md', 'r') as f:
+
+            data = f.readlines()
+
+            for i in data:
+
+                pass
+
+        return i

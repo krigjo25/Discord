@@ -66,18 +66,7 @@ the prefix command used in the project  **@'**, e.g **'@help'**
 ## Feautures
 
 ### RSS-Feeds
-
-####    International News
-
-* CNN - News
-
-* CNBC - News
-
-#### National News
-
-* United States of America
-
-### Challanges 
+Reading rss feeds from News [Channels](https://github.com/krigjo25/Discord/blob/main/RSSBot/design/RSSBot.md#news-channels)
 
 ### What makes this bot unique
 

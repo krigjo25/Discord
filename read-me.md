@@ -205,19 +205,19 @@ The bot serving you, as a humble bot
 
 ## Credentials
 
-***Disclaimers:***<br>
+### Disclaimers:
 
 ***The developer can only have the responsibility, for how the projects is created, how it is used,  is another story.***
 
-***Contact Information***
+### Contact Information
 
 Discord : krigjo25#5588.<br>
 ~~website : krigjo25.com~~
 
 Only One advice.<br>
-« Everything is perfect as it is.
+« A human can maintain something, but never actually create some thing. The side effects of the maintained element is what has been created.
 
-***References:***
+### References:
 
 [ObjectOriented Discord Bot](https://nik.re/posts/2021-09-25/object_oriented_discord_bot), by Nikola Cucakovic,
 

@@ -6,6 +6,7 @@
 
 *   CNN Channel
 *   CNBC Channel
+*   Euronews
 
 ###     National News
 
@@ -29,7 +30,7 @@
 *   Default intents 
 *   Non Adminstrativ bot
 
-## Responsories used
+## Responsories
 
 - discord.py [Rapptz](https://github.com/Rapptz/discord.py),  <br>
 - feedparser [kurtmckee](https://github.com/kurtmckee/feedparser),<br>
