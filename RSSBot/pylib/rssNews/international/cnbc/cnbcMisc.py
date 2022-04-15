@@ -398,7 +398,6 @@ class CNBCMiscellaneous(Cog):
 
         return
 
-
     @command(name = 'cnbcsports')
     async def Sports(self, ctx):
 

@@ -81,7 +81,7 @@ class UKNational(Cog):
         srv = ctx.guild
         member = get(srv.roles, name='@Members')
         ch = get(srv.channels, name=f'{self.channelName}')
-        rss = ''
+        rss = 'http://feeds.skynews.com/feeds/rss/uk.xml'
 
         #   Create the channel
         if not ch:
