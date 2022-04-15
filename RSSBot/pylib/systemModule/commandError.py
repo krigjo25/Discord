@@ -98,9 +98,6 @@ class ErrorHandler(Cog):
             elif cmd == 'Int' or cmd == 'int':
                 self.embed.title = '*int (easiest / easy / normal / hard / kimpossible)'
 
-            elif cmd == 'Afk' or cmd == 'afk':
-                self.embed.title = '*afk (Status update)'
-
             else:
                 self.embed.title = 'Command Missing some required arguments'
 

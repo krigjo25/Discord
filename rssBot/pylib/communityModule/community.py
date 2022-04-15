@@ -141,11 +141,12 @@ class CommunityModule(Cog, name='Community Module'):
 
     def ReadChangelog(self):
 
+        # Updating read max 32 lines
+
         with open('RSSBot/design/changelog.md', 'r') as f:
 
             changelog = f.read()
 
-            #   Closing the document
             f.close()
 
         return changelog
