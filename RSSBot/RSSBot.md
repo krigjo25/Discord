@@ -64,7 +64,7 @@ in the bot  **@'**, e.g **'@help'**
 
 ### RSS-Feeds
 
-Reading rss feeds from News [Channels](https://github.com/krigjo25/Discord/blob/main/RSSBot/design/RSSBot.md#news-channels)
+Reading rss feeds from [NewsChannels](https://github.com/krigjo25/Discord/blob/main/RSSBot/design/RSSBot.md#news-channels)
 
 ### What makes this bot unique
 

@@ -10,9 +10,6 @@ from dotenv import load_dotenv
 from discord.message import Message
 from discord.ext.commands import Bot
 
-#   pylib Repositories
-from pylib.systemModule.databasePython import MariaDB
-
 load_dotenv()
 
 class DiscordBot(Bot):

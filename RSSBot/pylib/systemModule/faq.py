@@ -4,7 +4,7 @@ from discord.embeds import Embed
 from discord.colour import Color
 from discord.ext.commands import command, Cog
 
-class HelpCommand(Cog):
+class FrequentlyAskedQuestions(Cog):
     def __init__(self,bot):
         self.bot = bot
         self.embed = Embed(color=Color.dark_purple())

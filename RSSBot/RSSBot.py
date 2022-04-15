@@ -9,7 +9,7 @@ from dotenv import load_dotenv
 from discord import Intents
 
 #   System module
-from pylib.systemModule.help import HelpCommand, InternationalModule, NationalModule                                        #   Help module
+from pylib.systemModule.faq import FrequentlyAskedQuestions, InternationalModule, NationalModule                                        #   Help module
 from pylib.systemModule.discordBot import DiscordBot                                                                        #   The Client
 from pylib.systemModule.commandError import ErrorHandler                                                                    #   Error Handling Module
 
@@ -63,7 +63,7 @@ class DiscordSetup():
         #   Help command
         self.bot.add_cog(ErrorHandler(self.bot))
 
-        self.bot.add_cog(HelpCommand(self.bot))
+        self.bot.add_cog(FrequentlyAskedQuestions(self.bot))
         self.bot.add_cog(NationalModule(self.bot))
         self.bot.add_cog(InternationalModule(self.bot))
 

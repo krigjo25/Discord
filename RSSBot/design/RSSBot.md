@@ -6,29 +6,39 @@
 
 *   CNN Channel
 *   CNBC Channel
-*   Euronews
+*   Euronews Channel
+*   Wion Channel
 
 ###     National News
 
-####   United States Of America
+#### America
 
+##### United States of america
 *   CNN Channel
 *   CNBC Channel
+
+#### Asia
+
+##### India
+
+*   Wion Channel
 
 ###     Finance and enocomy
 
 *   CNN Channel
 *   CNBC Channel
+*   Wion Channel
 
+## Media TV
 
 ##  Challanges
+
 
 *  Had to create a crawler to get items, which does not raise 400 Bad Request from feedparser.
 
 ### Intents requirements
 
 *   Default intents 
-*   Non Adminstrativ bot
 
 ## Responsories
 
