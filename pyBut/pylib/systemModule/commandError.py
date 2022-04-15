@@ -108,10 +108,10 @@ class ErrorHandler(Cog):
         elif isinstance(error, cmdNotFound):
 
             #   Prepare and send the embed
-
+            print(ctx.command)
             errorModule = str(cmdNotFound)
             self.embed.title = 'Command were not Found in the dictionary'
-            self.embed.description = f'{cmdError.ErrorDescriptionDictionary(errorModule[36:51], cmd)}'
+            self.embed.description = f'{cmdError.ErrorDescriptionDictionary(errorModule[36:51])}'
             await ctx.send(embed=self.embed)
 
             if cmd == None:

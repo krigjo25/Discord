@@ -23,10 +23,12 @@
 
 ## Introduction
 
-### About the Developer
+### About the Maintainer
 
-Kristoffer Gjøsund, born in 94, Norway, part the time goes to python, SQL
-otherwise, Gym and living life as a human being.
+goes by the name Kristoffer, born in 94, :flag_no:.<br>
+maintaining Python & SQL projects<br>
+otherwise just being a human.
+
 
 ### Project info
 
@@ -51,26 +53,26 @@ includes the text files below,
 
     SQL Database:
 
-### RSS-bot
+## RSS-bot
 
-the RSS bot is made as an Discord bot<br>
-easier to access news with-in the server.
-
-## About-RSSBot
-
-Reading news from the web.<br>
-for the players, to read them on discord.
-
-the prefix command used in the project  **@'**, e.g **'@help'**
+the RSS-bot is made as an rss bot reader<br> 
+for discord. its made for the members, <br>
+with love the prefix command used in<br>
+in the bot  **@'**, e.g **'@help'**
 
 ## Feautures
 
 ### RSS-Feeds
+
 Reading rss feeds from News [Channels](https://github.com/krigjo25/Discord/blob/main/RSSBot/design/RSSBot.md#news-channels)
 
 ### What makes this bot unique
 
 The bot is made with love for python.
+
+##  What has been learned
+
+*   Working with RSS readers
 
 ## Responsories
 

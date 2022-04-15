@@ -35,16 +35,16 @@ class HelpCommand(Cog):
             elif args == 'rssmodule' or args == 'worldnews' or args == 'finance&economy':self.embed = rss.RSSModule(args)
 
             #   National News
-            elif args == 'national':self.embed = nl.NationalNews()
-            elif args == 'usa': self.embed = nl.UnitedStatesNews()
+            elif args == 'national': self.embed = nl.CountryNews()
+            elif args == 'usa' or args == 'india': self.embed = nl.NationalNews(args)
+
 
             # International news
             elif args == 'international':self.embed = inl.InternationalNews()
             elif args == 'cnn' or args == 'cnnworld' or args == 'cnnmisc':self.embed = inl.CnnNews(args)
             elif args == 'cnbc' or args == 'cnbcworld' or args == 'cnbcmisc':self.embed = inl.CNBCNews(args)
             elif args == 'euronews' or args == 'euronewsworld' or args == 'euronewsmisc':self.embed = inl.EuroNews(args)
-
-            #   GameNews
+            elif args == 'wionworld' or args == 'wionsports' or args == 'wionbusiness': self.embed = inl.WionNews(args)
 
             else:
 
@@ -108,6 +108,7 @@ class InternationalModule(Cog):
         self.embed.add_field(name ='CNN News', value ='Cnn World News')
         self.embed.add_field(name ='CNBC News', value ='CNBC World News')
         self.embed.add_field(name ='Euronews News', value ='EuroNews World News')
+        self.embed.add_field(name ='Wion News', value ='Wion World News')
 
         return self.embed
 
@@ -203,6 +204,40 @@ class InternationalModule(Cog):
 
         return self.embed
 
+    def WionNews(self, args):
+
+        if args == 'wionworld':
+
+            self.embed.title = 'Wion World News'
+            self.embed.add_field(name ='?world', value ='Wion World ')
+            self.embed.add_field(name ='?wsa', value ='Wion South Asia')
+            
+        elif args == 'wionsports':
+
+            self.embed.title = 'Wion Sports News'
+
+            self.embed.add_field(name ='?wsports', value ='Wion Sports')
+            self.embed.add_field(name ='?wcricket', value ='Wion Cricket')
+            self.embed.add_field(name ='?wfootball', value ='Wion Football')
+
+        elif args == 'wionbusiness':
+
+            self.embed.title = 'Wion Business'
+
+            self.embed.add_field(name ='?wbe', value ='Wion Business & Economy')
+            self.embed.add_field(name ='?wtech', value ='Wion Technology')
+
+
+        else:
+
+            self.embed.title = 'Wion News'
+            self.embed.description = 'Euronews Offical News Chanel'
+            self.embed.add_field(name ='Wion World', value ='Wion World News')
+            self.embed.add_field(name ='Wion Sports', value ='Wion Sports News')
+            self.embed.add_field(name ='Wion Business', value ='Wion Business and economy News')
+
+        return self.embed
+
 class NationalModule(Cog):
 
     def __init__(self, bot):
@@ -212,15 +247,16 @@ class NationalModule(Cog):
 
         return
 
-    def NationalNews(self):
+    def CountryNews(self):
 
         self.embed.title = 'National News'
-        self.embed.description = ' '
+        self.embed.description = ''
         self.embed.add_field(name ='USA', value ='USA National News')
+        self.embed.add_field(name ='India', value ='Indian National News')
 
         return self.embed
 
-    def UnitedStatesNews(self, args):
+    def NationalNews(self, args):
 
         if args == 'usa':
 
@@ -229,12 +265,15 @@ class NationalModule(Cog):
             self.embed.add_field(name ='?cusa', value ='CNN National news')
             self.embed.add_field(name = '?cnbcusa', value = 'CNBC National News')
 
+        if args == 'india':
+
+            self.embed.title = 'National News India'
+            self.embed.description = ' '
+            self.embed.add_field(name ='?windia', value ='Wion National News')
+
         else:
 
             self.embed.title = '404 Country Not Found'
             self.embed.description = f'There is no news shown for {args}'
-            self.embed.add_field(name ='?cusa', value ='CNN National news')
-            self.embed.add_field(name = '?cnbcusa', value = 'CNBC National News')
 
         return self.embed
-

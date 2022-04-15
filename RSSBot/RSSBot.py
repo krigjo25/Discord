@@ -32,8 +32,12 @@ from pylib.rssNews.international.cnbc.cnbcMisc import CNBCMiscellaneous
 from pylib.rssNews.international.euronews.euroMisc import EuroMisc
 from pylib.rssNews.international.euronews.euroworld import EuroWorld
 
+#   South-Asia
+from pylib.rssNews.international.wion.wionWorld import WionWorld
+
 #   National news
 from pylib.rssNews.national.usNational import USANational
+from pylib.rssNews.national.asiaNational import SouthAsiaNational
 
 
 
@@ -81,6 +85,9 @@ class DiscordSetup():
         self.bot.add_cog(EuroWorld(self.bot))
         self.bot.add_cog(EuroMisc(self.bot))
 
+        #   Wion World
+        self.bot.add_cog(WionWorld(self.bot))
+
         return
 
     def NationalNewsSetup(self):
@@ -88,6 +95,8 @@ class DiscordSetup():
         #   America
         self.bot.add_cog(USANational(self.bot))
 
+        #   SouthAsia
+        self.bot.add_cog(SouthAsiaNational(self.bot))
         return
 
     def miscSetup(self):

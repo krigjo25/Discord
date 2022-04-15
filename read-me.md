@@ -23,47 +23,44 @@
 
 ## Introduction
 
-***About the Developer***
+### About the Maintainer
 
-kristoffer Gjøsund, born in 94, Norway, part the time goes to python, SQL otherwise, Gym and living life as a human
+goes by the name Kristoffer, born in 94, :flag_no:.<br>
+maintaining Python & SQL projects<br>
+otherwise just being a human.
 
-**Project info**
+### Project info
 
-The idea for the discord bot is just for fun, and a learning progress how to use the documentation, and how to code Python
+Information about the design can be found in the given links below
+includes the text files below,
+
+#### Status
+
+    project start :<br>
+        23.10-21
+
+   Last Update :<br>
+        15.04-22
+
+    Current verison:<br>
+        1.0.0 RC 1
+
+    SQL Database:
+        mariadb
+## pyBut
 
 
+pyBut made as an assistant bot for discord.<br> 
+It is made with love, for the members, <br>
+he prefix command used in<br>
+in the bot  **?'**, e.g **'?help'**
 
-***The bot***
 
-krigjo25 made for Discord, intentionally<br>
-helping out as a Discord administrator, miniGames mananger and Server configuriations for games
+### Feautures
 
-## About-Krigjo25
+#### Bot Member Utility:
 
-***Project Information***<br>
-
-Project started: <br>
-**23.10-21.**<br>
-
-Last update: <br>
-**12.02-22.**<br>
-
-Current verison:<br>
-**1.0.0 RC 1**
-
-SQL Language Used :<br>
-**MariaDB**
-
-**How to**
-
-The bot is there to help you to manage your server, with the given tasks which is available to be used, and for other members to have fun with-in discord,
-the prefix command used in the project  **?'**, e.g **'?help'**
-
-***Feautures***
-
-***Bot Member Utility:***
-
-**Community-Module**
+##### Community-Module
 
 > botinfo (optional: log )
 >> Information about the bot
@@ -85,44 +82,35 @@ the prefix command used in the project  **?'**, e.g **'?help'**
 > back
 >> Deletes the status update
 
-**Stream-Module**
-
-**RSS-Feeds**
-
-CNN-News<br>
-    Top News : Gives you the top 5 news in CNN-Module<br>
-    World News : Gives you the top 5 news in World-News<br>
-    and many more
-
-~~BBC-News~~
 
 
-**Games-Module**
+##### Games-Module
+
 >   MiniGames<br>
 >> 8ball <br>
 >> jumble <br>
 >> guess The Number<br>
 >> reaction game (Rock, Scissor & paper)<br>
 
-new games added in the feauture
 
-***Bot Pre Moderation Utility***
+#### Bot Pre Moderation Utility
 
-**Auto role-assignment**
+##### Auto role-assignment
 
-*Member joins:*
+###### Member joins
 
-When a member joins the server, the bot will create a role called "@Members"<br>
+When a member joins the server, the bot<br> 
+will create a role called "@Members"<br>
 the user will be added to the role.<br>
 
-*Member leveling System*
+##### Member leveling System
 
 ~~Members will be able to level up to gain new roles~~<br>
 ~~Current max level is 100, roles+ changes every 25 level~~<br>
 
 
 
-***Bot Post Moderation Utility***
+#### Bot Post Moderation Utility
 
 Roles used in the project :
 
@@ -130,8 +118,9 @@ Roles used in the project :
 > sushed        --  Muted players<br>
 > Moderator,<br>
 > Administrator,<br>
+> SoftwareTechnican<br>
 
-*Moderator-module*
+##### Moderator-module
 
 > cls (channel name) (int)
 >> Clear the chat limit 100 lines each time the command is used
@@ -157,7 +146,7 @@ Roles used in the project :
 >>   Manually mutes the member for some seconds
 >> records the the mute in the channel moderationlog
 
-*Administrator-module*
+##### Administrator-module
 
 > ban (member) (reason)
 >> Ban a discord user from the server
@@ -184,13 +173,15 @@ Roles used in the project :
 >> Moderator commands
 >> Admin commands
 
-***What has been learned***
+## What has been learned
 
-- function
+*   [RSSReader]()
 
-*What makes krigjo25 unique*
+### What makes krigjo25 unique
 
-The bot serving you, as a humble bot
+The bot is made with love for python,<br> 
+it will serve you as a humble bot
+
 
 ## Responsories
 
