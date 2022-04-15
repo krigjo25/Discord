@@ -36,14 +36,14 @@ class FrequentlyAskedQuestions(Cog):
 
             #   National News
             elif args == 'national': self.embed = nl.CountryNews()
-            elif args == 'usa' or args == 'india': self.embed = nl.NationalNews(args)
-
+            elif args == 'usa' or args == 'india' or args == 'france': self.embed = nl.NationalNews(args)
 
             # International news
             elif args == 'international':self.embed = inl.InternationalNews()
             elif args == 'cnn' or args == 'cnnworld' or args == 'cnnmisc':self.embed = inl.CnnNews(args)
             elif args == 'cnbc' or args == 'cnbcworld' or args == 'cnbcmisc':self.embed = inl.CNBCNews(args)
             elif args == 'euronews' or args == 'euronewsworld' or args == 'euronewsmisc':self.embed = inl.EuroNews(args)
+            elif args == 'fr24' or args == 'frworld': self.embed = inl.France24News(args) 
             elif args == 'wionworld' or args == 'wionsports' or args == 'wionbusiness': self.embed = inl.WionNews(args)
 
             else:
@@ -84,7 +84,7 @@ class RSSModule(Cog):
         else:
 
             self.embed.title = 'RSS Module'
-            self.embed.add_field(name='World News', value = 'National News for selected country')
+            self.embed.add_field(name='World News', value = 'News for selected Channel')
             self.embed.add_field(name='Finance & Economy', value = 'News about Enocomy and Finance')
 
         return self.embed
@@ -205,7 +205,7 @@ class InternationalModule(Cog):
         if args == 'wionworld':
 
             self.embed.title = 'Wion World News'
-            self.embed.add_field(name ='?world', value ='Wion World ')
+            self.embed.add_field(name ='?wworld', value ='Wion World ')
             self.embed.add_field(name ='?wsa', value ='Wion South Asia')
             
         elif args == 'wionsports':
@@ -219,6 +219,44 @@ class InternationalModule(Cog):
         elif args == 'wionbusiness':
 
             self.embed.title = 'Wion Business'
+
+            self.embed.add_field(name ='?wbe', value ='Wion Business & Economy')
+            self.embed.add_field(name ='?wtech', value ='Wion Technology')
+
+
+        else:
+
+            self.embed.title = 'Wion News'
+            self.embed.description = 'Euronews Offical News Chanel'
+            self.embed.add_field(name ='Wion World', value ='Wion World News')
+            self.embed.add_field(name ='Wion Sports', value ='Wion Sports News')
+            self.embed.add_field(name ='Wion Business', value ='Wion Business and economy News')
+
+        return self.embed
+
+    def France24News(self, args):
+
+        if args == 'frworld':
+
+            self.embed.title = 'France 24 World News'
+            self.embed.add_field(name ='?24africa', value ='France24 Africa News ')
+            self.embed.add_field(name ='?24america', value ='France24 Americans News ')
+            self.embed.add_field(name ='?24asia', value ='France24 Asia News')
+            self.embed.add_field(name ='?24europe', value ='France24 Europe News ')
+            self.embed.add_field(name ='?24me', value ='France24 Middle East News ')
+            self.embed.add_field(name ='?24world', value ='France24 World News')
+            
+        elif args == 'wionsports':
+
+            self.embed.title = 'France Sports News'
+
+            self.embed.add_field(name ='?wsports', value ='Wion Sports')
+            self.embed.add_field(name ='?wcricket', value ='Wion Cricket')
+            self.embed.add_field(name ='?wfootball', value ='Wion Football')
+
+        elif args == 'wionbusiness':
+
+            self.embed.title = 'France Business'
 
             self.embed.add_field(name ='?wbe', value ='Wion Business & Economy')
             self.embed.add_field(name ='?wtech', value ='Wion Technology')
@@ -249,6 +287,7 @@ class NationalModule(Cog):
         self.embed.description = ''
         self.embed.add_field(name ='USA', value ='USA National News')
         self.embed.add_field(name ='India', value ='Indian National News')
+        self.embed.add_field(name ='France', value ='French National News')
 
         return self.embed
 
@@ -266,6 +305,12 @@ class NationalModule(Cog):
             self.embed.title = 'National News India'
             self.embed.description = ' '
             self.embed.add_field(name ='?windia', value ='Wion National News')
+
+        if args == 'france':
+
+            self.embed.title = 'National News France'
+            self.embed.description = ' '
+            self.embed.add_field(name ='?24fr', value ='Wion National News')
 
         else:
 

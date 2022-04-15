@@ -8,12 +8,14 @@
 *   CNBC Channel
 *   Euronews Channel
 *   Wion Channel
+*   France24 Channel
 
 ###     National News
 
 #### America
 
 ##### United States of america
+
 *   CNN Channel
 *   CNBC Channel
 
@@ -22,6 +24,12 @@
 ##### India
 
 *   Wion Channel
+
+#### Europe
+
+##### France
+
+*   France24
 
 ###     Finance and enocomy
 

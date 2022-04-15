@@ -7,7 +7,7 @@ from dotenv import load_dotenv
 
 #   Discord Repositories
 from discord import Intents
-
+from RSSBot.pylib.rssNews.national.ukNational import UKANational
 
 #   System module
 from pylib.systemModule.faq import FrequentlyAskedQuestions, InternationalModule, NationalModule                                        #   Help module
@@ -21,8 +21,6 @@ from pylib.communityModule.community import CommunityModule                     
 
 #   World News
 
-#   America
-
 #   CNN
 from pylib.rssNews.international.cnn.cnnWorld import CNNWorld
 from pylib.rssNews.international.cnn.cnnMisc import CNNMiscellaneous
@@ -31,22 +29,17 @@ from pylib.rssNews.international.cnn.cnnMisc import CNNMiscellaneous
 from pylib.rssNews.international.cnbc.cnbcWorld import CNBCWorld
 from pylib.rssNews.international.cnbc.cnbcMisc import CNBCMiscellaneous
 
-#   Europe
 #   Euronews
 from pylib.rssNews.international.euronews.euroMisc import EuroMisc
 from pylib.rssNews.international.euronews.euroworld import EuroWorld
 
-#   France24
-from pylib.rssNews.international.france24.france24World import France24World
-
-#   Asia
+#   South-Asia
 from pylib.rssNews.international.wion.wionWorld import WionWorld
 
-
 #   National news
-from pylib.rssNews.national.americaNational import USANational
+from pylib.rssNews.national.usNational import USANational
 from pylib.rssNews.national.asiaNational import SouthAsiaNational
-from pylib.rssNews.national.europeNational import UKNational, FranceNational
+
 
 
 # Importing .evn file
@@ -70,9 +63,10 @@ class DiscordSetup():
 
         #   Help command
         self.bot.add_cog(ErrorHandler(self.bot))
+
+        self.bot.add_cog(FrequentlyAskedQuestions(self.bot))
         self.bot.add_cog(NationalModule(self.bot))
         self.bot.add_cog(InternationalModule(self.bot))
-        self.bot.add_cog(FrequentlyAskedQuestions(self.bot))
 
         return
 
@@ -81,6 +75,7 @@ class DiscordSetup():
 
         #   Cnn News
         self.bot.add_cog(CNNWorld(self.bot))
+#        self.bot.add_cog(CNNSport(self.bot))
         self.bot.add_cog(CNNMiscellaneous(self.bot))
 
         #   CNBC News
@@ -88,14 +83,11 @@ class DiscordSetup():
         self.bot.add_cog(CNBCMiscellaneous(self.bot))
 
         #   Euronews World
-        self.bot.add_cog(EuroMisc(self.bot))
         self.bot.add_cog(EuroWorld(self.bot))
+        self.bot.add_cog(EuroMisc(self.bot))
 
         #   Wion World
         self.bot.add_cog(WionWorld(self.bot))
-
-        #   France 24 World
-        self.bot.add_cog(France24World(self.bot))
 
         return
 
@@ -104,16 +96,14 @@ class DiscordSetup():
         #   America
         self.bot.add_cog(USANational(self.bot))
 
-        #  Asia
-        self.bot.add_cog(SouthAsiaNational(self.bot))
-
         #   Europe
-        self.bot.add_cog(UKNational(self.bot))
-        self.bot.add_cog(FranceNational(self.bot))
+        self.bot.add_cog(UKANational(self.bot)
+        #   SouthAsia
+        self.bot.add_cog(SouthAsiaNational(self.bot))
 
         return
 
-    def MiscModulesSetup(self):
+    def miscSetup(self):
 
         self.bot.add_cog(CommunityModule(self.bot))
 
@@ -125,8 +115,8 @@ def RSSBotStartConfiguration ():
         disc = DiscordSetup()
         botKey = getenv('BotTokenTest')
 
+        disc.miscSetup()
         disc.SystemSetup()
-        disc.MiscModulesSetup()
         disc.NationalNewsSetup()
         disc.InternationalNewsSetup()
 

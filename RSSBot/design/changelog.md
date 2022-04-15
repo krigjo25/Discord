@@ -1,17 +1,26 @@
 
+***Fri, 15.04-12 16:15***
+
+***1.1perpetual-beta***
+
+Added a new Channel "France24", "World & National" to the RSSBot 
+This updated has been Maintained by,
+@krigjo25
+
 ***Fri, 15.04-12 11:30***
 
-***v.0.0.4perpetual-beta***
+***1.2perpetual-beta***
 
-Added a new module "WionWorld", "WionNational" to the RSSBot 
+Added a new Channel "Wion news", "World & National" to the RSSBot 
 This updated has been Maintained by,
+
 @krigjo25
 
 ***Thu, 14.04-12 19:00***
 
-***v.0.0.3perpetual-beta***
+***1.0perpetual-beta***
 
-Added a new module "Euronews" to the RSSBot
+Added a new Channel "Euronews", "World & National" to the RSSBot
 This updated has been Maintained by,
 
 Created the changelog
