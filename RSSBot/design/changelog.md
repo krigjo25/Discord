@@ -1,7 +1,7 @@
 
 ***Fri, 15.04-12 11:30***
 
-***v.0.0.4aplha***
+***v.0.0.4perpetual-beta***
 
 Added a new module "WionWorld", "WionNational" to the RSSBot 
 This updated has been Maintained by,
@@ -9,7 +9,7 @@ This updated has been Maintained by,
 
 ***Thu, 14.04-12 19:00***
 
-***v.0.0.3aplha***
+***v.0.0.3perpetual-beta***
 
 Added a new module "Euronews" to the RSSBot
 This updated has been Maintained by,
