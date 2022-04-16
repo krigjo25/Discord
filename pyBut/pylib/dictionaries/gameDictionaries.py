@@ -1,3 +1,7 @@
+#   Discord library
+from discord.embeds import Embed
+from discord.colour import Color
+from discord.ext.commands import Cog, command
 
 # Python Repositories
 from os import getenv
@@ -12,14 +16,19 @@ load_dotenv()
 
 class GameDictionary():
 
+    def __init__(self):
+        return
+
     """
         Dictionary for the gameModule
     """
-    def __init__(self):
-        self.bot = getenv('BotName')
 
     #   After a game ends
     def CorrectAnswer(self):
+
+        """
+            #   When a player has won a game
+        """
         dictionary =  {
                         1:'Congratulation you guessed correct',
                         2:'',
@@ -32,6 +41,11 @@ class GameDictionary():
         return dictionary.get(x)
 
     def GameOver(self):
+
+        """
+            When a player has lost a game
+        """
+
         dictionary = {
                         1:f'Game Over',
                         2:'',
@@ -42,8 +56,6 @@ class GameDictionary():
         x = randrange(1,x)
 
         return dictionary.get(x)
-
-    #   Guess the number
 
     def CustomAnswer(self, num, x):
 
@@ -66,8 +78,8 @@ class GameDictionary():
 
         else:
             dictionary = {
-                            1:f' Thank you for the humble answer, sir ',
-                            2:f''
+                            1:f'Thank you for the humble answer, sir ',
+                            2:f'Well thats equal..'
                            }
 
         #   Randomize the dictionary
@@ -77,85 +89,95 @@ class GameDictionary():
         return dictionary.get(x)
 
 class GameError():
-        #   Game Errors    
-    def GameError(self, error):
 
-        #   Classes Initilzion
+    def __init__(self):
+        return
+
+        #   Game Errors    
+    def DifficultyError(self, diff):
+
+        """
 
         #   Difficulty doesnt not exist
         #   looping Through difficulties available
-        diff = {}
 
-        if error != diff:
+        """
+        diff = str(diff)
 
-            dictionary = {
-                            1:f'let\'s fake it ',
-                            2:f'difficulty mode IMPOSSIBLE enabled.',
-                            3:f'bo, it looks like you wrote an unavailable mode, thanks',
-                            4:f'This is an empty error arg',
-                            5:f'Created by @krigjo25',
-                            6:f'Went looking for the selected mode couldn\'t solve the type issue',
-                            7:f'Not mine mistake this time '
-            }
+        dictionary = {
+                        1:f'let\'s fake it ',
+                        2:f'difficulty mode IMPOSSIBLE enabled.',
+                        3:f'bo, it looks like you wrote an unavailable mode, thanks',
+                        4:f'This is an empty error arg',
+                        5:f'Created by @krigjo25',
+                        6:f'Went looking for the selected Difficulty couldn\'t solve the type issue',
+                        7:f'Sometimes this happends.',
+}
 
         #   Randomize the dictionary
         x = len(dictionary)
         x = randrange(1,x)
-        shuffle (dictionary)
 
-        dictionary = dictionary.get(x)
-        return dictionary
+        return dictionary.get(x)
 
 class PhiliosopicAnswer():
+
+    def __init__(self):
+        return
+
     #   AskQ dictionaries
     def PhiliosopicAnswer(self):
 
         dictionary = {
                     1:'What do you sense about it?',
-                    2:'What would you do about it?',
+                    2:'What can  you actually do about it?',
                     3:'What are you really, deep down?',
                     4:'Just let it go, its not your issue.',
-                    5:'Just let your self, experience the question',
+                    5:'Just let your self, experience the question.',
                     6:'Visualize the question, and the answer will arrive.',
-                    7:'If an human is a genious, then The best answers always comes from with-in, just believe in your self enough',
-                    8:'As Socrets once said, you already know the answer of the question, since you had an idea of asking the question',
+                    7:'If an human is a genious, then The best answers always comes from with-in, just believe in your self enough.',
+                    8:'As Socrets once said, you already know the answer of the question, since you had an idea of asking the question.',
                     9:'Would you be able to let it go?',
                     10:'A Question does not arise with out it\'s answer, so place your attention on where the question has arised',
-        }
+                    11:'From where does the question actually answer?',
+                    12:'Life is just like one of the elements on earth, just flow with it',
+                    13:'Einstein said once if the world were ending, and i had one hour to solve a problem " i would use 50 minutes to think about the issue, then use the 10 last minutes to solve the issue".',
+                    14:'As the thought araises from with-in it can only be answered from with-in',
+
+}
 
         #   Randomize the dictionary
         x = len(dictionary)
         x = randrange(1,x)
-        shuffle (dictionary)
+        print(dictionary.get(x))
 
-        dictionary = dictionary.get(x)
-        return dictionary
+        return dictionary.get(x)
 
     def DumbFacts(self):
 
         dictionary = {
-                    1:'The earth is oval',
-                    2:'The gravity exists',
-                    3:'life is why',
-                    4:'it just is',
-                    5:'The opposite sides of a die will always add up to seven.',
-                    6:'The King of Hearts is the only king in a deck of cards without a mustache.',
-                    7:'There exist no answers for your questions, if you look with-in you know its true',
-                    8:'Alaska is the only state whose name is on one row on a keyboard.',
-                    9:'A "jiffy" is about one trillionth of a second.',
-                    10:'The ocean is blue',
-                    11:'Mulan has the highest kill-count of any Disney character.',
-                    12:'The infinity sign is called a lemniscate.'
-                }
+                        1:'Thoughts are like a librarynth, you will be lost',
+                        2:'Dear lost boy, thoughts are like a labarynth you won\'t find the exit, when you take the wrong turn',
+                        3:'When you search after an answer with why, it\'s like searching for something which doesn\'t exists.',
+                        4:'life is why',
+                        5:'Things tends to be what it is, neither less or more, but equal to what it is.',
+                        6:'The opposite sides of a die will always add up to seven.',
+                        7:'The King of Hearts is the only king in a deck of cards without a mustache.',
+                        8:'There is always an answer with-in, just compenplate on it',
+                        9:'Alaska is the only state whose name is on one row on a keyboard.',
+                        10:'A "jiffy" is about one trillionth of a second.',
+                        11:'The ocean is blue',
+                        12:'Mulan has the highest kill-count of any Disney character.',
+                        13:'The infinity sign is called a lemniscate.',
+                        14:'why do you ask me?. '
+
+}
 
         #   Randomize the dictionary
         x = len(dictionary)
         x = randrange(1,x)
-        shuffle (dictionary)
 
-        dictionary = dictionary.get(x)
-
-        return dictionary
+        return dictionary.get(x)
 
 class ReactionGame():
     #   arg Game Dictionaries
@@ -165,7 +187,7 @@ class ReactionGame():
                         1:'\U0001FAA8',          #  somewhat rock
                         2:'\U00002702',          #  ✂️
                         3:'\U0001F4C4'           #  📄
-                }
+}
 
         #   Randomize the dictionary
         x = len(dictionary)
@@ -197,33 +219,32 @@ class ReactionGame():
         if arg == '\U0001FAA8':
 
             dictionary = {
-                    1:f'That moment, when you realize :stone doesn\'t play along with :Scissors',
-                    2:f'Congratulations, this game were Rock Hard !',
-                    3:f'It were crushing days for the scissors',
-                    4:f'pyBot Says : look behind you. **running away **.',
-                    }
+                            1:f'That moment, when you realize :stone doesn\'t play along with :Scissors',
+                            2:f'Congratulations, this game were Rock Hard !',
+                            3:f'It were crushing days for the scissors',
+                            4:f'pyBot Says : look behind you. **running away **.',
+}
 
         elif arg == '\U0001F4C4':
 
             dictionary = {
-                        1:f'{bot} sent your stone to North-Korea !',
-                        2:f'You recieved a new stone as a christmas :gift:',
-                        3:f'You have been mumified by {bot}',
-                    }
+                            1:f'{bot} sent your stone to North-Korea !',
+                            2:f'You recieved a new stone as a christmas :gift:',
+                            3:f'You have been mumified by {bot}',
+}
 
         else:
         
             dictionary = {
-                        1:f'Noone : \'\'\n{bot} : Oh snap',
-                        2:f'The paper were succsessfully cut in two by {bot} ',
-                        3:f'{bot} flexed with his scissors, you lost',
-                        4:f'i won '
-                    }
+                            1:f'Noone : \'\'\n{bot} : Oh snap',
+                            2:f'The paper were succsessfully cut in two by {bot} ',
+                            3:f'{bot} flexed with his scissors, you lost',
+                            4:f'i won '
+}
 
         #   Randomize the dictionary
         x = len(dictionary)
         x = randrange(1,x)
-
 
         return dictionary.get(x)
 
@@ -287,12 +308,12 @@ class JumbleCategory():
 
             category = ['- Characters\n- Animations,\n- Roles']
 
-    
-        if sub == 'animal kingdom':
+        elif sub == 'animal kingdom':
 
             category = ['- flyingCreatures \n- Cats,\n- Dogs']
         else:
             category = ['An unexpected error']
 
         for sub in category:
+
             return sub

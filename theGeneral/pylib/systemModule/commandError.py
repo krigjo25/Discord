@@ -83,7 +83,6 @@ class ErrorHandler(Cog):
             """
 
             #   Initializing variables
-
             cmd = str(ctx.Command)
             errorModule = str(misingargs)
 
@@ -109,10 +108,14 @@ class ErrorHandler(Cog):
         elif isinstance(error, cmdNotFound):
 
             #   Prepare and send the embed
+            print(ctx.command)
             errorModule = str(cmdNotFound)
             self.embed.title = 'Command were not Found in the dictionary'
             self.embed.description = f'{cmdError.ErrorDescriptionDictionary(errorModule[36:51])}'
             await ctx.send(embed=self.embed)
+
+            if cmd == None:
+                botmsg = f'Master, The cmd attribute is not correct'
 
         #   Non Discord errors
         elif isinstance(error, invokeError):
@@ -143,12 +146,12 @@ class ErrorHandler(Cog):
 
                 #   Prepare & send the embed
                 errorModule = str(BadArgs)
-                
+                botmsg = f'Master, There is some  {errorModule} Error were found. {error.original}'
+
                 self.embed.title = 'You sent me a Bad Arguments'
                 self.embed.description = cmdError.ErrorDescriptionDictionary(errorModule)
                 await ctx.send(embed=self.embed)
-
-                botmsg = f'Master, There is some  {errorModule} Error were found. {error.original}'
+                   
                 await self.bot.send(f'{botmsg}', tts = True)
 
         else:

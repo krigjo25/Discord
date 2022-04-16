@@ -7,13 +7,14 @@ from discord.ext.commands import Cog, command
 #   pylib Responsories
 from pylib.dictionaries.gameDictionaries import ReactionGame
 
-class RockScissorPaper(Cog):
+class ReactionGames(Cog):
     def __init__(self, bot):
         self.bot = bot
         self.embed = Embed(color=Color.dark_purple(), description='')
 
     @command(name='rsp')
-    async def ReactionGame(self, ctx):
+    async def RockScissorsPaperGame(self, ctx):
+
         """
             #   Send a messge to the user, with embed to
             #   User reacts on the message with the given emoji¨
@@ -39,15 +40,15 @@ class RockScissorPaper(Cog):
 
         #   the Bot's choice
         botChoice = r.RockScissorPaper()
-        print(botChoice)
 
         # Checks if there is an emoji, and a user
         def emojiCheck(reaction, member):
+
             reaction = str(reaction)
             member == ctx.author.name 
             return member !=self.bot.user and reaction
 
-                                                          #           Timer               Check
+        
         reaction, member = await self.bot.wait_for('reaction_add', timeout=30.0, check=emojiCheck)
 
         #   Checking whom is the winner
@@ -64,19 +65,19 @@ class RockScissorPaper(Cog):
         elif playerChoice != botChoice:
 
             if playerChoice == '\U0001F4C4' and botChoice =='\U0001FAA8':
-                    
+
                 #   Prepare and send the embed
                 self.embed.title = 'Winner'
                 self.embed.description = r.MemberWin(reaction, botChoice)
                 await ctx.send(embed = self.embed)
-                    
+
             elif playerChoice == '\U00002702' and botChoice == '\U0001F4C4':
 
                     #   Prepare and send the embed
                     self.embed.description = r.MemberWin(reaction, botChoice)
                     await ctx.send(embed = self.embed)
 
-            elif playerChoice == '\U0001FAA8' and botChoice =='\U00002702': # Rock hard
+            elif playerChoice == '\U0001FAA8' and botChoice =='\U00002702':
 
                     #   Prepare and send the embed
                     self.embed.description = r.MemberWin(reaction, botChoice)
@@ -93,9 +94,10 @@ class RockScissorPaper(Cog):
                     #   Prepare and send the embed
                     self.embed.description =  r.BotWin(botChoice)
                     await ctx.send(embed = self.embed)
-                    
+
             elif botChoice == '\U0001F4C4' and playerChoice == '\U0001FAA8':
 
                     #   Prepare and send the embed
                     self.embed.description =  r.BotWin(botChoice)
                     await ctx.send(embed = self.embed)
+        return

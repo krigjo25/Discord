@@ -19,7 +19,9 @@ class GuessTheNumber(Cog):
     @command(name='int')
     async def GuessTheNum(self, ctx, diff):
     
+        #   Initializing Classes
         d = GameError()
+        gd = GameDictionary()
 
         # Difficulty
         diff = str(diff)
@@ -43,10 +45,8 @@ class GuessTheNumber(Cog):
             #   Randomizing the given integer
             x = randint(0,10)
 
-            #   Sending and embeded message to the user with instructions
+            #   Prepare & Send the embed
             self.embed.description = f' You\'ve choosen the **{diff} mode**, you have **{limited}** attempts and **{sec} sec**, to guess. You can choose between **{value}** & **{valueTwo}** sir.\n'
-            
-            #   Send the given self.embed
             await ctx.send(embed=self.embed)
 
             while True:
@@ -55,6 +55,7 @@ class GuessTheNumber(Cog):
                 num = int(num.content)
 
                 if num > x:
+
                     #   Adding choosen valuie to a list
                     gList.append(num)
 
@@ -63,7 +64,7 @@ class GuessTheNumber(Cog):
 
                     #   Prepare and send the embed message
                     self.embed.title = f'**{attempt}** / **{limited}**   | {lessOrGreater}'
-                    self.embed.description = d.CustomAnswer(num, x)
+                    self.embed.description = gd.CustomAnswer(num, x)
                     await ctx.send(embed=self.embed)
                     
                
@@ -76,7 +77,7 @@ class GuessTheNumber(Cog):
 
                     #   Prepare and send the embed message
                     self.embed.title = f'**{attempt}** / **{limited}**  |   {lessOrGreater}'
-                    self.embed.description = d.CustomAnswer(num, x)
+                    self.embed.description = gd.CustomAnswer(num, x)
                     await ctx.send(embed=self.embed)
 
                 else:
@@ -91,7 +92,7 @@ class GuessTheNumber(Cog):
 
                     #   Prepare and send the embed message
                     self.embed.title = 'The Game is over'
-                    self.embed.description = f'{d.GameOver}'
+                    self.embed.description = f'{gd.GameOver}'
                     self.embed.add_field(name='**Game Summary**', value=f'You guessed **{attempt}** of **{limited}** times\n <{lList} | {gList}> \n krigjo25\'s answer were {x}', inline=False)
                     await ctx.send(embed=self.embed)
 
@@ -131,7 +132,7 @@ class GuessTheNumber(Cog):
 
                     #   Prepare and send the embed message
                     self.embed.title = f'**{attempt}** / **{limited}**   | {lessOrGreater}'
-                    self.embed.description = d.CustomAnswer(num, x)
+                    self.embed.description = gd.CustomAnswer(num, x)
                     await ctx.send(embed=self.embed)
                     
                
@@ -144,14 +145,14 @@ class GuessTheNumber(Cog):
 
                     #   Prepare and send the embed message
                     self.embed.title = f'**{attempt}** / **{limited}**  |   {lessOrGreater}'
-                    self.embed.description = d.CustomAnswer(num, x)
+                    self.embed.description = gd.CustomAnswer(num, x)
                     await ctx.send(embed=self.embed)
 
                 else:
 
                     # Prepare and send the embed message
                     self.embed.title = f'Attempts used **{attempt}** / **{limited}**  |   {lessOrGreater}'
-                    self.embed.description = d.CustomAnswer(num, x)
+                    self.embed.description = gd.CustomAnswer(num, x)
                     await ctx.send(embed=self.embed)
                     break
 
@@ -159,7 +160,7 @@ class GuessTheNumber(Cog):
 
                     #   Prepare and send the embed message
                     self.embed.title = 'The Game is over'
-                    self.embed.description = f'{d.GameOver}'
+                    self.embed.description = f'{gd.GameOver}'
                     self.embed.add_field(name='**Game Summary**', value=f'You guessed **{attempt}** of **{limited}** times\n <{lList} | {gList}> \n krigjo25\'s answer were {x}', inline=False)
                     await ctx.send(embed=self.embed)
 
@@ -199,7 +200,7 @@ class GuessTheNumber(Cog):
 
                     #   Prepare and send the embed message
                     self.embed.title = f'**{attempt}** / **{limited}**   | {lessOrGreater}'
-                    self.embed.description = d.CustomAnswer(num, x)
+                    self.embed.description = gd.CustomAnswer(num, x)
                     await ctx.send(embed=self.embed)
                     
                
@@ -212,14 +213,14 @@ class GuessTheNumber(Cog):
 
                     #   Prepare and send the embed message
                     self.embed.title = f'**{attempt}** / **{limited}**  |   {lessOrGreater}'
-                    self.embed.description = d.CustomAnswer(num, x)
+                    self.embed.description = gd.CustomAnswer(num, x)
                     await ctx.send(embed=self.embed)
 
                 else:
 
                     # Prepare and send the embed message
                     self.embed.title = f'Attempts used **{attempt}** / **{limited}**  |   {lessOrGreater}'
-                    self.embed.description = d.CustomAnswer(num, x)
+                    self.embed.description = gd.CustomAnswer(num, x)
                     await ctx.send(embed=self.embed)
                     break
 
@@ -227,7 +228,7 @@ class GuessTheNumber(Cog):
 
                     #   Prepare and send the embed message
                     self.embed.title = 'The Game is over'
-                    self.embed.description = f'{d.GameOver}'
+                    self.embed.description = f'{gd.GameOver}'
                     self.embed.add_field(name='**Game Summary**', value=f'You guessed **{attempt}** of **{limited}** times\n <{lList} | {gList}> \n krigjo25\'s answer were {x}', inline=False)
                     await ctx.send(embed=self.embed)
 
@@ -265,7 +266,7 @@ class GuessTheNumber(Cog):
 
                     #   Prepare and send the embed message
                     self.embed.title = f'**{attempt}** / **{limited}**   | {lessOrGreater}'
-                    self.embed.description = d.CustomAnswer(num, x)
+                    self.embed.description = gd.CustomAnswer(num, x)
                     await ctx.send(embed=self.embed)
                     
                
@@ -278,14 +279,14 @@ class GuessTheNumber(Cog):
 
                     #   Prepare and send the embed message
                     self.embed.title = f'**{attempt}** / **{limited}**  |   {lessOrGreater}'
-                    self.embed.description = d.CustomAnswer(num, x)
+                    self.embed.description = gd.CustomAnswer(num, x)
                     await ctx.send(embed=self.embed)
 
                 else:
 
                     # Prepare and send the embed message
                     self.embed.title = f'Attempts used **{attempt}** / **{limited}**  |   {lessOrGreater}'
-                    self.embed.description = d.CustomAnswer(num, x)
+                    self.embed.description = gd.CustomAnswer(num, x)
                     await ctx.send(embed=self.embed)
                     break
 
@@ -293,7 +294,7 @@ class GuessTheNumber(Cog):
 
                     #   Prepare and send the embed message
                     self.embed.title = 'The Game is over'
-                    self.embed.description = f'{d.GameOver}'
+                    self.embed.description = f'{gd.GameOver}'
                     self.embed.add_field(name='**Game Summary**', value=f'You guessed **{attempt}** of **{limited}** times\n <{lList} | {gList}> \n krigjo25\'s answer were {x}', inline=False)
                     await ctx.send(embed=self.embed)
 
@@ -331,7 +332,7 @@ class GuessTheNumber(Cog):
 
                     #   Prepare and send the embed message
                     self.embed.title = f'**{attempt}** / **{limited}**   | {lessOrGreater}'
-                    self.embed.description = d.CustomAnswer(num, x)
+                    self.embed.description = gd.CustomAnswer(num, x)
                     await ctx.send(embed=self.embed)
                     
                
@@ -344,14 +345,14 @@ class GuessTheNumber(Cog):
 
                     #   Prepare and send the embed message
                     self.embed.title = f'**{attempt}** / **{limited}**  |   {lessOrGreater}'
-                    self.embed.description = d.CustomAnswer(num, x)
+                    self.embed.description = gd.CustomAnswer(num, x)
                     await ctx.send(embed=self.embed)
 
                 else:
 
                     # Prepare and send the embed message
                     self.embed.title = f'Attempts used **{attempt}** / **{limited}**  |   {lessOrGreater}'
-                    self.embed.description = d.CustomAnswer(num, x)
+                    self.embed.description = gd.CustomAnswer(num, x)
                     await ctx.send(embed=self.embed)
                     break
 
@@ -359,7 +360,7 @@ class GuessTheNumber(Cog):
 
                     #   Prepare and send the embed message
                     self.embed.title = 'The Game is over'
-                    self.embed.description = f'{d.GameOver}'
+                    self.embed.description = f'{gd.GameOver}'
                     self.embed.add_field(name='**Game Summary**', value=f'You guessed **{attempt}** of **{limited}** times\n <{lList} | {gList}> \n krigjo25\'s answer were {x}', inline=False)
                     await ctx.send(embed=self.embed)
 
@@ -368,5 +369,5 @@ class GuessTheNumber(Cog):
         
         else:
             self.embed.title= 'The Game has not started yet'
-            self.embed.description = d.GameError(diff)
+            self.embed.description = d.DifficultyError(diff)
             await ctx.send(embed=self.embed)

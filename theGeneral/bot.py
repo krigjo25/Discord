@@ -11,27 +11,21 @@ from discord import Intents
 # library Repositories
 
 #   System module
-from pylib.systemModule.welcomeModule import Welcome                              #   Welcome Module 
-from pylib.systemModule.faq import FrequentlyAskedQuestions                              #   Help module
+
+from pylib.systemModule.frequentlyAskedQuestions import FrequentlyAskedQuestions                              #   Help module
 from pylib.systemModule.discordBot import DiscordBot                        #   The Client
 from pylib.systemModule.commandError import ErrorHandler                    #   Error Handling Module
 
 #   Community Module
 from pylib.communityModule.community import CommunityModule                       #   Community module
 
-#   miniGames Module
-from pylib.gameModule.miniGamesModule.EightBall.askQ import EightBall                             #   EightBall
-from pylib.gameModule.miniGamesModule.jumbleGame.jumble import JumbleGame                         #   Jumble Game
-from pylib.gameModule.miniGamesModule.integerGame.guessTheNumber import GuessTheNumber            #   Guess the number
-from pylib.gameModule.miniGamesModule.reactionsGames.rockPaperScissors import RockScissorPaper    #   Rock, Scissors & Paper
 
-#   RSSBot
-from pylib.rssNews.RSSBot import RSSBot
 # Bot Utility
 
     # Moderation Utility
 from pylib.postModerationModule.moderatorModule.moderator import Moderator                  #   Moderator Module
 from pylib.postModerationModule.administratorModule.administrator import Administrator          #   Administrator module
+
 
 # Importing .evn file
 load_dotenv()
@@ -53,9 +47,8 @@ class DiscordSetup():
         #self.intents.presences = True           #  Allows the bot to track member activty
         #self.intents.reactions = True           #  Allows the bot to react to a message
 
-        self.bot.add_cog(Welcome(self.bot))
-        self.bot.add_cog(FrequentlyAskedQuestions(self.bot))
         self.bot.add_cog(ErrorHandler(self.bot))
+        self.bot.add_cog(FrequentlyAskedQuestions(self.bot))
 
         return
 
@@ -64,17 +57,6 @@ class DiscordSetup():
     #   Moderation - Module
         self.bot.add_cog(Moderator(self.bot))
         self.bot.add_cog(Administrator(self.bot))
-
-        return
-
-    def miniGamesSetup(self):
-
-        #   Game-Module
-            #   miniGames
-        self.bot.add_cog(EightBall(self.bot))
-        self.bot.add_cog(JumbleGame(self.bot))
-        self.bot.add_cog(GuessTheNumber(self.bot))
-        self.bot.add_cog(RockScissorPaper(self.bot))
 
         return
 
@@ -87,18 +69,11 @@ class DiscordSetup():
 
 def RSSBotStartConfiguration ():
 
-        #   Initializing classes
-
-        rss = RSSBot()
+        # necsessary values from .env
         disc = DiscordSetup()
-        botKey = getenv('BotToken')
-
-        rss.InternationalNewsSetup()
-        rss.NationalNewsSetup()
-
+        botKey = getenv('BotTokenTest')
 
         disc.SystemSetup()
-        disc.miniGamesSetup()
         disc.MiscModuleSetup()
         disc.AdministrationSetup()
 

@@ -160,6 +160,45 @@ class Administrator(Cog, name='Admin-module'):
 
         return
 
+    #   Role Managements
+    @command(name='createRole')
+    @has_any_role('admin','Admin', 'Software-Technican')
+    async def CreateRole(self, ctx, ch ):
+
+        #   1   Create the role if not exist, if it exist send out a warning message
+
+        #   2   Choose the permission of the role
+
+        #   3   Choose the colour of the role with hexdecimals
+        return
+
+    #   Not Finished
+    @command(name='setRole')
+    @has_any_role('admin','Admin', 'Software-Technican')
+    async def setRole(self, ctx, member:Member, role):
+
+        #   Not finished
+        srv = ctx.guild
+        memberRole = get(srv.roles, name=f'{role}')
+
+        if not memberRole:
+
+            return #roleManagement.RolePermissions
+
+        else:
+
+            await member.add_roles(memberRole)
+
+        return
+    # Not finished
+    @command(name='setPermission')
+    @has_any_role('admin','Admin', 'Software-Technican')
+    async def setRole(self, ctx, member:Member, role):
+
+            # Not finished
+
+        return
+
     @command(name='remove')
     @has_any_role('admin','Admin', 'Software-Technican')
     async def removeMemberRole(self, ctx, *, member:Member, role, reason=None ):

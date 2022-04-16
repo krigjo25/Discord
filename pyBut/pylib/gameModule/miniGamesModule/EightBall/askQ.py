@@ -1,3 +1,4 @@
+
 #   Discord library
 from discord.embeds import Embed
 from discord.colour import Color
@@ -22,30 +23,26 @@ class EightBall(Cog):
             #   Send a philliosofically answer
 
         """
-        #   Prepare and send the embed
-        self.embed.title = ':8ball: ask the Oracle'
-        self.embed.description = f' Type in your question for the oracle'
+
+        #   Initializing classes
+        d = PhiliosopicAnswer()
+
+        quiz = await self.bot.wait_for('message', timeout=100)
+
+        # Creating a string of the question which is asked
+        quiz = str(quiz.content).lower().replace(" ", "")
+        msg = str(quiz.content)
+        
+        #   Prepare & send the embed
+        self.embed.title = ':8ball: Ask the Philiospher a question'
+        self.embed.description = f' Please write to me what you have in mind.'
         await ctx.send(embed=self.embed)
 
-        quiz = await self.bot.wait_for('message')
-        #   Classes
-        d = PhiliosopicAnswer()
-        
-        # Creating a string of the question which is asked
-        quiz = str(quiz.content).capitalize()
-        msg = quiz
-        print(msg, quiz)
-
-        # Slicing to get the four first characters
-        x = slice(4)
-  
-        if quiz[x] == 'How' or quiz[x] == 'What':
-            answer = d.PhiliosopicAnswer()
-
-        else:
-            answer = d.DumbFacts()
+        if quiz[0:3] == 'how':answer = d.PhiliosopicAnswer()
+        elif quiz[0:4] == 'what':answer = d.PhiliosopicAnswer()
+        else:answer = d.DumbFacts()
 
         #   Prepare and send the embed
         self.embed.title = ':8ball: ask the Oracle'
-        self.embed.description = f' You asked the Oracle\n ***\"***{msg}***\"***\n the response \n{answer}'
+        self.embed.description = f' You asked the Oracle\n \"***{msg}***\"\n the response \n{answer}'
         await ctx.send(embed=self.embed)

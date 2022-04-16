@@ -11,7 +11,6 @@ from discord.embeds import Embed, Colour
 from discord.ext.commands.core import has_permissions
 from discord.ext.commands import Cog, command, has_any_role
 
-
 class Moderator(Cog, name='Moderator-module'):
     def __init__(self, bot):
         self.bot = bot
