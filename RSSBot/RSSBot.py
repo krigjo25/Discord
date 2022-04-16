@@ -32,11 +32,10 @@ from pylib.rssNews.international.cnbc.cnbcWorld import CNBCWorld
 from pylib.rssNews.international.cnbc.cnbcMisc import CNBCMiscellaneous
 
 #   Europe
-#   Euronews
+from pylib.rssNews.international.rt.rtWorld import RTWorld
 from pylib.rssNews.international.euronews.euroMisc import EuroMisc
 from pylib.rssNews.international.euronews.euroworld import EuroWorld
-
-#   France24
+from pylib.rssNews.international.skyNews.skyWorld import SkyNewsWorld
 from pylib.rssNews.international.france24.france24World import France24World
 
 #   Asia
@@ -44,9 +43,11 @@ from pylib.rssNews.international.wion.wionWorld import WionWorld
 
 
 #   National news
-from pylib.rssNews.national.americaNational import USANational
+
 from pylib.rssNews.national.asiaNational import SouthAsiaNational
-from pylib.rssNews.national.europeNational import UKNational, FranceNational
+from pylib.rssNews.national.europeNational import FranceNational, SovietUnionNational
+from pylib.rssNews.national.europeNational import UKNational
+from pylib.rssNews.national.americaNational import USANational
 
 
 # Importing .evn file
@@ -91,11 +92,17 @@ class DiscordSetup():
         self.bot.add_cog(EuroMisc(self.bot))
         self.bot.add_cog(EuroWorld(self.bot))
 
-        #   Wion World
-        self.bot.add_cog(WionWorld(self.bot))
-
         #   France 24 World
         self.bot.add_cog(France24World(self.bot))
+
+        #   RT World
+        self.bot.add_cog(RTWorld(self.bot))
+
+        #   SkyNews World
+        self.bot.add_cog(SkyNewsWorld(self.bot))
+
+        #   Wion World
+        self.bot.add_cog(WionWorld(self.bot))
 
         return
 
@@ -108,9 +115,9 @@ class DiscordSetup():
         self.bot.add_cog(SouthAsiaNational(self.bot))
 
         #   Europe
-        self.bot.add_cog(UKNational(self.bot))
         self.bot.add_cog(FranceNational(self.bot))
-
+        self.bot.add_cog(SovietUnionNational(self.bot))
+        self.bot.add_cog(UKNational(self.bot))
         return
 
     def MiscModulesSetup(self):

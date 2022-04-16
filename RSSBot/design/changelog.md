@@ -1,4 +1,21 @@
 
+
+***Sat, 16.04-12 11:01***
+
+***1.3perpetual-beta***
+
+Added a new Channel "RT", "World & National" to the RSSBot 
+This updated has been Maintained by,
+@krigjo25
+
+***Fri, 15.04-12 16:15***
+
+***1.2perpetual-beta***
+
+Added a new Channel "SkyNews", "World & National" to the RSSBot 
+This updated has been Maintained by,
+@krigjo25
+
 ***Fri, 15.04-12 16:15***
 
 ***1.1perpetual-beta***

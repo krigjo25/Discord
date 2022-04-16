@@ -39,11 +39,14 @@ class FrequentlyAskedQuestions(Cog):
             elif args == 'usa' or args == 'india' or args == 'france': self.embed = nl.NationalNews(args)
 
             # International news
-            elif args == 'international':self.embed = inl.InternationalNews()
+            elif args == 'bbc' or args == 'bbcworld':self.embed = inl.BBCNews
             elif args == 'cnn' or args == 'cnnworld' or args == 'cnnmisc':self.embed = inl.CnnNews(args)
             elif args == 'cnbc' or args == 'cnbcworld' or args == 'cnbcmisc':self.embed = inl.CNBCNews(args)
             elif args == 'euronews' or args == 'euronewsworld' or args == 'euronewsmisc':self.embed = inl.EuroNews(args)
             elif args == 'fr24' or args == 'frworld': self.embed = inl.France24News(args) 
+            elif args == 'international':self.embed = inl.InternationalNews()
+            elif args == 'rt' or args == 'rtworld':self.embed = inl.RTNews()
+            elif args == 'skynews' or args == 'skyworld':self.embed = inl.SkyNews()
             elif args == 'wionworld' or args == 'wionsports' or args == 'wionbusiness': self.embed = inl.WionNews(args)
 
             else:
@@ -101,9 +104,13 @@ class InternationalModule(Cog):
 
         self.embed.title = 'International News'
         self.embed.description = 'News From all the world'
+        self.embed.add_field(name ='BBC News', value ='BBC World News')
         self.embed.add_field(name ='CNN News', value ='Cnn World News')
         self.embed.add_field(name ='CNBC News', value ='CNBC World News')
         self.embed.add_field(name ='Euronews News', value ='EuroNews World News')
+        self.embed.add_field(name ='France24 News', value ='France24 World News')
+        self.embed.add_field(name ='RT News', value ='RT World News')
+        self.embed.add_field(name ='SkyNews News', value ='SkyNews World News')
         self.embed.add_field(name ='Wion News', value ='Wion World News')
 
         return self.embed
@@ -134,8 +141,8 @@ class InternationalModule(Cog):
 
         else:
 
-            self.embed.title = 'CNN News'
-            self.embed.description = 'Cnn Offical News Chanel'
+            self.embed.title = 'CNN Offical News Channel'
+            self.embed.description = ' '
             self.embed.add_field(name ='CNNWorld', value ='Cnn World News')
             self.embed.add_field(name ='CNNMisc', value ='Cnn Miscellaneous News')
 
@@ -166,8 +173,8 @@ class InternationalModule(Cog):
 
         else:
 
-            self.embed.title = 'CNBC News'
-            self.embed.description = 'CBC Offical News Chanel'
+            self.embed.title = 'CNBC Offical News Channel'
+            self.embed.description = ' '
             self.embed.add_field(name ='CNBC World', value ='Cnn World News')
             self.embed.add_field(name ='CNBC Misc', value ='Cnn Miscellaneous News')
 
@@ -193,8 +200,8 @@ class InternationalModule(Cog):
 
         else:
 
-            self.embed.title = 'Euronews News'
-            self.embed.description = 'Euronews Offical News Chanel'
+            self.embed.title = 'Euronews Offical News Channel'
+            self.embed.description = ' '
             self.embed.add_field(name ='Euronews World', value ='Euronews World News')
             self.embed.add_field(name ='Euronews Misc', value ='euronews Miscellaneous News')
 
@@ -226,8 +233,8 @@ class InternationalModule(Cog):
 
         else:
 
-            self.embed.title = 'Wion News'
-            self.embed.description = 'Euronews Offical News Chanel'
+            self.embed.title = 'Wion Offical News Channel'
+            self.embed.description = ' '
             self.embed.add_field(name ='Wion World', value ='Wion World News')
             self.embed.add_field(name ='Wion Sports', value ='Wion Sports News')
             self.embed.add_field(name ='Wion Business', value ='Wion Business and economy News')
@@ -238,7 +245,29 @@ class InternationalModule(Cog):
 
         if args == 'frworld':
 
-            self.embed.title = 'France 24 World News'
+            self.embed.title = 'France24 24 World News'
+            self.embed.add_field(name ='?24africa', value ='France24 Africa News ')
+            self.embed.add_field(name ='?24america', value ='France24 Americans News ')
+            self.embed.add_field(name ='?24asia', value ='France24 Asia News')
+            self.embed.add_field(name ='?24europe', value ='France24 Europe News ')
+            self.embed.add_field(name ='?24me', value ='France24 Middle East News ')
+            self.embed.add_field(name ='?24world', value ='France24 World News')
+
+        else:
+
+            self.embed.title = 'France24 Offical News Channel'
+            self.embed.description = ' '
+            self.embed.add_field(name ='?frworld', value ='France24 World News')
+            self.embed.add_field(name ='?frsport', value ='France24 Sports News')
+            self.embed.add_field(name ='?frbus', value ='France24 Business and economy News')
+
+        return self.embed
+
+    def BBCNews(self, args):
+
+        if args == 'bbcworld':
+
+            self.embed.title = 'BBC 24 World News'
             self.embed.add_field(name ='?24africa', value ='France24 Africa News ')
             self.embed.add_field(name ='?24america', value ='France24 Americans News ')
             self.embed.add_field(name ='?24asia', value ='France24 Asia News')
@@ -246,7 +275,7 @@ class InternationalModule(Cog):
             self.embed.add_field(name ='?24me', value ='France24 Middle East News ')
             self.embed.add_field(name ='?24world', value ='France24 World News')
             
-        elif args == 'wionsports':
+        elif args == 'bbcsports':
 
             self.embed.title = 'France Sports News'
 
@@ -254,7 +283,7 @@ class InternationalModule(Cog):
             self.embed.add_field(name ='?wcricket', value ='Wion Cricket')
             self.embed.add_field(name ='?wfootball', value ='Wion Football')
 
-        elif args == 'wionbusiness':
+        elif args == 'bbcbusiness':
 
             self.embed.title = 'France Business'
 
@@ -264,11 +293,31 @@ class InternationalModule(Cog):
 
         else:
 
-            self.embed.title = 'Wion News'
-            self.embed.description = 'Euronews Offical News Chanel'
-            self.embed.add_field(name ='Wion World', value ='Wion World News')
+            self.embed.title = 'BBC Offical News Channel'
+            self.embed.description = ''
+            self.embed.add_field(name ='BBC World', value ='BBC World News')
             self.embed.add_field(name ='Wion Sports', value ='Wion Sports News')
             self.embed.add_field(name ='Wion Business', value ='Wion Business and economy News')
+
+        return self.embed
+
+    def SkyNews(self, args):
+
+        if args == 'skyworld':
+
+            self.embed.title = 'SkyNews Offical News Channel'
+            self.embed.add_field(name ='?skyworld', value ='France24 Africa News ')
+            self.embed.add_field(name ='?skyrecent', value ='France24 Americans News ')
+            self.embed.add_field(name ='?skytech', value ='France24 Asia News')
+            self.embed.add_field(name ='?skyent', value ='France24 Europe News ')
+            self.embed.add_field(name ='?skystrange', value ='France24 Middle East News ')
+            self.embed.add_field(name ='?skypol', value ='France24 World News')
+
+        else:
+
+            self.embed.title = 'SkyNews News'
+            self.embed.description = 'SkyNews Offical News Channel'
+            self.embed.add_field(name ='SkyNews World', value ='Wion World News')
 
         return self.embed
 
@@ -285,9 +334,10 @@ class NationalModule(Cog):
 
         self.embed.title = 'National News'
         self.embed.description = ''
-        self.embed.add_field(name ='USA', value ='USA National News')
-        self.embed.add_field(name ='India', value ='Indian National News')
         self.embed.add_field(name ='France', value ='French National News')
+        self.embed.add_field(name ='India', value ='Indian National News')
+        self.embed.add_field(name ='United Kingdom', value ='United Kingodm National News')
+        self.embed.add_field(name ='USA', value ='USA National News')
 
         return self.embed
 
@@ -299,18 +349,27 @@ class NationalModule(Cog):
             self.embed.description = ' United States National News '
             self.embed.add_field(name ='?cusa', value ='CNN National news')
             self.embed.add_field(name = '?cnbcusa', value = 'CNBC National News')
+            self.embed.add_field(name = '?skycusa', value = 'SkyNews National News')
 
-        if args == 'india':
+        elif args == 'india':
 
             self.embed.title = 'National News India'
             self.embed.description = ' '
             self.embed.add_field(name ='?windia', value ='Wion National News')
 
-        if args == 'france':
+        elif args == 'france':
 
             self.embed.title = 'National News France'
             self.embed.description = ' '
             self.embed.add_field(name ='?24fr', value ='Wion National News')
+
+        elif args == 'unitedkingdom':
+
+            self.embed.title = 'National News United Kingdom'
+            self.embed.description = ' '
+            self.embed.add_field(name ='skyuk', value ='SkyNews National News')
+            self.embed.add_field(name ='bbcuk', value ='BBC National News')
+            self.embed.add_field(name ='rtru', value ='RT National News')
 
         else:
 
