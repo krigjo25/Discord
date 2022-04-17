@@ -12,7 +12,7 @@ from discord import Intents
 
 #   System module
 
-from pylib.systemModule.frequentlyAskedQuestions import FrequentlyAskedQuestions                              #   Help module
+from pylib.systemModule.faq import FrequentlyAskedQuestions                              #   Help module
 from pylib.systemModule.discordBot import DiscordBot                        #   The Client
 from pylib.systemModule.commandError import ErrorHandler                    #   Error Handling Module
 
@@ -71,7 +71,7 @@ def RSSBotStartConfiguration ():
 
         # necsessary values from .env
         disc = DiscordSetup()
-        botKey = getenv('BotTokenTest')
+        botKey = getenv('BotToken')
 
         disc.SystemSetup()
         disc.MiscModuleSetup()

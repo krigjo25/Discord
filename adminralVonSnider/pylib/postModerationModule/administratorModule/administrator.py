@@ -13,13 +13,18 @@ from discord.ext.commands.core import has_permissions
 from discord.ext.commands import Cog, command,has_any_role
 
 #   pyLib Repositories
-#from permissionModule import roleManagement
-class Administrator(Cog, name='Admin-module'):
+from pylib.dictionaries.manageRoles import RolePermissions, RoleColour
+
+class Administrator(Cog):
+
     def __init__(self, bot):
+
         self.bot = bot
         self.now = datetime.datetime.now()
         self.curTime = self.now.strftime('%d.%m - %Y')
         self.embed = Embed(color=Color.dark_purple())
+
+        return
 
     #   Ban management
     @command(name='banlist')
@@ -38,12 +43,12 @@ class Administrator(Cog, name='Admin-module'):
             bannedList.append(entry.reason)
 
         self.embed.title = 'List of banned server members'
-        self.embed.description ='No-one banned yet, Hurray :party:'
 
         if bool(bannedList) == True:
             self.embed.description =' User name | User discriminator | Reason'
             self.embed.add_field(name= f'{bannedList[0]}, {bannedList[1]}', value = f'{bannedList[2]}')
 
+        else: self.embed.description = self.embed.description ='Noone banned yet, Hurray :party:'
         self.embed.add_field(name= ' End of List', value = ':-)')
         await ctx.send(embed=self.embed)
         self.embed.clear_fields()    
@@ -160,42 +165,95 @@ class Administrator(Cog, name='Admin-module'):
 
         return
 
-    #   Role Managements
+    #   Role Management
     @command(name='createRole')
     @has_any_role('admin','Admin', 'Software-Technican')
-    async def CreateRole(self, ctx, ch ):
+    async def CreateRole(self, ctx, roleName):
 
-        #   1   Create the role if not exist, if it exist send out a warning message
+        """
 
-        #   2   Choose the permission of the role
+            #   1   Create the role if not exist, if it exist send out a warning message
+            #   2   Choose the permission of the role
+            #   3   Choose the colour of the role with hexdecimals
 
-        #   3   Choose the colour of the role with hexdecimals
-        return
+        """
 
-    #   Not Finished
-    @command(name='setRole')
-    @has_any_role('admin','Admin', 'Software-Technican')
-    async def setRole(self, ctx, member:Member, role):
+        #   Initializing classes
+        manager = RolePermissions
 
-        #   Not finished
+        #   Initializing variables
+
         srv = ctx.guild
-        memberRole = get(srv.roles, name=f'{role}')
+        role = get(srv.roles, name=f'{roleName}')
+        
+        ch = get(srv.channels, name='moderationlog')
 
-        if not memberRole:
+        if not role:
 
-            return #roleManagement.RolePermissions
+            self.embed.title = f'Starting the process to create {roleName}'
+            self.embed.description = f'Would you like to create {roleName} with permissions? '
+            await ctx.send(embed=self.embed)
+            self.embed.clear_fields()
+
+            confirmation = await self.bot.wait_for('message')
+            confirmation = str(confirmation.content).lower()
+
+            if not ch:
+
+                perms = PermissionOverwrite(read_messages=False)
+
+                await srv.create_text_channel(f'{ch}', overwrites=perms)
+
+                #   3:  Log the role Creation
+                self.embed.title = 'Auto generated channel'
+                self.embed.color = Embed(color=Colour.dark_red())
+                self.embed.description = 'This channel is used to log every Moderation in this server, it is made to avoid abusage of the Moderation / administration commands'
+
+                await ch.send(embed=self.embed)
+                self.embed.clear_fields()
+
+
+            if confirmation[0:4] == 'yes':
+
+                #   Calling the roles Permission
+                roleName = str(roleName)
+                perms = manager.RolePermissions(roleName)
+
+                """
+                await srv.create_role(name=f'{roleName}', permissions = perms, reason='')
+
+                #   Prepare embed
+                self.embed.color = Embed(color=Colour.dark_red())
+                self.embed.title = f'{ctx.author} created {roleName} as a with permissions '
+                self.embed.description=f'{perms}'
+
+                #   Send embed
+                await ch.send(embed=self.embed)
+                self.embed.clear_fields()
+                """
+            else:
+
+                #   Prepare embed
+                self.embed.color = Embed(color=Colour.dark_red())
+                self.embed.title = f'{ctx.author} created {roleName} as a public role'
+                self.embed.description=''
+
+                #   Send embed
+                await ch.send(embed=self.embed)
+                self.embed.clear_fields()
+
+                await srv.create_role(name=f'{roleName}', reason='')
 
         else:
 
-            await member.add_roles(memberRole)
+            #   3:  Log the error
+            self.embed.color = Embed(color=Colour.dark_red())
+            self.embed.title = f'{ctx.author} tried to re-create {roleName}'
+            self.embed.description='Role already exists'
+            await ch.send(embed=self.embed)
+            self.embed.clear_fields()
 
-        return
-    # Not finished
-    @command(name='setPermission')
-    @has_any_role('admin','Admin', 'Software-Technican')
-    async def setRole(self, ctx, member:Member, role):
-
-            # Not finished
+        self.embed.color = Embed(color=Colour.dark_purple())
 
         return
 
@@ -203,12 +261,18 @@ class Administrator(Cog, name='Admin-module'):
     @has_any_role('admin','Admin', 'Software-Technican')
     async def removeMemberRole(self, ctx, *, member:Member, role, reason=None ):
 
+        """
+
+            #   1 When the command is invoked, ask the user for a confirmation
+            #   2 Remove the user from the role
+
+        """
+
         srv=ctx.guild
         mRole = get(srv.roles, name=f'{role}')
         member.remove_roles(member, mRole)
         ch = get(srv.channels, name='moderationlog')
 
-        #   1   Creating a confirmation to remove a member from a role
         self.embed.title = f'removing {member} from {role}'
         self.embed.description = f'Are you sure you\'d like to remove {member} from {role}'
         await ctx.send(embed=self.embed)
@@ -217,10 +281,10 @@ class Administrator(Cog, name='Admin-module'):
         confirmation = await self.bot.wait_for('message')
         confirmation = str(confirmation.content).lower()
 
-        #   2   Simply remove a users role
         if confirmation == 'yes':
 
             if not ch:
+
                 perms = PermissionOverwrite(read_messages=False)
 
                 await srv.create_text_channel(f'{ch}', overwrites=perms)
@@ -229,6 +293,7 @@ class Administrator(Cog, name='Admin-module'):
                 self.embed.title = 'Auto generated channel'
                 self.embed.description = 'This channel is used to log every Moderation in this server, it is made to avoid abusage of the Moderation / administration commands'
                 await ch.send(embed=self.embed)
+                self.embed.clear_fields()
 
             #   3:  Log the ban
             self.embed = Embed(color=Color.dark_red())
@@ -239,32 +304,18 @@ class Administrator(Cog, name='Admin-module'):
             self.embed.clear_fields()
 
         else:
-
-            if not ch:
-                perms = PermissionOverwrite(read_messages=False)
-
-                await srv.create_text_channel(f'{ch}', overwrites=perms)
-
-                self.embed = Embed(color=Colour.dark_red(), description= '')
-                self.embed.title = 'Auto generated channel'
-                self.embed.description = 'This channel is used to log every Moderation in this server, it is made to avoid abusage of the Moderation / administration commands'
-                await ch.send(embed=self.embed)
-
-            #   3:  Log the ban
-            self.embed = Embed(color=Color.dark_red())
-            self.embed.title = f'{member} has been removed from {role} by {ctx.author} due to {reason} '
-            self.embed.description=''
-            
-            await ch.send(embed=self.embed)
+            pass
 
         return
 
     @command(name='delRole')
     @has_any_role('admin','Admin', 'Software-Technican')
-
     async def removeRole(self, ctx, role ):
+            """
+                #   1   Ask the user for comfirmation before removing the role
 
-            #   1   Simply remove a role, ask for confirmation
+            """
+            
             self.embed.title = f'Removing {role}'
             self.embed.description = f'Do you want to remove the role?'
             await ctx.send(embed=self.embed)
@@ -290,6 +341,16 @@ class Administrator(Cog, name='Admin-module'):
                 self.embed.description = ''
                 await ctx.send(embed=self.embed)
                 self.embed.clear_fields()
+
+            return
+ 
+    @command(name='modifyRole')
+    @has_any_role('admin','Admin', 'Software-Technican')
+    async def ModifyRole(self, ctx, role ):
+            """
+                #   1   Ask the user for comfirmation before removing the role
+
+            """
 
             return
  

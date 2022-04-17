@@ -67,7 +67,7 @@ class Moderator(Cog, name='Moderator-module'):
 
                 await ctx.send('Sir, the limit is 100 lines')
 
-        # Kick a user from the server
+    #   Kick a user from the server
     @command(name='kick')
     @has_any_role('Moderator', 'moderator', 'mod', 'Admin', 'admin', 'administrator', 'Administrator', 'Software-Technican')
     @has_permissions(kick_members= True)

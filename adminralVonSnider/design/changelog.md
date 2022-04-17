@@ -6,4 +6,4 @@
 comments
 
 maintained by,
-***maintance name***
+***maintenance name***
