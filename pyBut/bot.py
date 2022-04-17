@@ -23,7 +23,7 @@ from pylib.communityModule.community import CommunityModule                     
 from pylib.gameModule.miniGamesModule.EightBall.askQ import EightBall                             #   EightBall
 from pylib.gameModule.miniGamesModule.jumbleGame.jumble import JumbleGame                         #   Jumble Game
 from pylib.gameModule.miniGamesModule.integerGame.guessTheNumber import GuessTheNumber            #   Guess the number
-from pylib.gameModule.miniGamesModule.reactionsGames.rockPaperScissors import RockScissorPaper    #   Rock, Scissors & Paper
+from pylib.gameModule.miniGamesModule.reactionsGames.rockPaperScissors import ReactionGame    #   Rock, Scissors & Paper
 
 #   RSSBot
 from pylib.rssNews.RSSBot import RSSBot
@@ -74,7 +74,7 @@ class DiscordSetup():
         self.bot.add_cog(EightBall(self.bot))
         self.bot.add_cog(JumbleGame(self.bot))
         self.bot.add_cog(GuessTheNumber(self.bot))
-        self.bot.add_cog(RockScissorPaper(self.bot))
+        #self.bot.add_cog(ReactionGame(self.bot))
 
         return
 

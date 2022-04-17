@@ -31,7 +31,7 @@ class FrequentlyAskedQuestions(Cog):
             self.embed.add_field(name=':signal_strength: RSS-Module',value='An Irishman arrived at J.F.K. Airport and wandered around the terminal with tears streaming down his cheeks...', inline=True)
 
             #   Moderator Commands
-            if ctx.author.guild_permissions.kick_members or ctx.author.guild_permissions.manage_roles:
+            if ctx.author.guild_permissions.kick_members: #or ctx.author.guild_permissions.manage_roles:
                 self.embed.add_field(name='Moderator Module', value = 'A joke here', inline=True)
 
             #   Administrator Commands
