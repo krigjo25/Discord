@@ -22,7 +22,6 @@ class FrequentlyAskedQuestions(Cog):
 
             self.embed.title = 'Frequently Asked Questions:question:'
             self.embed.title = ' Usage ** ?help (Category)** for more details\n\n'
-            self.embed.add_field(name=':handshake: Welcome Module', value='This is our new home', inline=True)
             self.embed.add_field(name=':people_holding_hands: Community Module', value='Ever heard of the guy whom joined a community? \n He were never seen again.', inline=True)
             self.embed.add_field(name=':people_wrestling: Game Module', value='-Gamers does not take showers they do steamy once', inline=True)
 
@@ -39,8 +38,7 @@ class FrequentlyAskedQuestions(Cog):
 
         #   Bot-Modules
 
-            if args == 'welcomemodule':self.embed = sys.WelcomeModule()
-            elif  args == 'communitymodule': self.embed = sys.CommunityModule()
+            if  args == 'communitymodule': self.embed = sys.CommunityModule()
 
         #   Administration
             elif args == 'moderatormodule': avs.ModeratorModule()
@@ -58,15 +56,6 @@ class SystemModule(Cog):
         self.embed = Embed(color=Color.dark_purple())
 
         return
-
-    def WelcomeModule(self):
-
-        self.embed.title=':handshake: Welcome Module'
-        self.embed.description='Use ** ?help (Command)**, for more details, sir.\n\n'
-        self.embed.add_field(name='On member connect / absence ', value='- Over 100 Welcome messages and leave messages. In order for \n it to work, set a channel as\n"system message channel ', inline=True)
-        
-
-        return self.embed
 
     def CommunityModule(self):
 

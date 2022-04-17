@@ -95,89 +95,25 @@ in the bot  **?'**, e.g **'?help'**
 
 #### Bot Pre Moderation Utility
 
-##### Auto role-assignment
+Automatic Roles assignments in the project :
 
-###### Member joins
+*   Member
+*   sushed
 
-When a member joins the server, the bot<br> 
-will create a role called "@Members"<br>
-the user will be added to the role.<br>
-
-##### Member leveling System
-
-~~Members will be able to level up to gain new roles~~<br>
-~~Current max level is 100, roles+ changes every 25 level~~<br>
-
+[PreModerationUtility]()
 
 
 #### Bot Post Moderation Utility
-
-Roles used in the project :
-
-> Member        --  Automatic role assignment<br>
-> sushed        --  Muted players<br>
-> Moderator,<br>
-> Administrator,<br>
-> SoftwareTechnican<br>
-
-##### Moderator-module
-
-> cls (channel name) (int)
->> Clear the chat limit 100 lines each time the command is used
->
-> crech (channel name)
->> Create a channel, by default it is only visible for admins & moderator roles
->
-> kick (member name) (reason)
->> Kicks a member from the server, stores in a log in the channel modereationlog
->> records the the kick in the channel moderationlog
->
-> poll
->> Creates a poll
->
->   Online
->>  Checks whom is online/offline
->
->   Warn
->>  Manually warn a member
->> records the the warn in the channel moderationlog
->
->   sush
->>   Manually mutes the member for some seconds
->> records the the mute in the channel moderationlog
-
-##### Administrator-module
-
-> ban (member) (reason)
->> Ban a discord user from the server
->> records the the ban in the channel moderationlog
->
-> banlist
->> View a list of banned server members
->                           
-> unban (member)
->> Unban a discord user from the server
->> records the the unban in the channel moderationlog
->
-> setRole (member) (role)
->> Set a member's role
->
-> delRole (roleName)
->> Deletes a role from the server
->
->announce (channelName)
->> Creates an announcement in the given channel
->
->
-> Software-Technician, Software-technician
->> Moderator commands
->> Admin commands
+[PostModerationUtility]()
 
 ## What has been learned
 
+*   [BotModeration]()
+*   [PythonGames]()
 *   [RSSReader]()
+*   [PythonGames]()
 
-### What makes krigjo25 unique
+### What makes the bot unique
 
 The bot is made with love for python,<br> 
 it will serve you as a humble bot
@@ -186,13 +122,14 @@ it will serve you as a humble bot
 ## Responsories
 
 - discord.py [Rapptz](https://github.com/Rapptz/discord.py),  <br>
-- ~~Anti-Spam [Skelmis](https://github.com/Skelmis/DPY-Anti-Spam/commits?author=Skelmis),~~<br>
-- feedparser [kurtmckee](https://github.com/kurtmckee/feedparser),<br>
 - MariaDB [MariaDB Community](https://github.com/mariadb-corporation/mariadb-connector-python), <br>
 - python_dotenv [Saurabh Kumar](https://github.com/motdotla/dotenv),<br>
 
+### BotModeration
+- ~~Anti-Spam [Skelmis](https://github.com/Skelmis/DPY-Anti-Spam/commits?author=Skelmis),~~<br>
 
- 
+### RSS Reader
+- feedparser [kurtmckee](https://github.com/kurtmckee/feedparser),<br>
 
 ## Credentials
 
@@ -219,7 +156,8 @@ Only One advice.<br>
 
 ## Project Summary
 
-   
+
+
 *   Since i do not have any particular experience in Phyton or SQL language then i did have a lot of challanges<br> 
     regarding connecting to a database, creating a reaction based game, working with the different modules in the<br>
     python library, finding ways to protect the database inputs, creating an advanced command handler to have some<br>
