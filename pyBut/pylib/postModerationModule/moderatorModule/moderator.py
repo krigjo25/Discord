@@ -11,8 +11,8 @@ from discord.embeds import Embed, Colour
 from discord.ext.commands.core import has_permissions
 from discord.ext.commands import Cog, command, has_any_role
 
-
 class Moderator(Cog, name='Moderator-module'):
+
     def __init__(self, bot):
         self.bot = bot
         self.warn = 0    
@@ -25,34 +25,47 @@ class Moderator(Cog, name='Moderator-module'):
         #Creating a channel
     @command(name="crech")
     @has_permissions(manage_messages=True)
-
     async def CreateChannel(self, ctx, chName):
 
         # Declaring variables
-            svr = ctx.guild
-            member = ctx.author
+        srv = ctx.guild
+        role = get(srv.roles, 'Moderator')
 
-            ch = get(svr.channels, name=chName)
+        ch = get(srv.channels, name=chName)
+        mlog = get(srv.channels, name='moderationlog')
 
-            overWrites = {
-                            member:PermissionOverwrite(read_messages_history = True),
-                            svr.default_role:PermissionOverwrite(view_channels=False)          
+        perms = {
+                            role:PermissionOverwrite(read_messages_history = True),
+                            srv.default_role:PermissionOverwrite(view_channels=False)          
 }
 
-            # set permission to secret
-            if not ch:
+        if not mlog:
 
-                await svr.create_text_channel(f'{chName}', overwrites=overWrites)
-                await ch.send(f'Sir, the channel, **{chName}** is created.')
+            perms = PermissionOverwrite(read_messages=False)
 
-            else :
+            await srv.create_text_channel(f'{ch}', overwrites=perms)
 
-                await ch.send(f'the channel, **{chName}** already exists.')
+            self.embed.title = 'Auto generated channel'
+            self.embed.colour = Embed(color=Colour.dark_red())
+            self.embed.description = 'This channel is used for every Moderation in this server, it is made to avoid abusage of the Moderation / administration commands'
+            await ch.send(embed=self.embed)
+
+        if not ch:
+                
+                await srv.create_text_channel(f'{chName}', overwrites=perms)
+                self.embed.title = f'{ctx.authhor} has Created a new channel {ch}'
+
+        else :
+            self.embed.title = f'{ch} Already exists.'
+
+        #   3:  Log the ban
+        self.embed.description=f''
+        await mlog.send(embed=self.embed)
+        self.embed = Embed(color=Colour.dark_purple())
 
         # Clearing all messages
     @command(name="cls")
-    @has_any_role('Moderator', 'moderator', 'mod', 'Admin', 'admin', 'administrator', 'Administrator', 'Software-Technican')
-
+    @has_permissions(manage_messages=True)
     async def ClearChat(self, ctx, chName, x):
 
             x = int(x)
@@ -66,11 +79,10 @@ class Moderator(Cog, name='Moderator-module'):
 
             else:
 
-                await ctx.send('Sir, the limit is 100 lines')
+                await ctx.send('Sir, the limit is 10000 lines')
 
-        # Kick a user from the server
+    #   Kick a user from the server
     @command(name='kick')
-    @has_any_role('Moderator', 'moderator', 'mod', 'Admin', 'admin', 'administrator', 'Administrator', 'Software-Technican')
     @has_permissions(kick_members= True)
 
     async def Kick(self, ctx, member:Member, *, reason=None):
@@ -98,21 +110,21 @@ class Moderator(Cog, name='Moderator-module'):
                 self.embed.clear_fields()
                 self.embed.color = color = Colour.dark_purple()
 
-
             self.embed.color = color = Colour.dark_red()
-            self.embed.title = f'**{member}** has been kicked by **{ctx.author}**, for  **{reason}.** Date : **{self.curTime}**'
-            self.embed.description = ''
+            self.embed.title = f'**{member}** has been kicked by **{ctx.author}**.'
+            self.embed.description = '**{reason}.**\n Date : **{self.curTime}**'
+
             await ch.send(embed=self.embed)
             self.embed.clear_fields()
             self.embed.color = color = Colour.dark_purple()
 
             # Creating a message to the user, send it to his DM, then kick
-            message = f'Greetings **{member}**.\n You recieve this message, because you have been kicked off **{ctx.guild.name}** by **{ctx.author}**,  \n\n Due to :\n **{reason}**'
+            message = f'Greetings **{member}**.\nYou recieve this message, because you have been kicked off **{ctx.guild.name}** by **{ctx.author}**.\n\nDue to :\n **{reason}**'
             await member.send(message)
             await member.kick(reason=reason)
 
     @command(name='poll', pass_context= True)
-    @has_any_role('Moderator', 'moderator', 'mod', 'Admin', 'admin', 'administrator', 'Administrator', 'Software-Technican')
+    @has_permissions(manage_messages=True)
 
     async def polls(self, ctx):
 
@@ -141,7 +153,7 @@ class Moderator(Cog, name='Moderator-module'):
 
             author = ctx.author
             arg = str(arg.content)
-            print(author, arg)
+
             return author != self.bot.user and arg
 
         arg = await self.bot.wait_for('message', timeout=30.0, check=msgCheck)
@@ -156,6 +168,7 @@ class Moderator(Cog, name='Moderator-module'):
         
         # Creating the Options
         if x == 2:
+
             #   First option
             self.embed.description = 'Name your first option'
             await ctx.send(embed=self.embed)
@@ -286,22 +299,26 @@ class Moderator(Cog, name='Moderator-module'):
                 # Add following reaction to the message
         
 
-        if x==2:
+        if x == 2:
+
             await r.add_reaction(one)
             await r.add_reaction(two)
 
         elif x==3:
+
             await r.add_reaction(one)
             await r.add_reaction(two)
             await r.add_reaction(three)
 
         elif x==4:
+
             await r.add_reaction(one)
             await r.add_reaction(two)
             await r.add_reaction(three)
             await r.add_reaction(four)
 
         elif x==5:
+
             await r.add_reaction(one)
             await r.add_reaction(two)
             await r.add_reaction(three)
@@ -313,37 +330,39 @@ class Moderator(Cog, name='Moderator-module'):
 
 #   Online members
     @command(name='online', pass_context=True)
-    @has_any_role('Moderator', 'moderator', 'mod', 'Admin', 'admin', 'administrator', 'Administrator', 'Software-Technican')
-
+    @has_permissions(manage_messages=True)
     async def OnlineMembers(self, ctx, args=None):
+
+        #   Retriving the server
+        warn = ''
+        off = True
+        srv = ctx.guild
+        bot = self.bot.user
+        self.embed.title = 'Server Members'
+        self.embed.description = 'List of members'
 
         if args == None:
 
-            #   Retriving the server
-            svr = ctx.guild
-            user = self.bot.user
-            self.embed.title = 'Server Members'
-            self.embed.description = 'List of members'
-
             #   Fetching members
-            for member in svr.members:
+            for member in srv.members:
 
                 #   Declare variables
                 status = str(member.status)
                 nick = str(member.nick)
 
                 #   Add emoji to status
-                if status == 'online':status = ':heart_on_fire:'
-                elif status == 'idle':status = ':dash:'
-                elif status == 'dnd':status = ':technologist:'
-                elif status == 'offline':status = ':sleeping:'
+                if status == 'online': status = ':heart_on_fire:'
+                elif status == 'idle': status = ':dash:'
+                elif status == 'dnd': status = ':technologist:'
+                elif status == 'offline': status = ':sleeping:'
 
                 #   Fetch user nick
-                if nick == 'None':nick = ''
-                else:nick = f'Nick : {member.nick}\n'
+                if nick == 'None': nick = ''
+                else: nick = f'Nick : {member.nick}\n'
 
-                if member != user:
-                    self.embed.add_field(name=f'{member.name}#{member.discriminator}',value=f'{nick}\n Status : {status}\n Warnings : {self.warn}', inline=False)
+                if member != bot:
+
+                    self.embed.add_field(name=f'{member.name} #{member.discriminator}',value=f'{nick}\n Status : {status}\n Warnings : {self.warn}', inline=False)
 
             await ctx.send(embed = self.embed)
             self.embed.clear_fields()
@@ -353,27 +372,18 @@ class Moderator(Cog, name='Moderator-module'):
 
             if args == 'online':
 
-                #   Retriving the server
-                svr = ctx.guild
-                off = True
-
-                warn = ''
-                self.embed.title = 'Server Members'
-                self.embed.description = 'List of members'
-
                 #   Fetching members
-                for member in svr.members:
+                for member in srv.members:
 
                     #   Declare variables
                     status = str(member.status)
                     nick = str(member.nick)
 
                     #   Add emoji to status
-                    if status == 'online':status = ':heart_on_fire:'
-                    elif status == 'idle':status = ':dash:'
-                    elif status == 'dnd':status = ':technologist:'
-                    
-                    elif status == 'offline':status, off = ':sleeping:', False
+                    if status == 'idle': status = ':dash:'
+                    elif status == 'dnd': status = ':technologist:'
+                    elif status == 'online': status = ':heart_on_fire:'
+                    elif status == 'offline': status, off = ':sleeping:', False
 
                     #   Fetch user nick
                     if nick == 'None':nick = ''
@@ -381,23 +391,20 @@ class Moderator(Cog, name='Moderator-module'):
  
                     if off != False:
 
-                        self.embed.add_field(name=f'{member.name}#{member.discriminator}',value=f'{nick}\n Status : {status}\n Warnings : {warn}', inline=False)
+                        self.embed.add_field(name=f'{member.name}, #{member.discriminator}',value=f'{nick}\n Status : {status}\n Warnings : {warn}', inline=False)
 
                 await ctx.send(embed = self.embed)
                 self.embed.clear_fields()
 
-            elif args == 'Offline':
-                svr, off, warn = ctx.guild, False, ''
-
-                self.embed.title = 'Server Members'
+            elif args == 'offline':
 
                 #   Fetching members
-                for member in svr.members:
+                for member in srv.members:
 
                     status, nick = str(member.status), str(member.nick)
 
                     #   Add emoji to status
-                    if status != 'offline':off = False
+                    if status != 'offline': off = False
                     elif status == 'offline':status = ':sleeping:'
 
                     #   Fetch user nick
@@ -407,14 +414,12 @@ class Moderator(Cog, name='Moderator-module'):
                     if off != False:
                         self.embed.add_field(name=f'{member.name}#{member.discriminator}',value=f'{nick}\n Status : {status}\n Warnings : {warn}', inline=False)
 
-                self.embed.description = 'End of List'
                 await ctx.send(embed = self.embed)
                 self.embed.clear_fields()
 
     #   Warn
     @command(name="warn")
     @has_permissions(manage_messages=True)
-
     async def UserWarn(self, ctx, member:Member, *, reason=None):
 
         srv = ctx.guild
@@ -429,18 +434,15 @@ class Moderator(Cog, name='Moderator-module'):
 
             self.embed.title  = 'Warning not sent'
             self.embed.description = ' please provide a reason for the warn'
-            await ch.send(embed=self.embed)
 
         elif member == ctx.author:
 
             self.embed.title = 'An error occoured'
             self.embed.description = 'Can not warn your self'
-            ctx.send(embed=self.embed)
 
         else:
 
             #   Creating a channel to log the warning 
-            #   Make the channel hidden by default
             if not ch:
 
                 #   Channel Permissions
@@ -456,20 +458,20 @@ class Moderator(Cog, name='Moderator-module'):
                 self.embed.add_field(name= f'**{member}** has been warned by **{ctx.author}** for **{reason}**', value='.')
                 await ch.send(embed=self.embed)
 
-            message = f'Greetings **{member}**.\n You recieve this message, because you have been warned by **{ctx.author}**,  \n\n Due to :\n **{reason}**\n\nPlease read and follow the suggested guidelines for behavior in our disocrd channel'
+            message = f'Greetings **{member}**.\n You recieve this Notification, because you have been warned by **{ctx.author}**,  \n\n Due to :\n **{reason}**\n\nPlease read and follow the suggested guidelines for behavior in our disocrd channel'
             await member.send(message)
 
             self.embed.title = f'**{member}** has been warned by **{ctx.author}** for **{reason}.** Date : **{self.curTime}**'
             self.embed.description = ''
 
-            await ch.send(embed=self.embed)
-            self.embed.clear_fields()
-            self.embed.color = Colour.dark_purple()
+        await ch.send(embed=self.embed)
+        self.embed.clear_fields()
+        self.embed.color = Colour.dark_purple()
 
-            return
+        return
 
     @command(name="sush")
-    @has_permissions(manage_messages=True)
+    @has_permissions(mute_members = True)
     async def TimeSnozze(self, ctx, member:Member, sec, *, reason=None):
 
         """
@@ -479,33 +481,16 @@ class Moderator(Cog, name='Moderator-module'):
             #  3 Log the mute in a channel called moderation Log
 
         """
+
+        #   Initializing variables
         sec = int(sec)
+        srv = ctx.guild
 
-        if reason == None:
+        ch = get(srv.channels, name='moderationlog')
+        sushedRole = get(srv.roles, name ='@sushed')
+        memberRole = get(srv.roles, name ='@Members')
 
-            self.embed.title = 'An erro occurred'
-            self.description = f'Provide me a reason to mute **{member}** for **{sec}** sec'
-            await ctx.send(embed=self.embed)
-            self.embed.clear_fields()
-
-        elif reason != None:
-
-            srv = ctx.guild
-            ch = get(srv.channels, name='moderationlog')
-            sushedRole = get(srv.roles, name ='@sushed')
-            memberRole = get(srv.roles, name ='@Members')
-
-            if not sushedRole:
-
-                #perm = PermissionOverwrite (speak=False, send_messages=False, read_message_history=False, read_messages=False)
-                await srv.create_role(name='@sushed', reason = 'Automatic Role assignment')
-
-            await member.remove_roles(memberRole)
-            await member.add_roles(sushedRole)
-
-            await member.send(f'Greetings **{member}**.\n\n You recieve this message, bedcause you have been sushed by **{ctx.author}** \n You are sushed for **{sec}** seconds.\n During this time you will not able to chat in our channels, add reactions or be able to use voice channel. \n\n The reason for this intervention is **{reason}**')
-
-            if not ch:
+        if not ch:
 
                 #   Creating channel permissions
                 perms = PermissionOverwrite(read_messages=False)
@@ -518,15 +503,31 @@ class Moderator(Cog, name='Moderator-module'):
                 self.embed.description = 'This channel is used for every Moderation in this server, it is made to avoid abusage of the Moderation / administration commands'
                 await ch.send(embed=self.embed)
                 self.embed.clear_fields()
+                self.embed.color = Colour.dark_purple()
 
+        if not sushedRole:
+
+                perm = PermissionOverwrite (speak=False, send_messages=False, read_message_history=False, read_messages=False)
+                await srv.create_role(name='@sushed', permissions = perm, reason = 'Automatic Role assignment')
+
+        if reason == None:
+
+            self.embed.title = 'An erro occurred'
+            self.description = f'Provide me a reason to mute **{member}** for **{sec}** sec'
+
+        elif reason != None:
+
+            await member.add_roles(sushedRole)
+            await member.remove_roles(memberRole)
+
+            await member.send(f'Greetings **{member}**.\n\n You recieve this message, bedcause you have been sushed by **{ctx.author}** \n You are sushed for **{sec}** seconds.\n During this time you will not able to chat in our channels, add reactions or be able to use voice channel. \n\n The reason for this intervention is **{reason}**')
 
             self.embed.color = Colour.dark_red()
             self.embed.title = f' **{member}** has been sushed by **{ctx.author}**, for {sec} sec Due to  **{reason}.** Date : **{self.curTime}**'
             self.embed.description = ''
             await ch.send(embed=self.embed)
             self.embed.clear_fields()
-
-            self.embed = Embed(color=Colour.dark_purple(), description= '')
+            self.embed.color = Colour.dark_purple()
 
             # Automatic un-mute
             await asyncio.sleep(sec)
@@ -537,4 +538,4 @@ class Moderator(Cog, name='Moderator-module'):
             #   send the selected member a message
             await member.send(f'Greetings **{member}**.\n\n You recieve this message, bedcause you have been shushed by **{ctx.author}** \n The Shush has been lifted')
 
-            return
+        return

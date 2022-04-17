@@ -17,8 +17,8 @@ from discord.ext.commands.errors import CheckFailure, CommandNotFound, MissingRe
 class ErrorHandler(Cog):
 
     def __init__(self, bot):
-        self.bot = bot
 
+        self.bot = bot
         self.embed = Embed(color=Color.dark_red())
 
         return
@@ -27,6 +27,7 @@ class ErrorHandler(Cog):
 
         #   Calls when there is an error
     async def on_command_error(self, ctx, error):
+
         '''
             The event triggered when an error is
             raised while invoking a command.Parameters
@@ -166,6 +167,7 @@ class ErrorHandler(Cog):
         return
 
 class ErrorMessageDictionary():
+
     def __init__(self) -> None:
         pass
 
@@ -204,8 +206,8 @@ class ErrorMessageDictionary():
         elif errorModule == 'CheckFailure':
 
             dictionary = {
-                            1:'meep, morp, zeep :(\n',
-                            2:'Role access Denied.',
+                            1:'meep, morp, zeep :(',
+                            2:'Role Authorication failed.',
 }
 
         elif errorModule == 'MissingRequiredArgument':
@@ -256,6 +258,3 @@ class ErrorMessageDictionary():
         x = randrange(1, x)
 
         return dictionary.get(x)
-
-class CommandNotFoundDictionary():
-    pass

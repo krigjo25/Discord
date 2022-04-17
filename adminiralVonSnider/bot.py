@@ -12,19 +12,19 @@ from discord import Intents
 
 #   System module
 
-from pylib.systemModule.faq import FrequentlyAskedQuestions                              #   Help module
-from pylib.systemModule.discordBot import DiscordBot                        #   The Client
-from pylib.systemModule.commandError import ErrorHandler                    #   Error Handling Module
+from pylib.systemModule.faq import FrequentlyAskedQuestions                                             #   Help module
+from pylib.systemModule.discordBot import DiscordBot                                                        #   The Client
+from pylib.systemModule.commandError import ErrorHandler                                                    #   Error Handling Module
 
 #   Community Module
-from pylib.communityModule.community import CommunityModule                       #   Community module
+from pylib.communityModule.community import CommunityModule                                                 #   Community module
 
 
 # Bot Utility
 
     # Moderation Utility
-from pylib.postModerationModule.moderatorModule.moderator import Moderator                  #   Moderator Module
-from pylib.postModerationModule.administratorModule.administrator import Administrator          #   Administrator module
+from pylib.postModerationModule.moderatorModule.moderator import Moderator                                  #   Moderator Module
+from pylib.postModerationModule.administratorModule.administrator import Administrator, RoleManagement      #   Administrator module
 
 
 # Importing .evn file
@@ -57,6 +57,7 @@ class DiscordSetup():
     #   Moderation - Module
         self.bot.add_cog(Moderator(self.bot))
         self.bot.add_cog(Administrator(self.bot))
+        self.bot.add_cog(RoleManagement(self.bot))
 
         return
 

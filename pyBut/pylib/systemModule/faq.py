@@ -31,7 +31,7 @@ class FrequentlyAskedQuestions(Cog):
             self.embed.add_field(name=':signal_strength: RSS-Module',value='An Irishman arrived at J.F.K. Airport and wandered around the terminal with tears streaming down his cheeks...', inline=True)
 
             #   Moderator Commands
-            if ctx.author.guild_permissions.kick_members:
+            if ctx.author.guild_permissions.kick_members or ctx.author.guild_permissions.manage_roles:
                 self.embed.add_field(name='Moderator Module', value = 'A joke here', inline=True)
 
             #   Administrator Commands
@@ -68,9 +68,10 @@ class FrequentlyAskedQuestions(Cog):
             elif args == 'rt' or args == 'rtworld':self.embed = inl.RTNews()
             elif args == 'skynews' or args == 'skyworld':self.embed = inl.SkyNews()
             elif args == 'wionworld' or args == 'wionsports' or args == 'wionbusiness': self.embed = inl.WionNews(args)
+
         #   Administration
-            elif args == 'moderator'  or args == 'moderatormodule': avs.ModeratorModule()
-            elif args == 'administrator'  or args == 'administratormodule': avs.AdministratorModule()
+            elif args == 'moderatormodule': avs.ModeratorModule()
+            elif args == 'administratormodule': avs.AdministratorModule()
 
         await ctx.send(embed=self.embed)
         self.embed.clear_fields()
@@ -143,17 +144,32 @@ class AdminiralVonSnider(Cog):
 
         return
 
-    #   Administration
-    def ModeratorModule(self):
+    #   Server Moderation
+    def ModeratorModule(self, ctx):
 
         self.embed.title = 'Moderator Module'
-        self.embed.add_field(name=':bar_chart: ?poll', value='- Run a poll', inline=True)
-        self.embed.add_field(name='?kick (member) (reason)', value='- Kicks a user off the server ', inline=True)
-        self.embed.add_field(name='?crech (Channel Name)', value='- Create a new channel default : hidden ', inline=True)
         self.embed.add_field(name='?cls (channel name) (1-100)', value= '- Clears the given channel Chat:bangbang:', inline=True)
-        self.embed.add_field(name='?online (on/off)', value= '- Checks whom is online / offline', inline=True)
         self.embed.add_field(name='?warn (MemberName) (Reason)', value= '- Manually Warn a member for their behavior', inline=True)
-        self.embed.add_field(name='?sush (MemberName) (sec) (reason)', value= '- Shush a member for a number of sec', inline=True)
+
+        if ctx.author.guild_permissions.kick_members:
+
+            self.embed.add_field(name=':bar_chart: ?poll', value='- Run a poll', inline=True)
+            self.embed.add_field(name='?online (on/off)', value= '- Checks whom is online / offline', inline=True)
+            self.embed.add_field(name='?kick (member) (reason)', value='- Kicks a user off the server ', inline=True)
+
+        if ctx.author.guild_permissions.manage_roles:
+
+            self.embed.add_field(name='?remove (name)', value='- Demote a person from the role', inline=True)
+            self.embed.add_field(name=':x:?setRole (name)', value='- Promotes a regular user to given role', inline=True)
+            self.embed.add_field(name=':x:?roleCreate (name))', value='- Creates a role in the server', inline=True)
+            self.embed.add_field(name='?delRole (Name)', value='- Deletes a role from the server', inline=True)
+
+        if ctx.author.guild_permissions.manage_channels:
+            self.embed.add_field(name='?chdel (Channel Name)', value='- Deletes a channel from the server ', inline=True)
+            self.embed.add_field(name='?chcre (Channel Name)', value='- Create a new channel default : hidden ', inline=True)
+
+        if ctx.author.guild_permissions.mute_members:
+            self.embed.add_field(name='?sush (MemberName) (sec) (reason)', value= '- Shush a member for a number of sec', inline=True)
 
         return self.embed
 
@@ -165,10 +181,6 @@ class AdminiralVonSnider(Cog):
         self.embed.add_field(name='?unban (member Name)', value= '- unban a member ', inline=True)
         self.embed.add_field(name=':no_pedestrians: ?ban (member) (reason)', value='- Probhits a Discord user to enter your channel', inline=True)
         self.embed.add_field(name='?announce (channelName) (message)', value= '- Talk as the bot in a given channel', inline=True)
-        self.embed.add_field(name='?demote (name)', value='- Demote a person from the role', inline=True)
-        self.embed.add_field(name=':x:?promote (name)', value='- Promotes a regular user to given role', inline=True)
-        self.embed.add_field(name=':x:?roleCreate (name))', value='- Creates a role in the server', inline=True)
-        self.embed.add_field(name='?delRole (Name)', value='- Deletes a role from the server', inline=True)
 
         return self.embed
 

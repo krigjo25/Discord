@@ -91,20 +91,23 @@ the user will be added to the role.<br>
 Roles used in the project :
 
 > Member        --  Automatic role assignment<br>
-> sushed        --  Muted players<br>
-> Moderator,<br>
-> Administrator,<br>
-> SoftwareTechnican<br>
+> sushed        --  Automatic role assignment <br>
+
 
 ##### Moderator-module
+
+> *     Requires kick_members = True 
+> **    Requires mute_members = True
+> ***   Requires manage_channels = True
 
 >   cls (channel name) (int)
 >> Clearing the discord chat limit = 1000
 >
->   crech (channel name)
->> Create a new channel, by default it is only visible for admins & moderator roles
->
->   kick (member name) (reason)
+>   crech (channel name) *
+>>  Records the action in the moderationlog channel
+>>  Create a new channel, by default it is only visible for roles and members with manage_channels
+
+>   kick (member name) (reason) *
 >> Kicks a member from the server, stores in a log in the modereationlog channel
 >> records the action in the moderationlog channel
 >
@@ -118,7 +121,7 @@ Roles used in the project :
 >>  Manually warn a member
 >> records the action in the moderationlog channel
 >
->   sush
+>   sush *
 >> Snooze a playyer manually for x seconds
 >> records the action in the moderationlog channel
 
@@ -164,7 +167,6 @@ it will serve you as a humble bot
 
 - discord.py [Rapptz](https://github.com/Rapptz/discord.py),  <br>
 - ~~Anti-Spam [Skelmis](https://github.com/Skelmis/DPY-Anti-Spam/commits?author=Skelmis),~~<br>
-- feedparser [kurtmckee](https://github.com/kurtmckee/feedparser),<br>
 - MariaDB [MariaDB Community](https://github.com/mariadb-corporation/mariadb-connector-python), <br>
 - python_dotenv [Saurabh Kumar](https://github.com/motdotla/dotenv),<br>
 
