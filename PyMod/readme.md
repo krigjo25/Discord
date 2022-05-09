@@ -1,13 +1,8 @@
-# Discord bot Q9-0
+# PyMod
 
 ## Table of content
 
-> [Introduction](#Introduction)
->> About the Developer
->>> Krigjo25
->>> Contact
-
-> [About-Q9-0](#About-Q9-0)
+> [About PyMod](#About-PyMod)
 >> project information 
 >> How to use the bot
 >> Features
@@ -21,32 +16,19 @@
 
 > [Project-Summary](#project-Summary)
 
-## Introduction
+## About-PyMod
 
-### About the Developer
+Assists you with-in discord moderation, roles used in the bot is<br /> @moderator.
+to use administrator commands, the member has to have administrator privilege's. 
 
-Kristoffer Gjøsund, born in 94, Norway,<br>
-1/3 of the times goes to python, SQL<br>
-otherwise, Gym and living life as a human being.
+### Status
 
-### Project info
+project start :<br>
+15.04-22
 
-Name of the project is Q9-0,
+Last Update :<br>
 
-#### Status
-
-    project start :<br>
-    15.04-22
-
-    Last Update :<br>
-
-
-    Current verison:<br>
-    0.0.1 beta
-
-## About-Q9-0
-The bot is created in python and works as a assistant moderator for a discord server. The prefix command used in the project ?, e.g ?help
-
+dd.mm-yy
 
 ## Feautures
 
@@ -76,12 +58,6 @@ The bot is created in python and works as a assistant moderator for a discord se
 
 When a member joins the server, the bot will create a role called "@Members"<br>
 the user will be added to the role.<br>
-
-#### Member leveling System
-
-~~Members will be able to level up to gain new roles~~<br>
-~~Current max level is 100, roles+ changes every 25 level~~<br>
-
 
 
 ### Bot Post Moderation Utility
