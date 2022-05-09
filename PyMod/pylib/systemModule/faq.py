@@ -23,7 +23,6 @@ class FrequentlyAskedQuestions(Cog):
             self.embed.title = 'Frequently Asked Questions:question:'
             self.embed.title = ' Usage ** ?help (Category)** for more details\n\n'
             self.embed.add_field(name=':people_holding_hands: Community Module', value='Ever heard of the guy whom joined a community? \n He were never seen again.', inline=True)
-            self.embed.add_field(name=':people_wrestling: Game Module', value='-Gamers does not take showers they do steamy once', inline=True)
 
             #   Moderator Commands
             if ctx.author.guild_permissions.kick_members or ctx.author.guild_permissions.manage_roles:

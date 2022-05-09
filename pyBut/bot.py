@@ -85,13 +85,13 @@ class DiscordSetup():
 
         return
 
-def RSSBotStartConfiguration ():
+def BotConfiguration ():
 
         #   Initializing classes
 
         rss = RSSBot()
         disc = DiscordSetup()
-        botKey = getenv('BotToken')
+        botKey = getenv('PyMod')
 
         rss.InternationalNewsSetup()
         rss.NationalNewsSetup()
@@ -105,4 +105,4 @@ def RSSBotStartConfiguration ():
         disc.bot.run(botKey)
 
 if __name__ == '__main__':
-    RSSBotStartConfiguration()
+    BotConfiguration()

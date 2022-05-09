@@ -72,7 +72,7 @@ def RSSBotStartConfiguration ():
 
         # necsessary values from .env
         disc = DiscordSetup()
-        botKey = getenv('BotToken')
+        botKey = getenv('PyMod')
 
         disc.SystemSetup()
         disc.MiscModuleSetup()

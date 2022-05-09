@@ -1,4 +1,4 @@
-# Discord bot krigjo25
+# Discord bot Q9-0
 
 ## Table of content
 
@@ -7,7 +7,7 @@
 >>> Krigjo25
 >>> Contact
 
-> [About-krigjo25](#About-krigjo25)
+> [About-Q9-0](#About-Q9-0)
 >> project information 
 >> How to use the bot
 >> Features
@@ -26,36 +26,27 @@
 ### About the Developer
 
 Kristoffer Gjøsund, born in 94, Norway,<br>
- 1/3 of the times goes to python, SQL<br>
+1/3 of the times goes to python, SQL<br>
 otherwise, Gym and living life as a human being.
 
 ### Project info
 
-Information about the design for each modules<br>
-can be found in the given links below includes<br>
-the text files below,
-
-* [theGeneral](https://github.com/krigjo25/Discord/tree/main/theGeneral/design/theGeneral.md)
-
+Name of the project is Q9-0,
 
 #### Status
 
     project start :<br>
-        15.04-22
+    15.04-22
 
-   Last Update :<br>
+    Last Update :<br>
 
 
     Current verison:<br>
-        0.0.1 beta
+    0.0.1 beta
 
-    SQL Database:
-        mariaDB
+## About-Q9-0
+The bot is created in python and works as a assistant moderator for a discord server. The prefix command used in the project ?, e.g ?help
 
-## About-Krigjo25
-The bot is created as an moderator for the discord server
-
-the prefix command used in the project  **?'**, e.g **'?help'**
 
 ## Feautures
 
@@ -154,13 +145,6 @@ Roles used in the project :
 > Software-Technician, Software-technician
 >> Moderator commands
 >> Admin commands
-
-## What has been learned 
-
-
-## What makes theGeneral unique
-
-Its made with love, for pyhon and he serves you as a humble servant
 
 ## Responsories
 

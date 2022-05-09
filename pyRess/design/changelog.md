@@ -1,7 +1,7 @@
 
 ***Sat, 16.04-12 15:42***
 
-***1 beta***
+***0.0.0 RC-1***
 
 Added a new Channel "BBC", "World & National" to the RSSBot 
 This updated has been Maintained by,

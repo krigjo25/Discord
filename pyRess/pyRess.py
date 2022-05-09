@@ -139,7 +139,7 @@ def RSSBotStartConfiguration ():
         #   Initializing classes
         disc = DiscordSetup()
 
-        botKey = getenv('BotTokenTest')
+        botKey = getenv('PyRess')
 
         disc.SystemSetup()
         disc.MiscModulesSetup()

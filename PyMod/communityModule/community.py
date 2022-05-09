@@ -25,10 +25,12 @@ class CommunityModule(Cog, name='Community Module'):
 
 #   Bot Info
     @command(name="botinfo")
-    async def BotInfo(self, ctx, args=None):
+    async def BotInfo(self, ctx, args = None):
+
+        botName = 'PyMod'
         svr = len(self.bot.guilds)
         botMaster = self.bot.get_user(340540581174575107)
-        botName = 'AdminralVonSnider'
+
         if args == None:
 
             self.embed.title = f':notebook: About {botName}'
@@ -45,17 +47,18 @@ class CommunityModule(Cog, name='Community Module'):
             await ctx.send(embed = self.embed)
             self.embed.clear_fields()
 
-        if args == 'log':
+
+        elif args == 'log':
 
             self.embed.title = 'Whats new?'
-            self.embed.url=f'https://github.com/krigjo25/Discord/blob/main/{botName}/RSSBot.md'
+            self.embed.url=f'https://github.com/krigjo25/Discord/blob/main/{botName}/PyMod.md'
             changelog = f'*** What is new ***\n{CommunityFunctions.ReadChangelog()}'
 
             await ctx.send(changelog)
             self.embed.clear_fields()
 
 
-        return
+        return print(args)
 
 #   Online members
     @command(name='memberlist', pass_context=True)
@@ -169,7 +172,7 @@ class CommunityFunctions(Cog):
 
     def ReadChangelog(self):
 
-        with open('Pybut/changelog.md', 'r') as f:
+        with open('changelog.md', 'r') as f:
 
             changelog = f.read()
 

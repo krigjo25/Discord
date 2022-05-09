@@ -11,7 +11,7 @@ class FrequentlyAskedQuestions(Cog):
 
 #   Frequently Asked Question
 
-    @command(name='help', pass_context=True)
+    @command(name='pyress', pass_context=True)
     async def FrequentlyAskedQuestions(self, ctx, *, args=None):
 
         #   Initialize classes
@@ -368,7 +368,7 @@ class NationalModule(Cog):
             self.embed.title = 'National News USA'
             self.embed.description = ' United States National News '
             self.embed.add_field(name ='?cusa', value ='CNN National news')
-            self.embed.add_field(name = '?cnbcusa', value = 'CNBC National News')
+#            self.embed.add_field(name = '?cnbcusa', value = 'CNBC National News')
             self.embed.add_field(name = '?skycusa', value = 'SkyNews National News')
 
         elif args == 'india':
@@ -391,8 +391,8 @@ class NationalModule(Cog):
             self.embed.add_field(name ='?bbcuk', value ='BBC National News')
             self.embed.add_field(name ='?bbceng', value ='BBC National - England News')
             self.embed.add_field(name ='?bbcirish', value ='BBC National - Northen Ireland News')
-            self.embed.add_field(name ='?bbcwales', value ='BBC National - Wales News')
-            self.embed.add_field(name ='?bbscot', value ='BBC National - Scotland News')
+#            self.embed.add_field(name ='?bbcwales', value ='BBC National - Wales News') x
+#            self.embed.add_field(name ='?bbscot', value ='BBC National - Scotland News') x
             self.embed.add_field(name ='?rtru', value ='RT National News')
             
 

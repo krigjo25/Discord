@@ -558,7 +558,7 @@ class RoleManagement(Cog):
     def __init__(self, bot):
 
         self.bot = bot
-        self.curTime = self.now.strftime('%d.%m - %Y')
+#        self.curTime = now.strftime('%d.%m - %Y')
         self.embed = Embed(color=Color.dark_purple())
 
         return

@@ -1,4 +1,4 @@
-# Discord bot RSSBot
+# PyRess
 
 ## News Channels
 
@@ -46,7 +46,7 @@
 
 ### Intents requirements
 
-*   Default intents 
+*   No Intents
 
 ## Responsories
 

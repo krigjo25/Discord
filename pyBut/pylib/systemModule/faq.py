@@ -11,7 +11,7 @@ class FrequentlyAskedQuestions(Cog):
 
 #   Frequently Asked Question
 
-    @command(name='help', pass_context=True)
+    @command(name='pybut', pass_context=True)
     async def FrequentlyAskedQuestions(self,ctx, args=None):
 
         #   Initializing Classes

@@ -25,7 +25,7 @@ from pylib.systemModule.databasePython import MariaDB
 load_dotenv()
 
 class DiscordBot(Bot):
-    def __init__(self, command_prefix='@', help_command=None, description=None, owner_id = 340540581174575107, **options):
+    def __init__(self, command_prefix='?', help_command=None, description=None, owner_id = 340540581174575107, **options):
         super().__init__(command_prefix = command_prefix, help_command=help_command, description=description, owner_id = owner_id, **options)
         #self.handler = AntiSpamHandler(self, options=Options(ignore_bots=False, no_punish=True))
         #self.tracker = SpamTracker(self.handler, 3)

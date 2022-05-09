@@ -13,8 +13,10 @@ from discord.ext.commands import Cog, command
 import feedparser
 
 class SouthAsiaNational(Cog):
+
     def __init__(self, bot) -> None:
-        self.channelName = 'rssfeedtest'
+
+        self.channelName = 'rssfeed'
         self.embed = Embed(color=Color.dark_blue())
 
     #   CNN News

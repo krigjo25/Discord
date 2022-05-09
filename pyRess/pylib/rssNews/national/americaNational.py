@@ -70,7 +70,7 @@ class USANational(Cog):
         return
 
 
-    #   CNBC News
+    #   CNBC News   -   Not working
     @command(name = 'cnbcusa')
     async def CNBCNational(self,ctx):
 

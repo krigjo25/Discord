@@ -15,7 +15,7 @@ import feedparser
 class UKNational(Cog):
 
     def __init__(self, bot) -> None:
-        self.channelName = 'rssfeedtest'
+        self.channelName = 'rssfeed'
         self.embed = Embed(color=Color.dark_blue())
 
         return
@@ -207,7 +207,7 @@ class UKNational(Cog):
 
         return
 
-    #Scotland
+    #   Scotland - Not working
     @command(name='bbcscot')
     async def BBCScotland(self, ctx):
 
@@ -254,7 +254,7 @@ class UKNational(Cog):
 
         return
 
-    #   Wales
+    #   Wales   - Not working
     @command(name='bbcwales')
     async def BBCWales(self, ctx):
 
@@ -308,7 +308,7 @@ class FranceNational(Cog):
         self.channelName = 'rssfeed'
         self.embed = Embed(color=Color.dark_blue())
 
-    @command(name='frfr')
+    @command(name='24fr')
     async def FranceNational(self, ctx):
 
             #   Retrieve the guild information
