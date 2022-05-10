@@ -18,7 +18,20 @@
 
 ## About-PyMod
 
-Assists you with-in discord moderation, roles used in the bot is<br /> @moderator.
+I'm your discord moderator command assistant, 
+My intention is just to assist you in your discord server
+
+In order to use the moderator commands, the member privileges has to be set to kick.
+
+Moderation
+Member or role needs the permission to kick,
+
+Administration 
+the member or role, needs the administrator permissions.
+
+
+
+Moderator role 
 to use administrator commands, the member has to have administrator privilege's. 
 
 ### Status
