@@ -45,6 +45,7 @@ class Dictionaries():
         return dictionary.get(x)
 
 class CommandDictionary():
+
     def __init__(self) -> None:
         pass
 

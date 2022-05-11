@@ -31,11 +31,17 @@ Command prefix for the bot **?**, e.g **?help**
 
 ### Project Status
 
+project name:
+PyMod
+
 project start :<br>
 15.04-22
 
 Last Update :<br>
-dd.mm-yy
+11.05-22
+
+Project version:
+?botinfo
 
 ## Features
 
@@ -68,7 +74,7 @@ When a member joins the server, the bot will create a role called "@Members" and
 
 Roles used in the project :
 
--   sushed        --  Muted players
+-   sushed  -Muted players
 
 #### Moderator-module
 
@@ -91,12 +97,13 @@ Roles used in the project :
 >
 >   Warn*
 >>  Manually warn a member
-
 >
+
 #####   Moderators with mute_members privileges
 
->   sush*
->>   Changes
+>   sush
+>>  Changes the member role into sushed with default permissions
+>>  Requires the default permission to be set to "No channel views"
 
 #####   Moderators with manage_channels privileges
 
@@ -121,19 +128,18 @@ Roles used in the project :
 
 #### Administrator-module
 
-> ban (member) (reason)
+> ban (member) (reason)*
 >> Ban a discord user from the server
->> records the the ban in the channel moderationlog
 >
 > banlist
 >> View a list of banned server members
 >                           
-> unban (member)
+> unban (member)*
 >> Unban a discord user from the server
->> records the the unban in the channel moderationlog
 >
->announce (channelName)
+> announce (channelName)
 >> Creates an announcement in the given channel as the bot
+>> - "*" records the the unban in the channel moderationlog
 
 
 ## Responsories
