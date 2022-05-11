@@ -3,6 +3,7 @@
 ## Table of content
 
 > [About PyMod](#About-PyMod)
+
 >> project information 
 >> How to use the bot
 >> Features
@@ -11,7 +12,7 @@
 > [Responsories](#Responsories)
 
 > [Credentials](#Credentials)
->> Disclaimers
+>> Disclaimers<br>
 >> References
 
 > [Project-Summary](#project-Summary)
