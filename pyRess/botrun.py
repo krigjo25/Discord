@@ -6,7 +6,7 @@ from os import getenv
 from dotenv import load_dotenv
 
 #   pylib Responsories
-from pylib.systemModule.discordBot import DiscordBot        #   Discord Client
+from pylib.systemModule.discordSetup import DiscordBot        #   Discord Client
 from pylib.systemModule.discordSetup import DiscordSetup    #   DiscordSetup
 
 #   Discord Responsories

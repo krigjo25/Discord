@@ -11,7 +11,7 @@ from discord import Intents
 
 #   System module
 from pylib.systemModule.faq import FrequentlyAskedQuestions, InternationalModule, NationalModule                                        #   Help module
-from pylib.systemModule.discordBot import DiscordBot                                                                        #   The Client
+from pylib.systemModule.discordSetup import DiscordBot                                                                        #   The Client
 from pylib.systemModule.commandError import ErrorHandler                                                                    #   Error Handling Module
 
 #   Community Module
