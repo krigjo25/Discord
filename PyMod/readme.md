@@ -37,7 +37,7 @@ project start :<br>
 Last Update :<br>
 dd.mm-yy
 
-## Feautures
+## Features
 
 ### Bot Member Utility
 
@@ -61,8 +61,7 @@ dd.mm-yy
 
 ##### Member joins:
 
-When a member joins the server, the bot will create a role called "@Members"<br>
-the user will be added to the role.<br>
+When a member joins the server, the bot will create a role called "@Members" and the user will be added to the role.<br>
 
 
 ### Bot Post Moderation Utility
@@ -72,6 +71,8 @@ Roles used in the project :
 -   sushed        --  Muted players
 
 #### Moderator-module
+
+#####   Moderators with kick_members privileges
 
 > cls (channel name) (int)
 >> Clear the chat limit 100 lines each time the command is used
@@ -92,10 +93,31 @@ Roles used in the project :
 >>  Manually warn a member
 
 >
+#####   Moderators with mute_members privileges
+
 >   sush*
 >>   Changes
 
-> - "*" records the given command in moderationlog channel
+#####   Moderators with manage_channels privileges
+
+> chdel
+>> Deletes a channel
+>
+> chcre
+>> Creates a new channel
+
+#####   Moderators with manage_Roles privileges
+
+> ?remove (memberName)
+>> Removes a member from the roles
+>
+>  ?setRole (memberName) (role)
+>> Set a member's role
+>
+> ?delRole (roleName)
+>> Deletes a role from the server
+
+- "*" records the given command in the moderationlog channel
 
 #### Administrator-module
 
@@ -110,14 +132,8 @@ Roles used in the project :
 >> Unban a discord user from the server
 >> records the the unban in the channel moderationlog
 >
-> setRole (member) (role)
->> Set a member's role
->
-> delRole (roleName)
->> Deletes a role from the server
->
 >announce (channelName)
->> Creates an announcement in the given channel
+>> Creates an announcement in the given channel as the bot
 
 
 ## Responsories
@@ -135,6 +151,6 @@ Roles used in the project :
 ### Disclaimer
 
 The developer can only have the responsibility,<br>
-for how the projects is created, how it is used,<br>
-is another story.
+for how the project is created.
+How the bot is used, is another story.
 
