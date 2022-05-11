@@ -4,44 +4,37 @@
 
 ### [About PyMod](#About-PyMod)
 
->> project information 
+>> Project Status 
 >> How to use the bot
 >> Features
 >> Updates
 
-> [Responsories](#Responsories)
+### [Responsories](#Responsories)
 
-> [Credentials](#Credentials)
+### [Credentials](#Credentials)
 >> Disclaimers<br>
 >> References
 
-> [Project-Summary](#project-Summary)
+### [Project-Summary](#project-Summary)
 
 ## About-PyMod
 
 I'm your discord moderator command assistant, 
 My intention is just to assist you in your discord server
 
-In order to use the moderator commands, the member privileges has to be set to kick.
+### How to
 
-Moderation
-Member or role needs the permission to kick,
+Command prefix for the bot **?**, e.g **?help** 
 
-Administration 
-the member or role, needs the administrator permissions.
+-   Moderator's privileges required **kick**
+-   Administrator's privileges required **Administrator**
 
-
-
-Moderator role 
-to use administrator commands, the member has to have administrator privilege's. 
-
-### Status
+### Project Status
 
 project start :<br>
 15.04-22
 
 Last Update :<br>
-
 dd.mm-yy
 
 ## Feautures
@@ -62,8 +55,6 @@ dd.mm-yy
 > randint (integer one) (integer two)
 >> generate a random integer
 
-
-
 ### Bot Pre Moderation Utility
 
 * Auto role-assignment
@@ -78,22 +69,18 @@ the user will be added to the role.<br>
 
 Roles used in the project :
 
-> Member        --  Automatic role assignment<br>
-> sushed        --  Muted players<br>
-> Moderator,<br>
-> Administrator,<br>
+-   sushed        --  Muted players
 
 #### Moderator-module
 
 > cls (channel name) (int)
 >> Clear the chat limit 100 lines each time the command is used
 >
-> crech (channel name)
+> crech (channel name)*
 >> Create a channel, by default it is only visible for admins & moderator roles
 >
-> kick (member name) (reason)
->> Kicks a member from the server, stores in a log in the channel modereationlog
->> records the the kick in the channel moderationlog
+> kick (member name) (reason)*
+>> Kicks a member from the server
 >
 > poll
 >> Creates a poll
@@ -101,13 +88,14 @@ Roles used in the project :
 >   Online
 >>  Checks whom is online/offline
 >
->   Warn
+>   Warn*
 >>  Manually warn a member
->> records the the warn in the channel moderationlog
+
 >
->   sush
->>   Manually mutes the member for some seconds
->> records the the mute in the channel moderationlog
+>   sush*
+>>   Changes
+
+> - "*" records the given command in moderationlog channel
 
 #### Administrator-module
 
@@ -130,11 +118,7 @@ Roles used in the project :
 >
 >announce (channelName)
 >> Creates an announcement in the given channel
->
->
-> Software-Technician, Software-technician
->> Moderator commands
->> Admin commands
+
 
 ## Responsories
 
