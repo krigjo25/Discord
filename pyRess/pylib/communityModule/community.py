@@ -27,7 +27,7 @@ class CommunityModule(Cog, name='Community Module'):
         
         svr = len(self.bot.guilds)
         Master = self.bot.get_user(340540581174575107)
-        botName = 'RSSBot'
+        botName = 'pyRess'
 
         if args == None:
 
@@ -43,10 +43,14 @@ class CommunityModule(Cog, name='Community Module'):
             self.embed.add_field(name = ':arrows_counterclockwise: Server Counting', value=f'Watching {svr} \nDiscord Servers', inline=True)
 
         if args == 'log':
+            print('test')
 
-            changelog = f'*** What is new? ***\n{self.ReadChangelog()}\n'
+            self.embed.title = 'Change log'
+            self.embed.url=f'https://github.com/krigjo25/Discord/blob/main/{botName}/changelog.md'
+            self.embed.description = f'*** What is new ***\n{CommunityFunctions.ReadChangelog()}'
+            
 
-            await ctx.send(changelog)
+            await ctx.send(embed= self.embed)
             self.embed.clear_fields()
 
         return
@@ -133,14 +137,18 @@ class CommunityModule(Cog, name='Community Module'):
 
         return
 
-    def ReadChangelog(self):
 
-        # Updating read max 32 lines
+class CommunityFunctions():
 
-        with open('RSSBot/design/changelog.md', 'r') as f:
+
+    def ReadChangelog():
+
+        #   Opens the changelog
+        with open('pyRess/changelog.md', 'r') as f:
 
             changelog = f.read()
 
+            #   Closing the document
             f.close()
 
         return changelog

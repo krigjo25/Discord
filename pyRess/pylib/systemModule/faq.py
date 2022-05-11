@@ -5,26 +5,30 @@ from discord.colour import Color
 from discord.ext.commands import command, Cog
 
 class FrequentlyAskedQuestions(Cog):
+
+    cmdPre = 'faq.cmdPre'
+
     def __init__(self,bot):
         self.bot = bot
         self.embed = Embed(color=Color.dark_purple())
 
 #   Frequently Asked Question
 
-    @command(name='pyress', pass_context=True)
+    @command(name='help', pass_context=True)
     async def FrequentlyAskedQuestions(self, ctx, *, args=None):
 
         #   Initialize classes
         rss = RSSModule(bot=self.bot)
         nl = NationalModule(bot=self.bot)
         inl = InternationalModule(bot=self.bot)
+        faq =FrequentlyAskedQuestions
 
         if args == None:
 
             self.embed.title = 'Frequently Asked Questions:question:'
-            self.embed.title = ' Usage ** ?help (Category)** for more details\n\n'
-            self.embed.add_field(name=':people_holding_hands: Community Module', value='Ever heard of the guy whom joined a community? \n He were never seen again.', inline=True)
-            self.embed.add_field(name=':signal_strength: RSS Module',value='An Irishman arrived at J.F.K. Airport and wandered around the terminal with tears streaming down his cheeks...', inline=True)
+            self.embed.title = f' Usage ** {faq.cmdPre}help (Category)** for more details\n\n'
+            self.embed.add_field(name= f':people_holding_hands: Community Module', value='Ever heard of the guy whom joined a community? \n He were never seen again.', inline=True)
+            self.embed.add_field(name= f':signal_strength: RSS Module',value='An Irishman arrived at J.F.K. Airport and wandered around the terminal with tears streaming down his cheeks...', inline=True)
 
         else:
 
@@ -62,10 +66,12 @@ class FrequentlyAskedQuestions(Cog):
 
     def CommunityModule(self):
 
+        faq = FrequentlyAskedQuestions
+
         self.embed.title=':people_holding_hands: Community Module'
-        self.embed.add_field(name='?botinfo \n(optional parameter: log)', value='- how did the bot fail the exam? She was a bit rusty', inline=True)
-        self.embed.add_field(name='?memberlist', value ='list of members', inline=True)
-        self.embed.add_field(name='?meme', value='- What do you call a gamer whom works at an abortion clinic? :rofl:\n Spawn Camper ', inline=True)
+        self.embed.add_field(name=f'{faq.cmdPre}botinfo \n(optional parameter: log)', value='- how did the bot fail the exam? She was a bit rusty', inline=True)
+        self.embed.add_field(name=f'x{faq.cmdPre}memberlist', value ='list of members', inline=True)
+        self.embed.add_field(name=f'{faq.cmdPre}meme', value='- What do you call a gamer whom works at an abortion clinic? :rofl:\n Spawn Camper ', inline=True)
         self.embed.add_field(name='/', value='- for built-ins ', inline=True)
 
         return self.embed
@@ -118,27 +124,29 @@ class InternationalModule(Cog):
 
     def CnnNews(self, args):
 
+        faq = FrequentlyAskedQuestions
+
         if args == 'cnnworld':
 
             self.embed.title = 'CNN World News'
-            self.embed.add_field(name ='?cafrica', value ='CNN News from Afria ')
-            self.embed.add_field(name ='?camerica', value ='CNN News from America')
-            self.embed.add_field(name ='?casia', value ='CNN News from Asia')
-            self.embed.add_field(name ='?ceurope', value ='CNN News from Europe')
-            self.embed.add_field(name ='?cworld', value ='Cnn News from the World')
-            self.embed.add_field(name ='?cmeast', value ='Cnn News from Middle East')
+            self.embed.add_field(name = f'{faq.cmdPre}cafrica', value = 'CNN News from Afria ')
+            self.embed.add_field(name = f'{faq.cmdPre}camerica', value = 'CNN News from America')
+            self.embed.add_field(name = f'{faq.cmdPre}casia', value = 'CNN News from Asia')
+            self.embed.add_field(name = f'{faq.cmdPre}ceurope', value = 'CNN News from Europe')
+            self.embed.add_field(name = f'{faq.cmdPre}cworld', value = 'Cnn News from the World')
+            self.embed.add_field(name = f'{faq.cmdPre}cmeast', value = 'Cnn News from Middle East')
 
         elif args == 'cnnmisc':
 
             self.embed.title = 'CNN Misc News'
-            self.embed.add_field(name ='?ctop', value ='CNN Top News')
-            self.embed.add_field(name ='?cetn', value ='CNN Entertainment News')
-            self.embed.add_field(name ='?css', value ='CNN Space & Science News')
-            self.embed.add_field(name ='?ccash', value ='CNN Money News')
-            self.embed.add_field(name ='?cvideo', value ='Top CNN Videos')
-            self.embed.add_field(name ='?cmr', value ='CNN Motor Sport News')
-            self.embed.add_field(name ='?ctravel', value ='CNN Travel News')
-            self.embed.add_field(name ='?ctech', value ='CNN Technologies News')
+            self.embed.add_field(name = f'{faq.cmdPre}ctop', value = 'CNN Top News')
+            self.embed.add_field(name = f'{faq.cmdPre}cetn', value = 'CNN Entertainment News')
+            self.embed.add_field(name = f'{faq.cmdPre}css', value = 'CNN Space & Science News')
+            self.embed.add_field(name = f'{faq.cmdPre}ccash', value = 'CNN Money News')
+            self.embed.add_field(name = f'{faq.cmdPre}cvideo', value = 'Top CNN Videos')
+            self.embed.add_field(name = f'{faq.cmdPre}cmr', value = 'CNN Motor Sport News')
+            self.embed.add_field(name = f'{faq.cmdPre}ctravel', value = 'CNN Travel News')
+            self.embed.add_field(name = f'{faq.cmdPre}ctech', value = 'CNN Technologies News')
 
         else:
 
@@ -151,26 +159,28 @@ class InternationalModule(Cog):
 
     def CNBCNews(self, args):
 
+        faq = FrequentlyAskedQuestions
+
         if args == 'cnbcworld':
 
             self.embed.title = 'CNBC World News'
-            self.embed.add_field(name ='?cnbcasia', value =' CNBC News from Asia')
-            self.embed.add_field(name ='?cnbceurope', value ='CNBC News from Europe')
-            self.embed.add_field(name ='?cnbcworld', value ='CNBC News from the World')
+            self.embed.add_field(name = f'{faq.cmdPre}cnbcasia', value = ' CNBC News from Asia')
+            self.embed.add_field(name = f'{faq.cmdPre}cnbceurope', value = 'CNBC News from Europe')
+            self.embed.add_field(name = f'{faq.cmdPre}cnbcworld', value = 'CNBC News from the World')
 
         elif args == 'cnbcmisc':
 
             self.embed.title = 'CNBC Misc News'
-            self.embed.add_field(name ='?cnbcbus', value ='CNBC Business')
-            self.embed.add_field(name ='?cnbcsbus', value ='CNBC Small Business')
-            self.embed.add_field(name ='?cnbcstate', value ='CNBC Real Estate')
-            self.embed.add_field(name ='?cnbctech', value ='CNBC Technologies')
-            self.embed.add_field(name ='?cnbctravel', value ='CNBC Travel')
-            self.embed.add_field(name ='?cnbccare', value ='CNBC Health Care')
-            self.embed.add_field(name ='?cnbcenergy', value ='CNBC Energy')
-            self.embed.add_field(name ='?cnbcmedia', value ='CNBC Social Media')
-            self.embed.add_field(name ='?cnbsports', value ='CNBC Sports')
-            self.embed.add_field(name ='?cnbcom', value ='CNBC Commentary')
+            self.embed.add_field(name = f'{faq.cmdPre}cnbcbus', value = 'CNBC Business')
+            self.embed.add_field(name = f'{faq.cmdPre}cnbcsbus', value = 'CNBC Small Business')
+            self.embed.add_field(name = f'{faq.cmdPre}cnbcstate', value = 'CNBC Real Estate')
+            self.embed.add_field(name = f'{faq.cmdPre}cnbctech', value = 'CNBC Technologies')
+            self.embed.add_field(name = f'{faq.cmdPre}cnbctravel', value = 'CNBC Travel')
+            self.embed.add_field(name = f'{faq.cmdPre}cnbccare', value = 'CNBC Health Care')
+            self.embed.add_field(name = f'{faq.cmdPre}cnbcenergy', value = 'CNBC Energy')
+            self.embed.add_field(name = f'{faq.cmdPre}cnbcmedia', value = 'CNBC Social Media')
+            self.embed.add_field(name = f'{faq.cmdPre}cnbsports', value = 'CNBC Sports')
+            self.embed.add_field(name = f'{faq.cmdPre}cnbcom', value = 'CNBC Commentary')
 
         else:
 
@@ -183,21 +193,23 @@ class InternationalModule(Cog):
             
     def EuroNews(self, args):
 
+        faq = FrequentlyAskedQuestions
+
         if args == 'euronewsworld':
 
             self.embed.title = 'Euronews World News'
-            self.embed.add_field(name ='?eworld', value ='Euronews World ')
-            self.embed.add_field(name ='?europe', value ='Euronews Europe')
+            self.embed.add_field(name = f'{faq.cmdPre}eworld', value = 'Euronews World ')
+            self.embed.add_field(name = f'{faq.cmdPre}europe', value = 'Euronews Europe')
             
         elif args == 'euronewsmisc':
 
             self.embed.title = 'CNBC Misc News'
 
-            self.embed.add_field(name ='?eports', value ='Euronews sports')
-            self.embed.add_field(name ='?etravel', value ='Euronews Travel')
-            self.embed.add_field(name ='?egreen', value ='Euronews Green')
-            self.embed.add_field(name ='?ecult', value ='Euronews Culture')
-            self.embed.add_field(name ='?enext', value ='Euronews Next')
+            self.embed.add_field(name = f'{faq.cmdPre}eports', value = 'Euronews sports')
+            self.embed.add_field(name = f'{faq.cmdPre}etravel', value = 'Euronews Travel')
+            self.embed.add_field(name = f'{faq.cmdPre}egreen', value = 'Euronews Green')
+            self.embed.add_field(name = f'{faq.cmdPre}ecult', value = 'Euronews Culture')
+            self.embed.add_field(name = f'{faq.cmdPre}enext', value = 'Euronews Next')
 
         else:
 
@@ -210,86 +222,92 @@ class InternationalModule(Cog):
 
     def WionNews(self, args):
 
+        faq = FrequentlyAskedQuestions
+
         if args == 'wionworld':
 
             self.embed.title = 'Wion World News'
-            self.embed.add_field(name ='?wworld', value ='Wion World ')
-            self.embed.add_field(name ='?wsa', value ='Wion South Asia')
+            self.embed.add_field(name = f'{faq.cmdPre}wworld', value = 'Wion World ')
+            self.embed.add_field(name = f'{faq.cmdPre}wsa', value = 'Wion South Asia')
             
         elif args == 'wionsports':
 
             self.embed.title = 'Wion Sports News'
 
-            self.embed.add_field(name ='?wsports', value ='Wion Sports')
-            self.embed.add_field(name ='?wcricket', value ='Wion Cricket')
-            self.embed.add_field(name ='?wfootball', value ='Wion Football')
+            self.embed.add_field(name = f'{faq.cmdPre}wsports', value = 'Wion Sports')
+            self.embed.add_field(name = f'{faq.cmdPre}wcricket', value = 'Wion Cricket')
+            self.embed.add_field(name = f'{faq.cmdPre}wfootball', value = 'Wion Football')
 
         elif args == 'wionbusiness':
 
             self.embed.title = 'Wion Business'
 
-            self.embed.add_field(name ='?wbe', value ='Wion Business & Economy')
-            self.embed.add_field(name ='?wtech', value ='Wion Technology')
+            self.embed.add_field(name = f'{faq.cmdPre}wbe', value = 'Wion Business & Economy')
+            self.embed.add_field(name = f'{faq.cmdPre}wtech', value = 'Wion Technology')
 
 
         else:
 
             self.embed.title = 'Wion Offical News Channel'
             self.embed.description = ' '
-            self.embed.add_field(name ='Wion World', value ='Wion World News')
-            self.embed.add_field(name ='Wion Sports', value ='Wion Sports News')
-            self.embed.add_field(name ='Wion Business', value ='Wion Business and economy News')
+            self.embed.add_field(name = 'Wion World', value = 'Wion World News')
+            self.embed.add_field(name = 'Wion Sports', value = 'Wion Sports News')
+            self.embed.add_field(name = 'Wion Business', value = 'Wion Business and economy News')
 
         return self.embed
 
     def France24News(self, args):
 
-        if args == 'frworld':
+        faq = FrequentlyAskedQuestions
+
+        if args == '24world':
 
             self.embed.title = 'France24 24 World News'
-            self.embed.add_field(name ='?24africa', value ='France24 Africa News ')
-            self.embed.add_field(name ='?24america', value ='France24 Americans News ')
-            self.embed.add_field(name ='?24asia', value ='France24 Asia News')
-            self.embed.add_field(name ='?24europe', value ='France24 Europe News ')
-            self.embed.add_field(name ='?24me', value ='France24 Middle East News ')
-            self.embed.add_field(name ='?24world', value ='France24 World News')
+            self.embed.add_field(name = f'{faq.cmdPre}24africa', value = 'France24 Africa News ')
+            self.embed.add_field(name = f'{faq.cmdPre}24america', value = 'France24 Americans News ')
+            self.embed.add_field(name = f'{faq.cmdPre}24asia', value = 'France24 Asia News')
+            self.embed.add_field(name = f'{faq.cmdPre}24europe', value = 'France24 Europe News ')
+            self.embed.add_field(name = f'{faq.cmdPre}24me', value = 'France24 Middle East News ')
+            self.embed.add_field(name = f'{faq.cmdPre}24world', value = 'France24 World News')
 
         else:
 
             self.embed.title = 'France24 Offical News Channel'
-            self.embed.description = ' '
-            self.embed.add_field(name ='?frworld', value ='France24 World News')
-            self.embed.add_field(name ='?frsport', value ='France24 Sports News')
-            self.embed.add_field(name ='?frbus', value ='France24 Business and economy News')
+            self.embed.description = ''
+            self.embed.add_field(name = f'{faq.cmdPre}24world', value = 'France24 World News')
+            self.embed.add_field(name = f'{faq.cmdPre}24sport', value = 'France24 Sports News')
+            self.embed.add_field(name = f'{faq.cmdPre}24bus', value = 'France24 Business and economy News')
 
         return self.embed
 
     def BBCNews(self, args):
 
+        faq = FrequentlyAskedQuestions
+
         if args == 'bbcworld':
 
             self.embed.title = 'BBC 24 World News'
-            self.embed.add_field(name ='?bbcafrica', value ='France24 Africa News ')
-            self.embed.add_field(name ='?bbcamerica', value ='France24 Americans News ')
-            self.embed.add_field(name ='?bbcasia', value ='France24 Asia News')
-            self.embed.add_field(name ='?bbceurope', value ='France24 Europe News ')
-            self.embed.add_field(name ='?bbcme', value ='France24 Middle East News ')
-            self.embed.add_field(name ='?bbcworld', value ='France24 World News')
+            self.embed.add_field(name = f'{faq.cmdPre}bbcafrica', value = 'BBC Africa News ')
+            self.embed.add_field(name = f'{faq.cmdPre}bbcamerica', value = 'BBC Americans News ')
+            self.embed.add_field(name = f'{faq.cmdPre}bbcasia', value = 'BBC Asia News')
+            self.embed.add_field(name = f'{faq.cmdPre}bbceurope', value = 'BBC Europe News ')
+            self.embed.add_field(name = f'{faq.cmdPre}bbcme', value = 'BBC Middle East News ')
+            self.embed.add_field(name = f'{faq.cmdPre}bbcworld', value = 'BBC World News')
             
         elif args == 'bbcsports':
 
-            self.embed.title = 'France Sports News'
+            self.embed.title = 'BBC Sports News'
 
-            self.embed.add_field(name ='?wsports', value ='Wion Sports')
-            self.embed.add_field(name ='?wcricket', value ='Wion Cricket')
-            self.embed.add_field(name ='?wfootball', value ='Wion Football')
+            self.embed.add_field(name =f'{faq.cmdPre}wsports', value ='Wion Sports')
+            self.embed.add_field(name =f'{faq.cmdPre}wcricket', value ='Wion Cricket')
+            self.embed.add_field(name =f'{faq.cmdPre}wfootball', value ='Wion Football')
 
         elif args == 'bbcbusiness':
 
-            self.embed.title = 'France Business'
+            self.embed.title = 'BBC Business'
 
-            self.embed.add_field(name ='?wbe', value ='Wion Business & Economy')
-            self.embed.add_field(name ='?wtech', value ='Wion Technology')
+            self.embed.add_field(name =f'{faq.cmdPre}wbe', value ='Wion Business & Economy')
+            self.embed.add_field(name =f'{faq.cmdPre}wtech', value ='Wion Technology')
 
 
         else:
@@ -297,47 +315,51 @@ class InternationalModule(Cog):
             self.embed.title = 'BBC Offical News Channel'
             self.embed.description = ''
             self.embed.add_field(name ='BBC World', value ='BBC World News')
-            self.embed.add_field(name ='Wion Sports', value ='Wion Sports News')
+            self.embed.add_field(name ='BBC Sports', value ='BBC Sports News')
 
         return self.embed
 
     def SkyNews(self, args):
 
+        faq = FrequentlyAskedQuestions
+
         if args == 'skyworld':
 
             self.embed.title = 'SkyNews Offical News Channel'
-            self.embed.add_field(name ='?skyworld', value ='France24 Africa News ')
-            self.embed.add_field(name ='?skyrecent', value ='France24 Americans News ')
-            self.embed.add_field(name ='?skytech', value ='France24 Asia News')
-            self.embed.add_field(name ='?skyent', value ='France24 Europe News ')
-            self.embed.add_field(name ='?skystrange', value ='France24 Middle East News ')
-            self.embed.add_field(name ='?skypol', value ='France24 World News')
+            self.embed.add_field(name =f'{faq.cmdPre}skyworld', value = 'SkyNews World ')
+            self.embed.add_field(name =f'{faq.cmdPre}skyrecent', value = 'SkyNews Recent ')
+            self.embed.add_field(name =f'{faq.cmdPre}skytech', value = 'SkyNews Technologies')
+            self.embed.add_field(name =f'{faq.cmdPre}skyent', value = 'SkyNews Entertainment')
+            self.embed.add_field(name =f'{faq.cmdPre}skystrange', value = 'SkyNews Strange ')
+            self.embed.add_field(name =f'{faq.cmdPre}skypol', value = 'SkyNews Politics')
 
         else:
 
-            self.embed.title = 'SkyNews News'
+            self.embed.title = 'SkyNews '
             self.embed.description = 'SkyNews Offical News Channel'
-            self.embed.add_field(name ='SkyNews World', value ='Wion World News')
+            self.embed.add_field(name ='SkyNews World', value ='SkyNews World News')
 
         return self.embed
 
     def RTNews(self, args):
 
-        if args == 'skyworld':
+        faq = FrequentlyAskedQuestions
 
-            self.embed.title = 'SkyNews Offical News Channel'
-            self.embed.add_field(name ='?skyworld', value ='France24 Africa News ')
-            self.embed.add_field(name ='?skyrecent', value ='France24 Americans News ')
-            self.embed.add_field(name ='?skytech', value ='France24 Asia News')
-            self.embed.add_field(name ='?skyent', value ='France24 Europe News ')
-            self.embed.add_field(name ='?skystrange', value ='France24 Middle East News ')
-            self.embed.add_field(name ='?skypol', value ='France24 World News')
+        if args == 'rtworld':
+
+            self.embed.title = 'RT Offical News Channel'
+            self.embed.add_field(name =f'{faq.cmdPre}skyworld', value ='France24 Africa News ')
+            self.embed.add_field(name =f'{faq.cmdPre}skyrecent', value ='France24 Americans News ')
+            self.embed.add_field(name =f'{faq.cmdPre}skytech', value ='France24 Asia News')
+            self.embed.add_field(name =f'{faq.cmdPre}skyent', value ='France24 Europe News ')
+            self.embed.add_field(name =f'{faq.cmdPre}skystrange', value ='France24 Middle East News ')
+            self.embed.add_field(name =f'{faq.cmdPre}skypol', value ='France24 World News')
 
         else:
 
-            self.embed.title = 'SkyNews News'
-            self.embed.description = 'SkyNews Offical News Channel'
-            self.embed.add_field(name ='SkyNews World', value ='Wion World News')
+            self.embed.title = 'RT News'
+            self.embed.description = 'RT Offical News Channel'
+            self.embed.add_field(name ='RT World', value ='RT World News')
 
         return self.embed
 
@@ -363,37 +385,39 @@ class NationalModule(Cog):
 
     def NationalNews(self, args):
 
+        faq = FrequentlyAskedQuestions
+
         if args == 'usa':
 
             self.embed.title = 'National News USA'
             self.embed.description = ' United States National News '
-            self.embed.add_field(name ='?cusa', value ='CNN National news')
-#            self.embed.add_field(name = '?cnbcusa', value = 'CNBC National News')
-            self.embed.add_field(name = '?skycusa', value = 'SkyNews National News')
+            self.embed.add_field(name =f'{faq.cmdPre}cusa', value ='CNN National')
+#            self.embed.add_field(name = f'{faq.cmdPre}cnbcusa', value = 'CNBC National News')
+            self.embed.add_field(name = f'{faq.cmdPre}skycusa', value = 'SkyNews National')
 
         elif args == 'india':
 
             self.embed.title = 'National News India'
             self.embed.description = ' '
-            self.embed.add_field(name ='?windia', value ='Wion National News')
+            self.embed.add_field(name =f'{faq.cmdPre}windia', value ='National News India')
 
         elif args == 'france':
 
             self.embed.title = 'National News France'
             self.embed.description = ' '
-            self.embed.add_field(name ='?24fr', value ='Wion National News')
+            self.embed.add_field(name =f'{faq.cmdPre}24fr', value = 'National News France')
 
         elif args == 'unitedkingdom':
 
             self.embed.title = 'National News United Kingdom'
             self.embed.description = ' '
-            self.embed.add_field(name ='?skyuk', value ='SkyNews National News')
-            self.embed.add_field(name ='?bbcuk', value ='BBC National News')
-            self.embed.add_field(name ='?bbceng', value ='BBC National - England News')
-            self.embed.add_field(name ='?bbcirish', value ='BBC National - Northen Ireland News')
-#            self.embed.add_field(name ='?bbcwales', value ='BBC National - Wales News') x
-#            self.embed.add_field(name ='?bbscot', value ='BBC National - Scotland News') x
-            self.embed.add_field(name ='?rtru', value ='RT National News')
+            self.embed.add_field(name =f'{faq.cmdPre}skyuk', value ='SkyNews National')
+            self.embed.add_field(name =f'{faq.cmdPre}bbcuk', value ='BBC National')
+            self.embed.add_field(name =f'{faq.cmdPre}bbceng', value ='BBC National - England')
+            self.embed.add_field(name =f'{faq.cmdPre}bbcirish', value ='BBC National - Northen Ireland')
+#            self.embed.add_field(name =f'{faq.cmdPre}bbcwales', value ='BBC National - Wales News') x
+#            self.embed.add_field(name =f'{faq.cmdPre}bbscot', value ='BBC National - Scotland News') x
+            self.embed.add_field(name =f'{faq.cmdPre}rtru', value ='RT National News')
             
 
         else:
