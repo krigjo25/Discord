@@ -83,23 +83,21 @@ class ErrorHandler(Cog):
             """
 
             #   Initializing variables
-            cmd = str(ctx.Command)
+            cmd = str(ctx.command).lower()
             errorModule = str(misingargs)
 
-            #   Call Command list
-            #   self.embed.title = cmdError.CommandList(cmd)
-            #   await ctx.send(embed=self.embed)
             #   Community Module
 
-            if cmd == 'Randint' or cmd == 'randint':
-                self.embed.title = '*randint (integer one) (integer two)'
+            if cmd == 'randint' or cmd == 'dnd': self.embed.title = f'{cmdError.CommandNameError(cmd)}'
 
-            #   Minigames Module
-            elif cmd == 'Int' or cmd == 'int':
-                self.embed.title = '*int (easiest / easy / normal / hard / kimpossible)'
+            
+            #   RSS Module module
 
             else:
                 self.embed.title = 'Command Missing some required arguments'
+
+            self.embed.description = cmdError.ErrorDescriptionDictionary(errorModule[36:59])
+            await ctx.send(embed=self.embed)
 
             self.embed.description = cmdError.ErrorDescriptionDictionary(errorModule[36:59])
             await ctx.send(embed=self.embed)
@@ -163,6 +161,7 @@ class ErrorHandler(Cog):
         return
 
 class ErrorMessageDictionary():
+
     def __init__(self) -> None:
         pass
 
@@ -254,5 +253,16 @@ class ErrorMessageDictionary():
 
         return dictionary.get(x)
 
-class CommandNotFoundDictionary():
-    pass
+    def CommandNameError(cmd):
+
+        cmdPrefix = '?'
+
+        dictionary = {
+                        #   Community Module
+                        'dnd':f'{cmdPrefix}{cmd} (message)',
+                        'randint':f'{cmdPrefix}{cmd} (integer one) (integer two)',
+
+                        #   RSS module
+
+}
+        return dictionary.get(cmd)
