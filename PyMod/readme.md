@@ -2,7 +2,7 @@
 
 ## Table of content
 
-> [About PyMod](#About-PyMod)
+### [About PyMod](#About-PyMod)
 
 >> project information 
 >> How to use the bot
