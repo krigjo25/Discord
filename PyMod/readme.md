@@ -4,16 +4,17 @@
 
 ### [About PyMod](#About-PyMod)
 
->> Project Status 
->> How to use the bot
->> Features
->> Updates
+> Project Status
+> How to use the bot
+> Features
+> Updates
 
 ### [Responsories](#Responsories)
 
 ### [Credentials](#Credentials)
->> Disclaimers<br>
->> References
+
+> Disclaimers<br>
+> References
 
 ### [Project-Summary](#project-Summary)
 
