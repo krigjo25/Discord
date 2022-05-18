@@ -49,7 +49,7 @@ class ChannelModeration(Cog):
         return
 
 
-    #   Creating a channel
+    #   Creating a channel X
     @command(name="chcre")
     @has_permissions(manage_channels=True)
     async def CreateChannel(self, ctx, chName, role):
@@ -93,13 +93,13 @@ class ChannelModeration(Cog):
         await mlog.send(embed=self.embed)
         self.embed = Embed(color=Colour.dark_purple())
 
-    #   Delete a channel
+    #   Delete a channel    X
     @command(name="chdel")
     @has_permissions(manage_channels=True)
     async def CreateChannel(self, ctx, chName):
         pass
 
-    #   Channel Privileges
+    #   Channel Privileges  X
     @command(name="chPri")
     @has_permissions(manage_channels=True)
     async def CreateChannel(self, ctx, chName):
@@ -114,7 +114,7 @@ class GeneralModeration(Cog):
         self.bot = bot
         self.warn = 0    
         self.now = datetime.datetime.now()
-        self.curTime = self.now.strftime('%d.%m - %Y')  
+        self.curTime = self.now.strftime('%H:%M, %a, %d.%b - %y')  
         self.embed = Embed(color=Colour.dark_purple(), description= '')
 
         return
@@ -383,7 +383,7 @@ class GeneralModeration(Cog):
 
         return
 
-#   Online members
+#   Online members      # Intents X
     @command(name='online', pass_context=True)
     @has_permissions(manage_messages=True)
     async def OnlineMembers(self, ctx, args=None):
@@ -1012,12 +1012,12 @@ class RoleModeration(Cog):
     def __init__(self, bot):
 
         self.bot = bot
-#        self.curTime = now.strftime('%d.%m - %Y')
+
         self.embed = Embed(color=Color.dark_purple())
 
         return
 
-    #   Role Management
+    #   Role Management X
     @command(name='createRole')
     @has_permissions(manage_roles = True)
     async def CreateRole(self, ctx, roleName):
@@ -1161,7 +1161,7 @@ class RoleModeration(Cog):
 
         return
 
-    @command(name='delRole')
+    @command(name='delRole') # :X
     @has_permissions(manage_roles = True)
     async def removeRole(self, ctx, role ):
             """
@@ -1197,7 +1197,7 @@ class RoleModeration(Cog):
 
             return
  
-    @command(name='modifyRole')
+    @command(name='modifyRole') #:X
     @has_permissions(manage_roles = True)
     async def ModifyRole(self, ctx, role ):
 
