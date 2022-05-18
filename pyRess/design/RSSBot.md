@@ -6,6 +6,7 @@
 
 *   CNN Channel
 *   CNBC Channel
+*   BBC Channel
 *   Euronews Channel
 *   Wion Channel
 *   France24 Channel

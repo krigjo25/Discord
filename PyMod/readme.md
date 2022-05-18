@@ -65,11 +65,6 @@ Project version:
 
 * Auto role-assignment
 
-##### Member joins:
-
-When a member joins the server, the bot will create a role called "@Members" and the user will be added to the role.<br>
-
-
 ### Bot Post Moderation Utility
 
 Roles used in the project :
