@@ -12,20 +12,20 @@ from discord import Intents
 
 #   System module
 
-from pylib.systemModule.faq import FrequentlyAskedQuestions                                             #   Help module
-from pylib.systemModule.discordBot import DiscordBot                                                        #   The Client
-from pylib.systemModule.commandError import ErrorHandler                                                    #   Error Handling Module
+from pylib.systemModule.discordBot import DiscordBot                                         #   The Bot Client
+from pylib.systemModule.commandError import ErrorHandler                                     #   Error Handling Module
+from pylib.systemModule.faq import FrequentlyAskedQuestions                                  #   Help module
 
 #   Community Module
-from pylib.communityModule.community import CommunityModule                                                 #   Community module
+from pylib.communityModule.community import CommunityModule                                  #   Community module
 
 
 # Bot Utility
 
     # Moderation Utility
-from pylib.postModerationModule.moderatorModule.moderator import Moderator                                  #   Moderator Module
-from pylib.postModerationModule.administratorModule.administrator import Administrator, RoleManagement      #   Administrator module
 
+from pylib.postModerationModule.administratorModule.administrator import Administrator
+from pylib.postModerationModule.moderatorModule.moderator import RoleModeration, ChannelModeration, GeneralModeration, MemberModeration
 
 # Importing .evn file
 load_dotenv()
@@ -34,7 +34,7 @@ class DiscordSetup():
 
     def __init__(self):
 
-        self.intents= Intents().all()               #  Only allows Default intents
+        self.intents= Intents().all()
         self.bot = DiscordBot(intents=self.intents)
 
         return
@@ -42,22 +42,31 @@ class DiscordSetup():
     def SystemSetup(self):
 
         #   System Configuration
-        #self.intents.members = True             #  Allows the bot to track member updates, fetch members
-        #self.intents.messages = True            #  Allows the bot to send messages
-        #self.intents.presences = True           #  Allows the bot to track member activty
-        #self.intents.reactions = True           #  Allows the bot to react to a message
 
+        self.intents.bans = True                #   Allows the bot to ban / unban members
+        self.intents.emojis = True              #   Allows the bot to use emojis in the server
+        self.intents.guilds = True              #   Allows the bot to interect with guilds
+        self.intents.members = True             #   Allows the bot to interact with members
+        self.intents.messages = True            #   Allows the bot to send messages Guild & DM
+        self.intents.message_content =True      #   Allows the bot to send embeded messages
+
+        self.intents.presences = False           #   Allows the bot to track member activty
+        self.intents.reactions = False          #   Allows the bot to react to a message
+        
         self.bot.add_cog(ErrorHandler(self.bot))
         self.bot.add_cog(FrequentlyAskedQuestions(self.bot))
 
         return
 
-    def AdministrationSetup(self):
+    def ModerationSetup(self):
 
-    #   Moderation - Module
-        self.bot.add_cog(Moderator(self.bot))
+        #   Moderation - Module
         self.bot.add_cog(Administrator(self.bot))
-        self.bot.add_cog(RoleManagement(self.bot))
+        self.bot.add_cog(RoleModeration(self.bot))
+        self.bot.add_cog(MemberModeration(self.bot))
+        self.bot.add_cog(ChannelModeration(self.bot))
+        self.bot.add_cog(GeneralModeration(self.bot))
+
 
         return
 
@@ -76,7 +85,7 @@ def RunBot ():
 
         disc.SystemSetup()
         disc.MiscModuleSetup()
-        disc.AdministrationSetup()
+        disc.ModerationSetup()
 
         disc.bot.run(botKey)
 

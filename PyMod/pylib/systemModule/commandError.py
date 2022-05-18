@@ -87,22 +87,7 @@ class ErrorHandler(Cog):
             cmd = str(ctx.command).lower()
             errorModule = str(misingargs)
 
-            #   Community Module
-
-            if cmd == 'randint' or cmd == 'dnd': self.embed.title = f'{cmdError.CommandNameError(cmd)}'
-
-            
-            #   Moderator module
-            elif cmd == 'warn' or cmd == 'chdel' or cmd == 'chcre': self.embed.title = f'{cmdError.CommandNameError(cmd)}'
-            elif cmd == 'sush' or cmd == 'online' or cmd == 'kick' or cmd == 'cls': self.embed.title = f'{cmdError.CommandNameError(cmd)}'
-            elif cmd == 'remove' or cmd == 'delRole' or cmd == 'RoleCreate' or cmd == 'setRole': self.embed.title = f'{cmdError.CommandNameError(cmd)}'
-
-            # Administrator module
-            elif cmd == 'unban' or cmd == 'ban' or cmd == 'announce': self.embed.title = f'{cmdError.CommandNameError(cmd)}'
-
-            else:
-                self.embed.title = 'Command Missing some required arguments'
-
+            self.embed.title = f'{cmdError.CommandNameError(cmd)}'
             self.embed.description = cmdError.ErrorDescriptionDictionary(errorModule[36:59])
             await ctx.send(embed=self.embed)
 
@@ -114,10 +99,9 @@ class ErrorHandler(Cog):
             errorModule = str(cmdNotFound)
             self.embed.title = f'404: Command were not found in the dictionary'
             self.embed.description = f'{cmdError.ErrorDescriptionDictionary(errorModule[36:51])}'
+
             await ctx.send(embed=self.embed)
 
-            if cmd == None:
-                botmsg = f'Master, The cmd attribute is not correct'
 
         #   Non Discord errors
         elif isinstance(error, invokeError):
@@ -247,8 +231,6 @@ class ErrorMessageDictionary():
 
         else:
 
-            print(errorModule)
-
             dictionary = {
                             1:f'Something went wrong with {errorModule}',
                             2:'The content has a False value',
@@ -270,12 +252,12 @@ class ErrorMessageDictionary():
                         'randint':f'{cmdPrefix}{cmd} (integer one) (integer two)',
 
                         #   Moderator module
-                        'cls':f'{cmdPrefix}{cmd} (lines)',
+
                         'online':f'{cmdPrefix}{cmd} optional (on/off)',
                         'kick':f'{cmdPrefix}{cmd} (MemberName) (reason)',
                         'warn':f'{cmdPrefix}{cmd} (MemberName) (reason)',
                         'sush':f'{cmdPrefix}{cmd} (MemberName) (sec) (reason)',
-
+                        'chcre': f'{cmdPrefix}{cmd} (ChannelName) (Role)',
 
                         #   Role Management
                         'remove':f'{cmdPrefix}{cmd} (Name)',
@@ -284,16 +266,17 @@ class ErrorMessageDictionary():
 #                       'rolePrivileges':f'{cmdPrefix}{cmd} ()',
 #                       'roleColor':f'{cmdPrefix}{cmd} (Name) (color)',
 
-                        #   Channael Management
+                        #   Channel Management / message management
                         'chdel':f'{cmdPrefix}{cmd} (Channel Name)',
                         'chcre':f'{cmdPrefix}{cmd} (Channel Name)',
-                        'setRole':f'{cmdPrefix}{cmd} (Name)',
+                        'cls':f'{cmdPrefix}{cmd} (channelName) (lines)',
 
                         #   Administrator module
                         'unban':f'{cmdPrefix}{cmd} (MemberName)',
                         'announce':f'{cmdPrefix}{cmd} (channelName)',
                         'ban':f'{cmdPrefix}{cmd} (MemberName) (reason)',
 
-
+    
 }
+        print(cmd)
         return dictionary.get(cmd)

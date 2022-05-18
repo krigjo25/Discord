@@ -88,8 +88,6 @@ class FrequentlyAskedQuestions(Cog):
         faq = FrequentlyAskedQuestions
 
         self.embed.title = 'Moderator Module'
-        print('lol')
-
 
         if ctx.author.guild_permissions.kick_members:
 
@@ -115,7 +113,7 @@ class FrequentlyAskedQuestions(Cog):
             #self.embed.add_field(name='?chPri', value='- Channel Privileges ', inline=True)
             self.embed.add_field(name=f'{faq.cmdPre}chdel', value='- Deletes a channel from the server ', inline=True)
             self.embed.add_field(name=f'{faq.cmdPre}cls', value= '- Clears the given channel Chat:bangbang:', inline=True)
-            #self.embed.add_field(name=f'{faq.cmdPre}chcre', value='- Create a new channel default : hidden ', inline=True)
+            self.embed.add_field(name=f'{faq.cmdPre}chcre', value='- Create a new channel default : hidden ', inline=True)
             
         if ctx.author.guild_permissions.mute_members:
 
