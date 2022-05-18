@@ -80,16 +80,12 @@ Roles used in the project :
 
 #### Moderator-module
 
-#####   Moderators with kick_members privileges
+#####   General Moderator commands
+
+These commands does not required any spesific permissions
 
 > cls (channel name) (int)
 >> Clear the chat limit 100 lines each time the command is used
->
-> crech (channel name)*
->> Create a channel, by default it is only visible for admins & moderator roles
->
-> kick (member name) (reason)*
->> Kicks a member from the server
 >
 > poll
 >> Creates a poll
@@ -99,15 +95,25 @@ Roles used in the project :
 >
 >   Warn*
 >>  Manually warn a member
->
 
-#####   Moderators with mute_members privileges
+#####   Moderators with kick_members privileges
 
->   sush
->>  Changes the member role into sushed with default permissions
->>  Requires the default permission to be set to "No channel views"
+Commands which requires **kick_members**
+> kick (member name) (reason)*
+>> Kicks a member from the server
+
+#####   Moderators with moderate_members privileges
+
+Commands which requires **moderate_members**
+>   sush (memberName) (sec) (reason)
+>>  Changes the member role into sushed, to time the member out
 
 #####   Moderators with manage_channels privileges
+
+Commands which requires **manage_channels**
+Commands which requires **manage_threads**
+> chedit
+>> Modify a channel, permissions
 
 > chdel
 >> Deletes a channel
@@ -117,13 +123,17 @@ Roles used in the project :
 
 #####   Moderators with manage_Roles privileges
 
-> ?remove (memberName)
+Commands which requires **manage_Roles**
+> remove (memberName)
 >> Removes a member from the roles
 >
->  ?setRole (memberName) (role)
+> setRole (memberName) (role)
 >> Set a member's role
 >
-> ?delRole (roleName)
+> delRole (roleName)
+>> Deletes a role from the server
+
+> editRole (roleName) //
 >> Deletes a role from the server
 
 - "*" records the given command in the moderationlog channel
