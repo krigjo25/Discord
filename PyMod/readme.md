@@ -4,9 +4,16 @@
 
 ### [About PyMod](#About-PyMod)
 
-> Project Status
-> How to use the bot
-> Features
+> Project Status<br>
+> How to use the bot<br>
+> Features<br>
+> Updates
+
+### [Features](#Features)
+
+> Community Module<br>
+> Moderation commands<br>
+> Administrator commands<br>
 > Updates
 
 ### [Responsories](#Responsories)
@@ -64,13 +71,12 @@ Project version:
 
 ### Bot Pre Moderation Utility
 
-* Auto role-assignment
 
 ### Bot Post Moderation Utility
 
 Roles used in the project :
 
--   sushed  -Muted players
+-   sushed  - Muted players
 
 #### Moderator-module
 
