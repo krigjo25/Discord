@@ -262,7 +262,7 @@ class ErrorMessageDictionary():
                         #   Role Management
                         'remove':f'{cmdPrefix}{cmd} (Name)',
                         'setRole':f'{cmdPrefix}{cmd} (Name)',
-#                       'roleCreate':f'{cmdPrefix}{cmd} (name)',
+                        'crero':f'{cmdPrefix}{cmd} (Rolename)',
 #                       'rolePrivileges':f'{cmdPrefix}{cmd} ()',
 #                       'roleColor':f'{cmdPrefix}{cmd} (Name) (color)',
 

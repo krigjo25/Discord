@@ -442,7 +442,7 @@ class GeneralModeration(Cog):
 
         return
 
-#   Online members      # Intents X
+#   #   Checking wheter whom is offline and online
     @command(name='online', pass_context=True)
     @has_permissions(manage_messages=True)
     async def OnlineMembers(self, ctx, args=None):
@@ -1140,7 +1140,7 @@ class RoleModeration(Cog):
         return
 
     #   Role Management X
-    @command(name='createRole')
+    @command(name='crero')
     @has_permissions(manage_roles = True)
     async def CreateRole(self, ctx, roleName):
 
@@ -1159,20 +1159,10 @@ class RoleModeration(Cog):
 
         srv = ctx.guild
         role = get(srv.roles, name=f'{roleName}')
-        
         ch = get(srv.channels, name='moderationlog')
 
-        if not role:
 
-            self.embed.title = f'Starting the process to create {roleName}'
-            self.embed.description = f'Would you like to create {roleName} with permissions? '
-            await ctx.send(embed=self.embed)
-            self.embed.clear_fields()
-
-            confirmation = await self.bot.wait_for('message')
-            confirmation = str(confirmation.content).lower()
-
-            if not ch:
+        if not ch:
 
                 perms = PermissionOverwrite(read_messages=False)
 
@@ -1186,6 +1176,15 @@ class RoleModeration(Cog):
                 await ch.send(embed=self.embed)
                 self.embed.clear_fields()
 
+        if not role:
+
+            self.embed.title = f'Starting the process to create {roleName}'
+            self.embed.description = f'Would you like to create {roleName} with permissions? '
+            await ctx.send(embed=self.embed)
+            self.embed.clear_fields()
+
+            confirmation = await self.bot.wait_for('message')
+            confirmation = str(confirmation.content).lower()
 
             if confirmation[0:4] == 'yes':
 
@@ -1206,14 +1205,16 @@ class RoleModeration(Cog):
                 self.embed.clear_fields()
                 """
 
-            else:
 
-                #   Prepare embed
-                self.embed.color = Embed(color=Colour.dark_red())
+            else:
+                print('test')
+
+                #   Prepare & Send the embeded mesage
+
                 self.embed.title = f'{ctx.author} created {roleName} as a public role'
                 self.embed.description=''
 
-                #   Send embed
+                
                 await ch.send(embed=self.embed)
                 self.embed.clear_fields()
 
@@ -1222,12 +1223,12 @@ class RoleModeration(Cog):
         else:
 
             #   3:  Log the error
-            self.embed.color = Embed(color=Colour.dark_red())
             self.embed.title = f'{ctx.author} tried to re-create {roleName}'
             self.embed.description='Role already exists'
-            await ch.send(embed=self.embed)
-            self.embed.clear_fields()
 
+        await ch.send(embed=self.embed)
+
+        self.embed.clear_fields()    
         self.embed.color = Embed(color=Colour.dark_purple())
 
         return
@@ -1327,5 +1328,5 @@ class RoleModeration(Cog):
                 #   1   Ask the user for comfirmation before removing the role
 
             """
-
+    
             return
