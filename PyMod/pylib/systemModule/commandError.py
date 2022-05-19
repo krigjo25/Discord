@@ -256,8 +256,8 @@ class ErrorMessageDictionary():
                         'online':f'{cmdPrefix}{cmd} optional (on/off)',
                         'kick':f'{cmdPrefix}{cmd} (MemberName) (reason)',
                         'warn':f'{cmdPrefix}{cmd} (MemberName) (reason)',
-                        'sush':f'{cmdPrefix}{cmd} (MemberName) (sec) (reason)',
-                        'chcre': f'{cmdPrefix}{cmd} (ChannelName) (Role)',
+                        'sush':f'{cmdPrefix}{cmd} (MemberName) (1(s / m / d / w / y)) (reason)',
+                        'lift':f'{cmdPrefix}{cmd} (MemberName)',
 
                         #   Role Management
                         'remove':f'{cmdPrefix}{cmd} (Name)',

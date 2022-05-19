@@ -106,7 +106,13 @@ Commands which requires **kick_members**
 
 Commands which requires **moderate_members**
 >   sush (memberName) (sec) (reason)
+
 >>  Changes the member role into sushed, to time the member out
+>>  limitations : 1week mute.    e.g : sush MemberName 1s / 1m / 1d / 1w / 1y reason
+>
+>   lift (memberName)
+>>  Removes the mute and the role.
+
 
 #####   Moderators with manage_channels privileges
 
@@ -156,10 +162,11 @@ Commands which requires **manage_Roles**
 
 ## Responsories
 
-- discord.py [Rapptz](https://github.com/Rapptz/discord.py),  <br>
-- ~~Anti-Spam [Skelmis](https://github.com/Skelmis/DPY-Anti-Spam/commits?author=Skelmis),~~<br>
-- MariaDB [MariaDB Community](https://github.com/mariadb-corporation/mariadb-connector-python), <br>
-- python_dotenv [Saurabh Kumar](https://github.com/motdotla/dotenv),<br>
+-   discord.py [Rapptz](https://github.com/Rapptz/discord.py),  <br>
+-   humanfriendly [Peter Odding](https://github.com/xolox/python-humanfriendly)<br>
+-   ~~Anti-Spam [Skelmis](https://github.com/Skelmis/DPY-Anti-Spam/commits?author=Skelmis),~~<br>
+-   MariaDB [MariaDB Community](https://github.com/mariadb-corporation/mariadb-connector-python), <br>
+-   python_dotenv [Saurabh Kumar](https://github.com/motdotla/dotenv),<br>
 
 
  

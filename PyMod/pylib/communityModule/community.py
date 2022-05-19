@@ -237,6 +237,14 @@ class CommunityModule(Cog, name='Community Module'):
 
         return
 
+    @command(name='ping')
+    async def PingBot(self, ctx):
+
+                    #   Prepare & Send embeded message
+        self.embed.title = f' Bot Latency : **{round(self.bot.latency * 1000)}** MS!'
+        self.embed.description = ''
+        await ctx.send(embed=self.embed)
+
 class CommunityFunctions():
 
 

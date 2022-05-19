@@ -72,6 +72,7 @@ class FrequentlyAskedQuestions(Cog):
         self.embed.description='Use ** ?help (Command)**, for more details, sir.\n\n'
 
         self.embed.add_field(name='/', value='- for built-ins ', inline=True)
+        self.embed.add_field(name='/?ping', value='- Bot Latency ', inline=True)
         self.embed.add_field(name='?memberlist', value ='list of members', inline=True)
         self.embed.add_field(name='?dnd ', value='- Notifies others about your absence', inline=True)
         self.embed.add_field(name='?back ', value='- Shows that you\'re a no lifer again', inline=True)
@@ -115,9 +116,10 @@ class FrequentlyAskedQuestions(Cog):
             self.embed.add_field(name=f'{faq.cmdPre}cls', value= '- Clears the given channel Chat:bangbang:', inline=True)
             self.embed.add_field(name=f'{faq.cmdPre}chcre', value='- Create a new channel default : hidden ', inline=True)
             
-        if ctx.author.guild_permissions.mute_members:
+        if ctx.author.guild_permissions.moderate_members:
 
-            self.embed.add_field(name=f'{faq.cmdPre}sush', value= '- Shush a member for a number of sec', inline=True)
+            self.embed.add_field(name=f'{faq.cmdPre}sush', value= '- Shush a member for a number of ', inline=True)
+            self.embed.add_field(name=f'{faq.cmdPre}lift', value= '- lift a sush from a member', inline=True)
 
         return self.embed
 

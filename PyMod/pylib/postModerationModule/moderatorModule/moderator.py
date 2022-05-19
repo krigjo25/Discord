@@ -13,6 +13,7 @@ from discord.embeds import Embed, Colour
 from discord import Member, Permissions, utils
 from discord.ext.commands.core import has_permissions
 from discord.ext.commands import Cog, command, has_any_role
+import humanfriendly
 
 
 class ChannelModeration(Cog):
@@ -27,7 +28,7 @@ class ChannelModeration(Cog):
         self.bot = bot
         self.warn = 0    
         self.now = datetime.datetime.now()
-        self.curTime = self.now.strftime('%d.%m - %Y')  
+        self.curTime = self.now.strftime('%H:%M, %d.%b - %y')  
         self.embed = Embed(color=Colour.dark_purple(), description= '')
 
         return
@@ -52,25 +53,25 @@ class ChannelModeration(Cog):
     #   Creating a channel X
     @command(name="chcre")
     @has_permissions(manage_channels=True)
-    async def CreateChannel(self, ctx, chName, role):
+    async def CreateChannel(self, ctx, chName):
 
         # Declaring variables
         srv = ctx.guild
-        getRole = get(srv.roles, {role})
+        #getRole = get(srv.roles, {role})
         ch = get(srv.channels, name=chName)
         mlog = get(srv.channels, name='moderationlog')
 
         perms = {
-                            getRole:PermissionOverwrite(read_messages_history = True),
+                            #getRole:PermissionOverwrite(read_messages_history = True),
                             srv.default_role:PermissionOverwrite(view_channels=False)          
-}
+                }
 
         if not mlog:
 
             perms = {
 
                         srv.default_role:PermissionOverwrite(view_channels=False)          
-}
+                    }
 
 
             await srv.create_text_channel(f'{ch}', overwrites=perms)
@@ -83,7 +84,7 @@ class ChannelModeration(Cog):
         if not ch:
                 
                 await srv.create_text_channel(f'{chName}', overwrites=perms)
-                self.embed.title = f'{ctx.authhor} has Created a new channel {ch} for {role}'
+                self.embed.title = f'{ctx.authhor} has Created a new channel {ch}'
 
         else :
             self.embed.title = f'{ch} Already exists.'
@@ -481,7 +482,7 @@ class MemberModeration(Cog):
         self.bot = bot
         self.warn = 0    
         self.now = datetime.datetime.now()
-        self.curTime = self.now.strftime('%d.%m - %Y')  
+        self.curTime = self.now.strftime('%a, %d.%b -%y')  
         self.embed = Embed(color=Colour.dark_purple(), description= '')
 
         return
@@ -489,7 +490,7 @@ class MemberModeration(Cog):
    #   Mute Members
     @command(name="sush")
     @has_permissions(moderate_members = True)
-    async def TimeSnozze(self, ctx, member:Member, sec, *, reason=None):
+    async def SushMember(self, ctx, member:Member, time=None, *, reason=None):
 
         """
 
@@ -498,66 +499,142 @@ class MemberModeration(Cog):
             #  3 Log the mute in a channel called moderation Log
 
         """
+
+        if not ch:
+
+                #   Creating channel permissions
+                perms = {
+                            srv.default_role:PermissionOverwrite(view_channels=False)          
+                        }
+
+                await srv.create_text_channel(f'{ch}', overwrites=perms)
+
+                #   Prepare & Send the embed
+                self.embed.color = Colour.dark_red()
+                self.embed.title = 'Auto generated channel'
+                self.embed.description = 'This channel is used for every Moderation in this server, it is made to avoid abusage of the Moderation / administration commands'
+
+                await ch.send(embed=self.embed)
+
+                self.embed.clear_fields()
+                self.embed.color = Colour.dark_purple()
+
         if reason == None:
 
             self.embed.title = 'An erro occurred'
-            self.description = f'Provide me a reason to mute **{member}** for **{sec}** sec'
+            self.description = f'Provide me a reason to mute **{member}** for **{time}**'
+
+            #   Prepare & Send embeded message
+            self.embed.color = Colour.dark_red()
+            self.embed.title = f' Could not sush **{member}** due to a limitation for 1w'
+            self.embed.description = ''
+
+            await ch.send(embed=self.embed)
+            #   Clean up embeded message
+            self.embed.clear_fields()
+            self.embed.color = Colour.dark_purple()
 
         elif reason != None:
 
             #   Initializing variables
-            sec = int(sec)
             srv = ctx.guild
-
+            time = humanfriendly.parse_timespan(time)
             ch = get(srv.channels, name='moderationlog')
             sushedRole = get(srv.roles, name ='@sushed')
-
-            if not ch:
-
-                    #   Creating channel permissions
-                    perms = {
-                                srv.default_role:PermissionOverwrite(view_channels=False)          
-}
-                    perms = PermissionOverwrite(read_messages=False)
-
-                    await srv.create_text_channel(f'{ch}', overwrites=perms)
-
-                    #   Prepare & Send the embed
-                    self.embed.color = Colour.dark_red()
-                    self.embed.title = 'Auto generated channel'
-                    self.embed.description = 'This channel is used for every Moderation in this server, it is made to avoid abusage of the Moderation / administration commands'
-                    await ch.send(embed=self.embed)
-                    self.embed.clear_fields()
-                    self.embed.color = Colour.dark_purple()
 
             if not sushedRole:
 
                 perms = {
 
-                                sushedRole:PermissionOverwrite(speak=False, send_messages=False, read_message_history=False, read_messages=False)          
-    }
+                            sushedRole:PermissionOverwrite(read_message_history=False)          
+                        }
 
                 await srv.create_role(name='@sushed', permissions = perms, reason = 'Automatic Role assignment')
 
-            await member.add_roles(sushedRole)
-            await member.timeout(until = utils.utcnow() + datetime.timedelta(seconds=sec), reason = reason)
-            await member.send(f'Greetings **{member}**.\n\n You recieve this message, bedcause you have been sushed by **{ctx.author}** \n You are sushed for **{sec}** seconds.\n During this time you will not able to chat in our channels, add reactions or be able to use voice channel. \n\n The reason for this intervention is **{reason}**')
+            if time > 604800:
+
+                #   Prepare & Send embeded message
+                self.embed.color = Colour.dark_red()
+                self.embed.title = f' Could not sush **{member}** due to a limitation for 1w'
+                self.embed.description = ''
+
+                await ch.send(embed=self.embed)
+                #   Clean up embeded message
+                self.embed.clear_fields()
+                self.embed.color = Colour.dark_purple()
+
+                return
 
             #   Prepare & Send embeded message
             self.embed.color = Colour.dark_red()
-            self.embed.title = f' **{member}** has been sushed by **{ctx.author}**, for {sec} sec Due to  **{reason}.** Date : **{self.curTime}**'
+            self.embed.title = f' **{member}** has been sushed by **{ctx.author}** \n for {datetime.timedelta(seconds=time)}\nDue to\n**{reason}.**\n*{self.curTime}*'
             self.embed.description = ''
 
             await ch.send(embed=self.embed)
+            await member.add_roles(sushedRole)
+            await member.timeout(until = utils.utcnow() + datetime.timedelta(seconds=time), reason = reason)
+            await member.send(f'Greetings, **{member}**.\n\n You recieve this message, because you have been sushed by **{ctx.author}** \n You are sushed for **{time}**.\n\n During this time you will not able to use {ctx.guild} channels.\n\nThe reason for this intervention is\n*{reason}*')
 
             #   Clean up embeded message
             self.embed.clear_fields()
             self.embed.color = Colour.dark_purple()
 
             # Automatic un-mute & Notify the user
-            await asyncio.sleep(sec)
+            await asyncio.sleep(time)
             await member.remove_roles(sushedRole)
-            await member.send(f'Greetings **{member}**.\n\n You recieve this message, because the shush has been lifted')
+            await member.send(f'Greetings **{member}**.\n\n Your sush, has been lifted you can now use {ctx.guild}')
+
+        return
+
+    @command(name="lift")
+    @has_permissions(moderate_members = True)
+    async def LiftSush(self, ctx, member:Member):
+
+        """
+
+            #  1 Removing the role and lift the sush
+            #  2 send the selected member a message
+            #  3 Log the mute in a channel called moderation Log
+
+        """
+
+        srv = ctx.guild
+
+        ch = get(srv.channels, name='moderationlog')
+        role = get(srv.roles, name ='@sushed')
+
+        if not ch:
+
+                #   Creating channel permissions
+                perms = {
+                            srv.default_role:PermissionOverwrite(view_channels=False)          
+                        }
+
+                await srv.create_text_channel(f'{ch}', overwrites=perms)
+
+                #   Prepare & Send the embed
+                self.embed.color = Colour.dark_red()
+                self.embed.title = 'Auto generated channel'
+                self.embed.description = 'This channel is used for every Moderation in this server, it is made to avoid abusage of the Moderation / administration commands'
+
+                await ch.send(embed=self.embed)
+
+                self.embed.clear_fields()
+                self.embed.color = Colour.dark_purple()
+
+        #   Prepare & Send embeded message
+        self.embed.color = Colour.dark_red()
+        self.embed.title = f' **{member}**\'s shush has been lifted by **{ctx.author}**'
+        self.embed.description = ''
+        await ch.send(embed=self.embed)
+
+        #   Clean up embeded message
+        self.embed.clear_fields()
+        self.embed.color = Colour.dark_purple()
+
+        await member.remove_roles(role)
+        await member.timeout(until=None, reason=None)
+        await member.send(f'Greetings **{member}**.\n\n The sush has been lifted you can now use {ctx.guild}')
 
         return
 
