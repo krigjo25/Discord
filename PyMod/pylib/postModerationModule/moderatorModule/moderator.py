@@ -96,13 +96,13 @@ class ChannelModeration(Cog):
     #   Delete a channel    X
     @command(name="chdel")
     @has_permissions(manage_channels=True)
-    async def CreateChannel(self, ctx, chName):
+    async def DeleteChannel(self, ctx, chName):
         pass
 
     #   Channel Privileges  X
     @command(name="chPri")
     @has_permissions(manage_channels=True)
-    async def CreateChannel(self, ctx, chName):
+    async def ModifyChannel(self, ctx, chName):
         pass
 
 class GeneralModeration(Cog):
