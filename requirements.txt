@@ -1,0 +1,15 @@
+aiohttp==3.7.4.post0
+async-timeout==3.0.1
+attrs==21.4.0
+chardet==4.0.0
+feedparser==6.0.8
+humanfriendly==10.0
+idna==3.3
+mariadb==1.0.11
+multidict==6.0.2
+py-cord==2.0.0rc1
+pyreadline3==3.4.1
+python-dotenv==0.20.0
+sgmllib3k==1.0.0
+typing_extensions==4.2.0
+yarl==1.7.2
