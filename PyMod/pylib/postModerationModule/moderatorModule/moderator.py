@@ -1134,7 +1134,6 @@ class RoleModeration(Cog):
     def __init__(self, bot):
 
         self.bot = bot
-
         self.embed = Embed(color=Color.dark_purple())
 
         return
@@ -1159,22 +1158,23 @@ class RoleModeration(Cog):
 
         srv = ctx.guild
         role = get(srv.roles, name=f'{roleName}')
-        ch = get(srv.channels, name='moderationlog')
+        chlog = get(srv.channels, name='moderationlog')
 
-
-        if not ch:
+        if not chlog:
 
                 perms = PermissionOverwrite(read_messages=False)
 
-                await srv.create_text_channel(f'{ch}', overwrites=perms)
+                await srv.create_text_channel(f'{chlog}', overwrites=perms)
 
-                #   3:  Log the role Creation
+                #   3:  Prepare, send & clean up the embed message
+                self.embed.color = Colour.dark_red()
                 self.embed.title = 'Auto generated channel'
-                self.embed.color = Embed(color=Colour.dark_red())
                 self.embed.description = 'This channel is used to log every Moderation in this server, it is made to avoid abusage of the Moderation / administration commands'
 
-                await ch.send(embed=self.embed)
+                await chlog.send(embed=self.embed)
+
                 self.embed.clear_fields()
+                self.embed.color = Colour.dark_purple()
 
         if not role:
 
@@ -1207,16 +1207,10 @@ class RoleModeration(Cog):
 
 
             else:
-                print('test')
 
                 #   Prepare & Send the embeded mesage
-
                 self.embed.title = f'{ctx.author} created {roleName} as a public role'
                 self.embed.description=''
-
-                
-                await ch.send(embed=self.embed)
-                self.embed.clear_fields()
 
                 await srv.create_role(name=f'{roleName}', reason='')
 
@@ -1226,6 +1220,7 @@ class RoleModeration(Cog):
             self.embed.title = f'{ctx.author} tried to re-create {roleName}'
             self.embed.description='Role already exists'
 
+        self.embed.color = Colour.dark_red()
         await ch.send(embed=self.embed)
 
         self.embed.clear_fields()    
@@ -1244,79 +1239,129 @@ class RoleModeration(Cog):
 
         """
 
-        srv=ctx.guild
+        #   Initializing variables
+        srv = ctx.guild
         mRole = get(srv.roles, name=f'{role}')
-        member.remove_roles(member, mRole)
-        ch = get(srv.channels, name='moderationlog')
+        chlog = get(srv.channels, name='moderationlog')
 
+        #   Checking wheter the channel exists
+        if not chlog:
+
+            perms = PermissionOverwrite(read_messages=False)
+
+            await srv.create_text_channel(f'{ch}', overwrites=perms)
+
+            #   Prepare embed & Send
+            self.embed.color = Colour.dark_red()
+            self.embed.title = 'Auto generated channel'
+            self.embed.description = 'This channel is used to log every Moderation in this server, it is made to avoid abusage of the Moderation / administration commands'
+            
+            await chlog.send(embed=self.embed)
+
+            #   Clean up the embed message
+            self.embed.clear_fields()
+            self.embed.color = Colour.dark_purple()
+
+        #   Prepare & Send embed
+        self.embed.color = Colour.dark_red()
         self.embed.title = f'removing {member} from {role}'
-        self.embed.description = f'Are you sure you\'d like to remove {member} from {role}'
-        await ctx.send(embed=self.embed)
-        self.embed.clear_fields()
+        self.embed.description = f'Are you sure you\'d like to remove {member} from {role}?'
 
+        await chlog.send(embed=self.embed)
+
+        #   Clean up
+        self.embed.clear_fields()
+        self.embed.color = Color.dark_purple()
+
+        #   Retrieve the confirmation from the user
         confirmation = await self.bot.wait_for('message')
         confirmation = str(confirmation.content).lower()
 
         if confirmation == 'yes':
 
-            if not ch:
-
-                perms = PermissionOverwrite(read_messages=False)
-
-                await srv.create_text_channel(f'{ch}', overwrites=perms)
-
-                self.embed = Embed(color=Colour.dark_red(), description= '')
-                self.embed.title = 'Auto generated channel'
-                self.embed.description = 'This channel is used to log every Moderation in this server, it is made to avoid abusage of the Moderation / administration commands'
-                await ch.send(embed=self.embed)
-                self.embed.clear_fields()
-
-            #   3:  Log the ban
-            self.embed = Embed(color=Color.dark_red())
+            #  Prepare the emebed message & Remove member
+            self.embed.color = Color.dark_red()
             self.embed.title = f'{member} has been removed from {role} by {ctx.author} due to {reason} '
-            self.embed.description=''
 
-            await ch.send(embed=self.embed)
-            self.embed.clear_fields()
+            member.remove_roles(member, mRole)
 
         else:
-            pass
+
+            #   Prepare the emebed message
+            self.embed = Embed(color=Color.dark_red())
+            self.embed.title = f'Role removal has been cancelled'
+
+        self.embed.description=''
+        await chlog.send(embed=self.embed)
+
+        #   Clean up the embed message
+        self.embed.clear_fields()
+        self.embed.color = Color.dark_purple()
 
         return
 
-    @command(name='delRole') # :X
+    @command(name='dero') # :X
     @has_permissions(manage_roles = True)
     async def removeRole(self, ctx, role ):
+
             """
                 #   1   Ask the user for comfirmation before removing the role
 
             """
-            
+
+            #   Initializing variables
+            srv = ctx.guild
+            role = get(srv.roles, name=f'{role}')
+            chlog = get(srv.channels, name='moderationlog')
+
+            #   Check if the log exists
+            if not chlog:
+
+                perms = PermissionOverwrite(read_messages=False)
+
+                await srv.create_text_channel(f'{chlog}', overwrites=perms)
+
+                #   3:  Prepare, send & clean up the embed message
+                self.embed.color = Colour.dark_red()
+                self.embed.title = 'Auto generated channel'
+                self.embed.description = 'This channel is used to log every Moderation in this server, it is made to avoid abusage of the Moderation / administration commands'
+
+                await chlog.send(embed=self.embed)
+
+                self.embed.clear_fields()
+                self.embed.color = Colour.dark_purple()
+
+            #   Prepare, send and clean up the embed message
             self.embed.title = f'Removing {role}'
             self.embed.description = f'Do you want to remove the role?'
+
             await ctx.send(embed=self.embed)
+
             self.embed.clear_fields()
 
+            #   Confirm the action
             confirmation = await self.bot.wait_for('message', timeout=60.0)
             confirmation = str(confirmation.content)
 
             if confirmation == 'yes':
 
-                srv = ctx.guild
-                find = get(srv.roles, name=f'{role}')
-                await find.delete()
+                #   Prepare the embed message and delete & role
+                self.embed.title = f'{role} has been removed from the server'
 
-                self.embed.title = f'{role} has been removed'
-                self.embed.description = ''
-                await ctx.send(embed=self.embed)
-                self.embed.clear_fields()
+                await role.delete()
 
             else:
 
+                #   Prepare the embed message
                 self.embed.title = f'Role removal canceled'
-                self.embed.description = ''
-                await ctx.send(embed=self.embed)
-                self.embed.clear_fields()
+
+            #   Send & clean up the embed message
+            self.embed.color = Colour.dark_red()
+            self.embed.description = ''
+            await ctx.send(embed=self.embed)
+
+            self.embed.clear_fields()
+            self.embed.color = Colour.dark_red()
 
             return
  
