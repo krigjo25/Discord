@@ -1,7 +1,19 @@
-Moderation
 
+Moderator module
+
+Classes
 Fix RoleManagement, 
-intents with fetch server members
-Intents with createchannel
-delete channel
+
+commands
+
+intents with Online
+sush
 modify channel 
+
+Logging :
+
+updates
+
+poll
+warn when the user just enter one opinion
+Send results after a given time to the ctx.author

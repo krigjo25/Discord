@@ -34,7 +34,7 @@ class DiscordSetup():
 
     def __init__(self):
 
-        self.intents= Intents().none()
+        self.intents= Intents().all()
         self.bot = DiscordBot(intents=self.intents)
 
         return

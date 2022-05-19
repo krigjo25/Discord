@@ -92,34 +92,32 @@ class FrequentlyAskedQuestions(Cog):
 
         if ctx.author.guild_permissions.kick_members:
 
-            
             self.embed.add_field(name=':bar_chart: ?poll', value='- Run a poll', inline=True)
-            self.embed.add_field(name=f'{faq.cmdPre}online', value= '- Checks whom is online / offline', inline=True)
             self.embed.add_field(name=f'{faq.cmdPre}kick', value='- Kicks a user off the server ', inline=True)
-            self.embed.add_field(name=f'{faq.cmdPre}warn', value= '- Manually Warn a member for their behavior', inline=True)
+            self.embed.add_field(name=f'{faq.cmdPre}online', value= '- Checks whom is online / offline', inline=True)
 
         if ctx.author.guild_permissions.manage_roles:
 
-            self.embed.add_field(name=f'{faq.cmdPre}remove', value='- Demote a person from the role', inline=True)
-            self.embed.add_field(name=f'{faq.cmdPre}delRole', value='- Deletes a role from the server', inline=True)
-            #self.embed.add_field(name=f':x:{faq.cmdPre}rolelist', value='- Promotes a regular user to given role', inline=True)
-            #self.embed.add_field(name=f':x:{faq.cmdPre}roleColorlist', value='- Promotes a regular user to given role', inline=True)
-            #self.embed.add_field(name=f':x:{faq.cmdPre}roleCreat)', value='- Creates a role in the server', inline=True)
+            #self.embed.add_field(name=f'{faq.cmdPre}remove', value='- Demote a person from the role', inline=True)
+            #self.embed.add_field(name=f'{faq.cmdPre}delRole', value='- Deletes a role from the server', inline=True)
+            #self.embed.add_field(name=f':x:{faq.cmdPre}creRole)', value='- Creates a role in the server', inline=True)
             #self.embed.add_field(name=f':x:{faq.cmdPre}setRole', value='- Promotes a regular user to given role', inline=True)
+            #self.embed.add_field(name=f':x:{faq.cmdPre}rolelist', value='- Promotes a regular user to given role', inline=True)
             #self.embed.add_field(name=f':x:{faq.cmdPre}roleColor', value='- Promotes a regular user to given role', inline=True)
+            pass
 
         if ctx.author.guild_permissions.manage_channels:
 
-
-            #self.embed.add_field(name='?chPri', value='- Channel Privileges ', inline=True)
+            #self.embed.add_field(name='?chpri', value='- Channel Privileges ', inline=True)
             self.embed.add_field(name=f'{faq.cmdPre}chdel', value='- Deletes a channel from the server ', inline=True)
             self.embed.add_field(name=f'{faq.cmdPre}cls', value= '- Clears the given channel Chat:bangbang:', inline=True)
             self.embed.add_field(name=f'{faq.cmdPre}chcre', value='- Create a new channel default : hidden ', inline=True)
-            
+
         if ctx.author.guild_permissions.moderate_members:
 
-            self.embed.add_field(name=f'{faq.cmdPre}sush', value= '- Shush a member for a number of ', inline=True)
             self.embed.add_field(name=f'{faq.cmdPre}lift', value= '- lift a sush from a member', inline=True)
+            self.embed.add_field(name=f'{faq.cmdPre}sush', value= '- Shush a member for ammount of time ', inline=True)
+            self.embed.add_field(name=f'{faq.cmdPre}warn', value= '- Manually Warn a member for their behavior', inline=True)
 
         return self.embed
 

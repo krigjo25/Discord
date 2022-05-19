@@ -8,10 +8,12 @@ from logging import Manager
 
 from discord.utils import get
 from discord.colour import Color
+from discord.abc import GuildChannel
 from discord import PermissionOverwrite
 from discord.embeds import Embed, Colour
 from discord import Member, Permissions, utils
 from discord.ext.commands.core import has_permissions
+
 from discord.ext.commands import Cog, command, has_any_role
 import humanfriendly
 
@@ -50,7 +52,7 @@ class ChannelModeration(Cog):
         return
 
 
-    #   Creating a channel X
+    #   Creating a channel
     @command(name="chcre")
     @has_permissions(manage_channels=True)
     async def CreateChannel(self, ctx, chName):
@@ -59,52 +61,108 @@ class ChannelModeration(Cog):
         srv = ctx.guild
         #getRole = get(srv.roles, {role})
         ch = get(srv.channels, name=chName)
-        mlog = get(srv.channels, name='moderationlog')
+        chlog = get(srv.channels, name='moderationlog')
 
-        perms = {
-                            #getRole:PermissionOverwrite(read_messages_history = True),
-                            srv.default_role:PermissionOverwrite(view_channels=False)          
-                }
+        #   Checking wheter the channel exist or not
+        if not chlog:
 
-        if not mlog:
-
+            #   Creating channel permissions
             perms = {
-
                         srv.default_role:PermissionOverwrite(view_channels=False)          
                     }
 
+            await srv.create_text_channel(f'{chlog}', overwrites=perms)
 
-            await srv.create_text_channel(f'{ch}', overwrites=perms)
-
+            #   Prepare & Send the embed
+            self.embed.color = Colour.dark_red()
             self.embed.title = 'Auto generated channel'
-            self.embed.colour = Embed(color=Colour.dark_red())
             self.embed.description = 'This channel is used for every Moderation in this server, it is made to avoid abusage of the Moderation / administration commands'
-            await ch.send(embed=self.embed)
+
+            await chlog.send(embed=self.embed)
+
+            self.embed.clear_fields()
+            self.embed.color = Colour.dark_purple()
 
         if not ch:
-                
-                await srv.create_text_channel(f'{chName}', overwrites=perms)
-                self.embed.title = f'{ctx.authhor} has Created a new channel {ch}'
 
-        else :
+            perms = {
+                        srv.default_role:PermissionOverwrite(view_channel=False)
+            }
+
+            self.embed.color = Colour.dark_red()
+            ch = await srv.create_text_channel(f'{chName}', overwrites=perms)
+            self.embed.title = f'{ctx.author} has Created a new channel called {ch}'
+
+        else:
+
+            self.embed.color = Colour.dark_red()
             self.embed.title = f'{ch} Already exists.'
 
-        #   3:  Log the ban
+        #   3:  Log channel creation
+
         self.embed.description=f''
-        await mlog.send(embed=self.embed)
+        await chlog.send(embed=self.embed)
+
+        #   Clean up
+        self.embed.clear_fields()
         self.embed = Embed(color=Colour.dark_purple())
 
-    #   Delete a channel    X
+        return
+
+    #   Delete a channel
     @command(name="chdel")
     @has_permissions(manage_channels=True)
-    async def DeleteChannel(self, ctx, chName):
-        pass
+    async def DeleteChannel(self, ctx, ch):
 
-    #   Channel Privileges  X
-    @command(name="chPri")
-    @has_permissions(manage_channels=True)
-    async def ModifyChannel(self, ctx, chName):
-        pass
+        '''
+            #   1 Declare necsessary variables
+            #   2 Delete the channel and prepare the embed
+            #   3 Send & Clean up the embeded message
+        '''
+
+        #   Declaring variables
+        srv = ctx.guild
+        srvch = GuildChannel
+        ch = get(srv.channels, name=ch)
+        chlog = get(srv.channels, name='moderationlog')
+
+        #   Checking wheter the channel exist or not
+        if not chlog:
+
+            #   Creating channel permissions
+            perms = {
+                        srv.default_role:PermissionOverwrite(view_channels=False)          
+                    }
+
+            await srv.create_text_channel(f'{chlog}', overwrites=perms)
+
+            #   Prepare & Send the embed
+            self.embed.color = Colour.dark_red()
+            self.embed.title = 'Auto generated channel'
+            self.embed.description = 'This channel is used for every Moderation in this server, it is made to avoid abusage of the Moderation / administration commands'
+
+            await chlog.send(embed=self.embed)
+
+            self.embed.clear_fields()
+            self.embed.color = Colour.dark_purple()
+  
+        if ch is not None:
+
+            self.embed.title = f'{ctx.author.name} has Deleted {ch} channel.'
+            ch = await srvch.delete(ch)
+            self.embed.color = Colour.dark_red()
+
+        else:
+            self.embed.title = f'The Channel Does not exist'
+
+        #   prepare, Send & Clean up embeded message
+        self.embed.description=f''
+        await chlog.send(embed=self.embed)
+
+        self.embed.clear_fields()
+        self.embed.color = Embed(color=Colour.dark_purple())
+
+        return
 
 class GeneralModeration(Cog):
 
@@ -153,7 +211,7 @@ class GeneralModeration(Cog):
                 #   Channel Permissions
                 perm = PermissionOverwrite()
                 perm.send_messages = False
-                perm.read_messages = False
+                perm.read_messages = True
                 perm.read_message_history = True
 
                 #   Creating the channel
@@ -163,10 +221,10 @@ class GeneralModeration(Cog):
                 self.embed.add_field(name= f'**{member}** has been warned by **{ctx.author}** for **{reason}**', value='.')
                 await ch.send(embed=self.embed)
 
-            message = f'Greetings **{member}**.\n You recieve this Notification, because you have been warned by **{ctx.author}**,  \n\n Due to :\n **{reason}**\n\nPlease read and follow the suggested guidelines for behavior in our disocrd channel'
+            message = f'Greetings **{member}**.\n You recieve this Notification, because you have been warned by **{ctx.author}**.\n\n Due to :\n *{reason}*\n\nPlease read and follow the suggested guidelines for behavior in our disocrd channel'
             await member.send(message)
 
-            self.embed.title = f'**{member}** has been warned by **{ctx.author}** for **{reason}.** Date : **{self.curTime}**'
+            self.embed.title = f'**{member}** has been warned by **{ctx.author}** for **{reason}.\n** Date : *{self.curTime}*'
             self.embed.description = ''
 
         await ch.send(embed=self.embed)
@@ -499,12 +557,36 @@ class MemberModeration(Cog):
             #  3 Log the mute in a channel called moderation Log
 
         """
+        #   Initializing variables
+        srv = ctx.guild
+        time = humanfriendly.parse_timespan(time)
+        ch = get(srv.channels, name='moderationlog')
+        sushedRole = get(srv.roles, name ='@sushed')
 
-        if not ch:
+        if reason == None or int(time) > 604800:
+
+            self.embed.color = Colour.dark_red()
+            self.embed.title = 'An erro occurred'
+            self.description = f' Could not sush **{member}** due to no reason were provided'
+
+            if int(time) > 604800:
+
+                self.embed.description = f' Could not sush **{member}** due to a limitation for 1w'
+
+            await ch.send(embed=self.embed)
+
+            #   Clean up embeded message
+            self.embed.clear_fields()
+            self.embed.color = Colour.dark_purple()
+
+        else:
+
+            if not ch:
 
                 #   Creating channel permissions
                 perms = {
-                            srv.default_role:PermissionOverwrite(view_channels=False)          
+                            srv.default_role:Permissions(
+                                                            view_channel=False)          
                         }
 
                 await srv.create_text_channel(f'{ch}', overwrites=perms)
@@ -519,29 +601,6 @@ class MemberModeration(Cog):
                 self.embed.clear_fields()
                 self.embed.color = Colour.dark_purple()
 
-        if reason == None:
-
-            self.embed.title = 'An erro occurred'
-            self.description = f'Provide me a reason to mute **{member}** for **{time}**'
-
-            #   Prepare & Send embeded message
-            self.embed.color = Colour.dark_red()
-            self.embed.title = f' Could not sush **{member}** due to a limitation for 1w'
-            self.embed.description = ''
-
-            await ch.send(embed=self.embed)
-            #   Clean up embeded message
-            self.embed.clear_fields()
-            self.embed.color = Colour.dark_purple()
-
-        elif reason != None:
-
-            #   Initializing variables
-            srv = ctx.guild
-            time = humanfriendly.parse_timespan(time)
-            ch = get(srv.channels, name='moderationlog')
-            sushedRole = get(srv.roles, name ='@sushed')
-
             if not sushedRole:
 
                 perms = {
@@ -551,20 +610,6 @@ class MemberModeration(Cog):
 
                 await srv.create_role(name='@sushed', permissions = perms, reason = 'Automatic Role assignment')
 
-            if time > 604800:
-
-                #   Prepare & Send embeded message
-                self.embed.color = Colour.dark_red()
-                self.embed.title = f' Could not sush **{member}** due to a limitation for 1w'
-                self.embed.description = ''
-
-                await ch.send(embed=self.embed)
-                #   Clean up embeded message
-                self.embed.clear_fields()
-                self.embed.color = Colour.dark_purple()
-
-                return
-
             #   Prepare & Send embeded message
             self.embed.color = Colour.dark_red()
             self.embed.title = f' **{member}** has been sushed by **{ctx.author}** \n for {datetime.timedelta(seconds=time)}\nDue to\n**{reason}.**\n*{self.curTime}*'
@@ -573,7 +618,7 @@ class MemberModeration(Cog):
             await ch.send(embed=self.embed)
             await member.add_roles(sushedRole)
             await member.timeout(until = utils.utcnow() + datetime.timedelta(seconds=time), reason = reason)
-            await member.send(f'Greetings, **{member}**.\n\n You recieve this message, because you have been sushed by **{ctx.author}** \n You are sushed for **{time}**.\n\n During this time you will not able to use {ctx.guild} channels.\n\nThe reason for this intervention is\n*{reason}*')
+            await member.send(f'Greetings, **{member}**.\n\n You recieve this message, because you have been sushed by **{ctx.author}** \n You are sushed for **{datetime.timedelta(seconds=time)}**.\n\n During this time you will not able to use {ctx.guild} channels.\n\nThe reason for this intervention is\n*{reason}*')
 
             #   Clean up embeded message
             self.embed.clear_fields()
