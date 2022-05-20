@@ -11,6 +11,8 @@ modify channel
 
 Logging :
 
+        #   Creating log channel if not exist :x:
+        #ch = await GeneralModeration.CheckChannel(self, ctx)
 updates
 
 poll

@@ -41,15 +41,16 @@ class ChannelModeration(Cog):
     #   Clearing all messages
     @command(name="cls")
     @has_permissions(manage_messages=True)
-    async def ClearChat(self, ctx, chName, x):
+    async def ClearChat(self, ctx, ch, x):
 
         #   Declare variables
         x = int(x)
         srv = ctx.guild
-        ch = get(srv.channels, name=chName)
+        ch = get(srv.channels, name=ch)
         chlog = get(srv.channels, name = 'modererationlog')
 
         purge = await ch.purge(limit=x)
+
         await chlog.send(f'**{len(purge)}** lines purged, in **{ch}** by **{ctx.author.name}**')
 
         return
@@ -66,11 +67,9 @@ class ChannelModeration(Cog):
         ch = get(srv.channels, name=chName)
         chlog = get(srv.channels, name='moderationlog')
 
-        #   Checking wheter the channel exist or not
-        await GeneralModeration.CheckChannel(ch)
-        await GeneralModeration.CheckChannel(chlog)
 
-        if ch: self.embed.title = f'{ch} Already exists.'
+        if not ch: await GeneralModeration.CheckChannel(ch)
+        else:self.embed.title = f'{ch} Already exists.'
 
         #   3:  prepare, send & Clean up embed
         self.embed.color = Colour.dark_red()
@@ -143,26 +142,23 @@ class GeneralModeration(Cog):
     async def UserWarn(self, ctx, member:Member, *, reason=None):
 
         #   Creating a channel to log the warning 
-        await GeneralModeration.CheckChannel()
+        #await GeneralModeration.CheckChannel()
 
         #   Initializing variables
         srv = ctx.guild
-        ch= get(srv.channels, name='moderationlog')
+        chlog= get(srv.channels, name='moderationlog')
 
 
         #   Counting warnings
         #   How to make sure only the user retrieve the warning?
 
 
-        if reason == None:
+        if reason == None or member == ctx.author:
 
             self.embed.title  = 'Warning not sent'
             self.embed.description = ' please provide a reason for the warn'
 
-        elif member == ctx.author:
-
-            self.embed.title = 'An error occoured'
-            self.embed.description = 'Can not warn your self'
+            if member == ctx.author:self.embed.description = 'Can not warn your self'
 
         else:
 
@@ -170,10 +166,11 @@ class GeneralModeration(Cog):
             message = f'Greetings **{member}**.\n You recieve this Notification, because you have been warned by **{ctx.author}**.\n\n Due to :\n *{reason}*\n\nPlease read and follow the suggested guidelines for behavior in our disocrd channel'
             await member.send(message)
 
-            self.embed.title = f'**{member}** has been warned by **{ctx.author}**'
-            self.embed.description = f'for **{reason}.\n** Date : *{self.curTime}*'
+            self.embed.title = f'**{member}** has been warned'
+            self.embed.description = f' **Due to**\n *{reason}*.\n\n by\n**{ctx.author.name}**,\n{self.curTime}*'
 
-        await ch.send(embed=self.embed)
+        self.embed.color = Colour.dark_red()
+        await chlog.send(embed=self.embed)
         self.embed.clear_fields()
         self.embed.color = Colour.dark_purple()
 
@@ -182,7 +179,6 @@ class GeneralModeration(Cog):
     #   Default Moderator comamnds
     @command(name='poll', pass_context= True)
     @has_permissions(manage_messages=True)
-
     async def polls(self, ctx, title, chName):
 
         """
@@ -362,13 +358,15 @@ class GeneralModeration(Cog):
                 await ctx.send(embed = self.embed)
                 self.embed.clear_fields()
 
-    async def CheckChannel(self, ctx, *arg ):
+    async def CheckChannel(self, ctx, arg=False):
 
+        t = 'Check Channel test'
         srv = ctx.guild
-        ch = utils.get(srv.channels, name = f'{arg[0]}')
         chlog = utils.get(srv.channels, name='moderationlog')
+        ch = utils.get(srv.channels, name = f'{arg[0]}')
+        print(t)
+        if arg[0] != False:
 
-        if arg == True:
             if not ch:
 
                 perms = {
@@ -394,10 +392,12 @@ class GeneralModeration(Cog):
             self.embed.title = 'Auto generated channel'
             self.embed.description = 'This channel is used to log every Moderation in this server, it is made to avoid abusage of the Moderation / administration commands'
 
+        print(t)
         await chlog.send(embed=self.embed)
 
         self.embed.clear_fields()
         self.embed.color = Colour.dark_purple()
+        print(t)
 
         return ch
 
@@ -438,16 +438,13 @@ class MemberModeration(Cog):
         chlog = get(srv.channels, name='moderationlog')
 
         if reason == None or time > 604800:
+            self.embed.description = f' Could not sush **{member}** due to there were no reason to shush'
+            if time > 604800:self.embed.description = f' Could not sush **{member}** due to a limitation for 1w'
 
-            self.embed.title = 'An erro occurred'
-            self.description = f' Could not sush **{member}** due to there were no reason to shush'
-
-            if int(time) > 604800:
-
-                self.embed.description = f' Could not sush **{member}** due to a limitation for 1w'
-
-            #   Prepare, send & Clean up embed :x:
+            #   Prepare, send & Clean up embed
             self.embed.color = Colour.dark_red()
+            self.embed.title = 'An erro occurred'
+
             await chlog.send(embed=self.embed)
             self.embed.clear_fields()
             self.embed.color = Colour.dark_purple()
@@ -455,6 +452,11 @@ class MemberModeration(Cog):
         else:
 
             await RoleModeration.CheckRole(self, ctx, '@sushed')
+
+            #   Set role, set timeout & send member DM
+            await member.add_roles(role)
+            await member.timeout(until = utils.utcnow() + datetime.timedelta(seconds=time), reason = reason)
+            await member.send(f'Greetings, **{member}**.\n\n You recieve this message, because you have been sushed by **{ctx.author}** \n You are sushed for **{datetime.timedelta(seconds=time)}**.\n\n During this time you will not able to use {ctx.guild} channels.\n\nThe reason for this intervention is\n*{reason}*')
 
             #   Prepare, send & Clean up embed
             self.embed.title = f' **{member}** has been sushed'
@@ -464,12 +466,6 @@ class MemberModeration(Cog):
             await chlog.send(embed=self.embed)
             self.embed.clear_fields()
             self.embed.color = Colour.dark_purple()
-
-            #   Set role, set timeout & send member DM
-            await member.add_roles(role)
-            await member.timeout(until = utils.utcnow() + datetime.timedelta(seconds=time), reason = reason)
-            await member.send(f'Greetings, **{member}**.\n\n You recieve this message, because you have been sushed by **{ctx.author}** \n You are sushed for **{datetime.timedelta(seconds=time)}**.\n\n During this time you will not able to use {ctx.guild} channels.\n\nThe reason for this intervention is\n*{reason}*')
-
             # Automatic un-mute & Notify the user
             await asyncio.sleep(time)
             await member.remove_roles(role)
@@ -529,21 +525,20 @@ class MemberModeration(Cog):
         """
         #   Initializing variables
         srv = ctx.guild
+        t = 'test Kick'
         chlog = get(srv.channels, name='moderationlog')
 
         #   Checking wheter there is a log channel :x:
-        await GeneralModeration.CheckChannel(self, ctx)
+        #ch = await GeneralModeration.CheckChannel(self, ctx, False)
 
         if reason == None:
-
-            self.embed.title = f'**{member}** Provide a reason to kick the **{member}**'
+            self.embed.title = f'**{ctx.author.name}** Provide a reason to kick **{member.name}**'
 
         else:
 
             #   Prepare embed
-            self.embed.color = Colour.dark_red()
             self.embed.title = f'**{member}** has been kicked from the server'
-            self.embed.description = f' by\n**{ctx.author}**\n Due to\n*{reason}.*\n Date : *{self.curTime}*'
+            self.embed.description = f' by\n**{ctx.author.name}**\n Due to\n*{reason}.*\n Date : *{self.curTime}*'
 
             # Creating a message to the user, send it to his DM, then kick
             message = f'Greetings **{member}**.\nYou recieve this message, because you have been kicked off **{ctx.guild.name}** by **{ctx.author}**.\n\nDue to :\n **{reason}**'
@@ -551,6 +546,7 @@ class MemberModeration(Cog):
             await member.kick(reason=reason)
 
         #   Send & Clean up embed
+        self.embed.color = Colour.dark_red()
         await chlog.send(embed=self.embed)
 
         self.embed.clear_fields()
