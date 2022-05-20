@@ -104,7 +104,7 @@ Automatic Roles assignments in the project :
 
 
 #### Bot Post Moderation Utility
-[PostModerationUtility]()
+
 
 ## What has been learned
 
@@ -122,6 +122,7 @@ it will serve you as a humble bot
 ## Responsories
 
 - discord.py [Rapptz](https://github.com/Rapptz/discord.py),  <br>
+- Humanfriendly [Peter Odding](https://github.com/xolox/python-humanfriendly)<br>
 - MariaDB [MariaDB Community](https://github.com/mariadb-corporation/mariadb-connector-python), <br>
 - python_dotenv [Saurabh Kumar](https://github.com/motdotla/dotenv),<br>
 
