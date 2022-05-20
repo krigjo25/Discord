@@ -47,10 +47,12 @@ class ChannelModeration(Cog):
         x = int(x)
         srv = ctx.guild
         ch = get(srv.channels, name=ch)
-        chlog = get(srv.channels, name = 'modererationlog')
+        chlog = get(srv.channels, name = 'moderationlog')
 
+        # Generate a log channel
+        #await GeneralModeration.CheckChannel()
         purge = await ch.purge(limit=x)
-
+        print(chlog)
         await chlog.send(f'**{len(purge)}** lines purged, in **{ch}** by **{ctx.author.name}**')
 
         return
@@ -67,9 +69,9 @@ class ChannelModeration(Cog):
         ch = get(srv.channels, name=chName)
         chlog = get(srv.channels, name='moderationlog')
 
-
-        if not ch: await GeneralModeration.CheckChannel(ch)
-        else:self.embed.title = f'{ch} Already exists.'
+        #   Create a new channel
+        #if not ch: await GeneralModeration.CheckChannel(ch)
+        #else:self.embed.title = f'{ch} Already exists.'
 
         #   3:  prepare, send & Clean up embed
         self.embed.color = Colour.dark_red()
@@ -121,8 +123,6 @@ class ChannelModeration(Cog):
         return
 
 class GeneralModeration(Cog):
-
-    #   Declare variables
 
     def __init__(self, bot):
 
@@ -403,8 +403,6 @@ class GeneralModeration(Cog):
 
 class MemberModeration(Cog):
 
-    #   Declare variables
-
     def __init__(self, bot):
 
         self.bot = bot
@@ -554,6 +552,212 @@ class MemberModeration(Cog):
 
         return
 
+class RoleModeration(Cog):
+
+    """
+        Commands which requires manage_roles
+
+    """
+
+    def __init__(self, bot):
+
+        self.bot = bot
+        self.embed = Embed(color=Color.dark_purple())
+
+        return
+
+    #   Role Management
+    #   Create role
+    @command(name='crero')
+    @has_permissions(manage_roles = True)
+    async def CreateRole(self, ctx, role):
+
+        """
+
+            #   1   Create the role if not exist, if it exist send out a warning message
+            #   2   Choose the permission of the role
+            #   3   Choose the colour of the role with hexdecimals
+
+        """
+        srv = ctx.guild
+        chlog = get(srv.channels, name='moderationlog')
+        #   Creating log channel if not exist
+        #await GeneralModeration.CheckChannel(self, ctx)
+        await RoleModeration.CheckRole(self, ctx, role)
+
+        return
+
+    #   Delete Role
+    @command(name='dero') # :X
+    @has_permissions(manage_roles = True)
+    async def DeleteRole(self, ctx, *, role ):
+
+        """
+            1   Checking if there is any channels called 'moderationlog'
+            2   Ask the user for comfirmation before removing the role
+
+        """
+
+        #   Creating log channel if not exist
+        #await GeneralModeration.CheckChannel(self, ctx)
+
+        #   Initializing variables
+        srv = ctx.guild
+        role = get(srv.roles, name=f'{role}')
+        chlog = get(srv.channels, name='moderationlog')
+
+        #   Prepare, send & clean up the embed message
+        self.embed.title = f'Removing {role} role'
+        self.embed.description = f'Do you want to remove the role?'
+
+        await ctx.send(embed=self.embed)
+
+        self.embed.clear_fields()
+
+        #   Confirm the action
+        confirmation = await self.bot.wait_for('message', timeout=60.0)
+        confirmation = str(confirmation.content)
+
+        if confirmation == 'yes' or confirmation == 'ye' or confirmation == 'y':
+
+            #   Prepare the embed message and delete & role
+            self.embed.title = f'{role} role, has been removed from the server'
+
+            await role.delete()
+
+        else:
+
+            #   Prepare the embed message
+            self.embed.title = f'Role removal canceled'
+
+        #   Send & clean up the embed message
+        self.embed.color = Colour.dark_red()
+        self.embed.description = ''
+        await chlog.send(embed=self.embed)
+
+        self.embed.clear_fields()
+        self.embed.color = Colour.dark_purple()
+
+        return
+ 
+    #   Remove role 
+    @command(name='remro')
+    @has_permissions(manage_roles = True)
+    async def RemoveMemberRole(self, ctx, *, member:Member, role, reason=None ):
+
+        """
+            1   Checking if there is any channels called 'moderationlog'
+            2   When the command is invoked, ask the user for a confirmation
+            3   Remove the user from the role
+
+        """
+
+        #   Creating log channel if not exist
+        #await GeneralModeration.CheckChannel(self, ctx)
+
+        #   Initializing variables
+        srv = ctx.guild
+        mRole = get(srv.roles, name=f'{role}')
+        chlog = get(srv.channels, name='moderationlog')
+
+        #   Prepare, Send & Clean up embed
+        self.embed.color = Colour.dark_red()
+        self.embed.title = f'removing {member} from {role}'
+        self.embed.description = f'Are you sure you\'d like to remove {member} from {role}?'
+
+        await chlog.send(embed=self.embed)
+
+        #   Clean up
+        self.embed.clear_fields()
+        self.embed.color = Color.dark_purple()
+
+        #   Retrieve the confirmation from the user
+        confirm = await self.bot.wait_for('message')
+        confirm = str(confirm.content).lower()
+
+        if confirm == 'yes':
+
+            #  Prepare the emebed message & Remove member
+            self.embed.color = Color.dark_red()
+            self.embed.title = f'{member} has been removed from {role} by {ctx.author} due to {reason} '
+
+            member.remove_roles(member, mRole)
+
+        else:
+
+            #   Prepare the emebed message
+            self.embed = Embed(color=Color.dark_red())
+            self.embed.title = f'Role removal has been cancelled'
+
+        self.embed.description=''
+        await chlog.send(embed=self.embed)
+
+        #   Clean up the embed message
+        self.embed.clear_fields()
+        self.embed.color = Color.dark_purple()
+
+        return
+
+    async def CheckRole(self, ctx, role, *, reason=None):
+
+        #   Initializing classes
+        manager = RolePermissions
+
+        #   Initializing variables
+        srv = ctx.guild
+        role = get(srv.roles, name=f'{role}')
+
+        #   Pre-role assignment
+        if role == '@sushed':
+
+            perms = {
+
+                        role:PermissionOverwrite(
+                                                    read_message_history=False
+                                            )          
+                    }
+
+            await srv.create_role(name=f'{role}', permissions = perms, reason = 'Automatic Role assignment')
+            self.embed.title = 'Auto generated role'
+            self.embed.description = '@Sushed is an automatically generated to mark muted members'
+
+        #   Custom role assignments
+        elif role == None:
+
+            self.embed.title = f'Starting the process to create {role}'
+            self.embed.description = f'Would you like to create {role} with **Basic** / **Moderation**/ **Custom** permissions? type **x** to exit '
+
+            await ctx.send(embed=self.embed)
+            self.embed.clear_fields()
+
+            response = await self.bot.wait_for('message')
+            answer = str(response.content).lower()
+
+            self.embed.title = f'{ctx.author.name} created {role} as a with permissions '
+
+            if answer == 'basic':perms = manager.BasicPermissions(role)
+            elif answer == 'custom':perms = manager.CustomPermissions(role)
+            elif answer == 'moderator':perms = manager.ModerationPermissions(role)
+
+            self.embed.title = f'Starting the process to create {role}'
+            self.embed.description = f'Would you like to create {role} with **Basic** / **Moderation**/ **Custom** permissions? type **x** to exit '
+
+            
+            await ctx.send(embed=self.embed)
+            self.embed.clear_fields()
+
+            await srv.create_role(name=f'{role}', permissions = perms, reason = f'{reason}')
+
+        else:
+
+            self.embed.title = f'{ctx.author.name} tried to re-create {role}'
+            self.embed.description='Role already exists'
+
+        await ctx.send(embed=self.embed)
+        self.embed.clear_fields()
+
+        return self.embed
+
 class RolePermissions(Cog):
 
     def __init__(self, bot):
@@ -564,13 +768,111 @@ class RolePermissions(Cog):
 
         return
 
-    async def BasicPermissions(self, ctx, roleName):
+    async def BasicPermissions(self, ctx, role):
 
-        pass
+        perms = {
 
-    async def ModerationPermissions(self, ctx, roleName):
-        pass
+            role:Permissions(
+                                ban_members = False, 
+                                manage_guild = False, 
+                                manage_roles = False, 
+                                move_members = False,
+                                mute_members = False,
+                                manage_emojis = False,
+                                view_audit_log = False,
+                                deafen_members = False,
+                                manage_webhooks = False,
+                                manage_messages = False,
+                                manage_channels = False,
+                                change_nickname = False,
+                                priority_speaker = False,
+                                manage_nicknames = False,
+                                view_guild_insights = False,
+                                create_instant_invite = False,)
+                }
 
+        return perms
+
+    async def Moderationlvl1(self, ctx, role):
+
+        perms = {
+            role:Permissions(
+                                ban_members = False, 
+                                manage_guild = False, 
+                                manage_roles = False, 
+                                move_members = False,
+                                mute_members = False,
+                                manage_emojis = False,
+                                view_audit_log = False,
+                                deafen_members = False,
+                                manage_webhooks = False,
+                                manage_messages = False,
+                                manage_channels = False,
+                                change_nickname = False,
+                                priority_speaker = False,
+                                manage_nicknames = False,
+                                view_guild_insights = False,
+                                create_instant_invite = False,)
+                }
+
+        return perms
+
+    async def Moderationlvl2(self, ctx, role):
+
+        perms = {
+            role:Permissions(
+                                ban_members = False, 
+                                manage_guild = False, 
+                                manage_roles = False, 
+                                move_members = False,
+                                mute_members = False,
+                                manage_emojis = False,
+                                view_audit_log = False,
+                                deafen_members = False,
+                                manage_webhooks = False,
+                                manage_messages = False,
+                                manage_channels = False,
+                                change_nickname = False,
+                                priority_speaker = False,
+                                manage_nicknames = False,
+                                view_guild_insights = False,
+                                create_instant_invite = False,)
+                }
+
+        return perms
+
+    async def Moderationlvl3(self, ctx, role):
+
+        perms = {
+            role:Permissions(
+                                ban_members = False, 
+                                manage_guild = False, 
+                                manage_roles = False, 
+                                move_members = False,
+                                mute_members = False,
+                                manage_emojis = False,
+                                view_audit_log = False,
+                                deafen_members = False,
+                                manage_webhooks = False,
+                                manage_messages = False,
+                                manage_channels = False,
+                                change_nickname = False,
+                                priority_speaker = False,
+                                manage_nicknames = False,
+                                view_guild_insights = False,
+                                create_instant_invite = False,)
+                }
+
+        return perms
+
+    async def Administrator(self, ctx, role):
+
+        perms = {
+            role:Permissions(
+                                administrator = False)
+                }
+
+        return perms
 
     async def CustomPermissions(self, ctx, roleName):
 
@@ -953,276 +1255,3 @@ class RolePermissions(Cog):
             await ctx.send(embed=self.embed)
 
         return perm
-
-class RoleModeration(Cog):
-
-    """
-        Commands which requires manage_roles
-    """
-
-    def __init__(self, bot):
-
-        self.bot = bot
-        self.embed = Embed(color=Color.dark_purple())
-
-        return
-
-    #   Role Management
-    #   Create role
-    @command(name='crero')
-    @has_permissions(manage_roles = True)
-    async def CreateRole(self, ctx, role):
-
-        """
-
-            #   1   Create the role if not exist, if it exist send out a warning message
-            #   2   Choose the permission of the role
-            #   3   Choose the colour of the role with hexdecimals
-
-        """
-        srv = ctx.guild
-        chlog = get(srv.channels, name='moderationlog')
-        #   Creating log channel if not exist
-        #await GeneralModeration.CheckChannel(self, ctx)
-        await RoleModeration.CheckRole(self, ctx, role)
-
-        return
-
-    #   Delete Role
-    @command(name='dero') # :X
-    @has_permissions(manage_roles = True)
-    async def DeleteRole(self, ctx, *, role ):
-
-        """
-            1   Checking if there is any channels called 'moderationlog'
-            2   Ask the user for comfirmation before removing the role
-
-        """
-
-        #   Creating log channel if not exist
-        #await GeneralModeration.CheckChannel(self, ctx)
-
-        #   Initializing variables
-        srv = ctx.guild
-        role = get(srv.roles, name=f'{role}')
-        chlog = get(srv.channels, name='moderationlog')
-
-        #   Prepare, send & clean up the embed message
-        self.embed.title = f'Removing {role} role'
-        self.embed.description = f'Do you want to remove the role?'
-
-        await ctx.send(embed=self.embed)
-
-        self.embed.clear_fields()
-
-        #   Confirm the action
-        confirmation = await self.bot.wait_for('message', timeout=60.0)
-        confirmation = str(confirmation.content)
-
-        if confirmation == 'yes' or confirmation == 'ye' or confirmation == 'y':
-
-            #   Prepare the embed message and delete & role
-            self.embed.title = f'{role} role, has been removed from the server'
-
-            await role.delete()
-
-        else:
-
-            #   Prepare the embed message
-            self.embed.title = f'Role removal canceled'
-
-        #   Send & clean up the embed message
-        self.embed.color = Colour.dark_red()
-        self.embed.description = ''
-        await chlog.send(embed=self.embed)
-
-        self.embed.clear_fields()
-        self.embed.color = Colour.dark_purple()
-
-        return
- 
-    @command(name='moro') #:X:
-    @has_permissions(manage_roles = True)
-    async def ModifyRole(self, ctx, role ):
-
-        """
-
-            1   Checking if there is any channels called 'moderationlog'
-            2   Modify role
-
-        """
-        #   Creating log channel if not exist
-        await GeneralModeration.CheckChannel(self, ctx)
-
-        return
-
-    #   Remove role 
-    @command(name='remro')
-    @has_permissions(manage_roles = True)
-    async def RemoveMemberRole(self, ctx, *, member:Member, role, reason=None ):
-
-        """
-            1   Checking if there is any channels called 'moderationlog'
-            2   When the command is invoked, ask the user for a confirmation
-            3   Remove the user from the role
-
-        """
-
-        #   Creating log channel if not exist
-        await GeneralModeration.LogChannel(self, ctx)
-
-        #   Initializing variables
-        srv = ctx.guild
-        mRole = get(srv.roles, name=f'{role}')
-        chlog = get(srv.channels, name='moderationlog')
-
-        #   Prepare, Send & Clean up embed
-        self.embed.color = Colour.dark_red()
-        self.embed.title = f'removing {member} from {role}'
-        self.embed.description = f'Are you sure you\'d like to remove {member} from {role}?'
-
-        await chlog.send(embed=self.embed)
-
-        #   Clean up
-        self.embed.clear_fields()
-        self.embed.color = Color.dark_purple()
-
-        #   Retrieve the confirmation from the user
-        confirm = await self.bot.wait_for('message')
-        confirm = str(confirm.content).lower()
-
-        if confirm == 'yes':
-
-            #  Prepare the emebed message & Remove member
-            self.embed.color = Color.dark_red()
-            self.embed.title = f'{member} has been removed from {role} by {ctx.author} due to {reason} '
-
-            member.remove_roles(member, mRole)
-
-        else:
-
-            #   Prepare the emebed message
-            self.embed = Embed(color=Color.dark_red())
-            self.embed.title = f'Role removal has been cancelled'
-
-        self.embed.description=''
-        await chlog.send(embed=self.embed)
-
-        #   Clean up the embed message
-        self.embed.clear_fields()
-        self.embed.color = Color.dark_purple()
-
-        return
-
-    #   Set Member Role :x:
-    @command(name='semro')
-    @has_permissions(manage_roles = True)
-    async def SetMemberRole(self, ctx, *, member:Member, role, reason=None ):
-
-
-        """
-
-            1   Check whether there is a log Channel
-            2   When the command is invoked, ask the user for a confirmation
-            3   Remove the user from the role
-
-        """
-        #   Creating log channel if not exist
-        await GeneralModeration.CheckChannel(self, ctx)
-
-        return
-
-    #   List Roles
-    @command(name='liro')
-    async def ListRoles(self, ctx):
-
-        '''
-            1   Retrieve roles from roles list
-            2 :x:   Check if its a member or bot role (only member roles)
-            3 :x:  Mentioned
-            4   send embed into the channel
-        '''
-
-        #   Initializing variables
-        svr = ctx.guild
-        roles = svr.roles
-        i = []
-        
-
-        for nr, role in enumerate(roles):
-
-            
-            i.append(role)
-            i.append(len(roles))
-            mention = get(roles, name =role)
-            self.embed.add_field(name = f'Role No {nr}', value=f'{role.mention}')
-
-        #   Prepare, send & Clean up embed
-
-        self.embed.title = 'Server roles'
-
-        await ctx.send(embed=self.embed)
-
-        self.embed.clear_fields()
-
-        return
-
-    async def CheckRole(self, ctx, role, *, reason=None):
-
-        #   Initializing classes
-        manager = RolePermissions
-
-        #   Initializing variables
-        srv = ctx.guild
-        role = get(srv.roles, name=f'{role}')
-
-        #   Pre-role assignment
-        if role == '@sushed':
-
-            perms = {
-
-                        role:PermissionOverwrite(
-                                                    read_message_history=False
-                                            )          
-                    }
-
-            await srv.create_role(name=f'{role}', permissions = perms, reason = 'Automatic Role assignment')
-            self.embed.title = 'Auto generated role'
-            self.embed.description = '@Sushed is an automatically generated to mark muted members'
-
-        #   Custom role assignments
-        elif role == None:
-
-            self.embed.title = f'Starting the process to create {role}'
-            self.embed.description = f'Would you like to create {role} with **Basic** / **Moderation**/ **Custom** permissions? type **x** to exit '
-
-            await ctx.send(embed=self.embed)
-            self.embed.clear_fields()
-
-            response = await self.bot.wait_for('message')
-            answer = str(response.content).lower()
-
-            self.embed.title = f'{ctx.author.name} created {role} as a with permissions '
-
-            if answer == 'basic':perms = manager.BasicPermissions(role)
-            elif answer == 'custom':perms = manager.CustomPermissions(role)
-            elif answer == 'moderator':perms = manager.ModerationPermissions(role)
-
-            self.embed.title = f'Starting the process to create {role}'
-            self.embed.description = f'Would you like to create {role} with **Basic** / **Moderation**/ **Custom** permissions? type **x** to exit '
-
-            
-            await ctx.send(embed=self.embed)
-            self.embed.clear_fields()
-
-            await srv.create_role(name=f'{role}', permissions = perms, reason = f'{reason}')
-
-        else:
-
-            self.embed.title = f'{ctx.author.name} tried to re-create {role}'
-            self.embed.description='Role already exists'
-
-        await ctx.send(embed=self.embed)
-        self.embed.clear_fields()
-
-        return self.embed

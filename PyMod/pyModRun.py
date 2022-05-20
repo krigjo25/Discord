@@ -34,7 +34,7 @@ class DiscordSetup():
 
     def __init__(self):
 
-        self.intents= Intents().all()
+        self.intents= Intents().none()
         self.bot = DiscordBot(intents=self.intents)
 
         return
@@ -50,6 +50,7 @@ class DiscordSetup():
         self.intents.messages = True            #   Allows the bot to send messages Guild & DM
         self.intents.presences = True           #   Allows the bot to track member activty
         self.intents.message_content =True      #   Allows the bot to send embeded messages
+
         self.intents.reactions = True
 
         self.bot.add_cog(ErrorHandler(self.bot))

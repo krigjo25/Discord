@@ -68,17 +68,20 @@ class FrequentlyAskedQuestions(Cog):
 
     def CommunityModule(self):
 
+        faq = FrequentlyAskedQuestions
+
         self.embed.title=':people_holding_hands: Community-Module'
         self.embed.description='Use ** ?help (Command)**, for more details, sir.\n\n'
 
         self.embed.add_field(name='/', value='- for built-ins ', inline=True)
-        self.embed.add_field(name='/?ping', value='- Bot Latency ', inline=True)
-        self.embed.add_field(name='?memberlist', value ='list of members', inline=True)
-        self.embed.add_field(name='?dnd ', value='- Notifies others about your absence', inline=True)
-        self.embed.add_field(name='?back ', value='- Shows that you\'re a no lifer again', inline=True)
-        self.embed.add_field(name='?yesnomaybe ', value='- Randomly chooses between yes / no or maybe', inline=True)
-        self.embed.add_field(name='?botinfo \n(optional parameter: log)', value='- how did the bot fail the exam? She was a bit rusty', inline=True)
-        self.embed.add_field(name='?meme', value='- What do you call a gamer whom works at an abortion clinic? :rofl:\n Spawn Camper ', inline=True)
+        self.embed.add_field(name= f'{faq.cmdPre}liro', value='list of roles')
+        self.embed.add_field(name= f'{faq.cmdPre}ping', value='Checkout the bots latency')
+        #intentsself.embed.add_field(name= f'{faq.cmdPre}memberlist', value ='list of members', inline=True)
+        #self.embed.add_field(name= f'{faq.cmdPre}dnd ', value='- Notifies others about your absence', inline=True)
+        self.embed.add_field(name= f'{faq.cmdPre}back ', value='- Shows that you\'re a no lifer again', inline=True)
+        #self.embed.add_field(name= f'{faq.cmdPre}yesnomaybe ', value='- Randomly chooses between yes / no or maybe', inline=True)
+        self.embed.add_field(name= f'{faq.cmdPre}botinfo \n(optional parameter: log)', value='- how did the bot fail the exam? She was a bit rusty', inline=True)
+        self.embed.add_field(name= f'{faq.cmdPre}meme', value='- What do you call a gamer whom works at an abortion clinic? :rofl:\n Spawn Camper ', inline=True)
         #self.embed.add_field(name=':x:?pre-mod', value='How does the pre-mod work')
 
         return self.embed
@@ -92,9 +95,9 @@ class FrequentlyAskedQuestions(Cog):
 
         if ctx.author.guild_permissions.kick_members:
 
-            self.embed.add_field(name=':bar_chart: ?poll', value='- Run a poll', inline=True)
-            self.embed.add_field(name=f'{faq.cmdPre}kick', value='- Kicks a user off the server ', inline=True)
-            self.embed.add_field(name=f'{faq.cmdPre}online', value= '- Checks whom is online / offline', inline=True)
+            #self.embed.add_field(name = f':bar_chart: {faq.cmdPre}poll', value = '- Run a poll', inline=True)
+            self.embed.add_field(name = f'{faq.cmdPre}kick', value = '- Kicks a user off the server ', inline=True)
+            #self.embed.add_field(name = f'{faq.cmdPre}online', value= '- Checks whom is online / offline', inline=True)
 
         if ctx.author.guild_permissions.manage_roles:
 
@@ -110,7 +113,7 @@ class FrequentlyAskedQuestions(Cog):
 
             #self.embed.add_field(name='?chpri', value='- Channel Privileges ', inline=True)
             self.embed.add_field(name=f'{faq.cmdPre}chdel', value='- Deletes a channel from the server ', inline=True)
-            self.embed.add_field(name=f'{faq.cmdPre}cls', value= '- Clears the given channel Chat:bangbang:', inline=True)
+            #self.embed.add_field(name=f'{faq.cmdPre}cls', value= '- Clears the given channel Chat:bangbang:', inline=True)
             self.embed.add_field(name=f'{faq.cmdPre}chcre', value='- Create a new channel default : hidden ', inline=True)
 
         if ctx.author.guild_permissions.moderate_members:

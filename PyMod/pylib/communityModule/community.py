@@ -245,6 +245,37 @@ class CommunityModule(Cog, name='Community Module'):
         self.embed.description = ''
         await ctx.send(embed=self.embed)
 
+    #   List Roles
+    @command(name='liro')
+    async def ListRoles(self, ctx):
+
+        '''
+            1   Retrieve roles from roles list
+            2 :x:   Check if its a member or bot role (only member roles)
+            3 :x:  Mentioned
+            4   send embed into the channel
+        '''
+
+        #   Initializing variables
+        svr = ctx.guild
+        roles = svr.roles
+        i = []
+        x = 0
+        
+
+        for role in roles:
+
+            x += 1
+            self.embed.add_field(name = f'Role No {x}', value=f'{role.mention}')
+
+        #   Prepare, send & Clean up embed
+        self.embed.title = 'Server roles'
+        await ctx.send(embed=self.embed)
+
+        self.embed.clear_fields()
+
+        return
+
 class CommunityFunctions():
 
 

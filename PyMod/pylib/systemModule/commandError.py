@@ -260,11 +260,9 @@ class ErrorMessageDictionary():
                         'lift':f'{cmdPrefix}{cmd} (MemberName)',
 
                         #   Role Management
-                        'rero':f'{cmdPrefix}{cmd} (MemberName) (RoleName)',
-                        'sero':f'{cmdPrefix}{cmd} (MemberName) (RoleName)',
+                        'dero':f'{cmdPrefix}{cmd} (RoleName)',
                         'crero':f'{cmdPrefix}{cmd} (RoleName)',
-                        'delro':f'{cmdPrefix}{cmd} (RoleName)',
-#                       'roleColor':f'{cmdPrefix}{cmd} (Name) (color)',
+                        'remro':f'{cmdPrefix}{cmd} (MemberName) (RoleName)',
 
                         #   Channel Management / message management
                         'chdel':f'{cmdPrefix}{cmd} (Channel Name)',
