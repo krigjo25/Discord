@@ -7,6 +7,7 @@ from dotenv import load_dotenv
 
 #   Discord Repositories
 from discord import Intents
+from pylib.postModerationModule.moderatorModule.moderator import RolePermissions
 
 # library Repositories
 
@@ -63,6 +64,8 @@ class DiscordSetup():
         #   Moderation - Module
         self.bot.add_cog(Administrator(self.bot))
         self.bot.add_cog(RoleModeration(self.bot))
+        self.bot.add_cog(RolePermissions(self.bot))
+
         self.bot.add_cog(MemberModeration(self.bot))
         self.bot.add_cog(ChannelModeration(self.bot))
         self.bot.add_cog(GeneralModeration(self.bot))
