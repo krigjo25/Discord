@@ -1138,7 +1138,8 @@ class RoleModeration(Cog):
 
         return
 
-    #   Role Management X
+    #   Role Management
+    #   Create role
     @command(name='crero')
     @has_permissions(manage_roles = True)
     async def CreateRole(self, ctx, roleName):
@@ -1228,7 +1229,85 @@ class RoleModeration(Cog):
 
         return
 
-    @command(name='remove')
+    #   Delete Role
+    @command(name='dero') # :X
+    @has_permissions(manage_roles = True)
+    async def removeRole(self, ctx, *, role ):
+
+            """
+                #   1   Ask the user for comfirmation before removing the role
+
+            """
+
+            #   Initializing variables
+            srv = ctx.guild
+            role = get(srv.roles, name=f'{role}')
+            chlog = get(srv.channels, name='moderationlog')
+
+            #   Check if the log exists
+            if not chlog:
+
+                perms = PermissionOverwrite(read_messages=False)
+
+                await srv.create_text_channel(f'{chlog}', overwrites=perms)
+
+                #   3:  Prepare, send & clean up the embed message
+                self.embed.color = Colour.dark_red()
+                self.embed.title = 'Auto generated channel'
+                self.embed.description = 'This channel is used to log every Moderation in this server, it is made to avoid abusage of the Moderation / administration commands'
+
+                await chlog.send(embed=self.embed)
+
+                self.embed.clear_fields()
+                self.embed.color = Colour.dark_purple()
+
+            #   Prepare, send and clean up the embed message
+            self.embed.title = f'Removing {role} role'
+            self.embed.description = f'Do you want to remove the role?'
+
+            await ctx.send(embed=self.embed)
+
+            self.embed.clear_fields()
+
+            #   Confirm the action
+            confirmation = await self.bot.wait_for('message', timeout=60.0)
+            confirmation = str(confirmation.content)
+
+            if confirmation == 'yes' or confirmation == 'ye' or confirmation == 'y':
+
+                #   Prepare the embed message and delete & role
+                self.embed.title = f'{role} role, has been removed from the server'
+
+                await role.delete()
+
+            else:
+
+                #   Prepare the embed message
+                self.embed.title = f'Role removal canceled'
+
+            #   Send & clean up the embed message
+            self.embed.color = Colour.dark_red()
+            self.embed.description = ''
+            await ctx.send(embed=self.embed)
+
+            self.embed.clear_fields()
+            self.embed.color = Colour.dark_purple()
+
+            return
+ 
+    @command(name='moro') #:X
+    @has_permissions(manage_roles = True)
+    async def ModifyRole(self, ctx, role ):
+
+            """
+                #   1   Ask the user for comfirmation before removing the role
+
+            """
+    
+            return
+
+    #   Remove role 
+    @command(name='remro')
     @has_permissions(manage_roles = True)
     async def RemoveMemberRole(self, ctx, *, member:Member, role, reason=None ):
 
@@ -1300,78 +1379,54 @@ class RoleModeration(Cog):
 
         return
 
-    @command(name='dero') # :X
+        #   Remove role 
+
+    #   Set Member Role
+    @command(name='semro')
     @has_permissions(manage_roles = True)
-    async def removeRole(self, ctx, role ):
+    async def SetMemberRole(self, ctx, *, member:Member, role, reason=None ):
 
-            """
-                #   1   Ask the user for comfirmation before removing the role
 
-            """
+        """
 
-            #   Initializing variables
-            srv = ctx.guild
-            role = get(srv.roles, name=f'{role}')
-            chlog = get(srv.channels, name='moderationlog')
+            #   1 When the command is invoked, ask the user for a confirmation
+            #   2 Remove the user from the role
 
-            #   Check if the log exists
-            if not chlog:
+        """
+        return
 
-                perms = PermissionOverwrite(read_messages=False)
+    #   List Roles
+    @command(name='liro')
+    async def ListRoles(self, ctx):
 
-                await srv.create_text_channel(f'{chlog}', overwrites=perms)
+        '''
+            1   Retrieve roles from roles list
+            2 :x:   Check if its a member or bot role (only member roles)
+            3 :x:  Mentioned
+            4   send embed into the channel
+        '''
 
-                #   3:  Prepare, send & clean up the embed message
-                self.embed.color = Colour.dark_red()
-                self.embed.title = 'Auto generated channel'
-                self.embed.description = 'This channel is used to log every Moderation in this server, it is made to avoid abusage of the Moderation / administration commands'
+        #   Initializing variables
+        svr = ctx.guild
+        roles = svr.roles
+        i = []
+        
 
-                await chlog.send(embed=self.embed)
+        for nr, role in enumerate(roles):
 
-                self.embed.clear_fields()
-                self.embed.color = Colour.dark_purple()
+            
+            i.append(role)
+            i.append(len(roles))
+            mention = get(roles, name =role)
+            self.embed.add_field(name = f'Role No {nr}', value=f'{role.mention}')
 
-            #   Prepare, send and clean up the embed message
-            self.embed.title = f'Removing {role}'
-            self.embed.description = f'Do you want to remove the role?'
+        print(i)
+        #   Prepare, send & Clean up the embed message
 
-            await ctx.send(embed=self.embed)
+        self.embed.title = 'Server roles'
 
-            self.embed.clear_fields()
+        await ctx.send(embed=self.embed)
 
-            #   Confirm the action
-            confirmation = await self.bot.wait_for('message', timeout=60.0)
-            confirmation = str(confirmation.content)
+        #self.embed.clear_fields()
 
-            if confirmation == 'yes':
-
-                #   Prepare the embed message and delete & role
-                self.embed.title = f'{role} has been removed from the server'
-
-                await role.delete()
-
-            else:
-
-                #   Prepare the embed message
-                self.embed.title = f'Role removal canceled'
-
-            #   Send & clean up the embed message
-            self.embed.color = Colour.dark_red()
-            self.embed.description = ''
-            await ctx.send(embed=self.embed)
-
-            self.embed.clear_fields()
-            self.embed.color = Colour.dark_red()
-
-            return
- 
-    @command(name='modifyRole') #:X
-    @has_permissions(manage_roles = True)
-    async def ModifyRole(self, ctx, role ):
-
-            """
-                #   1   Ask the user for comfirmation before removing the role
-
-            """
-    
-            return
+        return
