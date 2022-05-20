@@ -2,10 +2,10 @@
 #   Python Repositories
 import datetime
 import asyncio
-from logging import Manager
+
 
 #   Discord Repositories
-
+from discord import Message
 from discord.utils import get
 from discord.colour import Color
 from discord.abc import GuildChannel
@@ -16,6 +16,8 @@ from discord.ext.commands.core import has_permissions
 
 from discord.ext.commands import Cog, command, has_any_role
 import humanfriendly
+
+from pylib.dictionaries.systemmessages import Dictionaries
 
 
 class ChannelModeration(Cog):
@@ -44,15 +46,16 @@ class ChannelModeration(Cog):
         #   Declare variables
         x = int(x)
         srv = ctx.guild
-        channel = get(srv.channels, name=chName)
+        ch = get(srv.channels, name=chName)
+        chlog = get(srv.channels, name = 'modererationlog')
 
-        purge = await channel.purge(limit=x)
-        await ctx.send(f'Sir, i purged **{len(purge)}** lines, in **{channel}**')
+        purge = await ch.purge(limit=x)
+        await chlog.send(f'**{len(purge)}** lines purged, in **{ch}** by **{ctx.author.name}**')
 
         return
 
 
-    #   Creating a channel
+    #   :x: Creating a channel
     @command(name="chcre")
     @has_permissions(manage_channels=True)
     async def CreateChannel(self, ctx, chName):
@@ -64,46 +67,16 @@ class ChannelModeration(Cog):
         chlog = get(srv.channels, name='moderationlog')
 
         #   Checking wheter the channel exist or not
-        if not chlog:
+        await GeneralModeration.CheckChannel(ch)
+        await GeneralModeration.CheckChannel(chlog)
 
-            #   Creating channel permissions
-            perms = {
-                        srv.default_role:PermissionOverwrite(view_channels=False)          
-                    }
+        if ch: self.embed.title = f'{ch} Already exists.'
 
-            await srv.create_text_channel(f'{chlog}', overwrites=perms)
-
-            #   Prepare & Send the embed
-            self.embed.color = Colour.dark_red()
-            self.embed.title = 'Auto generated channel'
-            self.embed.description = 'This channel is used for every Moderation in this server, it is made to avoid abusage of the Moderation / administration commands'
-
-            await chlog.send(embed=self.embed)
-
-            self.embed.clear_fields()
-            self.embed.color = Colour.dark_purple()
-
-        if not ch:
-
-            perms = {
-                        srv.default_role:PermissionOverwrite(view_channel=False)
-            }
-
-            self.embed.color = Colour.dark_red()
-            ch = await srv.create_text_channel(f'{chName}', overwrites=perms)
-            self.embed.title = f'{ctx.author} has Created a new channel called {ch}'
-
-        else:
-
-            self.embed.color = Colour.dark_red()
-            self.embed.title = f'{ch} Already exists.'
-
-        #   3:  Log channel creation
-
+        #   3:  prepare, send & Clean up embed
+        self.embed.color = Colour.dark_red()
         self.embed.description=f''
         await chlog.send(embed=self.embed)
 
-        #   Clean up
         self.embed.clear_fields()
         self.embed = Embed(color=Colour.dark_purple())
 
@@ -123,39 +96,23 @@ class ChannelModeration(Cog):
         #   Declaring variables
         srv = ctx.guild
         srvch = GuildChannel
+
         ch = get(srv.channels, name=ch)
         chlog = get(srv.channels, name='moderationlog')
 
         #   Checking wheter the channel exist or not
-        if not chlog:
 
-            #   Creating channel permissions
-            perms = {
-                        srv.default_role:PermissionOverwrite(view_channels=False)          
-                    }
+        if ch:
 
-            await srv.create_text_channel(f'{chlog}', overwrites=perms)
-
-            #   Prepare & Send the embed
-            self.embed.color = Colour.dark_red()
-            self.embed.title = 'Auto generated channel'
-            self.embed.description = 'This channel is used for every Moderation in this server, it is made to avoid abusage of the Moderation / administration commands'
-
-            await chlog.send(embed=self.embed)
-
-            self.embed.clear_fields()
-            self.embed.color = Colour.dark_purple()
-  
-        if ch is not None:
-
-            self.embed.title = f'{ctx.author.name} has Deleted {ch} channel.'
+            self.embed.title = f'{ctx.author.name} has Deleted the {ch} channel.'
             ch = await srvch.delete(ch)
-            self.embed.color = Colour.dark_red()
+            
 
         else:
             self.embed.title = f'The Channel Does not exist'
 
         #   prepare, Send & Clean up embeded message
+        self.embed.color = Colour.dark_red()
         self.embed.description=f''
         await chlog.send(embed=self.embed)
 
@@ -180,18 +137,22 @@ class GeneralModeration(Cog):
 
         #   General moderator commands
 
-    #   Warn
+    #  :x: Warn
     @command(name="warn")
     @has_permissions(manage_messages=True)
     async def UserWarn(self, ctx, member:Member, *, reason=None):
 
-        srv = ctx.guild
+        #   Creating a channel to log the warning 
+        await GeneralModeration.CheckChannel()
 
+        #   Initializing variables
+        srv = ctx.guild
         ch= get(srv.channels, name='moderationlog')
-        self.embed = Embed(color=Colour.dark_red(), description= '')
+
 
         #   Counting warnings
         #   How to make sure only the user retrieve the warning?
+
 
         if reason == None:
 
@@ -205,27 +166,12 @@ class GeneralModeration(Cog):
 
         else:
 
-            #   Creating a channel to log the warning 
-            if not ch:
-
-                #   Channel Permissions
-                perm = PermissionOverwrite()
-                perm.send_messages = False
-                perm.read_messages = True
-                perm.read_message_history = True
-
-                #   Creating the channel
-                await srv.create_text_channel(f'{ch.name}', overwrite=perm)
-                self.embed.title = 'Auto generated channel'
-                self.embed.description = 'This channel is used for every Moderation in this server, it is made to avoid abusage of the Moderation / administration commands'
-                self.embed.add_field(name= f'**{member}** has been warned by **{ctx.author}** for **{reason}**', value='.')
-                await ch.send(embed=self.embed)
 
             message = f'Greetings **{member}**.\n You recieve this Notification, because you have been warned by **{ctx.author}**.\n\n Due to :\n *{reason}*\n\nPlease read and follow the suggested guidelines for behavior in our disocrd channel'
             await member.send(message)
 
-            self.embed.title = f'**{member}** has been warned by **{ctx.author}** for **{reason}.\n** Date : *{self.curTime}*'
-            self.embed.description = ''
+            self.embed.title = f'**{member}** has been warned by **{ctx.author}**'
+            self.embed.description = f'for **{reason}.\n** Date : *{self.curTime}*'
 
         await ch.send(embed=self.embed)
         self.embed.clear_fields()
@@ -237,7 +183,7 @@ class GeneralModeration(Cog):
     @command(name='poll', pass_context= True)
     @has_permissions(manage_messages=True)
 
-    async def polls(self, ctx):
+    async def polls(self, ctx, title, chName):
 
         """
 
@@ -247,18 +193,19 @@ class GeneralModeration(Cog):
 
         """
 
-        one = '1️⃣'
-        two = '2️⃣'
-        three = '3️⃣'
-        four = '4️⃣'
-        five = '5️⃣'
-    
+        #   Initializing variables
+        i = 1
+        li = []
         srv = ctx.guild
+        ch = utils.get(srv.channels, name=f'{chName}')
 
-        #   Prepare & Send the embed
-        self.embed.title = ''
-        self.embed.description = 'Type in a question or type \"q\" to quit '
+        #   Prepare, send and clean up
+        self.embed.title = f'{title}:question:,'
+        self.embed.description = 'Please type in how many opinions you\'d like:question:'
+
         await ctx.send(embed=self.embed)
+
+        self.embed.clear_fields()
 
         def msgCheck(arg):
 
@@ -268,175 +215,59 @@ class GeneralModeration(Cog):
             return author != self.bot.user and arg
 
         arg = await self.bot.wait_for('message', timeout=30.0, check=msgCheck)
-        quiz = str(arg.content)
-
-        self.embed.title = f'{quiz}:question:,'
-        self.embed.description = 'Thank you, please type in how many opinions you\'d like:question:'
-        await ctx.send(embed=self.embed)
-
-        arg = await self.bot.wait_for('message', timeout=30.0, check=msgCheck)
         x = int(arg.content)
-        
+
         # Creating the Options
-        if x == 2:
+        while i <= x:
 
-            #   First option
-            self.embed.description = 'Name your first option'
+            j = 0
+
+            self.embed.description = f'Name your option NO {i}'
             await ctx.send(embed=self.embed)
 
             arg = await self.bot.wait_for('message', timeout=30.0, check=msgCheck)
             option = str(arg.content)
 
-            #   Second option
-            self.embed.description = 'Name your second option'
-            await ctx.send(embed=self.embed)
+            li.append(option)
+            self.embed.add_field(name= f'Option nr {i} ', value = li[j])
 
-            arg = await self.bot.wait_for('message', timeout=30.0, check=msgCheck)
-            option2 = str(arg.content)
+            j += 1
+            i += 1
 
-            options = f':one:{option}\n:two: {option2}\n'
-        
-        elif x == 3:
-            #   First option
-            self.embed.description = 'Name your first option'
-            await ctx.send(embed=self.embed)
+        # Prepare, send & clean up embed
 
-            arg = await self.bot.wait_for('message', timeout=30.0, check=msgCheck)
-            option = str(arg.content)
-
-            #   Second option
-            self.embed.description = 'Name your second option'
-            await ctx.send(embed=self.embed)
-
-            arg = await self.bot.wait_for('message', timeout=30.0, check=msgCheck)
-            option2 = str(arg.content)
-
-            #   Third option
-            self.embed.description = 'Name your third option'
-            await ctx.send(embed=self.embed)
-
-            arg = await self.bot.wait_for('message', timeout=30.0, check=msgCheck)
-            option3 = str(arg.content)
-
-            options = f':one:{option}\n:two: {option2}\n :three:{option3}'
-
-        elif x == 4:
-            #   First option
-            self.embed.description = 'Name your first option'
-            await ctx.send(embed=self.embed)
-
-            arg = await self.bot.wait_for('message', timeout=30.0, check=msgCheck)
-            option = str(arg.content)
-
-            #   Second option
-            self.embed.description = 'Name your second option'
-            await ctx.send(embed=self.embed)
-
-            arg = await self.bot.wait_for('message', timeout=30.0, check=msgCheck)
-            option2 = str(arg.content)
-
-            #   Third option
-            self.embed.description = 'Name your third option'
-            await ctx.send(embed=self.embed)
-
-            arg = await self.bot.wait_for('message', timeout=30.0, check=msgCheck)
-            option3 = str(arg.content)
-            
-            #   Fourth option
-            self.embed.description = 'Name your fourth option'
-            await ctx.send(embed=self.embed)
-
-            arg = await self.bot.wait_for('message', timeout=30.0, check=msgCheck)
-            option4 = str(arg.content)
-            
-            options = f':one:{option}\n:two: {option2}\n :three:{option3}\n :four:{option4}'
-
-        elif x == 5:
-            #   First option
-            self.embed.description = 'Name your first option'
-            await ctx.send(embed=self.embed)
-
-            arg = await self.bot.wait_for('message', timeout=30.0, check=msgCheck)
-            option = str(arg.content)
-
-            #   Second option
-            self.embed.description = 'Name your second option'
-            await ctx.send(embed=self.embed)
-
-            arg = await self.bot.wait_for('message', timeout=30.0, check=msgCheck)
-            option2 = str(arg.content)
-
-            #   Third option
-            self.embed.description = 'Name your third option'
-            await ctx.send(embed=self.embed)
-
-            arg = await self.bot.wait_for('message', timeout=30.0, check=msgCheck)
-            option3 = str(arg.content)
-            
-            #   Fourth option
-            self.embed.description = 'Name your fourth option'
-            await ctx.send(embed=self.embed)
-
-            arg = await self.bot.wait_for('message', timeout=30.0, check=msgCheck)
-            option4 = str(arg.content)
-        
-            #   fifth option
-            self.embed.description = 'Name your fifth option'
-            await ctx.send(embed=self.embed)
-
-            arg = await self.bot.wait_for('message', timeout=30.0, check=msgCheck)
-            option5 = str(arg.content)
-            
-            options = f':one:{option}\n:two: {option2}\n :three:{option3}\n :four:{option4}\n :five:{option5}'
-        
-        # Summuary for the question
         self.embed.title ='Summary'
-        self.embed.description = f'Question : {quiz}\n Options :\n {options}\nWhich channel should the poll go in?'
+        self.embed.description = f'Question : *{title}*\n **start** / **q**'
         await ctx.send(embed=self.embed)
 
-        #   Retrieve the channel name
+
+        #   Retrieve the channel name & Check if it exists
         arg = await self.bot.wait_for('message', timeout=30.0, check=msgCheck)
-        ch = str(arg.content)
+        arg = str(arg.content)
 
-        channel= get(srv.channels, name=ch)
+        if arg != 'q':
+            #   Issues to retrieve the channel name
 
-        if not channel:  
-            await srv.create_text_channel(f'{ch}')
+            ch = await self.CheckChannel(ctx, ch)
 
-        self.embed.title = f'{quiz}:question:'
-        self.embed.description = f' Greetings fellas, its time for a poll, choose between \n {options}'
-        r = await channel.send(embed=self.embed)
+            #   Prepare, send & Clean up embed
+            self.embed.title = f'{title}:question:'
+            self.embed.description = f' Greetings fellas, its time for a poll, choose between \n {option}'
 
-                # Add following reaction to the message
-        
+            await ch.send(embed=self.embed)
 
-        if x == 2:
+            self.embed.clear_fields()
 
-            await r.add_reaction(one)
-            await r.add_reaction(two)
+            # :x:  Adding reactions into the embed
+            message = Message
 
-        elif x==3:
+            while i > x:
 
-            await r.add_reaction(one)
-            await r.add_reaction(two)
-            await r.add_reaction(three)
+                i = 0
+                i += 1
+                await message.add_reaction(Dictionaries.BotPoll(i))
 
-        elif x==4:
-
-            await r.add_reaction(one)
-            await r.add_reaction(two)
-            await r.add_reaction(three)
-            await r.add_reaction(four)
-
-        elif x==5:
-
-            await r.add_reaction(one)
-            await r.add_reaction(two)
-            await r.add_reaction(three)
-            await r.add_reaction(four)
-            await r.add_reaction(five)
-
-        if quiz == 'q' or ch == 'q':
+        elif title == 'q' or arg == 'q':
 
             return await ctx.send('The poll has ended')
 
@@ -531,6 +362,45 @@ class GeneralModeration(Cog):
                 await ctx.send(embed = self.embed)
                 self.embed.clear_fields()
 
+    async def CheckChannel(self, ctx, *arg ):
+
+        srv = ctx.guild
+        ch = utils.get(srv.channels, name = f'{arg[0]}')
+        chlog = utils.get(srv.channels, name='moderationlog')
+
+        if arg == True:
+            if not ch:
+
+                perms = {
+                            srv.default_role:PermissionOverwrite(view_channel=False)
+                }
+
+                self.embed.color = Colour.dark_red()
+                ch = await srv.create_text_channel(f'{arg[0]}', overwrites=perms)
+                self.embed.title = f'{ctx.author.name} has Created a new channel called {ch}'
+
+        if not chlog:
+
+            perms = { 
+                        srv.default_role:PermissionOverwrite(
+                                                                view_channel=False
+                                                            )
+                    }
+
+            chlog = await srv.create_text_channel('moderationLog', overwrites=perms)
+
+            #   3:  Prepare, send & clean up the embed message
+            self.embed.color = Colour.dark_red()
+            self.embed.title = 'Auto generated channel'
+            self.embed.description = 'This channel is used to log every Moderation in this server, it is made to avoid abusage of the Moderation / administration commands'
+
+        await chlog.send(embed=self.embed)
+
+        self.embed.clear_fields()
+        self.embed.color = Colour.dark_purple()
+
+        return ch
+
 class MemberModeration(Cog):
 
     #   Declare variables
@@ -557,76 +427,52 @@ class MemberModeration(Cog):
             #  3 Log the mute in a channel called moderation Log
 
         """
+
+        #   Creating log channel if not exist :x:
+        #ch = await GeneralModeration.CheckChannel(self, ctx)
+
         #   Initializing variables
         srv = ctx.guild
+        role = get(srv.roles, name ='@sushed')
         time = humanfriendly.parse_timespan(time)
-        ch = get(srv.channels, name='moderationlog')
-        sushedRole = get(srv.roles, name ='@sushed')
+        chlog = get(srv.channels, name='moderationlog')
 
-        if reason == None or int(time) > 604800:
+        if reason == None or time > 604800:
 
-            self.embed.color = Colour.dark_red()
             self.embed.title = 'An erro occurred'
-            self.description = f' Could not sush **{member}** due to no reason were provided'
+            self.description = f' Could not sush **{member}** due to there were no reason to shush'
 
             if int(time) > 604800:
 
                 self.embed.description = f' Could not sush **{member}** due to a limitation for 1w'
 
-            await ch.send(embed=self.embed)
-
-            #   Clean up embeded message
+            #   Prepare, send & Clean up embed :x:
+            self.embed.color = Colour.dark_red()
+            await chlog.send(embed=self.embed)
             self.embed.clear_fields()
             self.embed.color = Colour.dark_purple()
 
         else:
 
-            if not ch:
+            await RoleModeration.CheckRole(self, ctx, '@sushed')
 
-                #   Creating channel permissions
-                perms = {
-                            srv.default_role:Permissions(
-                                                            view_channel=False)          
-                        }
+            #   Prepare, send & Clean up embed
+            self.embed.title = f' **{member}** has been sushed'
+            self.embed.description = f'by **{ctx.author.name}** \n for {datetime.timedelta(seconds=time)}\nDue to\n**{reason}.**\n*{self.curTime}*'
 
-                await srv.create_text_channel(f'{ch}', overwrites=perms)
-
-                #   Prepare & Send the embed
-                self.embed.color = Colour.dark_red()
-                self.embed.title = 'Auto generated channel'
-                self.embed.description = 'This channel is used for every Moderation in this server, it is made to avoid abusage of the Moderation / administration commands'
-
-                await ch.send(embed=self.embed)
-
-                self.embed.clear_fields()
-                self.embed.color = Colour.dark_purple()
-
-            if not sushedRole:
-
-                perms = {
-
-                            sushedRole:PermissionOverwrite(read_message_history=False)          
-                        }
-
-                await srv.create_role(name='@sushed', permissions = perms, reason = 'Automatic Role assignment')
-
-            #   Prepare & Send embeded message
             self.embed.color = Colour.dark_red()
-            self.embed.title = f' **{member}** has been sushed by **{ctx.author}** \n for {datetime.timedelta(seconds=time)}\nDue to\n**{reason}.**\n*{self.curTime}*'
-            self.embed.description = ''
-
-            await ch.send(embed=self.embed)
-            await member.add_roles(sushedRole)
-            await member.timeout(until = utils.utcnow() + datetime.timedelta(seconds=time), reason = reason)
-            await member.send(f'Greetings, **{member}**.\n\n You recieve this message, because you have been sushed by **{ctx.author}** \n You are sushed for **{datetime.timedelta(seconds=time)}**.\n\n During this time you will not able to use {ctx.guild} channels.\n\nThe reason for this intervention is\n*{reason}*')
-
-            #   Clean up embeded message
+            await chlog.send(embed=self.embed)
             self.embed.clear_fields()
             self.embed.color = Colour.dark_purple()
 
+            #   Set role, set timeout & send member DM
+            await member.add_roles(role)
+            await member.timeout(until = utils.utcnow() + datetime.timedelta(seconds=time), reason = reason)
+            await member.send(f'Greetings, **{member}**.\n\n You recieve this message, because you have been sushed by **{ctx.author}** \n You are sushed for **{datetime.timedelta(seconds=time)}**.\n\n During this time you will not able to use {ctx.guild} channels.\n\nThe reason for this intervention is\n*{reason}*')
+
             # Automatic un-mute & Notify the user
             await asyncio.sleep(time)
-            await member.remove_roles(sushedRole)
+            await member.remove_roles(role)
             await member.send(f'Greetings **{member}**.\n\n Your sush, has been lifted you can now use {ctx.guild}')
 
         return
@@ -637,46 +483,29 @@ class MemberModeration(Cog):
 
         """
 
-            #  1 Removing the role and lift the sush
-            #  2 send the selected member a message
-            #  3 Log the mute in a channel called moderation Log
+            1   Checking if there is a role called 'Sushed'
+            2   Checking if there is a log channel
+            3   Removing the role and lift the sush
+            4   send the selected member a message
+
 
         """
 
-        srv = ctx.guild
+        await RoleModeration.CheckRole(self, ctx)
+        await GeneralModeration.CheckChannel(self, ctx)
 
-        ch = get(srv.channels, name='moderationlog')
+        srv = ctx.guild
+        chlog = get(srv.channels, name='moderationlog')
         role = get(srv.roles, name ='@sushed')
 
-        if not ch:
-
-                #   Creating channel permissions
-                perms = {
-                            srv.default_role:PermissionOverwrite(view_channels=False)          
-                        }
-
-                await srv.create_text_channel(f'{ch}', overwrites=perms)
-
-                #   Prepare & Send the embed
-                self.embed.color = Colour.dark_red()
-                self.embed.title = 'Auto generated channel'
-                self.embed.description = 'This channel is used for every Moderation in this server, it is made to avoid abusage of the Moderation / administration commands'
-
-                await ch.send(embed=self.embed)
-
-                self.embed.clear_fields()
-                self.embed.color = Colour.dark_purple()
-
-        #   Prepare & Send embeded message
+        #   Prepare, send and clean up embed
         self.embed.color = Colour.dark_red()
-        self.embed.title = f' **{member}**\'s shush has been lifted by **{ctx.author}**'
-        self.embed.description = ''
-        await ch.send(embed=self.embed)
+        self.title = f'the sush has been lifted for {member}'
+        self.embed.description = f'by\n **{ctx.author.name }**\nDate:\n *{self.curTime}*'
+        
+        await chlog.send(embed= self.embed)
 
-        #   Clean up embeded message
-        self.embed.clear_fields()
-        self.embed.color = Colour.dark_purple()
-
+        #   Removing role, timeout & Notify the user
         await member.remove_roles(role)
         await member.timeout(until=None, reason=None)
         await member.send(f'Greetings **{member}**.\n\n The sush has been lifted you can now use {ctx.guild}')
@@ -684,47 +513,50 @@ class MemberModeration(Cog):
         return
 
     #   Kick Members
-    #   Kick a user from the server
+    #   Kick a user from the server :x:
     @command(name='kick')
     @has_permissions(kick_members= True)
 
     async def Kick(self, ctx, member:Member, *, reason=None):
 
+        """
+
+
+            1   Checking if there is a log channel
+            2   Prepare & send messages
+            3   Kick the member
+
+        """
+        #   Initializing variables
+        srv = ctx.guild
+        chlog = get(srv.channels, name='moderationlog')
+
+        #   Checking wheter there is a log channel :x:
+        await GeneralModeration.CheckChannel(self, ctx)
+
         if reason == None:
 
-            await ctx.send(f'Please provide me a reason to kick **{member}**')
+            self.embed.title = f'**{member}** Provide a reason to kick the **{member}**'
 
-        elif reason != None:
+        else:
 
-            srv = ctx.guild
-            ch = get(srv.channels, name='moderationlog')
-
-            if not ch:
-
-                #   Creating channel permissions
-                perms = PermissionOverwrite(read_messages=False)
-
-                await srv.create_text_channel(f'{ch}', overwrites=perms)
-
-                self.embed.color = color = Colour.dark_red()
-                self.embed.title = 'Auto generated channel'
-                self.embed.description = 'This channel is used for every Moderation in this server, it is made to avoid abusage of the Moderation / administration commands'
-                await ch.send(embed=self.embed)
-                self.embed.clear_fields()
-                self.embed.color = color = Colour.dark_purple()
-
-            self.embed.color = color = Colour.dark_red()
-            self.embed.title = f'**{member}** has been kicked by **{ctx.author}**.'
-            self.embed.description = '**{reason}.**\n Date : **{self.curTime}**'
-
-            await ch.send(embed=self.embed)
-            self.embed.clear_fields()
-            self.embed.color = color = Colour.dark_purple()
+            #   Prepare embed
+            self.embed.color = Colour.dark_red()
+            self.embed.title = f'**{member}** has been kicked from the server'
+            self.embed.description = f' by\n**{ctx.author}**\n Due to\n*{reason}.*\n Date : *{self.curTime}*'
 
             # Creating a message to the user, send it to his DM, then kick
             message = f'Greetings **{member}**.\nYou recieve this message, because you have been kicked off **{ctx.guild.name}** by **{ctx.author}**.\n\nDue to :\n **{reason}**'
             await member.send(message)
             await member.kick(reason=reason)
+
+        #   Send & Clean up embed
+        await chlog.send(embed=self.embed)
+
+        self.embed.clear_fields()
+        self.embed.color = Colour.dark_purple()
+
+        return
 
 class RolePermissions(Cog):
 
@@ -1131,6 +963,7 @@ class RoleModeration(Cog):
     """
         Commands which requires manage_roles
     """
+
     def __init__(self, bot):
 
         self.bot = bot
@@ -1152,6 +985,9 @@ class RoleModeration(Cog):
 
         """
 
+        #   Creating log channel if not exist
+        await GeneralModeration.LogChannel(self, ctx)
+
         #   Initializing classes
         manager = RolePermissions
 
@@ -1160,22 +996,6 @@ class RoleModeration(Cog):
         srv = ctx.guild
         role = get(srv.roles, name=f'{roleName}')
         chlog = get(srv.channels, name='moderationlog')
-
-        if not chlog:
-
-                perms = PermissionOverwrite(read_messages=False)
-
-                await srv.create_text_channel(f'{chlog}', overwrites=perms)
-
-                #   3:  Prepare, send & clean up the embed message
-                self.embed.color = Colour.dark_red()
-                self.embed.title = 'Auto generated channel'
-                self.embed.description = 'This channel is used to log every Moderation in this server, it is made to avoid abusage of the Moderation / administration commands'
-
-                await chlog.send(embed=self.embed)
-
-                self.embed.clear_fields()
-                self.embed.color = Colour.dark_purple()
 
         if not role:
 
@@ -1222,7 +1042,7 @@ class RoleModeration(Cog):
             self.embed.description='Role already exists'
 
         self.embed.color = Colour.dark_red()
-        await ch.send(embed=self.embed)
+        await chlog.send(embed=self.embed)
 
         self.embed.clear_fields()    
         self.embed.color = Embed(color=Colour.dark_purple())
@@ -1232,79 +1052,70 @@ class RoleModeration(Cog):
     #   Delete Role
     @command(name='dero') # :X
     @has_permissions(manage_roles = True)
-    async def removeRole(self, ctx, *, role ):
+    async def DeleteRole(self, ctx, *, role ):
 
-            """
-                #   1   Ask the user for comfirmation before removing the role
+        """
+            1   Checking if there is any channels called 'moderationlog'
+            2   Ask the user for comfirmation before removing the role
 
-            """
+        """
 
-            #   Initializing variables
-            srv = ctx.guild
-            role = get(srv.roles, name=f'{role}')
-            chlog = get(srv.channels, name='moderationlog')
+        #   Creating log channel if not exist
+        await GeneralModeration.LogChannel(self, ctx)
 
-            #   Check if the log exists
-            if not chlog:
+        #   Initializing variables
+        srv = ctx.guild
+        role = get(srv.roles, name=f'{role}')
+        chlog = get(srv.channels, name='moderationlog')
 
-                perms = PermissionOverwrite(read_messages=False)
+        #   Prepare, send & clean up the embed message
+        self.embed.title = f'Removing {role} role'
+        self.embed.description = f'Do you want to remove the role?'
 
-                await srv.create_text_channel(f'{chlog}', overwrites=perms)
+        await ctx.send(embed=self.embed)
 
-                #   3:  Prepare, send & clean up the embed message
-                self.embed.color = Colour.dark_red()
-                self.embed.title = 'Auto generated channel'
-                self.embed.description = 'This channel is used to log every Moderation in this server, it is made to avoid abusage of the Moderation / administration commands'
+        self.embed.clear_fields()
 
-                await chlog.send(embed=self.embed)
+        #   Confirm the action
+        confirmation = await self.bot.wait_for('message', timeout=60.0)
+        confirmation = str(confirmation.content)
 
-                self.embed.clear_fields()
-                self.embed.color = Colour.dark_purple()
+        if confirmation == 'yes' or confirmation == 'ye' or confirmation == 'y':
 
-            #   Prepare, send and clean up the embed message
-            self.embed.title = f'Removing {role} role'
-            self.embed.description = f'Do you want to remove the role?'
+            #   Prepare the embed message and delete & role
+            self.embed.title = f'{role} role, has been removed from the server'
 
-            await ctx.send(embed=self.embed)
+            await role.delete()
 
-            self.embed.clear_fields()
+        else:
 
-            #   Confirm the action
-            confirmation = await self.bot.wait_for('message', timeout=60.0)
-            confirmation = str(confirmation.content)
+            #   Prepare the embed message
+            self.embed.title = f'Role removal canceled'
 
-            if confirmation == 'yes' or confirmation == 'ye' or confirmation == 'y':
+        #   Send & clean up the embed message
+        self.embed.color = Colour.dark_red()
+        self.embed.description = ''
+        await chlog.send(embed=self.embed)
 
-                #   Prepare the embed message and delete & role
-                self.embed.title = f'{role} role, has been removed from the server'
+        self.embed.clear_fields()
+        self.embed.color = Colour.dark_purple()
 
-                await role.delete()
-
-            else:
-
-                #   Prepare the embed message
-                self.embed.title = f'Role removal canceled'
-
-            #   Send & clean up the embed message
-            self.embed.color = Colour.dark_red()
-            self.embed.description = ''
-            await ctx.send(embed=self.embed)
-
-            self.embed.clear_fields()
-            self.embed.color = Colour.dark_purple()
-
-            return
+        return
  
-    @command(name='moro') #:X
+    @command(name='moro') #:X:
     @has_permissions(manage_roles = True)
     async def ModifyRole(self, ctx, role ):
 
-            """
-                #   1   Ask the user for comfirmation before removing the role
+        """
 
-            """
-    
-            return
+            1   Checking if there is any channels called 'moderationlog'
+            2   Modify role
+
+        """
+        #   Creating log channel if not exist
+        await GeneralModeration.LogChannel(self, ctx)
+
+        return
 
     #   Remove role 
     @command(name='remro')
@@ -1312,36 +1123,21 @@ class RoleModeration(Cog):
     async def RemoveMemberRole(self, ctx, *, member:Member, role, reason=None ):
 
         """
-
-            #   1 When the command is invoked, ask the user for a confirmation
-            #   2 Remove the user from the role
+            1   Checking if there is any channels called 'moderationlog'
+            2   When the command is invoked, ask the user for a confirmation
+            3   Remove the user from the role
 
         """
+
+        #   Creating log channel if not exist
+        await GeneralModeration.LogChannel(self, ctx)
 
         #   Initializing variables
         srv = ctx.guild
         mRole = get(srv.roles, name=f'{role}')
         chlog = get(srv.channels, name='moderationlog')
 
-        #   Checking wheter the channel exists
-        if not chlog:
-
-            perms = PermissionOverwrite(read_messages=False)
-
-            await srv.create_text_channel(f'{ch}', overwrites=perms)
-
-            #   Prepare embed & Send
-            self.embed.color = Colour.dark_red()
-            self.embed.title = 'Auto generated channel'
-            self.embed.description = 'This channel is used to log every Moderation in this server, it is made to avoid abusage of the Moderation / administration commands'
-            
-            await chlog.send(embed=self.embed)
-
-            #   Clean up the embed message
-            self.embed.clear_fields()
-            self.embed.color = Colour.dark_purple()
-
-        #   Prepare & Send embed
+        #   Prepare, Send & Clean up embed
         self.embed.color = Colour.dark_red()
         self.embed.title = f'removing {member} from {role}'
         self.embed.description = f'Are you sure you\'d like to remove {member} from {role}?'
@@ -1353,10 +1149,10 @@ class RoleModeration(Cog):
         self.embed.color = Color.dark_purple()
 
         #   Retrieve the confirmation from the user
-        confirmation = await self.bot.wait_for('message')
-        confirmation = str(confirmation.content).lower()
+        confirm = await self.bot.wait_for('message')
+        confirm = str(confirm.content).lower()
 
-        if confirmation == 'yes':
+        if confirm == 'yes':
 
             #  Prepare the emebed message & Remove member
             self.embed.color = Color.dark_red()
@@ -1379,9 +1175,7 @@ class RoleModeration(Cog):
 
         return
 
-        #   Remove role 
-
-    #   Set Member Role
+    #   Set Member Role :x:
     @command(name='semro')
     @has_permissions(manage_roles = True)
     async def SetMemberRole(self, ctx, *, member:Member, role, reason=None ):
@@ -1389,10 +1183,14 @@ class RoleModeration(Cog):
 
         """
 
-            #   1 When the command is invoked, ask the user for a confirmation
-            #   2 Remove the user from the role
+            1   Check whether there is a log Channel
+            2   When the command is invoked, ask the user for a confirmation
+            3   Remove the user from the role
 
         """
+        #   Creating log channel if not exist
+        await GeneralModeration.LogChannel(self, ctx)
+
         return
 
     #   List Roles
@@ -1420,13 +1218,44 @@ class RoleModeration(Cog):
             mention = get(roles, name =role)
             self.embed.add_field(name = f'Role No {nr}', value=f'{role.mention}')
 
-        print(i)
-        #   Prepare, send & Clean up the embed message
+        #   Prepare, send & Clean up embed
 
         self.embed.title = 'Server roles'
 
         await ctx.send(embed=self.embed)
 
-        #self.embed.clear_fields()
+        self.embed.clear_fields()
+
+        return
+
+    async def CheckRole(self, ctx, role):
+
+        srv = ctx.guild
+        roles = get(srv.roles, name=f'{role}')
+        chlog = get(srv.channels, name='moderationlog')
+
+        if role == '@sushed':
+
+            perms = {
+
+                        role:PermissionOverwrite(read_message_history=False)          
+                    }
+
+        if roles == None:
+
+            await srv.create_role(name=f'{role}', permissions = perms, reason = 'Automatic Role assignment')
+
+            #   3:  Prepare, send & clean up the embed message
+            self.embed.color = Colour.dark_red()
+            self.embed.title = 'Auto generated role'
+            self.embed.description = '@Sushed is automatically generated to mark muted members'
+
+            await chlog.send(embed=self.embed)
+
+            self.embed.clear_fields()
+            self.embed.color = Colour.dark_purple()
+
+        else:
+            pass
 
         return

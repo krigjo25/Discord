@@ -50,6 +50,7 @@ class DiscordSetup():
         self.intents.messages = True            #   Allows the bot to send messages Guild & DM
         self.intents.presences = True           #   Allows the bot to track member activty
         self.intents.message_content =True      #   Allows the bot to send embeded messages
+        self.intents.reactions = True
 
         self.bot.add_cog(ErrorHandler(self.bot))
         self.bot.add_cog(FrequentlyAskedQuestions(self.bot))

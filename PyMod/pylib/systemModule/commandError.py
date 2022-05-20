@@ -252,7 +252,7 @@ class ErrorMessageDictionary():
                         'randint':f'{cmdPrefix}{cmd} (integer one) (integer two)',
 
                         #   Moderator module
-
+                        'poll':f'{cmdPrefix}{cmd} (poll Name) (ChannelName)',
                         'online':f'{cmdPrefix}{cmd} optional (on/off)',
                         'kick':f'{cmdPrefix}{cmd} (MemberName) (reason)',
                         'warn':f'{cmdPrefix}{cmd} (MemberName) (reason)',
@@ -260,10 +260,10 @@ class ErrorMessageDictionary():
                         'lift':f'{cmdPrefix}{cmd} (MemberName)',
 
                         #   Role Management
-                        'remove':f'{cmdPrefix}{cmd} (Name)',
-                        'setRole':f'{cmdPrefix}{cmd} (Name)',
-                        'crero':f'{cmdPrefix}{cmd} (Rolename)',
-#                       'rolePrivileges':f'{cmdPrefix}{cmd} ()',
+                        'rero':f'{cmdPrefix}{cmd} (MemberName) (RoleName)',
+                        'sero':f'{cmdPrefix}{cmd} (MemberName) (RoleName)',
+                        'crero':f'{cmdPrefix}{cmd} (RoleName)',
+                        'delro':f'{cmdPrefix}{cmd} (RoleName)',
 #                       'roleColor':f'{cmdPrefix}{cmd} (Name) (color)',
 
                         #   Channel Management / message management

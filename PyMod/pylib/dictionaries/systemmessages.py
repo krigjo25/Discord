@@ -9,6 +9,19 @@ class Dictionaries():
         pass
 
     #   Emojies
+    def BotPoll (x):
+
+        dictionary = {   
+                    1:'1️⃣',
+                    2:'2️⃣',
+                    3:'3️⃣',
+                    4:'4️⃣',
+                    5:'5️⃣',
+            }
+
+        return dictionary.get(x)
+
+
     def EmojiDictionary ():
 
         #   Creating a dictionary for emojies

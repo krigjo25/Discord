@@ -130,17 +130,20 @@ Commands which requires **manage_threads**
 #####   Moderators with manage_Roles privileges
 
 Commands which requires **manage_Roles**
-> remove (memberName)
+> remro (memberName)
 >> Removes a member from the roles
 >
-> setRole (memberName) (role)
+> sero (memberName) (role)
 >> Set a member's role
 >
-> delRole (roleName)
+> dero (roleName)
 >> Deletes a role from the server
 
-> editRole (roleName) //
+> moro (roleName) //
 >> Deletes a role from the server
+
+> liro
+>> Lists Available roles
 
 - "*" records the given command in the moderationlog channel
 
