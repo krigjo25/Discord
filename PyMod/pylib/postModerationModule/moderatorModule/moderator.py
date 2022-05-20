@@ -399,7 +399,7 @@ class GeneralModeration(Cog):
         self.embed.color = Colour.dark_purple()
         print(t)
 
-        return ch
+        return
 
 class MemberModeration(Cog):
 
@@ -487,12 +487,12 @@ class MemberModeration(Cog):
 
         """
 
-        await RoleModeration.CheckRole(self, ctx)
-        await GeneralModeration.CheckChannel(self, ctx)
-
         srv = ctx.guild
         chlog = get(srv.channels, name='moderationlog')
         role = get(srv.roles, name ='@sushed')
+
+        await RoleModeration.CheckRole(self, ctx, role)
+        #await GeneralModeration.CheckChannel(self, ctx)
 
         #   Prepare, send and clean up embed
         self.embed.color = Colour.dark_red()
@@ -564,7 +564,7 @@ class RolePermissions(Cog):
 
         return
 
-    async def UserPermissions(self, ctx, roleName):
+    async def BasicPermissions(self, ctx, roleName):
 
         pass
 
@@ -572,7 +572,7 @@ class RolePermissions(Cog):
         pass
 
 
-    async def AdministratorPermissions(self, ctx, roleName):
+    async def CustomPermissions(self, ctx, roleName):
 
         #   1   Set a player's role
         sec = 60.0
@@ -971,7 +971,7 @@ class RoleModeration(Cog):
     #   Create role
     @command(name='crero')
     @has_permissions(manage_roles = True)
-    async def CreateRole(self, ctx, roleName):
+    async def CreateRole(self, ctx, role):
 
         """
 
@@ -980,68 +980,11 @@ class RoleModeration(Cog):
             #   3   Choose the colour of the role with hexdecimals
 
         """
-
-        #   Creating log channel if not exist
-        await GeneralModeration.LogChannel(self, ctx)
-
-        #   Initializing classes
-        manager = RolePermissions
-
-        #   Initializing variables
-
         srv = ctx.guild
-        role = get(srv.roles, name=f'{roleName}')
         chlog = get(srv.channels, name='moderationlog')
-
-        if not role:
-
-            self.embed.title = f'Starting the process to create {roleName}'
-            self.embed.description = f'Would you like to create {roleName} with permissions? '
-            await ctx.send(embed=self.embed)
-            self.embed.clear_fields()
-
-            confirmation = await self.bot.wait_for('message')
-            confirmation = str(confirmation.content).lower()
-
-            if confirmation[0:4] == 'yes':
-
-                #   Calling the roles Permission
-                roleName = str(roleName)
-                perms = manager.RolePermissions(roleName)
-
-                """
-                await srv.create_role(name=f'{roleName}', permissions = perms, reason='')
-
-                #   Prepare embed
-                self.embed.color = Embed(color=Colour.dark_red())
-                self.embed.title = f'{ctx.author} created {roleName} as a with permissions '
-                self.embed.description=f'{perms}'
-
-                #   Send embed
-                await ch.send(embed=self.embed)
-                self.embed.clear_fields()
-                """
-
-
-            else:
-
-                #   Prepare & Send the embeded mesage
-                self.embed.title = f'{ctx.author} created {roleName} as a public role'
-                self.embed.description=''
-
-                await srv.create_role(name=f'{roleName}', reason='')
-
-        else:
-
-            #   3:  Log the error
-            self.embed.title = f'{ctx.author} tried to re-create {roleName}'
-            self.embed.description='Role already exists'
-
-        self.embed.color = Colour.dark_red()
-        await chlog.send(embed=self.embed)
-
-        self.embed.clear_fields()    
-        self.embed.color = Embed(color=Colour.dark_purple())
+        #   Creating log channel if not exist
+        #await GeneralModeration.CheckChannel(self, ctx)
+        await RoleModeration.CheckRole(self, ctx, role)
 
         return
 
@@ -1057,7 +1000,7 @@ class RoleModeration(Cog):
         """
 
         #   Creating log channel if not exist
-        await GeneralModeration.LogChannel(self, ctx)
+        #await GeneralModeration.CheckChannel(self, ctx)
 
         #   Initializing variables
         srv = ctx.guild
@@ -1109,7 +1052,7 @@ class RoleModeration(Cog):
 
         """
         #   Creating log channel if not exist
-        await GeneralModeration.LogChannel(self, ctx)
+        await GeneralModeration.CheckChannel(self, ctx)
 
         return
 
@@ -1185,7 +1128,7 @@ class RoleModeration(Cog):
 
         """
         #   Creating log channel if not exist
-        await GeneralModeration.LogChannel(self, ctx)
+        await GeneralModeration.CheckChannel(self, ctx)
 
         return
 
@@ -1224,34 +1167,62 @@ class RoleModeration(Cog):
 
         return
 
-    async def CheckRole(self, ctx, role):
+    async def CheckRole(self, ctx, role, *, reason=None):
 
+        #   Initializing classes
+        manager = RolePermissions
+
+        #   Initializing variables
         srv = ctx.guild
-        roles = get(srv.roles, name=f'{role}')
-        chlog = get(srv.channels, name='moderationlog')
+        role = get(srv.roles, name=f'{role}')
 
+        #   Pre-role assignment
         if role == '@sushed':
 
             perms = {
 
-                        role:PermissionOverwrite(read_message_history=False)          
+                        role:PermissionOverwrite(
+                                                    read_message_history=False
+                                            )          
                     }
 
-        if roles == None:
-
             await srv.create_role(name=f'{role}', permissions = perms, reason = 'Automatic Role assignment')
-
-            #   3:  Prepare, send & clean up the embed message
-            self.embed.color = Colour.dark_red()
             self.embed.title = 'Auto generated role'
-            self.embed.description = '@Sushed is automatically generated to mark muted members'
+            self.embed.description = '@Sushed is an automatically generated to mark muted members'
 
-            await chlog.send(embed=self.embed)
+        #   Custom role assignments
+        elif role == None:
 
+            self.embed.title = f'Starting the process to create {role}'
+            self.embed.description = f'Would you like to create {role} with **Basic** / **Moderation**/ **Custom** permissions? type **x** to exit '
+
+            await ctx.send(embed=self.embed)
             self.embed.clear_fields()
-            self.embed.color = Colour.dark_purple()
+
+            response = await self.bot.wait_for('message')
+            answer = str(response.content).lower()
+
+            self.embed.title = f'{ctx.author.name} created {role} as a with permissions '
+
+            if answer == 'basic':perms = manager.BasicPermissions(role)
+            elif answer == 'custom':perms = manager.CustomPermissions(role)
+            elif answer == 'moderator':perms = manager.ModerationPermissions(role)
+
+            self.embed.title = f'Starting the process to create {role}'
+            self.embed.description = f'Would you like to create {role} with **Basic** / **Moderation**/ **Custom** permissions? type **x** to exit '
+
+            
+            await ctx.send(embed=self.embed)
+            self.embed.clear_fields()
+
+            await srv.create_role(name=f'{role}', permissions = perms, reason = f'{reason}')
 
         else:
-            pass
 
-        return
+            self.embed.title = f'{ctx.author.name} tried to re-create {role}'
+            self.embed.description='Role already exists'
+
+        await ctx.send(embed=self.embed)
+        self.embed.clear_fields()
+
+        return self.embed
