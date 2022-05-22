@@ -7,10 +7,6 @@ Fix RoleManagement,
 commands
 *   Generate a log channel if its not created yet
 *   Fix itents for online and members -- Pycord bug reported
-*   Sush not showing error with out minute
-*   Remove re creation error from sush and lifted
-*   crero stops on response
-*   remro unkown error
 *   Create a db for dnd, and back
 
 ###### Not created yet

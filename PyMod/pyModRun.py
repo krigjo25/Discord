@@ -9,8 +9,7 @@ from pyexpat.errors import messages
 from dotenv import load_dotenv
 
 #   Discord Repositories
-from discord import Intents, Game
-from pylib.postModerationModule.moderatorModule.moderator import RolePermissions
+from discord import Intents, AppInfo
 
 # library Repositories
 
@@ -27,9 +26,10 @@ from pylib.communityModule.community import CommunityModule                     
 # Bot Utility
 
     # Moderation Utility
-
+from pylib.postModerationModule.moderatorModule.roleModeration import RoleModeration
+from pylib.postModerationModule.moderatorModule.rolePermissions import RolePermissions
 from pylib.postModerationModule.administratorModule.administrator import Administrator
-from pylib.postModerationModule.moderatorModule.moderator import RoleModeration, ChannelModeration, GeneralModeration, MemberModeration
+from pylib.postModerationModule.moderatorModule.moderator import ChannelModeration, MemberModeration, ManageModeration
 
 # Importing .evn file
 load_dotenv()
@@ -39,6 +39,7 @@ class DiscordSetup():
     def __init__(self):
 
         self.intents= Intents().none()
+        self.appinfo = AppInfo()
         self.bot = DiscordBot(intents=self.intents)
 
         return
@@ -54,11 +55,18 @@ class DiscordSetup():
         self.intents.messages = True                #   Allows the bot to send messages Guild & DM
         self.intents.presences = True               #   Allows the bot to track member activty
         self.intents.message_content =True          #   Allows the bot to send embeded message
-        self.intents.guild_reactions = True         #   Allows the bot to add reactions with-in the guild
-        #self.intents. = True            
-        self.intents.emojis = True     #   emoji, sticker related events
+        self.intents.guild_reactions = True         #   Allows the bot to add reactions with-in the guild  
+        self.intents.emojis = True                  #   emoji, sticker related events
 
-        #   Bot Profile
+        #   App Info 
+        #self.appinfo.bot_public = False              #   Sets wheter the bot should be public or not 
+        #self.appinfo.name = 'Pymodergf'
+        #self.appinfo.description = 'Test' #'I\'m your discord moderator command assistant, My intention is just to assist you in your discord server'
+        #self.appinfo.privacy_policy_url 
+        #self.appinfo.terms_of_service_url
+
+        print(self.appinfo)
+        # Bot Profile
 
         #   Add Cogs
         self.bot.add_cog(ErrorHandler(self.bot))
@@ -70,12 +78,15 @@ class DiscordSetup():
 
         #   Moderation - Module
         self.bot.add_cog(Administrator(self.bot))
+
+        #   Role Moderation
         self.bot.add_cog(RoleModeration(self.bot))
         self.bot.add_cog(RolePermissions(self.bot))
 
+        #   Other modules
         self.bot.add_cog(MemberModeration(self.bot))
         self.bot.add_cog(ChannelModeration(self.bot))
-        self.bot.add_cog(GeneralModeration(self.bot))
+        self.bot.add_cog(ManageModeration(self.bot))
 
 
         return
