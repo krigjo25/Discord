@@ -74,30 +74,23 @@ class CommunityModule(Cog, name='Community Module'):
         for member in svr.members:
             
             #   Declare variables
-            status = str(member.status)
             nick = str(member.nick)
             botUser = self.bot.user
+            status = str(member.status)
 
             #   Add emoji to status
-            if status == 'online':
-                status = ':heart_on_fire:'
+            if status == 'online':status = ':heart_on_fire:'
+            elif status == 'idle':status = ':dash:' 
+            elif status == 'dnd':status = ':technologist:'
+            elif status == 'offline':status = ':sleeping:'
 
-            elif status == 'idle':
-                status = ':dash:'
-            
-            elif status == 'dnd':
-                status = ':technologist:'
-
-            elif status == 'offline':
-                status = ':sleeping:'
-            
             #   Fetch user nick
-            if nick == 'None':
-                nick = ' '
-            else:
-                nick = f'Nick : {member.nick}\n'
+            if nick == 'None':nick = ' '
+            else:nick = f'Nick : {member.nick}\n'
+
             if member != botUser:
                 self.embed.add_field(name=f'{member.name}#{member.discriminator}',value=f'{nick} Status : {status} ', inline=False)
+
         await ctx.send(embed = self.embed)
         self.embed.clear_fields()
 

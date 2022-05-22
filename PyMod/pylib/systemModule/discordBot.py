@@ -1,5 +1,6 @@
 
 #   Python Repositories
+import requests
 from os import getenv
 from sys import api_version
 
@@ -7,6 +8,7 @@ from sys import api_version
 from dotenv import load_dotenv
 
 #   Discord Repositories
+from discord import Game
 from discord.message import Message
 from discord.ext.commands import Bot
 
@@ -26,7 +28,7 @@ load_dotenv()
 
 class DiscordBot(Bot):
 
-    def __init__(self, command_prefix='?', help_command=None, description=None, owner_id = 340540581174575107, **options):
+    def __init__(self, command_prefix='?', help_command=None, description='None', owner_id = 340540581174575107, **options):
         super().__init__(command_prefix = command_prefix, help_command=help_command, description=description, owner_id = owner_id, **options)
         #self.handler = AntiSpamHandler(self, options=Options(ignore_bots=False, no_punish=True))
         #self.tracker = SpamTracker(self.handler, 3)
@@ -36,10 +38,11 @@ class DiscordBot(Bot):
 
     async def on_ready(self):
 
+        #   Initializing variables
         srv= []
-        svr = self.guilds
+        server = self.guilds
 
-        for i in svr:
+        for i in server:
             srv.append(i)
 
         print(f'''Discord.py v{api_version} has been loaded.

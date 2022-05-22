@@ -179,7 +179,7 @@ class GeneralModeration(Cog):
     #   Default Moderator comamnds
     @command(name='poll', pass_context= True)
     @has_permissions(manage_messages=True)
-    async def polls(self, ctx, title, chName):
+    async def polls(self, ctx, title, ch):
 
         """
 
@@ -193,7 +193,7 @@ class GeneralModeration(Cog):
         i = 1
         li = []
         srv = ctx.guild
-        ch = utils.get(srv.channels, name=f'{chName}')
+        ch = utils.get(srv.channels, name=f'{ch}')
 
         #   Prepare, send and clean up
         self.embed.title = f'{title}:question:,'
@@ -242,26 +242,23 @@ class GeneralModeration(Cog):
         arg = str(arg.content)
 
         if arg != 'q':
-            #   Issues to retrieve the channel name
 
-            ch = await self.CheckChannel(ctx, ch)
+            #   Issues to retrieve the channel name
+            #ch = await ModerationChecks.CheckChannel(self, ctx, ch)
 
             #   Prepare, send & Clean up embed
             self.embed.title = f'{title}:question:'
             self.embed.description = f' Greetings fellas, its time for a poll, choose between \n {option}'
 
-            await ch.send(embed=self.embed)
+            message = await ctx.send(embed=self.embed)
 
             self.embed.clear_fields()
-
-            # :x:  Adding reactions into the embed
-            message = Message
 
             while i > x:
 
                 i = 0
                 i += 1
-                await message.add_reaction(Dictionaries.BotPoll(i))
+            await message.add_reaction(Dictionaries.BotPoll(i))
 
         elif title == 'q' or arg == 'q':
 
@@ -383,17 +380,20 @@ class MemberModeration(Cog):
 
         """
 
-        #   Creating log channel if not exist :x:
-        #ch = await GeneralModeration.CheckChannel(self, ctx)
-
         #   Initializing variables
         srv = ctx.guild
         role = get(srv.roles, name ='@sushed')
         time = humanfriendly.parse_timespan(time)
         chlog = get(srv.channels, name='moderationlog')
 
+        #   Creating log channel if not exist :x:
+        #await ModerationChecks.CheckRole(self, ctx, f'{role}')
+        #await ModerationChecks.CheckChannel(self, ctx, f'{chlog}')
+
         if reason == None or time > 604800:
-            self.embed.description = f' Could not sush **{member}** due to there were no reason to shush'
+
+            self.embed.description = f' Could not sush **{member}** due to there were no reason or time to shush'
+
             if time > 604800:self.embed.description = f' Could not sush **{member}** due to a limitation for 1w'
 
             #   Prepare, send & Clean up embed
@@ -406,13 +406,6 @@ class MemberModeration(Cog):
 
         else:
 
-            await RoleModeration.CheckRole(self, ctx, '@sushed')
-
-            #   Set role, set timeout & send member DM
-            await member.add_roles(role)
-            await member.timeout(until = utils.utcnow() + datetime.timedelta(seconds=time), reason = reason)
-            await member.send(f'Greetings, **{member}**.\n\n You recieve this message, because you have been sushed by **{ctx.author}** \n You are sushed for **{datetime.timedelta(seconds=time)}**.\n\n During this time you will not able to use {ctx.guild} channels.\n\nThe reason for this intervention is\n*{reason}*')
-
             #   Prepare, send & Clean up embed
             self.embed.title = f' **{member}** has been sushed'
             self.embed.description = f'by **{ctx.author.name}** \n for {datetime.timedelta(seconds=time)}\nDue to\n**{reason}.**\n*{self.curTime}*'
@@ -421,6 +414,12 @@ class MemberModeration(Cog):
             await chlog.send(embed=self.embed)
             self.embed.clear_fields()
             self.embed.color = Colour.dark_purple()
+
+            #   Set role, set timeout & send member DM
+            await member.add_roles(role)
+            await member.timeout(until = utils.utcnow() + datetime.timedelta(seconds=time), reason = reason)
+            await member.send(f'Greetings, **{member}**.\n\n You recieve this message, because you have been sushed by **{ctx.author}** \n You are sushed for **{datetime.timedelta(seconds=time)}**.\n\n During this time you will not able to use {ctx.guild} channels.\n\nThe reason for this intervention is\n*{reason}*')
+
             # Automatic un-mute & Notify the user
             await asyncio.sleep(time)
             await member.remove_roles(role)
@@ -1197,14 +1196,14 @@ class ModerationChecks(Cog):
         self.curTime = self.now.strftime('%H:%M, %d.%b - %y')  
         self.embed = Embed(color=Colour.dark_purple(), description= '')
 
-    async def CheckChannel(self, ctx, arg=False):
+    async def CheckChannel(self, ctx, arg=None):
 
         t = 'Check Channel test'
         srv = ctx.guild
+        ch = utils.get(srv.channels, name = f'{arg}')
         chlog = utils.get(srv.channels, name='moderationlog')
-        ch = utils.get(srv.channels, name = f'{arg[0]}')
-        print(t)
-        if arg[0] != False:
+        '''
+        if ch != None & ch != chlog:
 
             if not ch:
 
@@ -1216,12 +1215,12 @@ class ModerationChecks(Cog):
                 ch = await srv.create_text_channel(f'{arg[0]}', overwrites=perms)
                 self.embed.title = f'{ctx.author.name} has Created a new channel called {ch}'
 
-        if not chlog:
+        elif not chlog:
 
             perms = { 
                         srv.default_role:PermissionOverwrite(
-                                                                view_channel=False
-                                                            )
+                                                                    view_channel=False
+                                                                )
                     }
 
             chlog = await srv.create_text_channel('moderationLog', overwrites=perms)
@@ -1231,25 +1230,25 @@ class ModerationChecks(Cog):
             self.embed.title = 'Auto generated channel'
             self.embed.description = 'This channel is used to log every Moderation in this server, it is made to avoid abusage of the Moderation / administration commands'
 
-        print(t)
+        else:
+            pass
+
         await chlog.send(embed=self.embed)
 
         self.embed.clear_fields()
         self.embed.color = Colour.dark_purple()
         print(t)
-
+        '''
         return
 
     async def CheckRole(self, ctx, role, *, reason=None):
-
-        print(role)
 
         #   Initializing variables
         srv = ctx.guild
         role = get(srv.roles, name=f'{role}')
 
         #   Pre-role assignment
-        if role == '@sushed':
+        if role != '@sushed':
 
             perms = {
 

@@ -1,12 +1,15 @@
 
 #   Python Repositories
+import requests
+
 from os import getenv
+from pyexpat.errors import messages
 
 #   Dotenv Repositories
 from dotenv import load_dotenv
 
 #   Discord Repositories
-from discord import Intents
+from discord import Intents, Game
 from pylib.postModerationModule.moderatorModule.moderator import RolePermissions
 
 # library Repositories
@@ -44,16 +47,20 @@ class DiscordSetup():
 
         #   System Configuration
 
-        self.intents.bans = True                #   Allows the bot to ban / unban members
-        self.intents.emojis = True              #   Allows the bot to use emojis in the server
-        self.intents.guilds = True              #   Allows the bot to interect with guilds
-        self.intents.members = True             #   Allows the bot to interact with members
-        self.intents.messages = True            #   Allows the bot to send messages Guild & DM
-        self.intents.presences = True           #   Allows the bot to track member activty
-        self.intents.message_content =True      #   Allows the bot to send embeded messages
+        #   Intents
+        self.intents.bans = True                    #   Allows the bot to ban / unban members
+        self.intents.guilds = True                  #   Allows the bot to interect with guilds
+        self.intents.members = True                 #   Allows the bot to interact with members
+        self.intents.messages = True                #   Allows the bot to send messages Guild & DM
+        self.intents.presences = True               #   Allows the bot to track member activty
+        self.intents.message_content =True          #   Allows the bot to send embeded message
+        self.intents.guild_reactions = True         #   Allows the bot to add reactions with-in the guild
+        #self.intents. = True            
+        self.intents.emojis = True     #   emoji, sticker related events
 
-        self.intents.reactions = True
+        #   Bot Profile
 
+        #   Add Cogs
         self.bot.add_cog(ErrorHandler(self.bot))
         self.bot.add_cog(FrequentlyAskedQuestions(self.bot))
 
@@ -84,7 +91,7 @@ def RunBot ():
 
         # necsessary values from .env
         disc = DiscordSetup()
-        botKey = getenv('PyMod')
+        botKey = getenv('PyModToken')
 
         disc.SystemSetup()
         disc.MiscModuleSetup()
