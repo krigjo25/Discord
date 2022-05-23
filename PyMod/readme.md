@@ -228,11 +228,3 @@ Krigjo25#5588<br>
 
 [Terms of Use]() <br>
 [Privacy Policy]()<br> 
-
-
-
-## Disclaimer
-
-The developer can only have the responsibility,<br>
-for how the project is created.
-How the bot is used, is another story.
