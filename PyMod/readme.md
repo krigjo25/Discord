@@ -129,7 +129,13 @@ Commands which requires **manage_threads**
 
 #####   Moderators with manage_Roles privileges
 
-Commands which requires **manage_Roles**
+Commands which requires **manage_roles**
+> crero (roleName)
+>> Pre made permissions,
+>> Custom permissions,
+>> premade Colours
+>> custom colours
+>
 > remro (memberName)
 >> Removes a member from the roles
 >

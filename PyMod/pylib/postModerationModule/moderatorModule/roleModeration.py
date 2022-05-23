@@ -3,11 +3,12 @@
 #   Discord Repositories
 from discord import Member
 from discord.utils import get
-from discord.colour import Color
 from discord.embeds import Embed, Colour
 from discord.ext.commands import Cog, command
 from discord.ext.commands.core import has_permissions
 
+#   Pylib
+from pylib.dictionaries.systemmessages import Dictionaries
 from pylib.postModerationModule.moderatorModule.rolePermissions import RolePermissions, ModerationChecks
 
 class RoleModeration(Cog):
@@ -20,11 +21,35 @@ class RoleModeration(Cog):
     def __init__(self, bot):
 
         self.bot = bot
-        self.embed = Embed(color=Color.dark_purple())
+        self.embed = Embed(color=Colour.dark_purple())
 
         return
 
     #   Role Management
+
+    #   Get a list of roles a member has
+    @command(name='memro')
+    @has_permissions(manage_roles = True)
+    async def CreateRole(self, ctx, role, *, reason= None):
+
+        """
+
+            #   1   Create the role if not exist, if it exist send out a warning message
+            #   2   Choose the permission of the role
+            #   3   Choose the colour of the role with hexdecimals
+
+        """
+
+        #   Initializing classes
+        dc = Dictionaries
+        manager = RolePermissions
+
+        #   Initializing variables
+        srv = ctx.guild
+        ch = get(srv.channels, name= 'auditlog')
+        findRole = get(srv.roles, name = f'{role}')
+
+        return
 
     #   Create role
     @command(name='crero')
@@ -40,6 +65,7 @@ class RoleModeration(Cog):
         """
 
         #   Initializing classes
+        dc = Dictionaries
         manager = RolePermissions
 
         #   Initializing variables
@@ -64,12 +90,11 @@ class RoleModeration(Cog):
 
             #   Waiting for response
             response = await self.bot.wait_for('message', timeout=30)
-            answer = str(response.content).lower().replace(" ", "")
-            print(answer)
+            rolePriviliges = str(response.content).lower().replace(" ", "")
 
             #   Checking respons issues 
 
-            if answer == 'member':
+            if rolePriviliges == 'member':
 
                 #   Prepare, Send & Clean up
                 self.embed.title = f'Creating moderation permissions for **@{role}**, role'
@@ -93,7 +118,7 @@ class RoleModeration(Cog):
                 elif answer == 'chat':perms = await manager.ChatPermissions(self, role)
                 elif answer == 'member':perms = await manager.BasicRolePermissions(self, role)
 
-            elif answer == 'moderator':
+            elif rolePriviliges == 'moderator':
 
                 #   Prepare, Send & Clean up
                 self.embed.title = f'Creating moderation permissions for **@{role}**, role'
@@ -125,24 +150,44 @@ class RoleModeration(Cog):
                 elif answer == 'membermoderation':perms = manager.ModerateMember(self, role)
                 elif answer == 'managermananger':perms = manager.ModerationMananger(self, role)
 
-            elif answer == 'custom':perms = manager.CustomPermissions(self, role)
-            elif answer =='admin':perms = await manager.Administrator(self, role)
-            elif answer == 'x':return
+            elif rolePriviliges == 'custom':perms = manager.CustomPermissions(self, role)
+            elif rolePriviliges =='admin':perms = await manager.Administrator(self, role)
+                
 
-            await srv.create_role(name=f'{role}', permissions = perms, reason = f'{reason}')
-            self.embed.title = f'the role, @{role} has been succsessfully created with {answer} previliges'
+
+            self.embed.title = f'Choosing role Color'
+            self.embed.description = f'Would you like to create @{role} wih colors? type in a title or **x** to exit '
+            self.embed.add_field(name = 'Dark Purple', value = 'Dark Purple color for role ')
+            self.embed.add_field(name = 'Purple', value = 'Purple color for role')
+            self.embed.add_field(name = 'Dark Red', value = 'Dark red color for role')
+            self.embed.add_field(name = 'Red', value = 'Red color for role')
+            self.embed.add_field(name = 'Dark Blue', value = 'Dark Blue color for role')
+            self.embed.add_field(name = 'Blue', value = 'Blue color for role')
+            await ctx.send(embed=self.embed)
+            self.embed.clear_fields()
+
+            response = await self.bot.wait_for('message', timeout=30)
+            answer = str(response.content).lower().replace(" ", "")
+
+            if answer == 'darkpurple': color = dc.RoleColours(answer)
+            else: color=Colour.default()
+
+            print('test')
+            await srv.create_role(name=f'{role}', permissions = perms, color = color, reason = f'{reason}')
+            self.embed.title = f'@{role}'
+            self.embed.description = f'has been succsessfully created with {answer} previliges and a colou'
             
         else:
 
-            self.embed.title = f'{role} exists ?liro'
+            self.embed.title = f'{role} might exist'
+            self.embed.description = f'?liro to check your server roles'
 
         #   Prepare, send, clean up & role creation
-        self.embed.description = f''
+        
         await ctx.send(embed=self.embed)
         self.embed.clear_fields()
 
         return
-
 
     #   Delete Role
     @command(name='dero') # :X
@@ -232,7 +277,7 @@ class RoleModeration(Cog):
 
         #   Clean up
         self.embed.clear_fields()
-        self.embed.color = Color.dark_purple()
+        self.embed.color = Colour.dark_purple()
 
         #   Retrieve the confirmation from the user
         confirm = await self.bot.wait_for('message')
@@ -241,36 +286,61 @@ class RoleModeration(Cog):
         if confirm == 'yes' or confirm == 'ye' or confirm == 'y':
 
             #  Prepare, remove, send & Clean up
-            self.embed.color = Color.dark_red()
+            self.embed.color = Colour.dark_red()
             self.embed.title = f'{member} has been removed from {role} by {ctx.author} due to {reason} '
 
             await member.remove_roles(role)
-            message = f'''Greetings, **{member}**.
-            You recieve this message, because you have been You have been removed from **{role}**, 
-            by **{ctx.author}** 
-            The reason for this intervention is
-            *{reason}*'''
 
-            await member.send(f'{message}')
         else:
 
             #   Prepare Send & Clean up
-            self.embed = Embed(color=Color.dark_red())
+            self.embed = Embed(color=Colour.dark_red())
             self.embed.title = f'Role removal has been cancelled'
 
         self.embed.description=''
         await ch.send(embed=self.embed)
 
         self.embed.clear_fields()
-        self.embed.color = Color.dark_purple()
+        self.embed.color = Colour.dark_purple()
 
         return self.embed
 
     #   Set Role
     @command(name='sero')
     @has_permissions(manage_roles = True)
-    async def SetMemberRole(self, ctx, role, *, reason= None):
-        pass
+    async def SetMemberRole(self, ctx, member:Member, role, *, reason= None):
+
+        #   Initializing variables
+        srv = ctx.guild
+        role = get(srv.roles, name=f'{role}')
+        ch = get(srv.channels, name='auditlog')
+
+        if not ch:
+            ch = await ModerationChecks.CheckChannel(self, ctx, 'auditlog')
+
+        #   Prepare, Send & Clean up embed
+        self.embed.color = Colour.dark_red()
+        self.embed.title = f'removing {member} from {role}'
+        self.embed.description = f'Are you sure you\'d like to remove {member} from {role}?'
+
+        await ctx.send(embed=self.embed)
+
+        #   Clean up
+        self.embed.clear_fields()
+        self.embed.color = Colour.dark_purple()
+
+        #   Retrieve the confirmation from the user
+        confirm = await self.bot.wait_for('message')
+        confirm = str(confirm.content).lower()
+
+        if confirm == 'yes' or confirm == 'ye' or confirm == 'y':
+
+            #  Prepare, remove, send & Clean up
+            self.embed.color = Colour.dark_red()
+            self.embed.title = f'{member} has been added to {role} by {ctx.author} due to {reason} '
+
+            await member.add_roles(role)
+
 
     #   Set Color for the role
     @command(name='colro')

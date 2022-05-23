@@ -57,6 +57,22 @@ class Dictionaries():
 
         return dictionary.get(x)
 
+    def RoleColours(color):
+
+        #   Creating a dictionary for Colours
+        dictionary = {
+                    'red':0x93020D,
+                    'darkred':0x8A2425,
+                    'blue':0x003366,
+                    'darkblue':0x03001C,
+                    'purple':0x36084F,
+                    'darkpurple':0x3E0035,
+
+
+                }
+
+        return dictionary.get(color)
+
 class CommandDictionary():
     def __init__(self) -> None:
         pass

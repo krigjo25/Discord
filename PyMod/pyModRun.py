@@ -39,7 +39,7 @@ class DiscordSetup():
     def __init__(self):
 
         self.intents= Intents().none()
-        self.appinfo = AppInfo()
+        #self.appinfo = AppInfo()
         self.bot = DiscordBot(intents=self.intents)
 
         return
@@ -61,11 +61,12 @@ class DiscordSetup():
         #   App Info 
         #self.appinfo.bot_public = False              #   Sets wheter the bot should be public or not 
         #self.appinfo.name = 'Pymodergf'
+        #self.appinfo.verify_key = getenv('PyModToken')
         #self.appinfo.description = 'Test' #'I\'m your discord moderator command assistant, My intention is just to assist you in your discord server'
-        #self.appinfo.privacy_policy_url 
-        #self.appinfo.terms_of_service_url
+        #self.appinfo.privacy_policy_url = 'https://krigjo25.com/pymod/privacupolicy'
+        #self.appinfo.terms_of_service_url = 'https://krigjo25.com/pymod/termsofservice'
 
-        print(self.appinfo)
+        #print(self.appinfo)
         # Bot Profile
 
         #   Add Cogs
