@@ -1,6 +1,6 @@
 
 #   Python Repositories
-import requests
+#import requests
 
 from os import getenv
 from pyexpat.errors import messages
@@ -38,28 +38,31 @@ class DiscordSetup():
 
     def __init__(self):
 
-        self.intents= Intents().none()
         #self.appinfo = AppInfo()
-        self.bot = DiscordBot(intents=self.intents)
+        self.intents = Intents.all()
+        self.bot = DiscordBot(intents = self.intents)
 
         return
 
+    def SystemConiguration(self):
+
+        #   Bot intents
+        self.bot.intents.all()
+        self.intents.bans = True                    #   Allows the bot to ban / unban members
+        self.bot.intents.guilds = True                  #   Allows the bot to interect with guilds
+        self.intents.members = True                 #   Allows the bot to interact with members
+        self.bot.intents.messages = True                #   Allows the bot to send messages Guild & DM
+        self.bot.intents.presences = True               #   Allows the bot to track member activty
+        self.bot.intents.message_content =True          #   Allows the bot to send embeded message
+        self.bot.intents.guild_reactions = True         #   Allows the bot to add reactions with-in the guild  
+        self.bot.intents.emojis = True                  #   emoji, sticker related events
+
+        return
     def SystemSetup(self):
 
-        #   System Configuration
-
-        #   Intents
-        self.intents.bans = True                    #   Allows the bot to ban / unban members
-        self.intents.guilds = True                  #   Allows the bot to interect with guilds
-        self.intents.members = True                 #   Allows the bot to interact with members
-        self.intents.messages = True                #   Allows the bot to send messages Guild & DM
-        self.intents.presences = True               #   Allows the bot to track member activty
-        self.intents.message_content =True          #   Allows the bot to send embeded message
-        self.intents.guild_reactions = True         #   Allows the bot to add reactions with-in the guild  
-        self.intents.emojis = True                  #   emoji, sticker related events
 
         #   App Info 
-        #self.appinfo.bot_public = False              #   Sets wheter the bot should be public or not 
+        #await self.bot.application_info()              #   Sets wheter the bot should be public or not 
         #self.appinfo.name = 'Pymodergf'
         #self.appinfo.verify_key = getenv('PyModToken')
         #self.appinfo.description = 'Test' #'I\'m your discord moderator command assistant, My intention is just to assist you in your discord server'

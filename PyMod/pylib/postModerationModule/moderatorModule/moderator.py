@@ -127,45 +127,6 @@ class ManageModeration(Cog):
 
         return
 
-    #  :x: Warn
-    @command(name="warn")
-    @has_permissions(manage_messages=True)
-    async def UserWarn(self, ctx, member:Member, *, reason=None):
-
-        #   Initializing variables
-        srv = ctx.guild
-        chlog= get(srv.channels, name='auditlog')
-
-        #   Creating a channel to log the warning 
-        if not ch:
-            ch = await ModerationChecks.CheckChannel(self, ctx, 'auditlog')
-
-        #   Counting warnings
-        #   How to make sure only the user retrieve the warning?
-
-        if reason == None or member == ctx.author:
-
-            self.embed.title  = 'Warning not sent'
-            self.embed.description = ' please provide a reason for the warn'
-
-            if member == ctx.author:self.embed.description = 'Can not warn your self'
-
-        else:
-
-
-            message = f'Greetings **{member}**.\n You recieve this Notification, because you have been warned by **{ctx.author}**.\n\n Due to :\n *{reason}*\n\nPlease read and follow the suggested guidelines for behavior in our disocrd channel'
-            await member.send(message)
-
-            self.embed.title = f'**{member}** has been warned'
-            self.embed.description = f' **Due to**\n *{reason}*.\n\n by\n**{ctx.author.name}**,\n{self.curTime}*'
-
-        self.embed.color = Colour.dark_red()
-        await chlog.send(embed=self.embed)
-        self.embed.clear_fields()
-        self.embed.color = Colour.dark_purple()
-
-        return
-
     #   Default Moderator comamnds
     @command(name='poll', pass_context= True)
     @has_permissions(manage_messages=True)
@@ -260,7 +221,7 @@ class ManageModeration(Cog):
 
         return
 
-#   #   Checking wheter whom is offline and online
+    #   Checking wheter whom is offline and online
     @command(name='online', pass_context=True)
     @has_permissions(manage_messages=True)
     async def OnlineMembers(self, ctx, args=None):
@@ -277,8 +238,9 @@ class ManageModeration(Cog):
 
             #   Fetching members
             for member in srv.members:
+                print (member, bot)
 
-                #   Declare variables
+                #   Initializing  variables
                 status = str(member.status)
                 nick = str(member.nick)
 
@@ -355,10 +317,49 @@ class MemberModeration(Cog):
     def __init__(self, bot):
 
         self.bot = bot
-        self.warn = 0    
         self.now = datetime.datetime.now()
         self.curTime = self.now.strftime('%a, %d.%b -%y')  
         self.embed = Embed(color=Colour.dark_purple(), description= '')
+
+        return
+
+    #  :x: Warn
+    @command(name="warn")
+    @has_permissions(manage_messages=True)
+    async def UserWarn(self, ctx, member:Member, *, reason=None):
+
+        #   Initializing variables
+        srv = ctx.guild
+        chlog= get(srv.channels, name='auditlog')
+
+        #   Creating a channel to log the warning 
+        if not ch:
+            ch = await ModerationChecks.CheckChannel(self, ctx, 'auditlog')
+
+        #   Counting warnings
+
+        #   How to make sure only the user retrieve the warning?
+
+        if reason == None or member == ctx.author:
+
+            self.embed.title  = 'Warning not sent'
+            self.embed.description = ' please provide a reason for the warn'
+
+            if member == ctx.author:self.embed.description = 'Can not warn your self'
+
+        else:
+
+
+            message = f'Greetings **{member}**.\n You recieve this Notification, because you have been warned by **{ctx.author}**.\n\n Due to :\n *{reason}*\n\nPlease read and follow the suggested guidelines for behavior in our disocrd channel'
+            await member.send(message)
+
+            self.embed.title = f'**{member}** has been warned'
+            self.embed.description = f' **Due to**\n *{reason}*.\n\n by\n**{ctx.author.name}**,\n{self.curTime}*'
+
+        self.embed.color = Colour.dark_red()
+        await chlog.send(embed=self.embed)
+        self.embed.clear_fields()
+        self.embed.color = Colour.dark_purple()
 
         return
 
@@ -521,7 +522,7 @@ class MemberModeration(Cog):
 
     @command(name = 'auditlog')# :x:
     @has_permissions(view_audit_log = True)
-    async def ReadAuditlog(self, ctx, limit= 3):
+    async def ReadAuditlog(self, ctx, limit = 3):
 
         #   Initializing variables
         srv = ctx.guild

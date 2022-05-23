@@ -68,6 +68,9 @@ Project version:
 >
 > randint (integer one) (integer two)
 >> generate a random integer
+>
+> liro
+>> List the server roles
 
 ### Bot Pre Moderation Utility
 
@@ -84,11 +87,11 @@ Roles used in the project :
 
 These commands does not required any spesific permissions
 
-> cls (channel name) (int)
->> Clear the chat limit 100 lines each time the command is used
+>   cls (channel name) (int)
+>>  Clear the chat limit 100 lines each time the command is used
 >
-> poll
->> Creates a poll
+>   poll
+>>  Creates a poll
 >
 >   Online
 >>  Checks whom is online/offline
@@ -99,16 +102,16 @@ These commands does not required any spesific permissions
 #####   Moderators with kick_members privileges
 
 Commands which requires **kick_members**
-> kick (member name) (reason)*
->> Kicks a member from the server
+>   kick (member name) (reason)*
+>>  Kicks a member from the server
 
 #####   Moderators with moderate_members privileges
 
 Commands which requires **moderate_members**
->   sush (memberName) (sec) (reason)
-
+>   sush (memberName) (1s - 1 w) (reason)
+>>  Snoozes a member for given minute
 >>  Changes the member role into sushed, to time the member out
->>  limitations : 1week mute.    e.g : sush MemberName 1s / 1m / 1d / 1w / 1y reason
+>>  limitations : 1we mute.    e.g : sush MemberName 1s / 1m / 1d / 1w / 1y reason
 >
 >   lift (memberName)
 >>  Removes the mute and the role.
@@ -118,54 +121,85 @@ Commands which requires **moderate_members**
 
 Commands which requires **manage_channels**
 Commands which requires **manage_threads**
-> chedit
->> Modify a channel, permissions
+>   chedit
+>>  Modify a channel, permissions
 
-> chdel
->> Deletes a channel
+>   chdel
+>>  Deletes a channel
 >
-> chcre
->> Creates a new channel
+>   chcre
+>>  Creates a new channel
 
 #####   Moderators with manage_Roles privileges
 
 Commands which requires **manage_roles**
-> crero (roleName)
->> Pre made permissions,
->> Custom permissions,
->> premade Colours
->> custom colours
+>   crero* (roleName)
+>>  * Pre made permissions,
+>>  * Custom permissions,
+>>  * premade Colours
+>>  * custom colours
 >
-> remro (memberName)
->> Removes a member from the roles
+>   remro* (memberName)
+>>  Removes a member from the roles
 >
-> sero (memberName) (role)
->> Set a member's role
+>   sero* (memberName) (role)
+>>  Set a member's role
 >
-> dero (roleName)
->> Deletes a role from the server
-
-> moro (roleName) //
->> Deletes a role from the server
-
-> liro
->> Lists Available roles
+>   dero* (roleName)
+>>  Deletes a role from the server
 
 - "*" records the given command in the moderationlog channel
 
+##### List of Premade Permissions
+
+>   Members
+>>
+>>  Full Membership Permissions
+>>>  Chat previligies, Stream previliges & Voice Previliges
+>>
+>>  Chat Permissions
+>>> Send_messages, add_reactions, external_emojis, read_message_history & use_slash_commands
+>>
+>>  StreamPermissions
+>>  Chat Permissions & stream
+>>
+>>  VoicePermissions
+>>> Chat Permissions, speak, connect, request_to_speak, send_tts_messages, use_voice_activation
+>
+>   Moderator
+>>
+>>  GuildModerator
+>>>  manage_guild
+>>
+>> Role Moderator
+>>
+>>> manage_roles
+>>
+>> Voice Moderator
+>>> They're able to move, mute, deafen members. They have priority_speaker previliges
+>>
+>> Member Moderator
+>>> They're able to manage nicknames & moderate members
+>>
+>>  ModerationMananger
+>>  Has every moderation possiblities the other moderation type + they're able to kick members
+
+#### List of premade Colours
+
+
 #### Administrator-module
 
-> ban (member) (reason)*
->> Ban a discord user from the server
+>   ban* (member) (reason)
+>>  Ban a discord user from the server
 >
-> banlist
->> View a list of banned server members
+>   banlist
+>>  View a list of banned server members
 >                           
-> unban (member)*
->> Unban a discord user from the server
+>   unban* (member)
+>>  Unban a discord user from the server
 >
-> announce (channelName)
->> Creates an announcement in the given channel as the bot
+>   announce (channelName)
+>>  Creates an announcement in the given channel as the bot
 >> - "*" records the the unban in the channel moderationlog
 
 
@@ -187,4 +221,3 @@ Commands which requires **manage_roles**
 The developer can only have the responsibility,<br>
 for how the project is created.
 How the bot is used, is another story.
-

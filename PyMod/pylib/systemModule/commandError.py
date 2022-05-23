@@ -263,6 +263,7 @@ class ErrorMessageDictionary():
                         'dero':f'{cmdPrefix}{cmd} (RoleName)',
                         'crero':f'{cmdPrefix}{cmd} (RoleName)',
                         'remro':f'{cmdPrefix}{cmd} (MemberName) (RoleName)',
+                        'sero':f'{cmdPrefix}{cmd} (MemberName) (roleName) optional (reason)',
 
                         #   Channel Management / message management
                         'chdel':f'{cmdPrefix}{cmd} (Channel Name)',

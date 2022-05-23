@@ -30,7 +30,7 @@ class RoleModeration(Cog):
     #   Get a list of roles a member has
     @command(name='memro')
     @has_permissions(manage_roles = True)
-    async def CreateRole(self, ctx, role, *, reason= None):
+    async def MemberRoleList(self, ctx, role, *, reason= None):
 
         """
 
@@ -342,20 +342,49 @@ class RoleModeration(Cog):
             await member.add_roles(role)
 
 
-    #   Set Color for the role
+    #   Change Color for the role
     @command(name='colro')
     @has_permissions(manage_roles = True)
     async def SetRoleColor(self, ctx, role, *, reason= None):
-        pass
 
-    #   Change the name of the role
-    @command(name='renRole')
-    @has_permissions(manage_roles = True)
-    async def ChangeRoleName(self, ctx, OldName, NewName):
-        pass
+        #   Initializing classes
+        dc = Dictionaries
+        manager = RolePermissions
 
-    #   Change the priviliges of the role
-    @command(name='moro')
-    @has_permissions(manage_roles = True)
-    async def ModifyPriviligesRole(self, ctx, role, *, reason= None):
-        pass
+        #   Initializing variables
+        srv = ctx.guild
+        ch = get(srv.channels, name= 'auditlog')
+        findRole = get(srv.roles, name = f'{role}')
+
+        if not ch:
+            ch = await ModerationChecks.CheckChannel(self, ctx, 'auditlog')
+
+        #   Prepare, send & Clean up
+        self.embed.title = f'Choosing role Color'
+        self.embed.description = f'Would you like to change colors of {role}? type in a title or **x** to exit '
+        self.embed.add_field(name = 'Dark Purple', value = 'Dark Purple color for role ')
+        self.embed.add_field(name = 'Purple', value = 'Purple color for role')
+        self.embed.add_field(name = 'Dark Red', value = 'Dark red color for role')
+        self.embed.add_field(name = 'Red', value = 'Red color for role')
+        self.embed.add_field(name = 'Dark Blue', value = 'Dark Blue color for role')
+        self.embed.add_field(name = 'Blue', value = 'Blue color for role')
+
+        await ctx.send(embed=self.embed)
+        self.embed.clear_fields()
+
+        response = await self.bot.wait_for('message', timeout=30)
+        answer = str(response.content).lower().replace(" ", "")
+
+        if answer == 'darkpurple': color = dc.RoleColours(answer)
+        else: color=Colour.default()
+
+        await srv.edit_role(name=f'{role}', permissions = perms, color = color, reason = f'{reason}')
+        self.embed.title = f'@{role}'
+        self.embed.description = f'has been succsessfully changed color.'
+
+        #   Prepare, send, clean up & role creation
+        
+        await ctx.send(embed=self.embed)
+        self.embed.clear_fields()
+
+        return

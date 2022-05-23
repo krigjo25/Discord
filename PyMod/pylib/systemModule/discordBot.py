@@ -1,6 +1,6 @@
 
 #   Python Repositories
-import requests
+#import requests
 from os import getenv
 from sys import api_version
 
@@ -34,6 +34,7 @@ class DiscordBot(Bot):
         #self.tracker = SpamTracker(self.handler, 3)
         #self.handler.register_plugin(self.tracker)
 
+
         return
 
     async def on_ready(self):
@@ -45,9 +46,9 @@ class DiscordBot(Bot):
         for i in server:
             srv.append(i)
 
-        print(f'''Discord.py v{api_version} has been loaded.
-{self.user.name} has establized a connection following servers :\n
-{srv[0]} & {srv[1]}''')
+        connection = f'Discord.py v{api_version} has been loaded.'
+        server = f'{self.user.name} has establized a connection following servers :\n {srv[0]} & {srv[1]}'
+        print(f'{connection}\n {servers}')
 
         return
 
@@ -83,7 +84,7 @@ class DiscordBot(Bot):
                     await message.channel.send(f' ***{dndList[0]}*** is away from the keyboard, the note : **{dndList[1]}**')
                     await mention.channel.send('The user can not be mentioned')
 
-    #   Anti-Spam
+        #   Anti-Spam
 
         #await self.handler.propagate(message)
         #await self.tracker.do_punishment(message)

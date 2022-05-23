@@ -17,7 +17,6 @@ class ModerationChecks(Cog):
     def __init__(self, bot):
 
         self.bot = bot
-
         self.curTime = self.now.strftime('%H:%M, %d.%b - %y')  
         self.embed = Embed(color=Colour.dark_purple(), description= '')
 
@@ -506,7 +505,7 @@ class RolePermissions(Cog):
                                 manage_emojis = False,
                                 manage_messages = False,
                                 manage_channels = False,
-                                manage_nicknames = False,
+                                manage_nicknames = True,
                                 change_nickname = False,
                                 moderate_members = True,
                                 manage_webhooks = False,
