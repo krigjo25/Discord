@@ -39,38 +39,26 @@ class DiscordSetup():
     def __init__(self):
 
         #self.appinfo = AppInfo()
-        self.intents = Intents.all()
-        self.bot = DiscordBot(intents = self.intents)
+        self.intents = Intents()
+        self.bot = DiscordBot(intents=self.SystemConiguration())
 
         return
 
     def SystemConiguration(self):
 
         #   Bot intents
-        self.bot.intents.all()
         self.intents.bans = True                    #   Allows the bot to ban / unban members
-        self.bot.intents.guilds = True                  #   Allows the bot to interect with guilds
+        self.intents.guilds = True                  #   Allows the bot to interect with guilds
+        self.intents.emojis = True                  #   emoji, sticker related events
         self.intents.members = True                 #   Allows the bot to interact with members
-        self.bot.intents.messages = True                #   Allows the bot to send messages Guild & DM
-        self.bot.intents.presences = True               #   Allows the bot to track member activty
-        self.bot.intents.message_content =True          #   Allows the bot to send embeded message
-        self.bot.intents.guild_reactions = True         #   Allows the bot to add reactions with-in the guild  
-        self.bot.intents.emojis = True                  #   emoji, sticker related events
+        self.intents.messages = True                #   Allows the bot to send messages Guild & DM
+        self.intents.presences = True               #   Allows the bot to track member activty
+        self.intents.message_content =True          #   Allows the bot to send embeded message
+        self.intents.guild_reactions = True         #   Allows the bot to add reactions with-in the guild  
 
-        return
+        return self.intents
+
     def SystemSetup(self):
-
-
-        #   App Info 
-        #await self.bot.application_info()              #   Sets wheter the bot should be public or not 
-        #self.appinfo.name = 'Pymodergf'
-        #self.appinfo.verify_key = getenv('PyModToken')
-        #self.appinfo.description = 'Test' #'I\'m your discord moderator command assistant, My intention is just to assist you in your discord server'
-        #self.appinfo.privacy_policy_url = 'https://krigjo25.com/pymod/privacupolicy'
-        #self.appinfo.terms_of_service_url = 'https://krigjo25.com/pymod/termsofservice'
-
-        #print(self.appinfo)
-        # Bot Profile
 
         #   Add Cogs
         self.bot.add_cog(ErrorHandler(self.bot))
@@ -111,6 +99,7 @@ def RunBot ():
         disc.SystemSetup()
         disc.MiscModuleSetup()
         disc.ModerationSetup()
+        disc.SystemConiguration()
 
         disc.bot.run(botKey)
 

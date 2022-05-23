@@ -15,24 +15,12 @@ from discord.ext.commands import Bot
 #   pylib Repositories
 from pylib.systemModule.databasePython import MariaDB
 
-# Anti-Spam Plugins
-#from antispam import AntiSpamHandler
-
-# Anti-Spam Options
-#from antispam.dataclasses.options import Options
-
-# Anti-Spam Consequenses
-#from lib.BotModerationModule.plugins.spamTracker import SpamTracker
-
 load_dotenv()
 
 class DiscordBot(Bot):
 
-    def __init__(self, command_prefix='?', help_command=None, description='None', owner_id = 340540581174575107, **options):
+    def __init__(self, command_prefix='?', help_command=None, description=None, owner_id = 340540581174575107, **options):
         super().__init__(command_prefix = command_prefix, help_command=help_command, description=description, owner_id = owner_id, **options)
-        #self.handler = AntiSpamHandler(self, options=Options(ignore_bots=False, no_punish=True))
-        #self.tracker = SpamTracker(self.handler, 3)
-        #self.handler.register_plugin(self.tracker)
 
 
         return
@@ -48,7 +36,7 @@ class DiscordBot(Bot):
 
         connection = f'Discord.py v{api_version} has been loaded.'
         server = f'{self.user.name} has establized a connection following servers :\n {srv[0]} & {srv[1]}'
-        print(f'{connection}\n {servers}')
+        print(f'{connection}\n {server}')
 
         return
 
@@ -84,12 +72,7 @@ class DiscordBot(Bot):
                     await message.channel.send(f' ***{dndList[0]}*** is away from the keyboard, the note : **{dndList[1]}**')
                     await mention.channel.send('The user can not be mentioned')
 
-        #   Anti-Spam
-
-        #await self.handler.propagate(message)
-        #await self.tracker.do_punishment(message)
-
-    #   Procsess commands
+        #   Procsess commands
         await self.process_commands(message)
 
         return
