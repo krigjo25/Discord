@@ -378,7 +378,7 @@ class RoleModeration(Cog):
         if answer == 'darkpurple': color = dc.RoleColours(answer)
         else: color=Colour.default()
 
-        await srv.edit_role(name=f'{role}', permissions = perms, color = color, reason = f'{reason}')
+        await srv.edit_role(name=f'{role}', color = color, reason = f'{reason}')
         self.embed.title = f'@{role}'
         self.embed.description = f'has been succsessfully changed color.'
 

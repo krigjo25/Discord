@@ -99,7 +99,6 @@ def RunBot ():
         disc.SystemSetup()
         disc.MiscModuleSetup()
         disc.ModerationSetup()
-        disc.SystemConiguration()
 
         disc.bot.run(botKey)
 
