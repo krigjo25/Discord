@@ -5,17 +5,14 @@ Classes
 Fix RoleManagement, 
 
 commands
-*   Generate a log channel if its not created yet
-*   Fix itents for online and members -- Pycord bug reported
-*   Create a db for dnd, and back
 
 ###### Not created yet
 *   moro
 *   semro
+
 modify channel
 cl
 updates
 
-poll
 warn when the user just enter one opinion
 Send results after a given time to the ctx.author
