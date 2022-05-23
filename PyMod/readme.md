@@ -1,8 +1,8 @@
-# PyMod
+<h1 align="center"> PyMod Documentations</h1>
 
-## Table of content
+<h2 align="center">Table of content</h2>
 
-### [About PyMod](#About-PyMod)
+### [About PyMod](#About_pymod)
 
 > Project Status<br>
 > How to use the bot<br>
@@ -25,37 +25,38 @@
 
 ### [Project-Summary](#project-Summary)
 
-## About-PyMod
+<h1 align="center"> About PyMod</h1>
 
-I'm your discord moderator command assistant, 
+I'm your discord moderator command assistant, <br>
 My intention is just to assist you in your discord server
 
-### How to
+<h2 align="center">How to use  PyMod</h2>
 
 Command prefix for the bot **?**, e.g **?help** 
 
 -   Moderator's privileges required **kick**
+
 -   Administrator's privileges required **Administrator**
 
-### Project Status
+## Project Status
 
-project name:
+**Project name**:<br>
 PyMod
 
-project start :<br>
+**Project start** :<br>
 15.04-22
 
-Last Update :<br>
+**Last Update** :<br>
 11.05-22
 
-Project version:
+**Project version**:<br>
 ?botinfo
 
-## Features
+<h2 align="center"> Feautures</h2>
 
-### Bot Member Utility
+## Bot Member Utility
 
-#### Community-Module
+### Community-Module
 
 > botinfo (optional: log )
 >> Information about the bot
@@ -72,18 +73,15 @@ Project version:
 > liro
 >> List the server roles
 
-### Bot Pre Moderation Utility
-
-
-### Bot Post Moderation Utility
+## Bot Post Moderation Utility
 
 Roles used in the project :
 
 -   sushed  - Muted players
 
-#### Moderator-module
+<h2 align="center"> Moderation Module</h2>
 
-#####   General Moderator commands
+##   General Moderator commands
 
 These commands does not required any spesific permissions
 
@@ -99,29 +97,31 @@ These commands does not required any spesific permissions
 >   Warn*
 >>  Manually warn a member
 
-#####   Moderators with kick_members privileges
+##   Moderators with kick_members privileges
 
 Commands which requires **kick_members**
->   kick (member name) (reason)*
+>   kick* (member name) (reason)
 >>  Kicks a member from the server
 
-#####   Moderators with moderate_members privileges
+##   Moderators with moderate_members privileges
 
 Commands which requires **moderate_members**
->   sush (memberName) (1s - 1 w) (reason)
+
+>   sush* (memberName) (1s - 1 w) (reason)
 >>  Snoozes a member for given minute
->>  Changes the member role into sushed, to time the member out
->>  limitations : 1we mute.    e.g : sush MemberName 1s / 1m / 1d / 1w / 1y reason
+>>
+>> Limitations : 1we mute.    e.g : sush MemberName 1s / 1m / 1d / 1w / 1y reason
 >
 >   lift (memberName)
 >>  Removes the mute and the role.
 
 
-#####   Moderators with manage_channels privileges
+##   Moderators with manage_channels & manage_threads privileges
 
 Commands which requires **manage_channels**
 Commands which requires **manage_threads**
->   chedit
+
+>  ~~chedit~~
 >>  Modify a channel, permissions
 
 >   chdel
@@ -130,14 +130,14 @@ Commands which requires **manage_threads**
 >   chcre
 >>  Creates a new channel
 
-#####   Moderators with manage_Roles privileges
+##   Moderators with manage_Roles privileges
 
 Commands which requires **manage_roles**
 >   crero* (roleName)
->>  * Pre made permissions,
->>  * Custom permissions,
->>  * premade Colours
->>  * custom colours
+>>  - Pre made permissions,
+>>  - Customize your own permissions,
+>>  - Premade Colours
+>>  - Customize your own  colours
 >
 >   remro* (memberName)
 >>  Removes a member from the roles
@@ -150,21 +150,22 @@ Commands which requires **manage_roles**
 
 - "*" records the given command in the moderationlog channel
 
-##### List of Premade Permissions
+## List of Premade Permissions
 
 >   Members
 >>
 >>  Full Membership Permissions
 >>>  Chat previligies, Stream previliges & Voice Previliges
 >>
->>  Chat Permissions
+>>  Chat Permissions only
 >>> Send_messages, add_reactions, external_emojis, read_message_history & use_slash_commands
 >>
 >>  StreamPermissions
->>  Chat Permissions & stream
+>>>  Chat Permissions & stream
 >>
 >>  VoicePermissions
->>> Chat Permissions, speak, connect, request_to_speak, send_tts_messages, use_voice_activation
+>>> Chat Permissions, speak, connect, request_to_speak, send_tts_messages,
+>>> use_voice_activation
 >
 >   Moderator
 >>
@@ -184,10 +185,10 @@ Commands which requires **manage_roles**
 >>  ModerationMananger
 >>  Has every moderation possiblities the other moderation type + they're able to kick members
 
-#### List of premade Colours
+## List of premade Colours
 
 
-#### Administrator-module
+<h2 align="center"> Administrator module</h2>
 
 >   ban* (member) (reason)
 >>  Ban a discord user from the server
@@ -200,23 +201,37 @@ Commands which requires **manage_roles**
 >
 >   announce (channelName)
 >>  Creates an announcement in the given channel as the bot
->> - "*" records the the unban in the channel moderationlog
+>> - "*" records the command in the channel auditlog
 
 
 ## Responsories
 
--   discord.py [Rapptz](https://github.com/Rapptz/discord.py),  <br>
--   humanfriendly [Peter Odding](https://github.com/xolox/python-humanfriendly)<br>
--   ~~Anti-Spam [Skelmis](https://github.com/Skelmis/DPY-Anti-Spam/commits?author=Skelmis),~~<br>
--   MariaDB [MariaDB Community](https://github.com/mariadb-corporation/mariadb-connector-python), <br>
--   python_dotenv [Saurabh Kumar](https://github.com/motdotla/dotenv),<br>
+-   discord.py [Rapptz](https://github.com/Rapptz/discord.py),
+-   ~~Anti-Spam [Skelmis](https://github.com/Skelmis/DPY-Anti-Spam/commits?author=Skelmis)~~,
+-   humanfriendly [Peter Odding](https://github.com/xolox/python-humanfriendly,)
+-   MariaDB [MariaDB Community](https://github.com/mariadb-corporation/mariadb-connector-python),
+-   python_dotenv [Saurabh Kumar](https://github.com/motdotla/dotenv),
 
 
  
 
 ## Credentials
 
-### Disclaimer
+Bot Created by @krigjo25
+
+##  Contact information
+
+**Discord:** <br>
+Krigjo25#5588<br>
+**Website:**<br> 
+---
+
+[Terms of Use]() <br>
+[Privacy Policy]()<br> 
+
+
+
+## Disclaimer
 
 The developer can only have the responsibility,<br>
 for how the project is created.

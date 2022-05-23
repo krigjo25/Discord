@@ -51,7 +51,7 @@ class DiscordSetup():
         self.intents.guilds = True                  #   Allows the bot to interect with guilds
         self.intents.emojis = True                  #   emoji, sticker related events
         self.intents.members = True                 #   Allows the bot to interact with members
-        self.intents.messages = True                #   Allows the bot to send messages Guild & DM
+        self.intents.messages = True                #   Allows thmessages Guild & DM
         self.intents.presences = True               #   Allows the bot to track member activty
         self.intents.message_content =True          #   Allows the bot to send embeded message
         self.intents.guild_reactions = True         #   Allows the bot to add reactions with-in the guild  
