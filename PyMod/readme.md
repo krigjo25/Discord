@@ -227,4 +227,4 @@ Krigjo25#5588<br>
 ---
 
 [Terms of Use]() <br>
-[Privacy Policy]()<br> 
+[Privacy Policy notice]()<br> 
