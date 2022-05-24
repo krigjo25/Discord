@@ -101,13 +101,18 @@ class CommunityModule(Cog, name='Community Module'):
 
 class CommunityFunctions():
 
+    def ReadChangelog(self):
 
-    def ReadChangelog():
+        with open('changelog.md', 'r') as f:
 
+<<<<<<< Updated upstream
         #   Opens the changelog
         with open('pyRess/changelog.md', 'r') as f:
 
             changelog = f.read(293)
+=======
+            changelog = f.read(415)
+>>>>>>> Stashed changes
 
             #   Closing the document
             f.close()
