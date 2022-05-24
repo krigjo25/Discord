@@ -27,6 +27,10 @@ class CommunityModule(Cog, name='Community Module'):
     @command(name="botinfo")
     async def BotInfo(self, ctx, args=None):
 
+        '''
+            Retrive infomation about the bot
+        '''
+
         botName = 'PyMod'
         svr = len(self.bot.guilds)
         botMaster = self.bot.get_user(340540581174575107)
@@ -69,8 +73,11 @@ class CommunityModule(Cog, name='Community Module'):
     @command(name='memberlist', pass_context=True)
     async def MembersList(self, ctx):
 
+        '''
+            Retrive List of server members
+        '''
 
-        #   Retriving the server
+        #   Initialize variables
         svr = ctx.guild
 
         self.embed.title = 'Server Members'
@@ -101,8 +108,9 @@ class CommunityModule(Cog, name='Community Module'):
 #   Random Meme
     @command(name='meme', pass_context= True)
     async def GetRedditMeme(self, ctx):
+
         """" GetRedditMeme
-            Generates a random meme from reddit
+                Generates a random meme from reddit
         """
 
         async with aiohttp.ClientSession() as cs:
@@ -142,97 +150,24 @@ class CommunityModule(Cog, name='Community Module'):
 #   Random Yes / No / Maybe
 
     @command (name='yesnomaybe')
-    async def YesNoMaybe(self, ctx, arg):
+    async def YesNoMaybe(self, ctx):
 
-        arg = str(arg)
+        '''
+            Randomly choosing between yes, no maybe
+        '''
 
-        if arg == 'yes' or arg == 'No' or arg == 'Maybe':
+        #   Creating a list to keep the words in
+        dictionary = ['Yes', 'No']
 
-            #   Creating a list to keep the words in
-            dictionary = ['Yes', 'No', 'Maybe']
+        #   Randomizing the words
+        x = randint(0,1)
+        shuffle(dictionary)
 
-            #   Randomizing the words
-            x = randint(0,2)
-            shuffle(dictionary)
+        #   Prepare and send the embed
+        self.embed.title = f"{dictionary[x]}"
+        await ctx.send(embed=self.embed)
 
-            #   Prepare and send the embed
-            self.embed.title = f"{dictionary[x]}"
-            await ctx.send(embed=self.embed)
-
-            return 
-
-#   Going busy
-    @command (name='dnd')
-    async def AwayFromKeyBoard(self, ctx, *, reason):
-
-        """                     AwayFromKeyBoard
-            This function creates a status update for a given member of the server
-            The player should not be able to retrieve notifications from the server,
-            Not get mentions.
-            The mentioner, should retrieve a message, from the bot 
-            "I regret to inform you the member you asking for is busy at the moment. due to (reason)"
-        """
-        #   initializing classes
-        db = MariaDB
-        database = getenv('database')
-
-        # Declearing the user & reason arguments
-        argTwo = str(reason)
-        argOne = str(ctx.author)
-
-        #   Inserting a new record into the database
-        db.newRecord(database, argOne, argTwo)
-
-        #   Closing the connection
-        db.closeConnection()
-
-        #   retrieve the channel if it exists
-        svr = ctx.guild
-        ch = get(svr.channels, name ='afk-channel')
-
-        #   Overwriting the permission for the channel
-        permission =  {
-            svr.default_role:PermissionOverwrite(   send_messages=False, 
-                                                    add_reactions=True,
-                                                    read_messages=True)
-        }
-        if not ch:
-            await svr.create_text_channel(f'afk-channel', overwrites=permission)
-
-        #   Send a message to the channel
-        await ch.send(f'{argOne} has just gone in Do not disturb mode. Due to {argTwo}')
-
-
-    @command (name='back')
-    async def BackToKeyBoard(self, ctx):
-
-        """         BackToKeyBoard
-
-            The user will be removed from the database,
-            the user can be mentioned again.
-
-        """
-
-        #   initializing classes
-        db = MariaDB
-        database = getenv('database1')
-
-        # Declearing the user argument
-        user = str(ctx.author.name)
-
-        db.DelRecord(database, user)
-
-        #   Closing the connection
-        db.closeConnection()
-
-        #   retrieve the channel if it exists
-        svr = ctx.guild
-        ch = get(svr.channels, name ='afk-channel')
-
-        #   Send a message to the channel
-        await ch.send(f'{user} just came back from dnd mode')
-
-        return
+        return 
 
     @command(name='ping')
     async def PingBot(self, ctx):
@@ -279,11 +214,12 @@ class CommunityFunctions():
     def ReadChangelog():
 
         #   Opens the changelog
-        with open('PyMod/chlog.md', 'r') as f:
+        with open('PyMod/changelog.md', 'r') as f:
 
-            changelog = f.read()
-            #   Closing the document
+            #   Read x bytes
+            changelog = f.read(415)
 
+        #   Closing the document
             f.close()
 
         return changelog

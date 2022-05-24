@@ -24,8 +24,8 @@ class FrequentlyAskedQuestions(Cog):
         
         if args == None:
 
-            self.embed.title = 'Frequently Asked Questions:question:'
-            self.embed.title = f' Usage ** {faq.cmdPre}help (Category)** for more details\n\n'
+            self.embed.title = ':classical_building: Frequently Asked Questions:question:'
+            self.embed.description = f' Usage ** {faq.cmdPre}help (Category)** for more details\n\n'
             self.embed.add_field(name=':people_holding_hands: Community Module', value='Ever heard of the guy whom joined a community? \n He were never seen again.', inline=True)
 
             #   Moderator Commands
@@ -76,13 +76,10 @@ class FrequentlyAskedQuestions(Cog):
         self.embed.add_field(name='/', value='- for built-ins ', inline=True)
         self.embed.add_field(name= f'{faq.cmdPre}liro', value='list of roles')
         self.embed.add_field(name= f'{faq.cmdPre}ping', value='Checkout the bots latency')
-        #intentsself.embed.add_field(name= f'{faq.cmdPre}memberlist', value ='list of members', inline=True)
-        #self.embed.add_field(name= f'{faq.cmdPre}dnd ', value='- Notifies others about your absence', inline=True)
-        self.embed.add_field(name= f'{faq.cmdPre}back ', value='- Shows that you\'re a no lifer again', inline=True)
-        #self.embed.add_field(name= f'{faq.cmdPre}yesnomaybe ', value='- Randomly chooses between yes / no or maybe', inline=True)
+        self.embed.add_field(name= f'{faq.cmdPre}memberlist', value ='list of members', inline=True)
+        self.embed.add_field(name= f'{faq.cmdPre}yesnomaybe ', value='- Randomly chooses between yes / no or maybe', inline=True)
         self.embed.add_field(name= f'{faq.cmdPre}botinfo \n(optional parameter: log)', value='- how did the bot fail the exam? She was a bit rusty', inline=True)
         self.embed.add_field(name= f'{faq.cmdPre}meme', value='- What do you call a gamer whom works at an abortion clinic? :rofl:\n Spawn Camper ', inline=True)
-        #self.embed.add_field(name=':x:?pre-mod', value='How does the pre-mod work')
 
         return self.embed
 
@@ -95,32 +92,30 @@ class FrequentlyAskedQuestions(Cog):
 
         if ctx.author.guild_permissions.kick_members:
 
-            #self.embed.add_field(name = f':bar_chart: {faq.cmdPre}poll', value = '- Run a poll', inline=True)
+            self.embed.add_field(name = f':bar_chart: {faq.cmdPre}poll', value = '- Run a poll', inline=True)
             self.embed.add_field(name = f'{faq.cmdPre}kick', value = '- Kicks a user off the server ', inline=True)
-            #self.embed.add_field(name = f'{faq.cmdPre}online', value= '- Checks whom is online / offline', inline=True)
+            self.embed.add_field(name = f'{faq.cmdPre}online', value= '- Checks whom is online / offline', inline=True)
 
         if ctx.author.guild_permissions.manage_roles:
 
-            #self.embed.add_field(name=f'{faq.cmdPre}remove', value='- Demote a person from the role', inline=True)
-            #self.embed.add_field(name=f'{faq.cmdPre}delRole', value='- Deletes a role from the server', inline=True)
-            #self.embed.add_field(name=f':x:{faq.cmdPre}creRole)', value='- Creates a role in the server', inline=True)
-            #self.embed.add_field(name=f':x:{faq.cmdPre}setRole', value='- Promotes a regular user to given role', inline=True)
-            #self.embed.add_field(name=f':x:{faq.cmdPre}rolelist', value='- Promotes a regular user to given role', inline=True)
-            #self.embed.add_field(name=f':x:{faq.cmdPre}roleColor', value='- Promotes a regular user to given role', inline=True)
+            self.embed.add_field(name=f'{faq.cmdPre}remro', value='- Demote a person from the role', inline=True)
+            self.embed.add_field(name=f'{faq.cmdPre}dero', value='- Deletes a role from the server', inline=True)
+            self.embed.add_field(name=f'{faq.cmdPre}crero', value='- Creates a role in the server', inline=True)
+            self.embed.add_field(name=f'{faq.cmdPre}sero', value='- Promotes a regular user to given role', inline=True)
+            self.embed.add_field(name=f'{faq.cmdPre}colro', value='- Promotes a regular user to given role', inline=True)
             pass
 
         if ctx.author.guild_permissions.manage_channels:
 
-            #self.embed.add_field(name='?chpri', value='- Channel Privileges ', inline=True)
             self.embed.add_field(name=f'{faq.cmdPre}chdel', value='- Deletes a channel from the server ', inline=True)
-            #self.embed.add_field(name=f'{faq.cmdPre}cls', value= '- Clears the given channel Chat:bangbang:', inline=True)
+            self.embed.add_field(name=f'{faq.cmdPre}cls', value= '- Clears the given channel Chat:bangbang:', inline=True)
             self.embed.add_field(name=f'{faq.cmdPre}chcre', value='- Create a new channel default : hidden ', inline=True)
 
         if ctx.author.guild_permissions.moderate_members:
 
             self.embed.add_field(name=f'{faq.cmdPre}lift', value= '- lift a sush from a member', inline=True)
             self.embed.add_field(name=f'{faq.cmdPre}sush', value= '- Shush a member for ammount of time ', inline=True)
-            self.embed.add_field(name=f'{faq.cmdPre}warn', value= '- Manually Warn a member for their behavior', inline=True)
+            self.embed.add_field(name=f'{faq.cmdPre}warn', value= '- Warn a member for their behavior', inline=True)
 
         return self.embed
 

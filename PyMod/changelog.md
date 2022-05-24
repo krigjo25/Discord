@@ -1,6 +1,7 @@
-#   Changelog
 
-<h2 align='Center'> Auditlog</h2>
+**Changelog**
+
+**Auditlog**
 
 ***0.1 preutal-beta***
 
@@ -9,4 +10,4 @@
 
 **maintained by**,<br>
 ***@krigjo25***<br>
-*Sun, 17.04.22, 15:22*
+*Sun, 17/04-22, 15:22*

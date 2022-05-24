@@ -7,7 +7,7 @@
 >   
 >   Contact
 
-### [About PyMod](#About_pymod)
+### [About PyMod](#About)
 
 > Project Status<br>
 > How to use the bot<br>
@@ -28,7 +28,7 @@
 > Disclaimers<br>
 > References
 
-### [Project-Summary](#project-Summary)
+### [Project Summary](#project-Summary)
 
 # Introduction
 
@@ -235,7 +235,17 @@ Commands which requires **manage_roles**
 
 
  
+# Bot Summary
 
+-   Created some basic commands for members
+-   Moderation module
+    *   kick_members previliges
+    *   moderate_members previliges 
+    *   manage_channels previliges
+    *   manage_role previliges
+        *   Created some roles permissions
+        *   Created some role Colours
+    
 ## Credentials
 
 Bot Created by @krigjo25
