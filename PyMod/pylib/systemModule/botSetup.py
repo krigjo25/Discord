@@ -1,4 +1,3 @@
-
 #   Python Repositories
 #import requests
 
@@ -68,7 +67,7 @@ class DiscordSetup():
 
     def ModerationSetup(self):
 
-        #   Moderation - Module
+        #   Admin - Module
         self.bot.add_cog(Administrator(self.bot))
 
         #   Role Moderation
@@ -89,18 +88,3 @@ class DiscordSetup():
         self.bot.add_cog(CommunityModule(self.bot))
 
         return
-
-def RunBot ():
-
-        # necsessary values from .env
-        disc = DiscordSetup()
-        botKey = getenv('PyModToken')
-
-        disc.SystemSetup()
-        disc.MiscModuleSetup()
-        disc.ModerationSetup()
-
-        disc.bot.run(botKey)
-
-if __name__ == '__main__':
-    RunBot()

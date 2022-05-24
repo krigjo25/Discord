@@ -1,10 +1,4 @@
 
-#   Python Repositories
-from os import getenv
-
-#   Dotenv Repositories
-from dotenv import load_dotenv
-
 #   Discord Repositories
 from discord import Intents
 
@@ -25,25 +19,29 @@ from pylib.gameModule.miniGamesModule.jumbleGame.jumble import JumbleGame       
 from pylib.gameModule.miniGamesModule.integerGame.guessTheNumber import GuessTheNumber            #   Guess the number
 from pylib.gameModule.miniGamesModule.reactionsGames.rockPaperScissors import ReactionGame    #   Rock, Scissors & Paper
 
-#   RSSBot
-from pylib.rssNews.RSSBot import RSSBot
-# Bot Utility
-
-    # Moderation Utility
-from pylib.postModerationModule.moderatorModule.moderator import Moderator                  #   Moderator Module
-from pylib.postModerationModule.administratorModule.administrator import Administrator          #   Administrator module
-
-# Importing .evn file
-load_dotenv()
-
 class DiscordSetup():
 
     def __init__(self):
 
-        self.intents= Intents().all()               #  Only allows Default intents
-        self.bot = DiscordBot(intents=self.intents)
+        #self.appinfo = AppInfo()
+        self.intents = Intents()
+        self.bot = DiscordBot(intents=self.SystemConiguration())
 
         return
+
+    def SystemConiguration(self):
+
+        #   Bot intents
+        self.intents.bans = True                    #   Allows the bot to ban / unban members
+        self.intents.guilds = True                  #   Allows the bot to interect with guilds
+        self.intents.emojis = True                  #   emoji, sticker related events
+        self.intents.members = True                 #   Allows the bot to interact with members
+        self.intents.messages = True                #   Allows thmessages Guild & DM
+        self.intents.presences = True               #   Allows the bot to track member activty
+        self.intents.message_content =True          #   Allows the bot to send embeded message
+        self.intents.guild_reactions = True         #   Allows the bot to add reactions with-in the guild  
+
+        return self.intents
 
     def SystemSetup(self):
 
@@ -59,50 +57,9 @@ class DiscordSetup():
 
         return
 
-    def AdministrationSetup(self):
-
-    #   Moderation - Module
-        self.bot.add_cog(Moderator(self.bot))
-        self.bot.add_cog(Administrator(self.bot))
-
-        return
-
-    def miniGamesSetup(self):
-
-        #   Game-Module
-            #   miniGames
-        self.bot.add_cog(EightBall(self.bot))
-        self.bot.add_cog(JumbleGame(self.bot))
-        self.bot.add_cog(GuessTheNumber(self.bot))
-        #self.bot.add_cog(ReactionGame(self.bot))
-
-        return
-
     def MiscModuleSetup(self):
 
         #   Community module
         self.bot.add_cog(CommunityModule(self.bot))
 
         return
-
-def BotConfiguration ():
-
-        #   Initializing classes
-
-        rss = RSSBot()
-        disc = DiscordSetup()
-        botKey = getenv('PyMod')
-
-        rss.InternationalNewsSetup()
-        rss.NationalNewsSetup()
-
-
-        disc.SystemSetup()
-        disc.miniGamesSetup()
-        disc.MiscModuleSetup()
-        disc.AdministrationSetup()
-
-        disc.bot.run(botKey)
-
-if __name__ == '__main__':
-    BotConfiguration()

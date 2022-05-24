@@ -46,12 +46,11 @@ from pylib.rssNews.national.europeNational import FranceNational, SovietUnionNat
 from pylib.rssNews.national.europeNational import UKNational
 from pylib.rssNews.national.americaNational import USANational
 
-class RSSBot():
+class PyRess():
 
     def __init__(self):
 
-        self.intents= Intents().all()               #  Only allows Default intents
-        self.bot = DiscordBot(intents=self.intents)
+        self.bot = DiscordBot()
 
         return
 
@@ -98,4 +97,5 @@ class RSSBot():
         self.bot.add_cog(FranceNational(self.bot))
         self.bot.add_cog(SovietUnionNational(self.bot))
         self.bot.add_cog(UKNational(self.bot))
+
         return

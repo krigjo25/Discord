@@ -29,12 +29,10 @@ goes by the name Kristoffer, born in 94, :flag_no:.<br>
 maintaining Python & SQL projects<br>
 otherwise just being a human.
 
-### BotsCreated
+### BotsMaintained
 [PyMod](https://github.com/krigjo25/Discord/tree/main/PyMod),<br>
 [PyRess](https://github.com/krigjo25/Discord/tree/main/pyRess)<br>
 [PyGameBot](https://github.com/krigjo25/Discord/tree/main/pyGameBot)<br>
-Information about the design can be found in the given links below
-includes the text files below,
 
 #### Status
 

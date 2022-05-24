@@ -36,19 +36,30 @@ load_dotenv()
 
 class DiscordSetup():
 
-    def __init__(self) -> None:
-        self.intents= Intents().default()               #  Only allows Default intents
-        self.bot = DiscordBot(intents=self.intents)
+    def __init__(self):
+
+        #self.appinfo = AppInfo()
+        self.intents = Intents()
+        self.bot = DiscordBot(intents=self.SystemConiguration())
 
         return
 
-class DiscordSetup():
+    def SystemConiguration(self):
 
-    def __init__(self) -> None:
-        self.bot = DiscordBot()
+        #   Bot intents
+        self.intents.bans = True                    #   Allows the bot to ban / unban members
+        self.intents.guilds = True                  #   Allows the bot to interect with guilds
+        self.intents.emojis = True                  #   emoji, sticker related events
+        self.intents.members = True                 #   Allows the bot to interact with members
+        self.intents.messages = True                #   Allows thmessages Guild & DM
+        self.intents.presences = True               #   Allows the bot to track member activty
+        self.intents.message_content =True          #   Allows the bot to send embeded message
+        self.intents.guild_reactions = True         #   Allows the bot to add reactions with-in the guild  
+
+        return self.intents
 
 
-    def SystemConfigurations(self):
+    def SystemSetup(self):
         
         self.bot.add_cog(ErrorHandler(self.bot))
         self.bot.add_cog(FrequentlyAskedQuestions(self.bot))
@@ -69,18 +80,3 @@ class DiscordSetup():
         self.bot.add_cog(RockScissorPaper(self.bot))
 
         return
-
-def RSSBotStartConfiguration ():
-        
-        # necsessary values from .env
-        disc = DiscordSetup()
-        botKey = getenv('BotTokenTest')
-
-        disc.SystemConfigurations()
-        disc.CommunityModule()
-        disc.GamersModule()
-
-        disc.bot.run(botKey)
-
-if __name__ == '__main__':
-    RSSBotStartConfiguration()

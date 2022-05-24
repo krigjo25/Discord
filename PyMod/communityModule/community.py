@@ -174,7 +174,7 @@ class CommunityFunctions(Cog):
 
         with open('changelog.md', 'r') as f:
 
-            changelog = f.read()
+            changelog = f.read(415)
 
             #   Closing the document
             f.close()

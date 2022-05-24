@@ -4,7 +4,8 @@
 <h2> Introduction</h2>
 
 <p>Our Privacy Policy was last updated on 24/05-22
-This privacy notice provides you with details of how we collect and process your personal data through your use of our bot pyRess </p>
+This privacy notice provides you with details of how we collect and process your personal data through your use of our bot pyRess.
+The Privacy notice may be updated at anytime, with-out any notifications </p>
 
 <strong>Contact Details</strong>
 
