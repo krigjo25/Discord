@@ -3,7 +3,7 @@
 
 ***1.0.0beta***
 
-BubFixes
+BugFixes
 
 maintained by,
 ***@krigjo25***

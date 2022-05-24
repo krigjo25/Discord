@@ -143,7 +143,7 @@ class PhiliosopicAnswer():
                     12:'Life is just like one of the elements on earth, just flow with it',
                     13:'Einstein said once if the world were ending, and i had one hour to solve a problem " i would use 50 minutes to think about the issue, then use the 10 last minutes to solve the issue".',
                     14:'As the thought araises from with-in it can only be answered from with-in',
-
+                    15:'Is it dangerious to sense it?',
 }
 
         #   Randomize the dictionary
@@ -169,7 +169,7 @@ class PhiliosopicAnswer():
                         11:'The ocean is blue',
                         12:'Mulan has the highest kill-count of any Disney character.',
                         13:'The infinity sign is called a lemniscate.',
-                        14:'why do you ask me?. '
+                        14:'why do you ask me?.'
 
 }
 
