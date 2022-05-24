@@ -361,7 +361,7 @@ class SovietUnionNational(Cog):
     def __init__(self, bot):
         self.bot = bot
         self.channelName = 'rssfeed'
-        self.embed = Embed(Color = Color.dark_purple())
+        self.embed = Embed(color = Color.dark_purple())
 
         return
 
