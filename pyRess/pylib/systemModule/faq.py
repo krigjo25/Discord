@@ -6,9 +6,9 @@ from discord.ext.commands import command, Cog
 
 class FrequentlyAskedQuestions(Cog):
 
-    cmdPre = 'faq.cmdPre'
+    cmdPre = '?'
 
-    def __init__(self,bot):
+    def __init__(self, bot):
         self.bot = bot
         self.embed = Embed(color=Color.dark_purple())
 
@@ -17,11 +17,13 @@ class FrequentlyAskedQuestions(Cog):
     @command(name='help', pass_context=True)
     async def FrequentlyAskedQuestions(self, ctx, *, args=None):
 
+        print('test')
+
         #   Initialize classes
+        faq =FrequentlyAskedQuestions
         rss = RSSModule(bot=self.bot)
         nl = NationalModule(bot=self.bot)
         inl = InternationalModule(bot=self.bot)
-        faq =FrequentlyAskedQuestions
 
         if args == None:
 
