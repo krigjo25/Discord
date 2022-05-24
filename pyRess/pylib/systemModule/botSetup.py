@@ -55,19 +55,28 @@ load_dotenv()
 
 class DiscordSetup():
 
-    def __init__(self) -> None:
-        self.intents= Intents().default()               #  Only allows Default intents
-        self.bot = DiscordBot(intents=self.intents)
+    def __init__(self):
+
+        self.intents = Intents()
+        self.bot = DiscordBot(intents = self.SystemConfigurations())#SystemConfigurations)
 
         return
+
+    def SystemConfigurations(self):
+
+        self.intents.guilds = True                  #   Allows the bot to interect with guilds
+        self.intents.emojis = True                  #   emoji, sticker related events
+        self.intents.guild_messages = True                #   Allows thmessages Guild & DM
+        self.intents.message_content =True          #   Allows the bot to send embeded message
+        self.intents.guild_reactions = True         #   Allows the bot to add reactions with-in the guild  
+
+        return self.intents
 
     def SystemSetup(self):
 
         #   System Configuration
-        #self.intents.members = True             #  Allows the bot to track member updates, fetch members
         #self.intents.messages = True            #  Allows the bot to send messages
-        #self.intents.presences = True           #  Allows the bot to track member activty
-        #self.intents.reactions = True           #  Allows the bot to react to a message
+
 
         #   Help command
         self.bot.add_cog(ErrorHandler(self.bot))
@@ -81,7 +90,7 @@ class DiscordSetup():
     def InternationalNewsSetup(self):
 
         #   BBC News
-#        self.bot.add_cog(BBCWorld(self.bot))
+        #        self.bot.add_cog(BBCWorld(self.bot))
 
         #   Cnn News
         self.bot.add_cog(CNNWorld(self.bot))
@@ -125,28 +134,12 @@ class DiscordSetup():
 
     def Blogs(self):
 
-#        self.bot.add_cog(Blogs(self.bot))
+        #        self.bot.add_cog(Blogs(self.bot))
 
         return
+
     def MiscModulesSetup(self):
 
         self.bot.add_cog(CommunityModule(self.bot))
 
         return
-
-def RSSBotStartConfiguration ():
-        
-        #   Initializing classes
-        disc = DiscordSetup()
-
-        botKey = getenv('PyRess')
-
-        disc.SystemSetup()
-        disc.MiscModulesSetup()
-        disc.NationalNewsSetup()
-        disc.InternationalNewsSetup()
-
-        disc.bot.run(botKey)
-
-if __name__ == '__main__':
-    RSSBotStartConfiguration()
