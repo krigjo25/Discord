@@ -1,7 +1,10 @@
 <h1>Privacy Policy for PyMod</h1>
 
 <h2> Introduction</h2>
-This privacy notice provides you with details of how we collect and process your personal data through your use of our bot Pymod 
+
+<p>Our Privacy Policy was last updated on 24/05-22
+This privacy notice provides you with details of how we collect and process your personal data through your use of our bot PyMod.
+The Privacy notice may be updated at anytime, with-out any notifications </p>
 
 <strong>Contact Details</strong>
 
