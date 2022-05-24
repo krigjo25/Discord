@@ -2,6 +2,11 @@
 
 <h2 align="center">Table of content</h2>
 
+### [Introduction](#Introduction)
+>   About the Maintainer
+>   
+>   Contact
+
 ### [About PyMod](#About_pymod)
 
 > Project Status<br>
@@ -24,6 +29,22 @@
 > References
 
 ### [Project-Summary](#project-Summary)
+
+# Introduction
+
+## About the Maintainer
+
+goes by the name Kristoffer, born in 94, :flag_no:.<br>
+maintaining Python & SQL projects<br>
+otherwise just being a human.
+
+##  Contact Information
+
+**Discord:** <br>
+Krigjo25#5588<br>
+
+**Website:**<br> 
+www.website.com
 
 <h1 align="center"> About PyMod</h1>
 
@@ -52,7 +73,7 @@ PyMod
 **Project version**:<br>
 ?botinfo
 
-<h2 align="center"> Feautures</h2>
+<h2 align="center"> Features</h2>
 
 ## Bot Member Utility
 
@@ -208,7 +229,7 @@ Commands which requires **manage_roles**
 
 -   discord.py [Rapptz](https://github.com/Rapptz/discord.py),
 -   ~~Anti-Spam [Skelmis](https://github.com/Skelmis/DPY-Anti-Spam/commits?author=Skelmis)~~,
--   humanfriendly [Peter Odding](https://github.com/xolox/python-humanfriendly,)
+-   humanfriendly [Peter Odding](https://github.com/xolox/python-humanfriendly),
 -   MariaDB [MariaDB Community](https://github.com/mariadb-corporation/mariadb-connector-python),
 -   python_dotenv [Saurabh Kumar](https://github.com/motdotla/dotenv),
 
@@ -218,13 +239,6 @@ Commands which requires **manage_roles**
 ## Credentials
 
 Bot Created by @krigjo25
-
-##  Contact information
-
-**Discord:** <br>
-Krigjo25#5588<br>
-**Website:**<br> 
----
 
 [Terms of Use]() <br>
 [Privacy Policy notice]()<br> 

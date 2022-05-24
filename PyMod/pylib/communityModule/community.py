@@ -34,18 +34,21 @@ class CommunityModule(Cog, name='Community Module'):
         if args == None:
 
             self.embed.title = f':notebook: About {botName}'
-            self.embed.url=f'https://github.com/krigjo25/Discord/blob/main/{botName}/read-me.md'
+            self.embed.url=f'https://github.com/krigjo25/Discord/blob/main/{botName}/readme.md'
             self.embed.description = ''
             self.embed.add_field(name = ':rotating_light: Released', value=getenv('BotCreated'), inline=True)
             self.embed.add_field(name = ':new: Updated', value=getenv('PyModUpdated'), inline=True)
             self.embed.add_field(name = ':person_with_probing_cane: Current Version', value= getenv('PyModV'), inline=True)
             self.embed.add_field(name = ':toolbox: Responsory', value=getenv('Responsory'), inline=True)
-            self.embed.add_field(name = ':cloud: Hosted', value=getenv('HOSTED'), inline=True)
+            self.embed.add_field(name = ':cloud: Hosted', value=getenv('Hosted'), inline=True)
             self.embed.add_field(name = ':man: Master', value=f'My master goes by the name, {botMaster} :flag_no:', inline=True)
             self.embed.add_field(name = ':arrows_counterclockwise: Server Counting', value=f'Watching {svr} \nDiscord Servers', inline=True)
             self.embed.add_field(name = ':thought_balloon: To do list', value = '[Future projects](https://github.com/krigjo25/Discord/projects/1)', inline=True)
+            #self.embed.add_field(name = 'Bot latency', values = f'**{round(self.bot.latency * 10000)}** MS!', inline=True)
             await ctx.send(embed = self.embed)
+
             self.embed.clear_fields()
+            self.embed.url= ''
 
         if args == 'log':
 
@@ -55,7 +58,9 @@ class CommunityModule(Cog, name='Community Module'):
             
 
             await ctx.send(embed= self.embed)
+
             self.embed.clear_fields()
+            self.embed.url= ''
 
 
         return
@@ -73,9 +78,8 @@ class CommunityModule(Cog, name='Community Module'):
         #   Fetching members
         for member in svr.members:
             
-            #   Declare variables
+            #   Intializing variables
             nick = str(member.nick)
-            botUser = self.bot.user
             status = str(member.status)
 
             #   Add emoji to status
@@ -88,7 +92,7 @@ class CommunityModule(Cog, name='Community Module'):
             if nick == 'None':nick = ' '
             else:nick = f'Nick : {member.nick}\n'
 
-            if member != botUser:
+            if member.bot == False:
                 self.embed.add_field(name=f'{member.name}#{member.discriminator}',value=f'{nick} Status : {status} ', inline=False)
 
         await ctx.send(embed = self.embed)
@@ -234,7 +238,7 @@ class CommunityModule(Cog, name='Community Module'):
     async def PingBot(self, ctx):
 
                     #   Prepare & Send embeded message
-        self.embed.title = f' Bot Latency : **{round(self.bot.latency * 1000)}** MS!'
+        self.embed.title = f'Bot Latency : **{round(self.bot.latency * 1000)}** MS!'
         self.embed.description = ''
         await ctx.send(embed=self.embed)
 
@@ -275,11 +279,11 @@ class CommunityFunctions():
     def ReadChangelog():
 
         #   Opens the changelog
-        with open('PyMod/changelog.md', 'r') as f:
+        with open('PyMod/chlog.md', 'r') as f:
 
             changelog = f.read()
-
             #   Closing the document
+
             f.close()
 
         return changelog

@@ -122,8 +122,8 @@ class ManageModeration(Cog):
         purge = await ch.purge(limit=x)
 
         # Generate a log channel
-        ch = await ModerationChecks.CheckChannel(self, ctx, 'auditlog')
-        await ch.send(f'**{len(purge)}** lines purged, in **{ch}** by **{ctx.author.name}**')
+        chlog = await ModerationChecks.CheckChannel(self, ctx, 'auditlog')
+        await chlog.send(f'**{len(purge)}** lines purged, in **{ch}** by **{ctx.author.name}**')
 
         return
 
@@ -230,6 +230,7 @@ class ManageModeration(Cog):
         warn = ''
         off = True
         srv = ctx.guild
+
         bot = self.bot.user
         self.embed.title = 'Server Members'
         self.embed.description = 'List of members'
@@ -238,11 +239,10 @@ class ManageModeration(Cog):
 
             #   Fetching members
             for member in srv.members:
-                print (member, bot)
 
                 #   Initializing  variables
-                status = str(member.status)
                 nick = str(member.nick)
+                status = str(member.status)
 
                 #   Add emoji to status
                 if status == 'idle': status = ':dash:'
@@ -254,7 +254,7 @@ class ManageModeration(Cog):
                 if nick == 'None': nick = ''
                 else: nick = f'Nick : {member.nick}\n'
 
-                if member != bot:
+                if member.bot == False:
 
                     self.embed.add_field(name=f'{member.name} #{member.discriminator}',value=f'{nick}\n Status : {status}\n Warnings : {self.warn}', inline=False)
 
@@ -270,7 +270,7 @@ class ManageModeration(Cog):
                 #   Fetching members
                 for member in srv.members:
 
-                    #   Declare variables
+                    #   Initializing variables
                     status = str(member.status)
                     nick = str(member.nick)
 
@@ -284,7 +284,7 @@ class ManageModeration(Cog):
                     if nick == 'None':nick = ''
                     else:nick = f'Nick : {member.nick}\n'
  
-                    if off != False:
+                    if off != False & member.bot == False:
 
                         self.embed.add_field(name=f'{member.name}, #{member.discriminator}',value=f'{nick}\n Status : {status}\n Warnings : {warn}', inline=False)
 
@@ -306,12 +306,48 @@ class ManageModeration(Cog):
                     if nick == 'None':nick = ''
                     else:nick = f'Nick : {member.nick}\n'
 
-                    if off != False:
+                    if off != False & member.bot == False:
                         self.embed.add_field(name=f'{member.name}#{member.discriminator}',value=f'{nick}\n Status : {status}\n Warnings : {warn}', inline=False)
 
                 await ctx.send(embed = self.embed)
                 self.embed.clear_fields()
-   
+
+    @command(name = 'bots', pass_context=True)
+    @has_permissions(manage_messages=True)
+    async def ServerBots(self, ctx, args=None):
+
+        #   Initializing variables
+        srv = ctx.guild
+
+        self.embed.title = 'Server Bots'
+        self.embed.description = 'List of members'
+
+        if args == None:
+
+            #   Fetching members
+            for member in srv.members:
+
+                #   Initializing  variables
+                nick = str(member.nick)
+                status = str(member.status)
+
+                #   Add emoji to status
+                if status == 'idle': status = ':dash:'
+                elif status == 'offline': status = ':sleeping:'
+                elif status == 'dnd': status = ':technologist:'
+                if status == 'online': status = ':heart_on_fire:'
+
+                #   Fetch user nick
+                if nick == 'None': nick = ''
+                else: nick = f'Nick : {member.nick}\n'
+
+                if member.bot == True:
+
+                    self.embed.add_field(name=f'{member.name} #{member.discriminator}',value=f'{nick}\n Status : {status}', inline=False)
+
+            await ctx.send(embed = self.embed)
+            self.embed.clear_fields()
+
 class MemberModeration(Cog):
 
     def __init__(self, bot):

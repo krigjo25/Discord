@@ -1,6 +1,4 @@
-#   Changelog
 
-<h2 align='Center'> Auditlog</h2>
 
 ***0.1 preutal-beta***
 
