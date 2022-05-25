@@ -12,8 +12,6 @@ def RunBot ():
         botKey = getenv('BotTokenTest')
 
         disc.SystemSetup()
-        disc.GamersModule()
-        disc.CommunityModule()
 
         disc.bot.run(botKey)
 

@@ -22,8 +22,6 @@ from pylib.systemModule.frequentlyaskedquestions import FrequentlyAskedQuestions
 from pylib.systemModule.discordBot import DiscordBot                                        #   The Client#
 from pylib.systemModule.commandError import ErrorHandler                                    #   Error Handling Module
 
-#   Community Module
-from pylib.communityModule.community import Community                                       #   Community module
 
 #   miniGames Module
 
@@ -44,13 +42,11 @@ class DiscordSetup():
     def SystemConiguration(self):
 
         #   Bot intents
-        self.intents.bans = True                    #   Allows the bot to ban / unban members
+        
         self.intents.guilds = True                  #   Allows the bot to interect with guilds
         self.intents.emojis = True                  #   emoji, sticker related events
-        self.intents.members = True                 #   Allows the bot to interact with members
-        self.intents.messages = True                #   Allows thmessages Guild & DM
-        self.intents.presences = True               #   Allows the bot to track member activty
-        self.intents.message_content =True          #   Allows the bot to send embeded message
+        self.intents.messages = True                #   Allows them to message Guild & DM
+        self.intents.message_content =False          #   Allows the bot to send embeded message
         self.intents.guild_reactions = True         #   Allows the bot to add reactions with-in the guild  
 
         return self.intents
