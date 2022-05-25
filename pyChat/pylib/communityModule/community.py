@@ -26,9 +26,12 @@ class CommunityModule(Cog, name='Community Module'):
 #   Bot Info
     @command(name="botinfo")
     async def BotInfo(self, ctx, args=None):
+
+        #   Initializing variables
         svr = len(self.bot.guilds)
         botMaster = self.bot.get_user(340540581174575107)
-        botName = 'AdminralVonSnider'
+        botName = 'PyChat'
+
         if args == None:
 
             self.embed.title = f':notebook: About {botName}'
@@ -41,7 +44,6 @@ class CommunityModule(Cog, name='Community Module'):
             self.embed.add_field(name = ':cloud: Hosted', value=getenv('HOSTED'), inline=True)
             self.embed.add_field(name = ':man: Master', value=f' {botMaster} :flag_no:', inline=True)
             self.embed.add_field(name = ':arrows_counterclockwise: Server Counting', value=f'Watching {svr} \nDiscord Servers', inline=True)
-            self.embed.add_field(name = ':thought_balloon: To do list', value = '[Future projects](https://github.com/krigjo25/Discord/projects/1)', inline=True)
             await ctx.send(embed = self.embed)
             self.embed.clear_fields()
 
@@ -54,112 +56,7 @@ class CommunityModule(Cog, name='Community Module'):
             await ctx.send(changelog)
             self.embed.clear_fields()
 
-
         return
-
-#   Online members
-    @command(name='memberlist', pass_context=True)
-    async def MembersList(self, ctx):
-
-
-        #   Retriving the server
-        svr = ctx.guild
-
-        self.embed.title = 'Server Members'
-        
-        #   Fetching members
-        for member in svr.members:
-            
-            #   Declare variables
-            status = str(member.status)
-            nick = str(member.nick)
-            botUser = self.bot.user
-
-            #   Add emoji to status
-            if status == 'online':
-                status = ':heart_on_fire:'
-
-            elif status == 'idle':
-                status = ':dash:'
-            
-            elif status == 'dnd':
-                status = ':technologist:'
-
-            elif status == 'offline':
-                status = ':sleeping:'
-            
-            #   Fetch user nick
-            if nick == 'None':
-                nick = ' '
-            else:
-                nick = f'Nick : {member.nick}\n'
-            if member != botUser:
-                self.embed.add_field(name=f'{member.name}#{member.discriminator}',value=f'{nick} Status : {status} ', inline=False)
-        await ctx.send(embed = self.embed)
-        self.embed.clear_fields()
-
-#   Random Meme
-    @command(name='meme', pass_context= True)
-    async def GetRedditMeme(self, ctx):
-        """" GetRedditMeme
-            Generates a random meme from reddit
-        """
-
-        async with aiohttp.ClientSession() as cs:
-            async with cs.get('https://www.reddit.com/r/dankmemes/new.json?sort=hot') as r:
-                res = await r.json()
-                post = res['data']['children'] [randrange(0, 24)]
-                self.embed.title = post["data"]["title"]
-                self.embed.url = 'https://www.urbandictionary.com/define.php?term=Reddit'
-                self.embed.set_image(url=post['data']['url'])
-                self.embed.description = f'Hot meme porn from  {ctx.author.name}'
-
-                await ctx.send(embed=self.embed)
-                self.embed.clear_fields()
-                self.embed.set_image(url= '')
-        return
-
-#   Random Number
-    @command (name='randint')
-    async def randomInt(self, ctx, arg, argTwo):
-
-        """
-            randomInt
-
-            Generates a random integer 
-            between arg and argTwo
-
-        """
-
-        arg = int(arg)
-        arg2 = int(argTwo)
-        x = randint(arg, arg2)
-
-        await ctx.send(x)
-
-        return
-
-#   Random Yes / No / Maybe
-
-    @command (name='yesnomaybe')
-    async def YesNoMaybe(self, ctx, arg):
-
-        arg = str(arg)
-
-        if arg == 'yes' or arg == 'No' or arg == 'Maybe':
-
-            #   Creating a list to keep the words in
-            dictionary = ['Yes', 'No', 'Maybe']
-
-            #   Randomizing the words
-            x = randint(0, 2)
-            shuffle(dictionary)
-
-            #   Prepare and send the embed
-            self.embed.title = f"{dictionary[x]}"
-            await ctx.send(embed=self.embed)
-
-            return 
 
 class CommunityFunctions(Cog):
 
@@ -171,7 +68,7 @@ class CommunityFunctions(Cog):
 
         with open('Pybut/changelog.md', 'r') as f:
 
-            changelog = f.read()
+            changelog = f.read(415)
 
             #   Closing the document
             f.close()

@@ -9,9 +9,10 @@ def RunBot ():
         
         #   Initializing classes
         disc = DiscordSetup()
-        botKey = getenv('BotTokenTest')
 
         disc.SystemSetup()
+
+        botKey = getenv('PyChatToken')
 
         disc.bot.run(botKey)
 

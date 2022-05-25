@@ -7,12 +7,12 @@
 >   
 >   Contact
 
-### [About PyMod](#About)
+### [PyMod](#PyMod)
 
+> About the bot<br>
 > Project Status<br>
 > How to use the bot<br>
 > Features<br>
-> Updates
 
 ### [Features](#Features)
 
@@ -25,8 +25,9 @@
 
 ### [Credentials](#Credentials)
 
-> Disclaimers<br>
-> References
+> PrivacyPolicy<br>
+> Termsofusage
+> licence
 
 ### [Project Summary](#project-Summary)
 
