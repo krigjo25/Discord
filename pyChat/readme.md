@@ -53,7 +53,7 @@ PyChat is a discord support bot
     *   SA:MP
         *   ECRPG
 
--   Greetings & bye
+-   Greetings
 
 ## Project Status
 
