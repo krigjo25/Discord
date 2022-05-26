@@ -2,6 +2,7 @@
 #   Python Repositories
 from os import getenv
 from sys import api_version
+from types import NoneType
 
 #   dotenv Repositories
 from dotenv import load_dotenv
@@ -11,8 +12,10 @@ from discord.message import Message
 from discord.ext.commands import Bot
 
 #   pylib Repositories
-from pylib.dictionary.pyChatgreets import GreetMember
 from pylib.dictionary.pyChatSamp import Samp
+from pylib.dictionary.pyChatgreets import GreetMember
+from pylib.dictionary.pyChatFunctions import StringManagement
+
 load_dotenv()
 
 class DiscordBot(Bot):
@@ -40,24 +43,5 @@ class DiscordBot(Bot):
         
     async def on_message(self, message:Message):
 
-        if message.author == self.user: return
 
-        else:
-
-            #   Procsess commands
-            await self.process_commands(message)
-
-            #   Initializing variables
-            msg = message.channel
-            userInput = str(message.content).capitalize()
-
-            #   Initializing classes
-            q,response = [GreetMember.Greetings(userInput), Samp.QuestionsRelatedToSamp(userInput)]
-
-
-            if userInput in q: await msg.send(response)
-            elif userInput in q: await msg.send(response)
-
-            else:
-                await message.channel.send(f'I\'m sure due to a upgrade as i could not understand your message')
         return

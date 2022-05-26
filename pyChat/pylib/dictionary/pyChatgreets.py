@@ -24,20 +24,33 @@ class GreetMember():
 
         return
 
-    def Greetings(q):
+    def Greetings(question):
 
         """
 
             When a member joins the community, we greet the member
         
         """
-        Greetings = ['Good morning', 'Good Evening', 'Hi', 'Hello', 'Hey', 'Good morning', 'Good day',]
-        var = ['Bad', 'Not good',]
-        ynm = ['Yes', 'No', 'Maybe', 'Might',]
+        greet = [
+                        'Good morning', 
+                        'Good Evening', 
+                        'Hi', 
+                        'Hello', 
+                        'Hey', 
+                        'Good morning', 
+                        'Good day',]
 
-        if q in Greetings:
+        
+        var = [
+                'Bad', 'Not good',]
+        ynm =[
+                'Yes', 'No', 'Maybe', 'Might',]
 
-            response = {
+        if question in greet or question in var or question in ynm:
+
+            if question in greet:
+
+                response = {
                             0:'Hello, how are you today?',
                             1:'Hey, how are you today?',
                             2:'Hi, how are you today?',
@@ -45,35 +58,32 @@ class GreetMember():
                             4:'Good morning, how are your day going?',
                             5:'Good evening, how are your evening?',
                             6:'Howdy, how are you today?',
+                            7:'Greetings, how can i be at service for you to day?',
 
             }
+            elif question in var:
 
-        elif q in var:
+                response = {
+                            0:'Just let it go, man its okay to have a bad day, isn\'t it?',
+                            1:'Would you be able to let it go?',
+                            2:'Well.. Its just life, like one of the elements on earth, just flow with it',
+                }
 
-            response = {
-                    1:'Then i suggest you, just let it go, its okay to have a bad day, isn\'t it?',
-                    2:'Would you be able to let it go?',
-                    3:'Well.. Its just life, like one of the elements on earth, just flow with it',
-}
+            elif question in ynm:
 
-            #   Randomize the dictionary
-            x = len(response)
-            x = randrange(1,x)
-
-            return q, response.get(x)
-
-        elif q in ynm:
-
-            response = {
-                        0:'Thats great too, just be you. Nothing else i want you to be',
-                        1:'Well, the time will heal.',
-                        2:'Just be with the sensation',
-
-
+                response = {
+                            0:'Thats great too, just be you. Nothing else i want you to be',
+                            1:'Well, the time will heal.',
+                            2:'Just be with the sensation',
             }
 
             #   Randomize the dictionary
             x = len(response)
-            x = randrange(1,x)
+            x = randrange(0,x)
 
-            return q, response.get(x)
+            response =  response.get(x)
+
+            return question, response
+
+        else:
+            return question
