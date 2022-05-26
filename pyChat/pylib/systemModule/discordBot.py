@@ -43,5 +43,42 @@ class DiscordBot(Bot):
         
     async def on_message(self, message:Message):
 
+        if message.author == self.user: return
+
+        else:
+
+            #   Procsess commands
+            await self.process_commands(message)
+
+            #   Initializing variables
+            msg = message.channel
+            userInput = str(message.content).capitalize()
+
+            #   Initializing classes
+            userInput = StringManagement.ReplaceCharacters(userInput)
+
+            response =  [Samp.QuestionsRelatedToSamp(userInput),
+                        [GreetMember.Greetings(userInput)],
+                        ]
+           
+
+
+            print(f' two Response : \n {(response)}\n')
+
+            if not None: 
+
+                #print(f'Question : {response[0][0]}')
+                #print(f' Answer : {response[0][1]}')
+
+                #   Works for greetings
+                #   Not for samp()
+                for i, j in response[1]:
+
+                    print(f'Question : {i}')
+                    print(f' Answer : {j}')
+                
+
+
+            if userInput in i: await msg.send(j)
 
         return

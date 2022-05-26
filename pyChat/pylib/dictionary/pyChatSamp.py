@@ -52,7 +52,7 @@ class Samp():
             print(f' SAMP Related Question :\n{question}\n')
             print(f'SAMP Related Answer :\n{response}\n')
             print('samp related response :\n', response)
-            return response
+            return question, response
         
         #else: return question
 

@@ -41,12 +41,14 @@ class GreetMember():
                         'Good day',]
 
         
-        var = [
-                'Bad', 'Not good',]
+        negative = ['Bad', 'Not good',]
+
+        positive = ['Fine', 'Good', 'Never been better', 'Never better',
+                    'Great',]
         ynm =[
                 'Yes', 'No', 'Maybe', 'Might',]
 
-        if question in greet or question in var or question in ynm:
+        if question in greet or question in negative or question in positive or question in ynm:
 
             if question in greet:
 
@@ -61,7 +63,7 @@ class GreetMember():
                             7:'Greetings, how can i be at service for you to day?',
 
             }
-            elif question in var:
+            elif question in negative:
 
                 response = {
                             0:'Just let it go, man its okay to have a bad day, isn\'t it?',
