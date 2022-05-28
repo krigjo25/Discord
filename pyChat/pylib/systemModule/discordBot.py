@@ -57,28 +57,15 @@ class DiscordBot(Bot):
             #   Initializing classes
             userInput = StringManagement.ReplaceCharacters(userInput)
 
-            response =  [Samp.QuestionsRelatedToSamp(userInput),
-                        [GreetMember.Greetings(userInput)],
+            response =  [Samp.FrequentlyAskedQuestionsSAMP(userInput),
+                        Samp.FrequentlyAskedQuestionsECRPG(userInput),
+                        GreetMember.Greetings(userInput),
                         ]
-           
 
+            response = list(filter(None, response))
+            print(f' Three Response : \n {(response)}\n')
 
-            print(f' two Response : \n {(response)}\n')
-
-            if not None: 
-
-                #print(f'Question : {response[0][0]}')
-                #print(f' Answer : {response[0][1]}')
-
-                #   Works for greetings
-                #   Not for samp()
-                for i, j in response[1]:
-
-                    print(f'Question : {i}')
-                    print(f' Answer : {j}')
-                
-
-
-            if userInput in i: await msg.send(j)
+            for i, j in response:
+                await msg.send(j)
 
         return

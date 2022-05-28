@@ -1,55 +1,72 @@
 
 #   Python Responsories
-
+from pylib.dictionary.list import SAMPClient, SAMPServer, SAMPErrors
 class Samp():
 
     def __init__(self):
         pass
 
-    def QuestionsRelatedToSamp(question):
-        question = str(question)
+    def FrequentlyAskedQuestionsSAMP(question):
 
-        whs = [
-                'Whats samp',  
-                'What is samp',
-                'What is sanandreasmultiplayer',
-                'Whats is sanandreasmultiplayer',
-                'What is san andreas multi player',
-                'Whats is san andreas multi player',]
 
-        dsamp = [
-                    'Where can samp be downloaded',
-                    'Where can i download samp',
-                    'Can i download samp',]
+        client = SAMPClient(question)
+        sampServer = SAMPServer(question) 
+        sampErrors = SAMPErrors(question)
 
-        sampREQ = [
-                'What is the requirements for downloading samp', 'Whats the requirements for downloading samp'
-                'what is samp req', 'whats is samp req', 'whats samp requirements', 'what is samp requirements',
-                'what is samp requirement', 'whats samp requirements' 'Samp requirements', 'Samp req',]
+        if question in client  or question in sampServer or question in sampErrors:
 
-        v1 = [  'Can i downgrade samp', 'I have samp version 2 how can i downgrade', 'Ive samp version 2, can i downgrade',
-                'Downgrade samp', 'Samp downgrade',]
+            if question in client:
 
-        gm = ['Samp gamemodes', 'Gamemodes samp', 'Game mode samp', 'What is a game mode', 'samp game mode']
+                indexCounter = client.index(question)
+                minreq = '** The system requirements can be found in (https://team.sa-mp.com/wiki/Introduction.html#What_is_SA:MP.3F)'
+                response = {
 
-        response = {
-                    0:'San Andreas Multiplayer (SA:MP) or (SA-MP) is a game modification for Grand Theft Auto San Andreas (GTA:SA) which enables it to be a multiplayer game. You can play over the internet (or through LAN) with up to 999 other users (limited to 1,000 players online at once). SA-MP requires GTA:SA PC game to play online.',
-                    1:'Well lucky you, i did a swap search the SA:MP client can be downloaded using this mirror (https://bit.ly/3yYEGDa)',
-                    2:'SA:MP requires GTA:SA v1.00 US/EU version. V2.00 Can be downgraded using third-party patch (http://files.sa-mp.com/gtasapatch.zip), The third-party patch does not support (Steam / Direct2Drive) versions.',
-                    3:'Version two can be downgraded to verison one, using a third-party patch (http://files.sa-mp.com/gtasapatch.zip). The third-party patch does not support (Steam / Direct2Drive) versions.',
-                    #'A Game mode is a distinct configuration that affects how game mechanics behave. A game with several modes will present different settings in each mode. ',
-                    
-        }
+                            0:'''
+                            San Andreas Multiplayer (SA:MP) or (SA-MP) is an unoffical modification for Grand Theft Auto San Andreas (GTA:SA).
+                            The modification gives us the ability to play GTA:SA over the internet (or through LAN) with up to 999 other users (limited to 1,000 players online at once).
+                            SA-MP requires GTA:SA PC game US / EN Version for the modification to work.''',
+                            1:'Well lucky you, you can download the most recent SA:MP client can be downloaded using this mirror SA:MP mirror :(https://bit.ly/3yYEGDa)',
+                            2:f'''SA:MP requires GTA:SA v1.00 US/EU version. 
+V2.00 Can be downgraded using third-party patch (http://files.sa-mp.com/gtasapatch.zip), 
+The third-party patch does not support (Steam / Direct2Drive) versions.\n
+System requirements for SA:MP:
+SA:MP runs on any computers, which can run GTA:SA, with better performance, 
+However the lower specs, the greater the chance for large servers might run slower.
+Requirements can be found {minreq}''',
+                            3:'Version two can be downgraded to verison one, using a third-party patch (http://files.sa-mp.com/gtasapatch.zip). The third-party patch does not support (Steam / Direct2Drive) versions.',
+                }
+                print (indexCounter)
+                #   Checking if the condition is true
+                if indexCounter >= 0 and indexCounter <= 6: response = response[0]
+                elif indexCounter >= 7 and indexCounter <= 9: response = response[1]
+                elif indexCounter >= 10 and indexCounter <= 20: response = response[2]
+                elif indexCounter >= 21 and indexCounter <= 24: response  = response[3]
 
-        if question in whs or question in dsamp or question in sampREQ or question in v1:
 
-            if question in whs: response = response.get(0)
-            elif question in dsamp: response = response.get(1)
-            elif question in sampREQ:response = response.get(2)
-            elif question in v1:response = response.get(3)
-            #elif question in gm:response = response[4]
+            elif question in sampServer:
 
-            print(f' SAMP Related Question :\n{question}\n')
+                response = {
+
+                            0:'',
+
+                }
+            elif question in sampErrors:
+
+                response = {
+
+                            0:'SA:MP requires GTA:SA v1 US/EN version in order to start. Versions such as Steam or Direct2Drive can not be used.',
+                            1:'Ensure the procedure to install SA:MP has been followed, if the issue continues, ensure you have allowed SA:MP to accsess through your firewall.',
+                            2:'The Single player loads for one of the reasons listed below \n SA:MP has been installed in the wrong folder, or the version of GTA:SA is not compitable with SA:MP.',
+                            3:'When you get the **\' Unacceptable name\'** You\'re using characters which is not supported in SA:MP or names which might couse some glitch for the server, recommended characters is a-z, A-Z, 0-9.',
+                            4:'The server might be offline. If it\'s not possible to connect any server. \n 1. Check if you have the newest version of SA:MP.\n2. deactivate your firewall, if the deactivation of the firewall works, you have to setup your firewall correctly.',
+                            5:'If SA:MP does not load. It might be coused by a modification as it interfers with SA-MP client & cousing it to crash.',
+                            6:'Delete *\' gta_sa.set\'* from the folder, userfiles, then you remove any modifications from the game & try again',
+                            7:'Theis is a common issue with *\'server.cfg\'* check *\'server_log.txt\'* or *\'crashinfo.txt\'* in order to find out what couses the issue',
+                            8:'The tranport has to be open, it can be opened with PFPC- software. (www.pfforward.com).\n If the port does not open, a port has to be open on the Internet router',
+                            9:'ensure the name is acceptable, and the server is running on a Windows, 1. Change the compatibality for *\' samp-server.exe\'* to Windows 98, restart the server.\n 2. The issue might appear when the server is up 50+ days.'
+                }
+
+            print(f'SAMP Related Question :\n{question}\n')
             print(f'SAMP Related Answer :\n{response}\n')
             print('samp related response :\n', response)
             return question, response
@@ -57,5 +74,13 @@ class Samp():
         #else: return question
 
 
-    def EastCoastRPG(Question):
+    def FrequentlyAskedQuestionsECRPG(question):
+
+        ecrpg = [
+                'Ecrpg ip',  
+                'Ip of ecrpg',
+                'Ecrpg server ip',
+                'Server ip of ecrpg',
+                ]
+
         pass

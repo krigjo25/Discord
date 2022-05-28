@@ -1,4 +1,4 @@
-from random import shuffle, randrange
+from random import randint, shuffle, randrange
 
 
 class GreetMember():
@@ -38,7 +38,8 @@ class GreetMember():
                         'Hello', 
                         'Hey', 
                         'Good morning', 
-                        'Good day',]
+                        'Good day',
+                        'Hey There you are',]
 
         
         negative = ['Bad', 'Not good',]
@@ -52,15 +53,24 @@ class GreetMember():
 
             if question in greet:
 
+
+                dictionary = {
+                                0:'how are you?',
+                                1:'what\'s new?',
+                                2:'what\'s the good word for today?'
+                }
+                shuffle(dictionary)
+
                 response = {
-                            0:'Hello, how are you today?',
-                            1:'Hey, how are you today?',
-                            2:'Hi, how are you today?',
-                            3:'Salutè, how are you today?',
-                            4:'Good morning, how are your day going?',
-                            5:'Good evening, how are your evening?',
-                            6:'Howdy, how are you today?',
-                            7:'Greetings, how can i be at service for you to day?',
+                            0:f'Hello, {dictionary.get(randrange(0,len(dictionary)-1))}',
+                            1:f'Hey, {dictionary.get(randrange(0,len(dictionary)-1))}',
+                            2:f'Hi, {dictionary.get(randrange(0,len(dictionary)-1))}',
+                            3:f'Salutè, {dictionary.get(randrange(0,len(dictionary)-1))}',
+                            4:f'Good morning, {dictionary.get(randrange(0,len(dictionary)-1))}',
+                            5:f'Good evening, {dictionary.get(randrange(0,len(dictionary)-1))}',
+                            6:f'Howdy, {dictionary.get(randrange(0,len(dictionary)-1))}',
+                            7:f'Greetings, how can i be at service for you to day?',
+                            8:f'I\'m Happy to see you !',
 
             }
             elif question in negative:
@@ -80,12 +90,10 @@ class GreetMember():
             }
 
             #   Randomize the dictionary
+            shuffle(response)
             x = len(response)
             x = randrange(0,x)
 
             response =  response.get(x)
 
             return question, response
-
-        else:
-            return question
