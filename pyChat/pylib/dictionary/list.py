@@ -5,9 +5,9 @@ def SAMPClient(question):
                 'Whats samp',
                 'What is samp',
                 'What is sanandreasmultiplayer',
-                'Whats is sanandreasmultiplayer',
+                'Whats sanandreasmultiplayer',
                 'What is san andreas multi player',
-                'Whats is san andreas multi player',
+                'Whats san andreas multi player',
                 'How can i play samp?' # 6
 
                 #   Where can the client be downloaded
@@ -18,7 +18,7 @@ def SAMPClient(question):
                 
                 #   Client requirements
                 'Samp req',
-                'what is samp req',
+                'What is samp req',
                 'Samp requirements',
                 'whats is samp req',
                 'whats samp requirements',
@@ -37,7 +37,7 @@ def SAMPClient(question):
 
                 #   Samp Installization
                 'How to install samp',
-                'Installation procedure',                
+                'Installation procedure for samp',                
                 ]
 
     return faq
@@ -101,6 +101,63 @@ def SAMPErrors(question):
 
             # Players constantly recieve the error message 'Unacceptable name'  even if the name is valid
             'players get error messages "unacceptable name" even its possible'
+            ]
+
+    return faq
+
+def ECRPGGeneralFAQ(question):
+
+    faq = [
+                #   What is ECRPG
+                'whats ecrpg',
+                'What is ecrpg', #1
+                
+
+                #   The Server ip
+                'Ip',
+                'Ecrpg ip',
+                'Ip of ecrpg',
+                'Ecrpg server ip',
+                'Server ip of ecrpg',
+                'How to connect to ecrpg',
+                'samp server ip for ecrpg',
+                'What is the server ip for ecrpg', # 9
+
+                #   Ecrpg community
+                'Ecrpg website',
+                'Website ecrpg',
+                'Ecrpg community',
+                'Website of ecrpg',
+                'Ecrpg hall of fame',
+
+            ]
+
+    return faq
+
+def ECRPGCommunityFAQ(question):
+
+    faq = [
+                #   Server regulations
+                'Server rules',     
+                'Community rules',
+                'The server rules',
+                'What is the server rules',
+                'whats the server regulations',
+                'What is the server regulations', #5
+
+                #   Server Stats
+                'where is my stats',
+                'Where do i find my stats', #7
+                
+
+                #   Discord regulations
+                'Discord rules',
+                'The discord rules',
+                'Discord regulations',
+                'Discord community regulations',
+                'whats the discord regulations',
+                'What is the discord regulations',
+                'The Discord community regulations', #14
             ]
 
     return faq

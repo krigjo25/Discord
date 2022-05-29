@@ -4,7 +4,7 @@ class StringManagement():
     def ReplaceCharacters(arg):
 
         """
-            Replaces given characters in the string
+            Replaces Symbols in the string
             
         """
         dictionary = {
@@ -17,4 +17,19 @@ class StringManagement():
                         '\"':'',
         }
 
+        return arg.translate(str.maketrans(dictionary))
+
+    def ReplaceBadGrammarEnglish(arg):
+
+        """
+            Replaceing bad english grammar
+
+        """
+        dictionary = {
+                        'Whats':'What',
+                        'Req':'requirement',
+                        'Ive':'i have',
+                        'Cant': 'Can not',
+                        'dont':'Do not',
+        }
         return arg.translate(str.maketrans(dictionary))

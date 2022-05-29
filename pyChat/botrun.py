@@ -5,8 +5,9 @@ from dotenv import load_dotenv
 from pylib.systemModule.botSetup import DiscordSetup
 
 load_dotenv()
+
 def RunBot ():
-        
+
         #   Initializing classes
         disc = DiscordSetup()
 

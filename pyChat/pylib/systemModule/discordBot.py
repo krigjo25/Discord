@@ -54,15 +54,19 @@ class DiscordBot(Bot):
             msg = message.channel
             userInput = str(message.content).capitalize()
 
-            #   Initializing classes
+            #   Managing Strings
             userInput = StringManagement.ReplaceCharacters(userInput)
+            userInput = StringManagement.ReplaceBadGrammarEnglish(userInput)
 
+            #   listed functions
             response =  [Samp.FrequentlyAskedQuestionsSAMP(userInput),
                         Samp.FrequentlyAskedQuestionsECRPG(userInput),
                         GreetMember.Greetings(userInput),
                         ]
-
+            #   Filter out None
             response = list(filter(None, response))
+            
+            print(f'UserInput Test : {userInput}')
             print(f' Three Response : \n {(response)}\n')
 
             for i, j in response:

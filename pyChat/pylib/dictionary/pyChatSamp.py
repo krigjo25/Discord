@@ -1,6 +1,6 @@
 
 #   Python Responsories
-from pylib.dictionary.list import SAMPClient, SAMPServer, SAMPErrors
+from pylib.dictionary.list import SAMPClient, SAMPServer, SAMPErrors, ECRPGCommunityFAQ,ECRPGGeneralFAQ
 class Samp():
 
     def __init__(self):
@@ -78,13 +78,49 @@ SA:MP installation procedure(Windows):\n
         #else: return question
 
 
-    def FrequentlyAskedQuestionsECRPG(question):
+    def ECRPGGeneral(question):
 
-        ecrpg = [
-                'Ecrpg ip',  
-                'Ip of ecrpg',
-                'Ecrpg server ip',
-                'Server ip of ecrpg',
-                ]
+        ecrpg = ECRPGGeneralFAQ(question)
+        if question in ecrpg:
 
+            indexCounter = ecrpg.index(question)
+            response = {
+
+                            0:''' East Coast Tycoon (EC:TN) or (EC-TN) or (ECTN) is a custom game mode, coded by Kennzo for SA:MP / MTA ''',
+                            1:'the Server ip is x.xx.xxx.xxx.xx:7777',
+                            2:f'''www.ecrpg.com''',
+                            3:'What about ecrpg?',
+                        }
+
+            if indexCounter > -1 and indexCounter <= 1: response[0]
+            elif indexCounter >= 2 and indexCounter <= 9: response[1]
+            elif indexCounter >= 10 and indexCounter <= 14: response[2]
+
+        return question, response
+
+    def ECRPCommunity(question):
+
+        ecrpg = ECRPGCommunityFAQ(question)
+        if question in ecrpg:
+
+            indexCounter = ecrpg.index(question)
+            response = {
+                            #   Select a message from another channel
+                            0:' ** Server community regulations** ',
+                            1:'**The Discord Community regulations**',
+                            2:'the Server ip is x.xx.xxx.xxx.xx:7777',
+                            3:'www.ecrpg.com',
+                            4:'Server / player Stats,  skins, business and other  can be found at https://www.ecrpg.com',
+                        }
+
+            if indexCounter >= 0 and indexCounter <= 5: response[0]
+            elif indexCounter >= 6 and indexCounter <= 7: response[1]
+            elif indexCounter >= 8 and indexCounter <= 14: response[2]
+
+        return question, response
+
+    def ECRPGCommunity(question):
         pass
+ 
+
+    
