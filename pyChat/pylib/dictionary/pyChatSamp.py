@@ -21,11 +21,10 @@ class Samp():
                 minreq = '** The system requirements can be found in (https://team.sa-mp.com/wiki/Introduction.html#What_is_SA:MP.3F)'
                 response = {
 
-                            0:'''
-                            San Andreas Multiplayer (SA:MP) or (SA-MP) is an unoffical modification for Grand Theft Auto San Andreas (GTA:SA).
-                            The modification gives us the ability to play GTA:SA over the internet (or through LAN) with up to 999 other users (limited to 1,000 players online at once).
-                            SA-MP requires GTA:SA PC game US / EN Version for the modification to work.''',
-                            1:'Well lucky you, you can download the most recent SA:MP client can be downloaded using this mirror SA:MP mirror :(https://bit.ly/3yYEGDa)',
+                            0:'''San Andreas Multiplayer (SA:MP) or (SA-MP) is an unoffical modification for Grand Theft Auto San Andreas (GTA:SA).
+The modification grants us the ability to play GTA:SA over the internet (or through LAN) with up to 999 other users (limited to 1,000 players online at once).
+SA-MP requires GTA:SA v1.00 PC game US / EN Version for the modification to work.''',
+                            1:'Well the most recent SA:MP client can be downloaded using this mirror SA:MP team mirror :(https://bit.ly/3yYEGDa)',
                             2:f'''SA:MP requires GTA:SA v1.00 US/EU version. 
 V2.00 Can be downgraded using third-party patch (http://files.sa-mp.com/gtasapatch.zip), 
 The third-party patch does not support (Steam / Direct2Drive) versions.\n
@@ -34,6 +33,11 @@ SA:MP runs on any computers, which can run GTA:SA, with better performance,
 However the lower specs, the greater the chance for large servers might run slower.
 Requirements can be found {minreq}''',
                             3:'Version two can be downgraded to verison one, using a third-party patch (http://files.sa-mp.com/gtasapatch.zip). The third-party patch does not support (Steam / Direct2Drive) versions.',
+                            4:'''
+SA:MP installation procedure(Windows):\n
+1. Ensure you have a copy of GTA:SA installed on your computer (V.1) download the patcher(http://files.sa-mp.com/gtasapatch.zip) to downgrade the GTA:SA to v.1
+2. Download SA:MP using this SA:MP team mirror :(https://bit.ly/3yYEGDa) and  install it where the gtasa.exe file is located. let the game pass through the firewall
+3. Choose a nickName and connect to a server. '''
                 }
                 print (indexCounter)
                 #   Checking if the condition is true

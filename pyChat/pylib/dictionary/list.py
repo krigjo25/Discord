@@ -35,13 +35,16 @@ def SAMPClient(question):
                 'Ive samp version 2 can i downgrade', 
                 'I have samp version 2 how can i downgrade',  #24
 
-                
+                #   Samp Installization
+                'How to install samp',
+                'Installation procedure',                
                 ]
 
     return faq
 
 def SAMPServer(question):
     faq = [
+            'How to configure the server'
             'Samp gamemodes', 
             'Gamemodes samp', 
             'Game mode samp', 
@@ -56,14 +59,21 @@ def SAMPErrors(question):
     faq = [
             #   sA:MP Client
             #   If the game is not found
+            
             'Game not found', 
             'Gta sa not found',
+            'Cant find gtasa.exe',
+            'San andreas not found'
+            'Can not find the game',
+            'Can not find gtasa.exe',
             'San andreas not found',
-            'Couldn\'t find san andreas',
-            'Why can\'t i find san andreas?',
+            'Couldnt find san andreas',
+            'Why i cant find san andreas',
+            'Why can i not find san andreas',
 
             #   Server ip not found
             'can\'t find the server ip',
+            'can not find the server ip'
             'The server ip can not be found',
 
             #   Single player starts insted of SA:MP
