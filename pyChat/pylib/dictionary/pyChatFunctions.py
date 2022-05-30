@@ -1,4 +1,5 @@
 
+
 class StringManagement():
 
     def ReplaceCharacters(arg):
@@ -33,7 +34,7 @@ class StringManagement():
             print('arg test', arg)
             dictionary = {
                         'Whats':'What',
-                        'Req':'requirement',
+                        'Req':'Requirements',
                         'Ive':'i have',
                         'Cant':'Can not',
                         'dont':'Do not',

@@ -52,7 +52,7 @@ class DiscordBot(Bot):
 
             #   Initializing variables
             msg = message.channel
-            userInput = str(message.content).capitalize()
+            userInput = str(message.content).capitalize().replace('Whats', 'What is')
 
             #   Managing Strings
             userInput = StringManagement.ReplaceCharacters(userInput)

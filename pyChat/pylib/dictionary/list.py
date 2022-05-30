@@ -1,6 +1,7 @@
 def SAMPClient():
 
     faq = [
+
                 #   What is samp
                 'Whats samp',
                 'What is samp',
@@ -15,7 +16,7 @@ def SAMPClient():
                 'Where to download samp',
                 'Where can i download samp',
                 'Where can sa mp be downloaded', # 10
-                
+
                 #   Client requirements
                 'Samp req',
                 'What is samp req',

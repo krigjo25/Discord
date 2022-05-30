@@ -10,14 +10,9 @@ from discord import Intents
 
 # pyLib Repositories
 
-#   System module
-#   System module
-
 from pylib.systemModule.discordBot import DiscordBot                                                    #   The Client
 from pylib.systemModule.commandError import ErrorHandler                                                 #   Error Handling Module
 from pylib.systemModule.frequentlyaskedquestions import FrequentlyAskedQuestions                        #   Help module
-
-
 
 from pylib.systemModule.discordBot import DiscordBot                                        #   The Client#
 from pylib.systemModule.commandError import ErrorHandler                                    #   Error Handling Module
