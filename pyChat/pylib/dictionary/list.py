@@ -1,4 +1,4 @@
-def SAMPClient(question):
+def SAMPClient():
 
     faq = [
                 #   What is samp
@@ -42,7 +42,8 @@ def SAMPClient(question):
 
     return faq
 
-def SAMPServer(question):
+def SAMPServer():
+
     faq = [
             'How to configure the server'
             'Samp gamemodes', 
@@ -54,7 +55,7 @@ def SAMPServer(question):
 
     return faq
 
-def SAMPErrors(question):
+def SAMPErrors():
     #   SA:MP Error messages
     faq = [
             #   sA:MP Client
@@ -105,7 +106,7 @@ def SAMPErrors(question):
 
     return faq
 
-def ECRPGGeneralFAQ(question):
+def ECRPGGeneralFAQ():
 
     faq = [
                 #   What is ECRPG
@@ -134,7 +135,7 @@ def ECRPGGeneralFAQ(question):
 
     return faq
 
-def ECRPGCommunityFAQ(question):
+def ECRPGCommunityFAQ():
 
     faq = [
                 #   Server regulations

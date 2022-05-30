@@ -9,9 +9,10 @@ class Samp():
     def FrequentlyAskedQuestionsSAMP(question):
 
 
-        client = SAMPClient(question)
-        sampServer = SAMPServer(question) 
-        sampErrors = SAMPErrors(question)
+        #   Initializing lists
+        client = SAMPClient()
+        sampServer = SAMPServer() 
+        sampErrors = SAMPErrors()
 
         if question in client  or question in sampServer or question in sampErrors:
 

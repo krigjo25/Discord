@@ -56,11 +56,10 @@ class DiscordBot(Bot):
 
             #   Managing Strings
             userInput = StringManagement.ReplaceCharacters(userInput)
-            userInput = StringManagement.ReplaceBadGrammarEnglish(userInput)
 
             #   listed functions
             response =  [Samp.FrequentlyAskedQuestionsSAMP(userInput),
-                        Samp.FrequentlyAskedQuestionsECRPG(userInput),
+                        #Samp.FrequentlyAskedQuestionsECRPG(userInput),
                         GreetMember.Greetings(userInput),
                         ]
             #   Filter out None

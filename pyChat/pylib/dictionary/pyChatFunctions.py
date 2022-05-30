@@ -25,11 +25,21 @@ class StringManagement():
             Replaceing bad english grammar
 
         """
-        dictionary = {
+        arg = str(arg)
+        
+        badGrammar = ['Whats',]
+
+        if arg in badGrammar:
+            print('arg test', arg)
+            dictionary = {
                         'Whats':'What',
                         'Req':'requirement',
                         'Ive':'i have',
-                        'Cant': 'Can not',
+                        'Cant':'Can not',
                         'dont':'Do not',
-        }
-        return arg.translate(str.maketrans(dictionary))
+            }
+            print (arg, badGrammar)
+            dictionary = dictionary[badGrammar]
+            arg.replace(badGrammar, dictionary)
+            print(arg)
+            return arg
