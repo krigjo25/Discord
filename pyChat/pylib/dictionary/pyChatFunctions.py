@@ -1,4 +1,5 @@
 
+
 class StringManagement():
 
     def ReplaceCharacters(arg):
@@ -25,11 +26,17 @@ class StringManagement():
             Replaceing bad english grammar
 
         """
+        badGrammar = ['Whats', 'Req', 'Ive', 'Cant', 'dont']
+        
         dictionary = {
                         'Whats':'What',
-                        'Req':'requirement',
+                        'Req':'Requirements',
                         'Ive':'i have',
-                        'Cant': 'Can not',
-                        'dont':'Do not',
+                        'Cant':'can not',
+                        'dont':'do not',
         }
-        return arg.translate(str.maketrans(dictionary))
+        #   Replace badGrammar with good grammar.
+        
+        str(arg).replace('Whats', 'What')
+        print('function test',arg)
+        return arg

@@ -52,15 +52,14 @@ class DiscordBot(Bot):
 
             #   Initializing variables
             msg = message.channel
-            userInput = str(message.content).capitalize()
+            userInput = str(message.content).capitalize().replace('Whats', 'What is')
 
             #   Managing Strings
             userInput = StringManagement.ReplaceCharacters(userInput)
             userInput = StringManagement.ReplaceBadGrammarEnglish(userInput)
-
+            print(userInput)
             #   listed functions
             response =  [Samp.FrequentlyAskedQuestionsSAMP(userInput),
-                        Samp.FrequentlyAskedQuestionsECRPG(userInput),
                         GreetMember.Greetings(userInput),
                         ]
             #   Filter out None
