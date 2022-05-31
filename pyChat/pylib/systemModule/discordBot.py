@@ -57,7 +57,7 @@ class DiscordBot(Bot):
 
             #   listed functions
             response =  [Samp.FrequentlyAskedQuestionsSAMP(userInput),
-                        Samp.FrequentlyAskedQuestionsECRPG(userInput),
+                        #Samp.FrequentlyAskedQuestionsECRPG(userInput),
                         GreetMember.Greetings(userInput),
                         ]
             #   Filter out None

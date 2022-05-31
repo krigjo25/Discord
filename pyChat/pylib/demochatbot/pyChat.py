@@ -16,9 +16,9 @@ class PyChat():
     def TextSpeech(text):
 
         speaker = gTTS(text=text, lang='en', slow=False)
-        speaker.save('res.mp3')
-        os.system("start res.mp3")
-        os.remove('res.mp3')
+        speaker.save('/records/res.mp3')
+        os.system("start/records/res.mp3")
+        os.remove('/records/res.mp3')
         print('{self.name} : {text}')
 
         return
