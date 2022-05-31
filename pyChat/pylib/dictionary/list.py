@@ -163,3 +163,16 @@ def ECRPGCommunityFAQ():
             ]
 
     return faq
+
+def ECRPGServerFAQ():
+
+    faq = [
+                #   Server Sided Cash
+                'What is ecash',
+
+                #   How to get a job
+                'How do i get a job',
+
+            ]
+
+    return faq
