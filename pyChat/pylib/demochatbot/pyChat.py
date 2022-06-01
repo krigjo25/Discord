@@ -37,7 +37,7 @@ class PyChat():
 
         print(f'AI :> {text}')
 
-        # initializing variables
+        # initializing variabless
         speaker = gTTS(text=text, lang='en', slow=False)
         speaker.save('res.mp3')
         statbuff = os.stat('res.mp3')
