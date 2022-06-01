@@ -2,6 +2,7 @@ import os
 import transformers
 import numpy as np
 import speech_recognition as sr
+
 from time import sleep
 from datetime import datetime
 from gtts import gTTS
@@ -37,7 +38,7 @@ class PyChat():
 
         print(f'AI :> {text}')
 
-        # initializing variabless
+        # configuring audio input
         speaker = gTTS(text=text, lang='en', slow=False)
         speaker.save('res.mp3')
         statbuff = os.stat('res.mp3')
@@ -62,7 +63,6 @@ class PyChat():
 
     @staticmethod
     def AiTime():
-
         now = datetime.now().time().strftime('%H:%M')
 
         return f'It\'s {now} a Clock.'
@@ -85,10 +85,13 @@ if __name__ == '__main__':
         elif 'time' in ai.text:res = ai.AiTime()
         elif 'date' in ai.text:res = ai.AiDate()
         elif any(i in ai.text for i in close ): 
+
             res = np.random.choice(['Tata', 'Bye'])
             ex = False
+
         else:
             if ai.text=='ERROR': res = 'I\'m sorry, come again?'
+
             else:
 
                 chat = nlp(transformers.Conversation(ai.text), pad_token_id=50250)
