@@ -76,7 +76,7 @@ Ask a question
 
 <h1 align='center'>Credentials</h1>
 
--   [PrivacyPolicy]()<br>
+-   [PrivacyPolicy](https://github.com/krigjo25/Discord/blob/main/pyChat/privacypolicy.md)<br>
 -   [Termsofuse]()<br>
--   [licence]()<br>
--   [requirements]()
+-   [licence](https://github.com/krigjo25/Discord/blob/main/pyChat/licence)<br>
+-   [requirements](https://github.com/krigjo25/Discord/blob/main/pyChat/requirements.txt)
