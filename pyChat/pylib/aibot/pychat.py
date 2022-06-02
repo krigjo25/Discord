@@ -28,8 +28,9 @@ class PyChat():
             if 'date' in text:
 
                 now = datetime.now().date().strftime('%d. %b, %Y')
-                res = res = f'Today\'s date : {now}'
-            
+                res =  f'Today\'s date : {now}'
+                return res
+
             elif 'date' in text:
 
                 #   Get the current time
@@ -37,8 +38,8 @@ class PyChat():
                 res = f'Current time : {now}'
         
 
-        return res
-
+                return res
+        return
     @staticmethod
     def PyChatSampDocumentations(text):
 

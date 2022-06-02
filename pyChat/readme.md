@@ -3,8 +3,7 @@
 <h1 align='center'> Table of content </h1>
 
 ### [Introduction](#Introduction)
->   About the Maintainer
->   
+>   About the Maintainer<br>
 >   Contact
 
 ### [PyChat](#PyChat)
@@ -22,7 +21,7 @@
 ### [Credentials](#Credentials)
 
 > PrivacyPolicy<br>
-> Termsofuse
+> Termsofuse<br>
 > licence
 
 ### [Project Summary](#project-Summary)
@@ -31,7 +30,7 @@
 
 ## About the Maintainer
 
-goes by the name Kristoffer, born in 94, :flag_no:.<br>
+goes by the name Kristoffer, born in 94<br>
 maintaining Python & SQL projects<br>
 otherwise just being a human.
 
@@ -51,7 +50,7 @@ PyChat is a discord support bot
 
 -   Game related Questions
     *   SA:MP
-        *   ECRPG
+        * ECRPG
 
 -   Greetings
 
@@ -63,7 +62,21 @@ PyCaht Updated:<br>
 
 
 ## How to use the bot
-Ask a q
+Ask a question
+
 
 ## Features
+
+>   Chat Features
+>>  SA:MP Issues<br>
+>>  East Coast RPG FAQ<br>
+>>  Artificial Intellegence
+
 ## Updates
+
+<h1 align='center'>Credentials</h1>
+
+-   [PrivacyPolicy]()<br>
+-   [Termsofuse]()<br>
+-   [licence]()<br>
+-   [requirements]()
