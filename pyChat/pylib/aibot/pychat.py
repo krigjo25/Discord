@@ -21,6 +21,7 @@ class PyChat():
         """
             Returns time or date 
         """
+
         text = str(text)
         time = datetime.now().time().strftime('%H:%M')
         date = datetime.now().date().strftime('%d. %b, %Y')
