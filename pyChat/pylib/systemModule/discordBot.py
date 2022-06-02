@@ -1,6 +1,9 @@
 
 #   Python Repositories
 import numpy as np
+import transformers
+
+
 from os import getenv
 from sys import api_version
 
@@ -14,9 +17,6 @@ from discord.ext.commands import Bot
 
 #   pylib Repositories
 from pylib.aibot.pychat import PyChat
-from pylib.dictionary.pyChatSamp import Samp
-from pylib.dictionary.pyChatgreets import GreetMember
-from pylib.dictionary.pyChatFunctions import StringManagement
 
 load_dotenv()
 
@@ -47,19 +47,31 @@ class DiscordBot(Bot):
 
         else:
 
+            
             #   Initializing variables
             msg = message.channel
-            text = str(message.content)
-            print(text)
-            ex = True
             ai = PyChat(name='PyChat')
+            text = str(message.content).capitalize()
+            nlp = transformers.pipeline('conversational', model='microsoft/DialoGPT-small')
+
+
+            print(f'me > {text}')
 
             # Waking up PyCHat
             if ai.PyChatWakeUp(text) is True: res = 'Greetings, I\'m PyChat, What can i do for you today?'
-            elif any(i in text for i in ai.closePyChat(text) ): 
+            elif text in ai.PyChatSamp(text):
+                res = ai.PyChatSamp(text)
+                print(res)
+            else :  
+                if text=='ERROR': res = 'I\'m sorry, come again?'
 
-                res = np.random.choice(ai.closePyChat())
+                else:
 
+                    chat = nlp(transformers.Conversation(text), pad_token_id=50250)
+                    res = str(chat)
+                    res = res[res.find('bot >>')+6:].strip()
+
+            print(f'AI > {res}')
             await msg.send(res)
 
             #   Procsess commands
@@ -84,7 +96,7 @@ class DiscordBot(Bot):
             print(f'UserInput Test : {userInput}')
             print(f' Three Response : \n {(response)}\n')
 
-            for i, j in response:
+
                 await msg.send(j)
             '''
         return

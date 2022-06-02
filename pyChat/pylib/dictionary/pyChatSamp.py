@@ -8,12 +8,53 @@ class Samp():
 
     def FrequentlyAskedQuestionsSAMP(question):
 
-
+       
         #   Initializing lists
-        client = SAMPClient()
+        #client = SAMPClient()
+        client = [
+
+                #   What is samp
+                'Whats samp',
+                'What is samp',
+                'What is sanandreasmultiplayer',
+                'Whats sanandreasmultiplayer',
+                'What is san andreas multi player',
+                'Whats san andreas multi player',
+                'How can i play samp?' # 6
+
+                #   Where can the client be downloaded
+                'Can i download samp',
+                'Where to download samp',
+                'Where can i download samp',
+                'Where can sa mp be downloaded', # 10
+
+                #   Client requirements
+                'Samp req',
+                'What is samp req',
+                'Samp requirements',
+                'whats is samp req',
+                'whats samp requirements',
+                'whats samp requirements',
+                'what is samp requirement',
+                'what is samp requirements',
+                'Whats the requirements for downloading samp',
+                'What is the requirements for downloading samp', # 20
+
+                #   Downgrade GTA:SA
+                'Downgrade samp',
+                'Samp downgrade',
+                'Can i downgrade samp',
+                'Ive samp version 2 can i downgrade', 
+                'I have samp version 2 how can i downgrade',  #24
+
+                #   Samp Installization
+                'How to install samp',
+                'Installation procedure for samp',                
+                ]
+
         sampServer = SAMPServer() 
         sampErrors = SAMPErrors()
-
+        print('test')
         if question in client  or question in sampServer or question in sampErrors:
 
             if question in client:
@@ -23,7 +64,7 @@ class Samp():
                 response = {
 
                             0:'''San Andreas Multiplayer (SA:MP) or (SA-MP) is an unoffical modification for Grand Theft Auto San Andreas (GTA:SA).
-The modification grants us the ability to play GTA:SA over the internet (or through LAN) with up to 999 other users (limited to 1,000 players online at once).
+The modification grants us the ability to play GTA:SA over internet (or through LAN) with up to 999 other players (limited to 1,000 players online at once).
 SA-MP requires GTA:SA v1.00 PC game US / EN Version for the modification to work.''',
                             1:'Well the most recent SA:MP client can be downloaded using this mirror SA:MP team mirror :(https://bit.ly/3yYEGDa)',
                             2:f'''SA:MP requires GTA:SA v1.00 US/EU version. 
@@ -73,7 +114,7 @@ SA:MP installation procedure(Windows):\n
 
             print(f'SAMP Related Question :\n{question}\n')
             print(f'SAMP Related Answer :\n{response}\n')
-            print('samp related response :\n', response)
+
             return question, response
         
         #else: return question
