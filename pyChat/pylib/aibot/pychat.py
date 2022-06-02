@@ -16,30 +16,19 @@ class PyChat():
         return
 
     @staticmethod
-    def AiDate(text):
+    def AiToday(text):
 
         """
             Returns time or date 
         """
+        text = str(text)
+        time = datetime.now().time().strftime('%H:%M')
+        date = datetime.now().date().strftime('%d. %b, %Y')
 
-        if 'time' in text or 'date' in text : 
-
-            #   Today's date
-            if 'date' in text:
-
-                now = datetime.now().date().strftime('%d. %b, %Y')
-                res =  f'Today\'s date : {now}'
-                return res
-
-            elif 'date' in text:
-
-                #   Get the current time
-                now = datetime.now().time().strftime('%H:%M')
-                res = f'Current time : {now}'
-        
-
-                return res
-        return
+        if 'date' in text:res =  f'Today\'s date : {date}'
+        elif 'time' in text:res = f'Current time : {time}'
+        return res
+    
     @staticmethod
     def PyChatSampDocumentations(text):
 

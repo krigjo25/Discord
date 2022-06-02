@@ -62,7 +62,7 @@ class DiscordBot(Bot):
             # Waking up PyCHat
             if ai.PyChatWakeUp(text) is True: res = 'Greetings, I\'m PyChat, How can i be at your service today?'
             elif 'samp' in text: res = ai.PyChatSampDocumentations(text)
-            elif 'time' in text or 'date' in text : res = ai.AiDate(text)
+            elif 'time' in text or 'date' in text : res = ai.AiToday(text)
             elif ai.PyChatCloseDown(text) in text: res = ai.PyChatCloseDown(text)
             else :
 
