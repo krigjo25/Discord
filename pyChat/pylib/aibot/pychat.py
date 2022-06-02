@@ -69,16 +69,26 @@ class PyChat():
     def PyChatResponse(text):return print(f'AI > {text}')
     def PyChatWakeUp(self, text):return True if self.name in text else False
 
-    def PyChatCloseDown():
+    @staticmethod
+    def PyChatCloseDown(text):
 
-        close = [   'Bye', 
-                    'Cya', 
-                    'See you',
-                    'later' ]
-        closeDown= [
-                    'Bye',
-                    'See you later',
-                    'Tata',
-                    'Farewell',
-                    'Bye',]
-        return np.random.choice(closeDown)
+        text = str(text)
+
+        procedure = [   'Bye', 
+                        'Cya', 
+                        'See you',
+                        'later' 
+                    ]
+        
+        if text in procedure:
+        
+            closeDown= [
+                        'Bye',
+                        'See you later',
+                        'Tata',
+                        'Farewell',
+                        'Bye',]
+
+            closeDown = np.random.choice(closeDown)
+
+        return  closeDown
