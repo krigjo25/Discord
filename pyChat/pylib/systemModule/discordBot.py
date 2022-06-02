@@ -43,26 +43,29 @@ class DiscordBot(Bot):
         
     async def on_message(self, message:Message):
 
+
+        #   Procsess commands
+        await self.process_commands(message)
+
         if message.author == self.user: return
 
         else:
 
-            
             #   Initializing variables
             msg = message.channel
             ai = PyChat(name='PyChat')
             text = str(message.content).capitalize()
             nlp = transformers.pipeline('conversational', model='microsoft/DialoGPT-small')
 
-
             print(f'me > {text}')
 
             # Waking up PyCHat
-            if ai.PyChatWakeUp(text) is True: res = 'Greetings, I\'m PyChat, What can i do for you today?'
-            elif text in ai.PyChatSamp(text):
-                res = ai.PyChatSamp(text)
-                print(res)
-            else :  
+            if ai.PyChatWakeUp(text) is True: res = 'Greetings, I\'m PyChat, How can i be at your service today?'
+            elif 'samp' in text: res = ai.PyChatSampDocumentations(text)
+            elif 'time' in text or 'date' in text : res = ai.AiDate(text)
+            elif ai.PyChatCloseDown(text) in text: res = ai.PyChatCloseDown(text)
+            else :
+
                 if text=='ERROR': res = 'I\'m sorry, come again?'
 
                 else:
@@ -73,9 +76,6 @@ class DiscordBot(Bot):
 
             print(f'AI > {res}')
             await msg.send(res)
-
-            #   Procsess commands
-            await self.process_commands(message)
 
             '''
             #   Initializing variables
