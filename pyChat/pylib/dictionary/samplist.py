@@ -57,7 +57,7 @@ def SAMPClient():
                 'Whats sanandreasmultiplayer',#
                 'What is san andreas multi player',#
                 'Whats san andreas multi player',#
-                'How can i play samp?' # 6
+                'How can i play samp?', # 6
 
                 #   Where can the client be downloaded
                 'Can i download samp',#
@@ -93,6 +93,7 @@ def SAMPClient():
 
     return faq
 
+# Not working
 def SAMPServerCommonIssues():
 
     faq = [
@@ -123,7 +124,7 @@ def SAMPErrors():
             'Game not found', 
             'Gta sa not found',
             'Cant find gtasa.exe',
-            'San andreas not found'
+            'San andreas not found',
             'Can not find the game',
             'Can not find gtasa.exe',
             'San andreas not found',
@@ -142,8 +143,8 @@ def SAMPErrors():
 
             # Unacceptable name
             'Why do i get unacceptable name',
-            'Why doesnt samp accept my nick name'
-            'Samp does not accept my nickname'
+            'Why doesnt samp accept my nick name',
+            'Samp does not accept my nickname',
 
             #   If the game freezes while connecting the server
             'Screen sticks at "Connecting to ip:port"',
@@ -152,7 +153,7 @@ def SAMPErrors():
 
             # SA:MP Does not load after GTA:SA fix
             'Samp does not start after i fixed gta',
-            'I have a modified GTA: San Andreas and SA:MP won\'t load'
+            'I have a modified GTA: San Andreas and SA:MP won\'t load',
 
             #   Vehicle Crash
             'Vehicle explodes, samp crash',
@@ -165,7 +166,7 @@ def SAMPErrors():
             'The file dinput8.dll is missing',
 
             #   Can not see any player nametags
-            'I cannot see other player\'s nametags!'
+            'I cannot see other player\'s nametags!',
 
             #   If the gamne does not start with samp
             'Samp does not start when i press start button',
@@ -176,7 +177,7 @@ def SAMPErrors():
             'Server just truns off',
 
             # Players constantly recieve the error message 'Unacceptable name'  even if the name is valid
-            'players get error messages "unacceptable name" even its possible'
+            'players get error messages "unacceptable name" even its possible',
             ]
 
     return faq

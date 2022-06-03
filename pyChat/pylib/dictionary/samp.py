@@ -48,6 +48,7 @@ class SampFAQ():
             elif indexCounter >= 7 and indexCounter <= 9: response = response[1]
             elif indexCounter >= 10 and indexCounter <= 20: response = response[2]
             elif indexCounter >= 21 and indexCounter <= 24: response  = response[3]
+            elif indexCounter >= 25 and indexCounter <= 27: response  = response[4]
 
             print(f'SAMP Related Question :\n{question}\n')
             print(f'SAMP Related Answer :\n{response}\n')
