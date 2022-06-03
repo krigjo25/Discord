@@ -7,13 +7,19 @@ class SampFAQ():
     def __init__(self):
         pass
 
-    def CommonIssues(question):
+    def CommonSAMPIssues(question):
 
+        res = ''
         faq = CommonIssues()
 
-        if question in faq:res = SAMPCommonIssues()
+        if question in faq:
 
-        return question, res
+            li = SAMPCommonIssues()
+            for i in li:
+                res += f":arrow_right:{i}\n"
+            return question, res
+
+        return
 
     def Client(question):
 
@@ -59,7 +65,7 @@ class SampFAQ():
 
             indexCounter = srv.index(question)
             response = {
-                        0:'commonly there is an error in your *\'server.cfg\'* file and the reason should be located at the bottom of the file.\nIf not check *\' crashinfo.txt\'* a better solution would be using the Crash detect plugin by Zeex (https://github.com/Zeex/samp-plugin-crashdetect) for more information',
+                        0:'Commonly there is an error in your *\'server.cfg\'* file and the reason should be located at the bottom of the file.\nIf not check *\' crashinfo.txt\'* a better solution would be using the Crash detect plugin by Zeex (https://github.com/Zeex/samp-plugin-crashdetect) for more information',
                         1:'You will need to forward your ports to allow players to join your server. You can forward your ports using the PF Port Checker. Download it from: www.portforward.com If the ports are not forwarded that means you have to open them in your router. You can check the router list at (http://portforward.com/english/routers/port_forwarding/routerindex.htm) for more information',
                         2:'`[hh:mm:ss] Packet was modified, sent by id: <id>, ip: <ip>:<port>`\nWhen a player times out or has connection issues',
                         3:'`Warning: client exceeded *\'messageslimit\'* (1) <ip>:<port> (<count>) Limit: x/sec`\nhappens when number of messages per second a client sends to the server exceeds.',

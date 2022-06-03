@@ -41,7 +41,7 @@ class PyChat():
                 SampFAQ.Client(text),
                 SampFAQ.Server(text),
                 SampFAQ.Error(text),
-                SampFAQ.CommonIssues(text),                
+                SampFAQ.CommonSAMPIssues(text),                
                 
                 ]
 
@@ -91,4 +91,6 @@ class PyChat():
 
             closeDown = np.random.choice(closeDown)
 
-        return  closeDown
+            return  closeDown
+
+        return

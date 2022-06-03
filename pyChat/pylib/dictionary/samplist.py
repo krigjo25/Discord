@@ -1,10 +1,10 @@
 def CommonIssues():
     faq = [
-            'Samp common issues', 
+            'Samp common issues', #
             'Common issues samp',
-            'Trubleshootin issues samp',
+            'Trubleshooting issues samp',
             'Trubleshooting samp issues',
-            'Trubleshooting common issues',
+            'Trubleshooting common issues samp',
             'Trubleshooting problems samp',
             ]
 
@@ -53,43 +53,42 @@ def SAMPClient():
                 #   What is samp
                 'Whats samp',
                 'What is samp',
-                'What is sanandreasmultiplayer',
-                'Whats sanandreasmultiplayer',
-                'What is san andreas multi player',
-                'Whats san andreas multi player',
+                'What is sanandreasmultiplayer',#
+                'Whats sanandreasmultiplayer',#
+                'What is san andreas multi player',#
+                'Whats san andreas multi player',#
                 'How can i play samp?' # 6
 
                 #   Where can the client be downloaded
-                'Can i download samp',
+                'Can i download samp',#
                 'Where to download samp',
                 'Where can i download samp',
-                'Where can sa mp be downloaded', # 10
+                'Where can samp be downloaded', ## 10
 
                 #   Client requirements
-                'Samp req',
+                'Samp req',#
                 'What is samp req',
-                'Samp requirements',
-                'whats is samp req',
+                'Samp requirements',#
+                'whats is samp req',#
                 'Requirements for samp',
-                'Requirements to play samp'
-                'whats samp requirements',
-                'what is samp requirement',
-                'what is samp requirements',
-                'what is samp requirements',
+                'Requirements to play samp',#
+                'whats samp requirements',#
+                'what is samp requirement',#
+                'what is samp requirements',#
                 'Whats the requirements for downloading samp',
-                'What is the requirements for downloading samp', # 20
+                'What is the requirements for downloading samp', # 20 sends another response
 
                 #   Downgrade GTA:SA
                 'Downgrade samp',
-                'Samp downgrade',
+                'Samp downgrade',#
                 'Can i downgrade samp',
-                'Ive samp version 2 can i downgrade', 
-                'I have samp version 2 how can i downgrade',  #24
+                'Ive samp version 2 can i downgrade', # invalid body error
+                'I have samp version 2 how can i downgrade',  #24 # none error
 
                 #   Samp Installization
-                'How to install samp',
-                'Samp installation procedure',
-                'Installation procedure for samp',                
+                'How to install samp',# invalid body
+                'Samp installation procedure',#
+                'Installation procedure for samp',  # needs less than 2k characters               
                 ]
 
     return faq

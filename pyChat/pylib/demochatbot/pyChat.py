@@ -73,7 +73,7 @@ if __name__ == '__main__':
     ex = True
     ai = PyChat(name = 'Jake')
     nlp = transformers.pipeline('conversational', model='microsoft/DialoGPT-medium')
-    os.environ['TOKENIZERS_PARALLELISM'] = "rue"
+    os.environ['TOKENIZERS_PARALLELISM'] = "True"
 
     while ex:
 

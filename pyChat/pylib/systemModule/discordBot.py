@@ -2,14 +2,10 @@
 #   Python Repositories
 import numpy as np
 import transformers
-
+import os
 
 from os import getenv
 from sys import api_version
-
-
-#   dotenv Repositories
-from dotenv import load_dotenv
 
 #   Discord Repositories
 from discord.message import Message
@@ -18,7 +14,6 @@ from discord.ext.commands import Bot
 #   pylib Repositories
 from pylib.aibot.pychat import PyChat
 
-load_dotenv()
 
 class DiscordBot(Bot):
     def __init__(self, command_prefix='?', name='PyChat', help_command=None, description=None, owner_id = 340540581174575107, **options):
@@ -56,14 +51,14 @@ class DiscordBot(Bot):
             ai = PyChat(name='PyChat')
             text = str(message.content).capitalize()
             nlp = transformers.pipeline('conversational', model='microsoft/DialoGPT-small')
-
+            os.environ['TOKENIZERS_PARALLELISM'] = "True"
             print(f'me > {text}')
 
             # Waking up PyCHat
             if ai.PyChatWakeUp(text) is True: res = 'Greetings, I\'m PyChat, How can i be at your service today?'
             elif 'samp' in text: res = ai.PyChatSampDocumentations(text)
             elif 'time' in text or 'date' in text : res = ai.AiToday(text)
-            elif ai.PyChatCloseDown(text) in text: res = ai.PyChatCloseDown(text)
+            #elif ai.PyChatCloseDown(text) in text: res = ai.PyChatCloseDown(text)
             else :
 
                 if text=='ERROR': res = 'I\'m sorry, come again?'
