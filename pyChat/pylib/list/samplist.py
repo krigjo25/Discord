@@ -13,15 +13,15 @@ def CommonIssues():
 
     return faq
 
-def SAMPCommonIssues():
+def CommonSAMPIssues():
 
     faq = [
             
             #   SAMP Client
             'San andreas not found',
             'The file dinput8.dll is missing',
-            'Single Player Loads instead of SA:MP',
-            'I cannot see other player\'s nametags!',
+            'Single player loads instead of samp',
+            'I can not see other player\'s nametags!',
             'The game crashes when a vehicle explodes',
             'I can not see any servers in samp browser',
             'Screen sticks at "connecting to ip:port..."',
@@ -33,16 +33,16 @@ def SAMPCommonIssues():
             #   SAMP Server
             'Packet was modified',
             'Warning: client exceeded ackslimit',
-            'MSVCR___.dll/MSVCP___.dll not found',
+            'Msvcr___.dll/msvcp___.dll not found',
             'Server instantly crashes when started',
             'Warning: client exceeded messageslimit',
             'Warning: Too many out-of-order messages',
             'Warning: client exceeded messageholelimit',
             'Server is not working - firewall is disabled',
-            'Players constantly getting "Unacceptable NickName" error but it is valid',
+            'Players constantly getting "unacceptable nickname" error but it is valid',
 
             #   Pawno
-            'Failed to set data for \' \'',
+            'Failed to set data for " "',
             'Unable to execute compiler on windows vista/7',
 
             ]
@@ -52,4 +52,10 @@ def SAMPCommonIssues():
 def CommonGlitches():
 
     faq = []
+    return faq
+
+def CommonSAMPGlitches():
+
+    faq = []
+
     return faq

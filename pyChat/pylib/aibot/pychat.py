@@ -4,7 +4,8 @@ import numpy as np
 from datetime import datetime
 
 #   pylib Repositories
-from pylib.dictionary.samp import SampFAQ
+from pylib.documentations.sampDocumentations import SampFAQ
+from pylib.documentations.ecrpgDocumentation import ECRPGFAQ
 
 class PyChat():
 
@@ -38,10 +39,8 @@ class PyChat():
         #   listed functions
         faq =  [
 
-
-                SampFAQ.CommonSAMPErrors(text),
-                SampFAQ.CommonSAMPGlitches(text),
-                SampFAQ.CommonSAMPIssues(text),                
+                SampFAQ.SAMPGlitches(text),
+                SampFAQ.CommonSAMPErrors(text),            
                 
                 ]
 
