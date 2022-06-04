@@ -54,9 +54,11 @@ class DiscordBot(Bot):
             os.environ['TOKENIZERS_PARALLELISM'] = "True"
             print(f'me > {text}')
 
+            # lists
+            
             # Waking up PyCHat
             if ai.PyChatWakeUp(text) is True: res = 'Greetings, I\'m PyChat, How can i be at your service today?'
-            elif 'samp' in text: res = ai.PyChatSampDocumentations(text)
+            elif 'samp' in text or 'Samp' in text or 'san andreas' in text or 'San andreas' in text: res = ai.PyChatSampDocumentations(text)
             elif 'time' in text or 'date' in text : res = ai.AiToday(text)
             #elif ai.PyChatCloseDown(text) in text: res = ai.PyChatCloseDown(text)
             else :

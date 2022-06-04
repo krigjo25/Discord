@@ -38,9 +38,9 @@ class PyChat():
         #   listed functions
         faq =  [
 
-                SampFAQ.Client(text),
-                SampFAQ.Server(text),
-                SampFAQ.Error(text),
+
+                SampFAQ.CommonSAMPErrors(text),
+                SampFAQ.CommonSAMPGlitches(text),
                 SampFAQ.CommonSAMPIssues(text),                
                 
                 ]
