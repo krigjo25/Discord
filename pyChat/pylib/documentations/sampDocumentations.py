@@ -7,6 +7,9 @@ class SampFAQ():
     def __init__(self):
         pass
 
+    def GeneralSAMPQuestions(Question):
+        pass
+
     def CommonSAMPErrors(question):
 
          #   Initializing lists
