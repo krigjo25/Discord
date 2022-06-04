@@ -5,7 +5,7 @@ from datetime import datetime
 
 #   pylib Repositories
 from pylib.documentations.sampDocumentations import SampFAQ
-from pylib.documentations.ecrpgDocumentation import ECRPGFAQ
+#from pylib.documentations.ecrpgDocumentation import ECRPGFAQ
 
 class PyChat():
 
@@ -64,6 +64,10 @@ class PyChat():
         for i in faq:return i
 
         return
+
+    def PyChatDocumentations(text):
+        res = ''
+        return res
 
     def PyChatResponse(text):return print(f'AI > {text}')
     def PyChatWakeUp(self, text):return True if self.name in text else False

@@ -10,7 +10,7 @@ from sys import api_version
 #   Discord Repositories
 from discord.message import Message
 from discord.ext.commands import Bot
-from pylib.dictionary.samplist import CommonIssues, CommonGlitches, CommonSAMPGlitches, CommonSAMPIssues
+from pylib.list.samplist import CommonIssues, CommonGlitches, CommonSAMPGlitches, CommonSAMPIssues
 
 #   pylib Repositories
 from pylib.aibot.pychat import PyChat
@@ -56,6 +56,18 @@ class DiscordBot(Bot):
             print(f'me > {text}')
 
             # lists
+            close = [ 
+                        'Bye',
+                        'FareWell',
+                        ]
+
+            for i in close:
+
+                if text in i:
+                    close = text
+
+                else: close = 'ERROR'
+
             sampFAQ = ''
             sampFAQ = [ 
                         CommonIssues(),
@@ -64,25 +76,28 @@ class DiscordBot(Bot):
                         CommonSAMPGlitches(),
 
                         ]
+
             sampFAQ = list(filter(None, sampFAQ))
-            print(sampFAQ, text)
 
             for i in sampFAQ:
+
                 if text in i:
                     sampFAQ = text
+
+                else: sampFAQ = 'ERROR'
 
 
             # Waking up PyCHat
             if ai.PyChatWakeUp(text) is True: res = 'Greetings, I\'m PyChat, How can i be at your service today?'
             elif sampFAQ in text:res = ai.PyChatSampDocumentations(text)
             elif 'time' in text or 'date' in text : res = ai.AiToday(text)
-            #elif ai.PyChatCloseDown(text) in text: res = ai.PyChatCloseDown(text)
+            #elif close in text: res = ai.PyChatCloseDown(text)
             else :
 
                 if text=='ERROR': res = 'I\'m sorry, come again?'
 
                 else:
-
+                    #   The nlp
                     chat = nlp(transformers.Conversation(text), pad_token_id=50250)
                     res = str(chat)
                     res = res[res.find('bot >>')+6:].strip()

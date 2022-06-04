@@ -1,6 +1,6 @@
 
 #   Python Responsories+
-from pylib.dictionary.ecrpg import GeneralFAQ, CommunityFAQ, GameFAQ
+from pylib.list.ecrpglist import GeneralFAQ, CommunityFAQ, GameFAQ
 
 class ECRPGFAQ():
 
