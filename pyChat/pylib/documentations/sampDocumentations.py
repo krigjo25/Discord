@@ -1,5 +1,6 @@
 
 #   Python Responsories+
+from socket import AI_MASK
 from pylib.list.samplist import CommonGlitches, CommonIssues, CommonSAMPGlitches, CommonSAMPIssues
 
 class SampFAQ():
@@ -85,11 +86,24 @@ class SampFAQ():
 
         elif question in error:
 
+            link = {'C-bug':'https://www.youtube.com/watch?v=50AEMtm3rcw'}
             response = {
 
                         #   Client common issues
-                        'c-bug':'',
+                        'C-bug':'C-Bug or Crouching bug, is a weapon bug which cancels specific animations that temprorary delays movement after shooting, and can increase firing rate or movement with specific weapons.\n **Basic**\n:arrow_right:Deagle\n:arrow_right:Combat shotgun\n**Advanced**\n:arrow_right:Shotgun\n:arrow_right:Sniper
+                        \n**Basic C-bug**
+                        \nBasic c-bug, the intentions is to increase the firerate of the weapons
+                        \n:arrow_right: Aim
+                        \n:arrow_right: Shoot.
+                        \n:arrow_right: (When the firearm sound arrives), Release the aim button, and press C Immediately.
+                        \n:arrow_right: Change Weapon back\'n fourth in order to cancel the reload animation. Then :repeat:
+                        \n\n Advanced C-bug, the intention is to increase movement while fireing, easier to manage Running weapons.
+                        \n:arrow_right: Aim
+                        press \'Crouch button\' while shooting with weapons** such as \n :arrow_right:Deagle\n:arrow_right:Shotgun',
                         'Two-shots':'',
+                        'Lifefoot':''
+                        'Slidebug':''
+                        'Menu':''
                         }       
 
             response = response[question]
