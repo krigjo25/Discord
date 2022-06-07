@@ -100,7 +100,6 @@ class SampFAQ():
 
                         #   War bugs
 
-                        
                         'Two-shoot':'Two-Shots is a reload bug where you skip the reload animation',
                         'Distance shot':'Distance Shoot is a weapon bug which allows you to shoot at greater distance than normal gameplay.\n :arrow_right: Shoot first, aim to where the bullets should hit',
                         'Escaping':'**Escaping**, While pressing escaping to the menu while in a fight, the character frezes, you\'re *immortal*, character automatically shots straight forward, if escaping while fireing.',
