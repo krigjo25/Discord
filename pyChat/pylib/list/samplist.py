@@ -52,31 +52,35 @@ def CommonSAMPIssues():
 def CommonGlitches():
 
     faq = [
-            'Samp war bug',
+            'Samp glitches',
 
     ]
     return faq
 
 def CommonSAMPGlitches():
 
-    faq = [
-                #   War bugs
-                'Fake shot',
-                'Invincible skin'
-                'floor bug'
+    faq = [     #  War glitches https://www.youtube.com/watch?v=bFfC5oULlsU
+                'Aim bug', # 
                 'Escaping',
                 'Two-shots',
                 'Lite foot',
-                'Crouch bug',
-                'Distance shot',
+                'Fake-shots',#
+                'Turbo knife',#
+                'Switch\'ing',
+                'Slide glitch',
+                'floor glitch',#
+                'infinite ammo',# No reload required
+                'Crouch glitch',
+                'Distance shots',
 
+                #  Walk glitches
+                'Walking glitches',
 
-                #  Walk bugs
-                'Slow walk',
-                'Walking man',
-                'Running man',
-                'Floating man',
-    ]
+                #   Interior glitches
+                #   Skin Glitches
+                #   Misc glitches
+                'Parachute glitches',
+   ]
 
     return faq
 

@@ -74,17 +74,17 @@ class SampFAQ():
          #   Initializing lists
 
         glitchesList = CommonGlitches()
-        sampBug = [CommonSAMPGlitches()]
+        sampBug = CommonSAMPGlitches()
     
         print(question)
 
         #   Returns a list of SAMP Glitches
         if question in glitchesList:
 
-            title = '**Common SAMP Glitches listed below**\n\n'
-            for i in sampBug:
+            res = ''
+            title = '**Common SAMP Glitches listed below**\n\n**War bugs**\n'
 
-                    res += f":arrow_right:{i}\n"
+            for i in sampBug:res += f":arrow_right:  {i}\n"
 
             res = f'{title} {res}'
 
@@ -100,20 +100,21 @@ class SampFAQ():
 
                         #   War bugs
 
-                        'Two-shoot':'Two-Shots is a reload bug where you skip the reload animation',
-                        'Distance shot':'Distance Shoot is a weapon bug which allows you to shoot at greater distance than normal gameplay.\n :arrow_right: Shoot first, aim to where the bullets should hit',
-                        'Escaping':'**Escaping**, While pressing escaping to the menu while in a fight, the character frezes, you\'re *immortal*, character automatically shots straight forward, if escaping while fireing.',
-                        'Switch\'ing': 'Switch\'ing, means switch weapons to avoid the reload animation.\n By Using \'Switch weapon\' button, you switch the current weapon with another. \n :arrow_right: Skips the reload animation\n :arrow_right:  Works with every reloadable weapons.\n :arrow_right: **Note : The weapon requires atleast one bullet round**.',
-                        'Lite foot':'Lite foot provides better movement speed after shooting, it is used in duel with weapon such as **Deagle**, **Sniper rifle**, **Shotgun**\n In order to do Litefoot All you have to do is\n :arrow_right: Press A or D. (Depends on which side you\'d like to go)\n :arrow_right: Aim\n :arrow_right: Fire\n :arrow_right: Scroll ( You have to have thee fists as a weapon choice)\n :arrow_right: Crouch\n :arrow_right: Sprint',
-                        'Slidebug':' **Slideing** While using this bug you slide, either diagnolly og forward, when you\'re using certain weapons.\n It mostly used when players want to move faster with a slow-running weapon.\n\n **How to **\n :arrow_right: Choose one of the following weapons (Deagle, AK47, Combat Shotgun).\n :arrow_right: Press the \'crounch button\'\n:arrow_right: press the \'Sprint button\', Choose between left or right.\n:arrow_right: When the character stands up, press the \' Aim button\'\n :arrow_right: In order to keep sliding you have to keep the aim up, release the button in order to stop sliding.',
-                        'Crounch bug':'Crounch Bug (C-Bug), is a  San andreas bug which cancels specific animations that temprorary delays movement after shooting, and can increase firing rate or movement with specific weapons.\n**Basic C-bug**\nBasic c-bug, the intentions for doing basic c-bug is to increase the firerate of the weapons (Deagle, CombatShotgun, Shotgun, sniper rifle, rifle)\n:arrow_right: Aim\n:arrow_right: Shoot.\n:arrow_right: (When the firearm sound arrives), Release the aim button, and press \' Crouching button\' Immediately.\n:arrow_right: Switch weapons back\'n fourth in order to cancel the reload animation. Then :repeat:\n\n **Advanced c-bug**\n The intention for doing an Advanced c-bug is to increase character movement while fire\'ing. It\'s effective against Running weapons such as **Uzi**, **tc9**, **Shawn-off**.\n :arrow_right:The procedure is the same as the basic usage of c-bug, but the intetions is to increase movement, so it would be like (Shoot, move, shoot).',
+                        'Two-shots':'**Two-Shots**\nIs a reload glitch where you skip the reload animation, by switching weapons fast.\n\n**Applies to weapon**\nShawn-off shotgun',
+                        'Distance shots':'**Distance Shots**\nis a weapon glitch which allows you to shoot at greater distance than normal gameplay.\n\n:arrow_right: Shoot first,\n:arrow_right: aim to where the bullets should hit',
+                        'Escaping':'**Escaping**\nWhile pressing \'menu button\' it will look like the player crashes due to internett connection, the character will do the same activity as it did right before the player did press the \'menu button\'',
+                        'Switch\'ing': '**Switch\'ing**\nSwitch weapons to avoid the reload animation.\nBy using \'Switch weapon\' button, you switch the current weapon with another.\n\n:arrow_right: Skips the reload animation\n:arrow_right:  Works with every reloadable weapons.\n:arrow_right: **Note : The weapon requires atleast one bullet round**.',
+                        'Lite foot':'**Lite foot**\nProvides better movement speed after shooting, it is used in duel\n\n**How to**\n:arrow_right: Press A or D. (Depends on which side you\'d like to go)\n:arrow_right: Aim\n:arrow_right: Fire\n:arrow_right: Scroll ( You have to have thee fists as a weapon choice)\n:arrow_right: Crouch\n:arrow_right: Sprint\n\n**Applies to weapons**:\n:arrow_right:**Deagle**,\n:arrow_right:**Sniper rifle**,\n:arrow_right:**Shotgun**',
+                        'Slide glitch':' **Slide\'ing**\nWhile using this bug you slide, either diagnolly or forward, when you\'re using certain weapons.\nIt mostly used when players want to move faster with a slow-running weapon.\n\n**How to **\n:arrow_right: Choose one of the following weapons (Deagle, AK47, Combat Shotgun).\n:arrow_right: Press the \'crounch button\'\n:arrow_right: press the \'Sprint button\', Choose between left or right.\n:arrow_right: When the character stands up, press the \' Aim button\'\n**Note : If the aim is released the sliding glitch will stop**.',
+                        'Crouch glitch':'**Crounch Bug (C-Bug)**\nIs a glitch which cancels specific animations that temprorary delays movement after shooting, and can increase firing rate or movement in combats with specific weapons.\n\n**Basic C-bug**\nThe intentions for doing basic c-bug is to increase the firerate.\n **Applies for**\n:arrow_right:   Deagle,\n:arrow_right:  CombatShotgun,\n:arrow_right:  Shotgun,\n:arrow_right:  Sniper rifle,\n :arrow_right:  Rifle.\n\n**Basic C-bug procedure**:\n:arrow_right:  Aim\n:arrow_right:  Shoot.\n:arrow_right: (When the firearm sound arrives) Release the aim button, and press \'Crouching button\' Immediately.\n:arrow_right: Switch weapons back & fourth in order to cancel the reload animation.\n :repeat:\n\n**Advanced C-bug**\nThe intention for doing an Advanced C-bug is to increase character movement while fire\'ing. It\'s effective against Running weapons such as **Uzi**, **tc9**, **Shawn-off**.\n:arrow_right: The procedure is the same as the basic usage of C-bug, but the intetions is to increase movement, so it would be like (Shoot, move, shoot).',
 
                         #   Walk bugs
-                        'floating man':'** floating man**\n This glitch automatically makes the character to float.\n **How to**\n :arrow_right: Spam c & Switch gun',
-                        'Walking man': '**Walking man**\n This bug automatically makes the character walk forward, while doing something else\n **How to**\n (Crounch, Crounch, Walk, Sprint, Switch weapons)\n\n:arrow_right: Press Crouching button twice,\n :arrow_right: press the forward \'walking button\'\n :arrow_right: Switch weapons.',
-                        'Running man': '**Running man**\n This bug automatically makes the character run forward, while doing something else\n **How to**\n (Crounch, Crounch, Walk, Sprint, Switch weapons)\n\n:arrow_right: Press Crouching button twice,\n :arrow_right: press the forward \'walking button\'\n :arrow_right: Press the \'sprint button\' :arrow_right: Switch weapons.',
-                        'Slow walk':'**Slow Walk**\n This glitch slows down movement while switching weapons as the animation changes everytime.\n **How to **\n :arrow_right: walk forward, while switching weapons\n',
+                        'Walking glitches':'**Floating man**\nThis glitch automatically makes the character to float.\n**Procedure for floating**:\n:arrow_right: Spam \'Crouching button\' & Switch weapon\n\n**Walking man**\nThis bug automatically makes the character walk forward, while doing something else\n**Procedure for Walking man**\nCrounch, Crounch, Walk, Switch weapons)\n\n:arrow_right: Press Crouching button twice,\n:arrow_right: Press the forward \'Walking button\'\n:arrow_right: Switch weapons.\n\n**Running man**\nThis glitch automatically makes the character run forward, while doing something else\n\n**Procedure for Running man**:\n(Crounch, Crounch, Walk, Sprint, Switch weapons)\n\n:arrow_right: Press Crouching button twice,\n:arrow_right: Press the forward \'walking button\'\n:arrow_right: Press the \'sprint button\'\n:arrow_right: Switch weapons.\n\n**Slow Walk**\nThis glitch slows down movement while switching weapons as the animation changes everytime.\n**Procedure for Slow walk **:\n:arrow_right: Walk forward, while switching weapons\n',
 
+
+                        #   Interior bugs
+                        #   Misc bugs
+                        'Parachute glitches':'**Parachute Glitch 1**\nIf the player falls down from a low height with a parachute, the result of the fall is the same as falling from great heights without maximum health or with a not-in-use parachute. This is more than likely a glitch. It is likely because the game thinks that Carl is falling from a great height when wearing a parachute, as the parachute is intended to be used at a great height.\n\n**Parachute Glitch 2**\nIf the player has a parachute but doesn\'t deploy it yet or is still doing the opening parachute animation when CJ hits the ground, the health bar will deplete instantly and CJ will be killed. Cheats, hacks, mods or trainers couldn\'t prevent it from happening. This is probably because the game consider the player are still \'falling\' when the opening parachute animation is triggered thus making this glitch.\n\n**Parachute Glitch 3**\nThe parachute can be used as a weapon to attack and even kill some invincible enemies during some missions. An example of this is Big Poppa in A Home in the Hills. Despite the player can attack him in the mansion, he is considered to be invicible. However, if reacting fast enough, the player can attack him with a parachute inside. He will receive damage and can be killed, but the mission will be stuck if this happens, since he is not programmed to die in the mansion.\n\n **Parachute Glitch 4**\n Using Parachute while murdering another character it register as \'fake kill\'',
                         }       
 
             response = response[question]
