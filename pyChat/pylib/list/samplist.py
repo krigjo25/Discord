@@ -64,7 +64,7 @@ def CommonSAMPGlitches():
                 'Escaping',
                 'Two-shots',
                 'Lite foot',
-                'Fake-shots',#
+                'Fake-shots',
                 'Turbo knife',#
                 'Switch\'ing',
                 'Slide glitch',
@@ -78,8 +78,14 @@ def CommonSAMPGlitches():
 
                 #   Interior glitches
                 #   Skin Glitches
+                #   Texture glitches
+                'The Garver Bridge',#
+                'Other texture glitches',
+
                 #   Misc glitches
+                'Dorethy glitch',
                 'Parachute glitches',
+                
    ]
 
     return faq

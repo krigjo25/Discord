@@ -82,9 +82,9 @@ class SampFAQ():
         if question in glitchesList:
 
             res = ''
-            title = '**Common SAMP Glitches listed below**\n\n**War bugs**\n'
+            title = '**Common SAMP Glitches listed below**\n\n**War glitches**\n'
 
-            for i in sampBug:res += f":arrow_right:  {i}\n"
+            for i in sampBug:res += f":arrow_right: {i}\n"
 
             res = f'{title} {res}'
 
@@ -98,22 +98,27 @@ class SampFAQ():
             link = {'C-bug':'https://www.youtube.com/watch?v=50AEMtm3rcw'}
             response = {
 
-                        #   War bugs
+                        #   War glitches
 
                         'Two-shots':'**Two-Shots**\nIs a reload glitch where you skip the reload animation, by switching weapons fast.\n\n**Applies to weapon**\nShawn-off shotgun',
                         'Distance shots':'**Distance Shots**\nis a weapon glitch which allows you to shoot at greater distance than normal gameplay.\n\n:arrow_right: Shoot first,\n:arrow_right: aim to where the bullets should hit',
                         'Escaping':'**Escaping**\nWhile pressing \'menu button\' it will look like the player crashes due to internett connection, the character will do the same activity as it did right before the player did press the \'menu button\'',
+                        'Fake-shots': '**Fake-Shots**\n (RPG infinite ammo). This glitch gives a player with RPG unlimited RPG shots, it has it\'s name due to the rocket is not visible for other players.\n:arrow_right: Press the \'Aiming button\' & the \'Fire button\' at once. ',
                         'Switch\'ing': '**Switch\'ing**\nSwitch weapons to avoid the reload animation.\nBy using \'Switch weapon\' button, you switch the current weapon with another.\n\n:arrow_right: Skips the reload animation\n:arrow_right:  Works with every reloadable weapons.\n:arrow_right: **Note : The weapon requires atleast one bullet round**.',
                         'Lite foot':'**Lite foot**\nProvides better movement speed after shooting, it is used in duel\n\n**How to**\n:arrow_right: Press A or D. (Depends on which side you\'d like to go)\n:arrow_right: Aim\n:arrow_right: Fire\n:arrow_right: Scroll ( You have to have thee fists as a weapon choice)\n:arrow_right: Crouch\n:arrow_right: Sprint\n\n**Applies to weapons**:\n:arrow_right:**Deagle**,\n:arrow_right:**Sniper rifle**,\n:arrow_right:**Shotgun**',
                         'Slide glitch':' **Slide\'ing**\nWhile using this bug you slide, either diagnolly or forward, when you\'re using certain weapons.\nIt mostly used when players want to move faster with a slow-running weapon.\n\n**How to **\n:arrow_right: Choose one of the following weapons (Deagle, AK47, Combat Shotgun).\n:arrow_right: Press the \'crounch button\'\n:arrow_right: press the \'Sprint button\', Choose between left or right.\n:arrow_right: When the character stands up, press the \' Aim button\'\n**Note : If the aim is released the sliding glitch will stop**.',
                         'Crouch glitch':'**Crounch Bug (C-Bug)**\nIs a glitch which cancels specific animations that temprorary delays movement after shooting, and can increase firing rate or movement in combats with specific weapons.\n\n**Basic C-bug**\nThe intentions for doing basic c-bug is to increase the firerate.\n **Applies for**\n:arrow_right:   Deagle,\n:arrow_right:  CombatShotgun,\n:arrow_right:  Shotgun,\n:arrow_right:  Sniper rifle,\n :arrow_right:  Rifle.\n\n**Basic C-bug procedure**:\n:arrow_right:  Aim\n:arrow_right:  Shoot.\n:arrow_right: (When the firearm sound arrives) Release the aim button, and press \'Crouching button\' Immediately.\n:arrow_right: Switch weapons back & fourth in order to cancel the reload animation.\n :repeat:\n\n**Advanced C-bug**\nThe intention for doing an Advanced C-bug is to increase character movement while fire\'ing. It\'s effective against Running weapons such as **Uzi**, **tc9**, **Shawn-off**.\n:arrow_right: The procedure is the same as the basic usage of C-bug, but the intetions is to increase movement, so it would be like (Shoot, move, shoot).',
 
-                        #   Walk bugs
+                        #   Walk glitches
                         'Walking glitches':'**Floating man**\nThis glitch automatically makes the character to float.\n**Procedure for floating**:\n:arrow_right: Spam \'Crouching button\' & Switch weapon\n\n**Walking man**\nThis bug automatically makes the character walk forward, while doing something else\n**Procedure for Walking man**\nCrounch, Crounch, Walk, Switch weapons)\n\n:arrow_right: Press Crouching button twice,\n:arrow_right: Press the forward \'Walking button\'\n:arrow_right: Switch weapons.\n\n**Running man**\nThis glitch automatically makes the character run forward, while doing something else\n\n**Procedure for Running man**:\n(Crounch, Crounch, Walk, Sprint, Switch weapons)\n\n:arrow_right: Press Crouching button twice,\n:arrow_right: Press the forward \'walking button\'\n:arrow_right: Press the \'sprint button\'\n:arrow_right: Switch weapons.\n\n**Slow Walk**\nThis glitch slows down movement while switching weapons as the animation changes everytime.\n**Procedure for Slow walk **:\n:arrow_right: Walk forward, while switching weapons\n',
 
 
-                        #   Interior bugs
+                        #   Interior glitches
+                        #   Texture glitches
+                        'The garver bridge glitch':'The Garver Bridge texture has a glitch where you can not reach the max vehicle speed w/o Nitro.\n Some parts of it can be used to be faster than other players.\n :arrow_right: https://youtu.be/F5ibXFR-jgo',
+                        'other texture glitches':'https://youtu.be/xZ19UpHIg7Q',
                         #   Misc bugs
+                        'Doherty glitch':'Gives you the adventage to hide inside the garage.\n :arrow_right: link: https://youtu.be/380l_4rvaiM',
                         'Parachute glitches':'**Parachute Glitch 1**\nIf the player falls down from a low height with a parachute, the result of the fall is the same as falling from great heights without maximum health or with a not-in-use parachute. This is more than likely a glitch. It is likely because the game thinks that Carl is falling from a great height when wearing a parachute, as the parachute is intended to be used at a great height.\n\n**Parachute Glitch 2**\nIf the player has a parachute but doesn\'t deploy it yet or is still doing the opening parachute animation when CJ hits the ground, the health bar will deplete instantly and CJ will be killed. Cheats, hacks, mods or trainers couldn\'t prevent it from happening. This is probably because the game consider the player are still \'falling\' when the opening parachute animation is triggered thus making this glitch.\n\n**Parachute Glitch 3**\nThe parachute can be used as a weapon to attack and even kill some invincible enemies during some missions. An example of this is Big Poppa in A Home in the Hills. Despite the player can attack him in the mansion, he is considered to be invicible. However, if reacting fast enough, the player can attack him with a parachute inside. He will receive damage and can be killed, but the mission will be stuck if this happens, since he is not programmed to die in the mansion.\n\n **Parachute Glitch 4**\n Using Parachute while murdering another character it register as \'fake kill\'',
                         }       
 
