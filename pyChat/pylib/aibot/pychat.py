@@ -23,12 +23,14 @@ class PyChat():
             Returns time or date 
         """
 
-        text = str(text)
+        text = str(text).capitalize()
         time = datetime.now().time().strftime('%H:%M')
         date = datetime.now().date().strftime('%d. %b, %Y')
 
-        if 'date' in text:res =  f'Today\'s date : {date}'
-        elif 'time' in text:res = f'Current time : {time}'
+        if 'Date' in text:res =  f'Today\'s date : {date}'
+        elif 'Time' in text:res = f'Current time : {time}'
+        else: return
+
         return res
     
     @staticmethod

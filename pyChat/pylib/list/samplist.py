@@ -51,11 +51,22 @@ def CommonSAMPIssues():
 
 def CommonGlitches():
 
-    faq = []
+    faq = [
+            'Samp war bug',
+
+    ]
     return faq
 
 def CommonSAMPGlitches():
 
-    faq = []
+    faq = [
+            #   War bugs
+            'What is crounch bug',
+            'What is Twoshots',
+            'What is Slidebug',
+            'What is Escaping',
+            'What is lifefoot',
+            'What is DistanceShot',       
+    ]
 
     return faq

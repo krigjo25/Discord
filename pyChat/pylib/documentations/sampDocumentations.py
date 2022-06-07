@@ -1,6 +1,5 @@
 
 #   Python Responsories+
-from socket import AI_MASK
 from pylib.list.samplist import CommonGlitches, CommonIssues, CommonSAMPGlitches, CommonSAMPIssues
 
 class SampFAQ():
@@ -24,7 +23,10 @@ class SampFAQ():
             faq = CommonSAMPIssues()
 
             for i in faq:
-                res += f"**Common SAMP bugs / Glitches listed below**\n:arrow_right:{i}\n"
+                title = '**Common SAMP bugs / Glitches listed below**\n\n'
+                res += f":arrow_right:{i}\n"
+
+            res = f'{title} {res}'
 
             return question, res
 
@@ -73,14 +75,19 @@ class SampFAQ():
 
         faq = CommonGlitches()
         error = CommonSAMPGlitches()
+        print(question)
 
         if question in faq:
 
             res = ''
-            faq = CommonSAMPGlitches()
+            faq = CommonGlitches()
 
             for i in faq:
-                res += f"**Common bugs is listed below for education puposes**\n:arrow_right:{i}\n"
+
+                title = '**Common SAMP Glitches listed below**\n\n'
+                res += f":arrow_right:{i}\n"
+
+            res = f'{title} {res}'
 
             return question, res
 
@@ -89,21 +96,14 @@ class SampFAQ():
             link = {'C-bug':'https://www.youtube.com/watch?v=50AEMtm3rcw'}
             response = {
 
-                        #   Client common issues
-                        'C-bug':'C-Bug or Crouching bug, is a weapon bug which cancels specific animations that temprorary delays movement after shooting, and can increase firing rate or movement with specific weapons.\n **Basic**\n:arrow_right:Deagle\n:arrow_right:Combat shotgun\n**Advanced**\n:arrow_right:Shotgun\n:arrow_right:Sniper
-                        \n**Basic C-bug**
-                        \nBasic c-bug, the intentions is to increase the firerate of the weapons
-                        \n:arrow_right: Aim
-                        \n:arrow_right: Shoot.
-                        \n:arrow_right: (When the firearm sound arrives), Release the aim button, and press C Immediately.
-                        \n:arrow_right: Change Weapon back\'n fourth in order to cancel the reload animation. Then :repeat:
-                        \n\n Advanced C-bug, the intention is to increase movement while fireing, easier to manage Running weapons.
-                        \n:arrow_right: Aim
-                        press \'Crouch button\' while shooting with weapons** such as \n :arrow_right:Deagle\n:arrow_right:Shotgun',
-                        'Two-shots':'',
-                        'Lifefoot':''
-                        'Slidebug':''
-                        'Menu':''
+                        #   War bugs
+                        'What is two-shoot':'Two-Shots is a reload bug where you skip the reload animation',
+                        'What is distance shot':'Distance Shoot is a weapon bug which allows you to shoot at greater distance than normal gameplay.\n :arrow_right: Shoot first, aim to where the bullets should hit',
+                        'What is Switch\'ing': 'Switch\'ing, means switch weapons to avoid the reload animation.\n By Using \'Switch weapon\' button, you switch the current weapon with another. \n :arrow_right: Skips the reload animation\n :arrow_right:  Works with every reloadable weapons.\n :arrow_right: **Note : The weapon requires atleast one bullet round**.',
+                        'What is lite foot':'Lite foot provides better movement speed after shooting, it is used in duel with weapon such as **Deagle**, **Sniper rifle**, **Shotgun**\n In order to do Litefoot All you have to do is\n :arrow_right: Press A or D. (Depends on which side you\'d like to go)\n :arrow_right: Aim\n :arrow_right: Fire\n :arrow_right: Scroll ( You have to have thee fists as a weapon choice)\n :arrow_right: Crouch\n :arrow_right: Sprint',
+                        'What is crounch bug':'Crounch Bug (C-Bug), is a  San andreas bug which cancels specific animations that temprorary delays movement after shooting, and can increase firing rate or movement with specific weapons.\n **Basic**\n:arrow_right:Deagle\n:arrow_right:Combat shotgun\n**Advanced**\n:arrow_right:Shotgun\n:arrow_right:Sniper\n**Basic C-bug**\nBasic c-bug, the intentions for doing basic c-bug is to increase the firerate of the weapons (Deagle, CombatShotgun, Shotgun)\n:arrow_right: Aim\n:arrow_right: Shoot.\n:arrow_right: (When the firearm sound arrives), Release the aim button, and press \' Crouching button\' Immediately.\n:arrow_right: Change Weapon back\'n fourth in order to cancel the reload animation. Then :repeat:\n\n Advanced C-bug, the intention for doing Advanced c-bug is to increase character movement while fire\'ing, easier to manage Running weapons such as **Uzi**, **tc9**, **Shawn-off**.\n :arrow_right:The procedure is the same as the basic usage of c-bug, but the intetions is to increase movement, so it would be like (Shoot, move, shoot).',
+                        'slidebug':' The "slide bug" makes',
+                        'Escaping':'',
                         }       
 
             response = response[question]

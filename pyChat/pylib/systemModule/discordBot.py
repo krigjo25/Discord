@@ -26,12 +26,13 @@ class DiscordBot(Bot):
     async def on_ready(self):
 
         srv= []
+        servers = ''
         svr = self.guilds
 
         for i in svr:
-            srv.append(i)
+            servers += f'{i}\n' 
 
-        print(f'''--- Starting up {self.user.name} -----\n {self.user.name} has establized a connection to {srv[0]}''')
+        print(f'''--- Starting up {self.user.name} -----\n {self.user.name} has establized a connection to\n{servers}''')
 
 
         return
@@ -49,48 +50,39 @@ class DiscordBot(Bot):
 
             #   Initializing variables
             msg = message.channel
+            txt = ''
             ai = PyChat(name='PyChat')
             text = message.content
             nlp = transformers.pipeline('conversational', model='microsoft/DialoGPT-small')
             os.environ['TOKENIZERS_PARALLELISM'] = "True"
             print(f'me > {text}')
 
-            # lists
-            close = [ 
-                        'Bye',
-                        'FareWell',
-                        ]
+            #   Date & Time
+            time = ['Date', 'Time']
 
-            for i in close:
-
-                if text in i:
-                    close = text
-
-                else: close = 'ERROR'
-
-            sampFAQ = ''
-            sampFAQ = [ 
-                        CommonIssues(),
-                        CommonGlitches(),
+            #   SAMP Documentations
+            #   Initializing variables / Lists
+            
+            # Have to find a better way to go through the list
+            glitch = [
+                        CommonIssues(), 
+                        CommonGlitches(), 
                         CommonSAMPIssues(),
-                        CommonSAMPGlitches(),
-
-                        ]
-
-            sampFAQ = list(filter(None, sampFAQ))
-
-            for i in sampFAQ:
-
+                        CommonSAMPGlitches(), 
+                    ]
+            samp = ''
+            for i in glitch:
+                
                 if text in i:
-                    sampFAQ = text
-
-                else: sampFAQ = 'ERROR'
+                   samp = text
 
 
             # Waking up PyCHat
             if ai.PyChatWakeUp(text) is True: res = 'Greetings, I\'m PyChat, How can i be at your service today?'
-            elif sampFAQ in text:res = ai.PyChatSampDocumentations(text)
-            elif 'time' in text or 'date' in text : res = ai.AiToday(text)
+            elif text in time: res = ai.AiToday(text)
+            elif text in samp:res = ai.PyChatSampDocumentations(text)
+
+
             #elif close in text: res = ai.PyChatCloseDown(text)
             else :
 
