@@ -71,11 +71,9 @@ class DiscordBot(Bot):
                         CommonSAMPGlitches(), 
                     ]
             samp = ''
-            for i in glitch:
-                
-                if text in i:
-                   samp = text
 
+            for i in glitch: 
+                if text in i:samp = text
 
             # Waking up PyCHat
             if ai.PyChatWakeUp(text) is True: res = 'Greetings, I\'m PyChat, How can i be at your service today?'
@@ -97,26 +95,4 @@ class DiscordBot(Bot):
             print(f'AI > {res}')
             await msg.send(res)
 
-            '''
-            #   Initializing variables
-            msg = message.channel
-            userInput = str(message.content).capitalize().replace('Whats', 'What is')
-
-            #   Managing Strings
-            userInput = StringManagement.ReplaceCharacters(userInput)
-
-            #   listed functions
-            response =  [Samp.FrequentlyAskedQuestionsSAMP(userInput),
-                        #Samp.FrequentlyAskedQuestionsECRPG(userInput),
-                        GreetMember.Greetings(userInput),
-                        ]
-            #   Filter out None
-            response = list(filter(None, response))
-            
-            print(f'UserInput Test : {userInput}')
-            print(f' Three Response : \n {(response)}\n')
-
-
-                await msg.send(j)
-            '''
         return

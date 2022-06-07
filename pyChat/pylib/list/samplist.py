@@ -60,13 +60,30 @@ def CommonGlitches():
 def CommonSAMPGlitches():
 
     faq = [
-            #   War bugs
-            'What is crounch bug',
-            'What is Twoshots',
-            'What is Slidebug',
-            'What is Escaping',
-            'What is lifefoot',
-            'What is DistanceShot',       
+                #   War bugs
+                'Fake shot',
+                'Invincible skin'
+                'floor bug'
+                'Escaping',
+                'Two-shots',
+                'Lite foot',
+                'Crouch bug',
+                'Distance shot',
+
+
+                #  Walk bugs
+                'Slow walk',
+                'Walking man',
+                'Running man',
+                'Floating man',
     ]
 
     return faq
+
+def WarBugs():
+
+        faq =  [
+      
+                ]
+
+        return faq

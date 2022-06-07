@@ -73,37 +73,48 @@ class SampFAQ():
 
          #   Initializing lists
 
-        faq = CommonGlitches()
-        error = CommonSAMPGlitches()
+        glitchesList = CommonGlitches()
+        sampBug = [CommonSAMPGlitches()]
+    
         print(question)
 
-        if question in faq:
+        #   Returns a list of SAMP Glitches
+        if question in glitchesList:
 
-            res = ''
-            faq = CommonGlitches()
+            title = '**Common SAMP Glitches listed below**\n\n'
+            for i in sampBug:
 
-            for i in faq:
-
-                title = '**Common SAMP Glitches listed below**\n\n'
-                res += f":arrow_right:{i}\n"
+                    res += f":arrow_right:{i}\n"
 
             res = f'{title} {res}'
 
             return question, res
 
-        elif question in error:
+
+
+        #   Responses
+        elif question in sampBug:
 
             link = {'C-bug':'https://www.youtube.com/watch?v=50AEMtm3rcw'}
             response = {
 
                         #   War bugs
-                        'What is two-shoot':'Two-Shots is a reload bug where you skip the reload animation',
-                        'What is distance shot':'Distance Shoot is a weapon bug which allows you to shoot at greater distance than normal gameplay.\n :arrow_right: Shoot first, aim to where the bullets should hit',
-                        'What is Switch\'ing': 'Switch\'ing, means switch weapons to avoid the reload animation.\n By Using \'Switch weapon\' button, you switch the current weapon with another. \n :arrow_right: Skips the reload animation\n :arrow_right:  Works with every reloadable weapons.\n :arrow_right: **Note : The weapon requires atleast one bullet round**.',
-                        'What is lite foot':'Lite foot provides better movement speed after shooting, it is used in duel with weapon such as **Deagle**, **Sniper rifle**, **Shotgun**\n In order to do Litefoot All you have to do is\n :arrow_right: Press A or D. (Depends on which side you\'d like to go)\n :arrow_right: Aim\n :arrow_right: Fire\n :arrow_right: Scroll ( You have to have thee fists as a weapon choice)\n :arrow_right: Crouch\n :arrow_right: Sprint',
-                        'What is crounch bug':'Crounch Bug (C-Bug), is a  San andreas bug which cancels specific animations that temprorary delays movement after shooting, and can increase firing rate or movement with specific weapons.\n **Basic**\n:arrow_right:Deagle\n:arrow_right:Combat shotgun\n**Advanced**\n:arrow_right:Shotgun\n:arrow_right:Sniper\n**Basic C-bug**\nBasic c-bug, the intentions for doing basic c-bug is to increase the firerate of the weapons (Deagle, CombatShotgun, Shotgun)\n:arrow_right: Aim\n:arrow_right: Shoot.\n:arrow_right: (When the firearm sound arrives), Release the aim button, and press \' Crouching button\' Immediately.\n:arrow_right: Change Weapon back\'n fourth in order to cancel the reload animation. Then :repeat:\n\n Advanced C-bug, the intention for doing Advanced c-bug is to increase character movement while fire\'ing, easier to manage Running weapons such as **Uzi**, **tc9**, **Shawn-off**.\n :arrow_right:The procedure is the same as the basic usage of c-bug, but the intetions is to increase movement, so it would be like (Shoot, move, shoot).',
-                        'slidebug':' The "slide bug" makes',
-                        'Escaping':'',
+
+                        
+                        'Two-shoot':'Two-Shots is a reload bug where you skip the reload animation',
+                        'Distance shot':'Distance Shoot is a weapon bug which allows you to shoot at greater distance than normal gameplay.\n :arrow_right: Shoot first, aim to where the bullets should hit',
+                        'Escaping':'**Escaping**, While pressing escaping to the menu while in a fight, the character frezes, you\'re *immortal*, character automatically shots straight forward, if escaping while fireing.',
+                        'Switch\'ing': 'Switch\'ing, means switch weapons to avoid the reload animation.\n By Using \'Switch weapon\' button, you switch the current weapon with another. \n :arrow_right: Skips the reload animation\n :arrow_right:  Works with every reloadable weapons.\n :arrow_right: **Note : The weapon requires atleast one bullet round**.',
+                        'Lite foot':'Lite foot provides better movement speed after shooting, it is used in duel with weapon such as **Deagle**, **Sniper rifle**, **Shotgun**\n In order to do Litefoot All you have to do is\n :arrow_right: Press A or D. (Depends on which side you\'d like to go)\n :arrow_right: Aim\n :arrow_right: Fire\n :arrow_right: Scroll ( You have to have thee fists as a weapon choice)\n :arrow_right: Crouch\n :arrow_right: Sprint',
+                        'Slidebug':' **Slideing** While using this bug you slide, either diagnolly og forward, when you\'re using certain weapons.\n It mostly used when players want to move faster with a slow-running weapon.\n\n **How to **\n :arrow_right: Choose one of the following weapons (Deagle, AK47, Combat Shotgun).\n :arrow_right: Press the \'crounch button\'\n:arrow_right: press the \'Sprint button\', Choose between left or right.\n:arrow_right: When the character stands up, press the \' Aim button\'\n :arrow_right: In order to keep sliding you have to keep the aim up, release the button in order to stop sliding.',
+                        'Crounch bug':'Crounch Bug (C-Bug), is a  San andreas bug which cancels specific animations that temprorary delays movement after shooting, and can increase firing rate or movement with specific weapons.\n**Basic C-bug**\nBasic c-bug, the intentions for doing basic c-bug is to increase the firerate of the weapons (Deagle, CombatShotgun, Shotgun, sniper rifle, rifle)\n:arrow_right: Aim\n:arrow_right: Shoot.\n:arrow_right: (When the firearm sound arrives), Release the aim button, and press \' Crouching button\' Immediately.\n:arrow_right: Switch weapons back\'n fourth in order to cancel the reload animation. Then :repeat:\n\n **Advanced c-bug**\n The intention for doing an Advanced c-bug is to increase character movement while fire\'ing. It\'s effective against Running weapons such as **Uzi**, **tc9**, **Shawn-off**.\n :arrow_right:The procedure is the same as the basic usage of c-bug, but the intetions is to increase movement, so it would be like (Shoot, move, shoot).',
+
+                        #   Walk bugs
+                        'floating man':'** floating man**\n This glitch automatically makes the character to float.\n **How to**\n :arrow_right: Spam c & Switch gun',
+                        'Walking man': '**Walking man**\n This bug automatically makes the character walk forward, while doing something else\n **How to**\n (Crounch, Crounch, Walk, Sprint, Switch weapons)\n\n:arrow_right: Press Crouching button twice,\n :arrow_right: press the forward \'walking button\'\n :arrow_right: Switch weapons.',
+                        'Running man': '**Running man**\n This bug automatically makes the character run forward, while doing something else\n **How to**\n (Crounch, Crounch, Walk, Sprint, Switch weapons)\n\n:arrow_right: Press Crouching button twice,\n :arrow_right: press the forward \'walking button\'\n :arrow_right: Press the \'sprint button\' :arrow_right: Switch weapons.',
+                        'Slow walk':'**Slow Walk**\n This glitch slows down movement while switching weapons as the animation changes everytime.\n **How to **\n :arrow_right: walk forward, while switching weapons\n',
+
                         }       
 
             response = response[question]
