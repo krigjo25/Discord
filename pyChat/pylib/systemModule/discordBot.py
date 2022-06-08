@@ -10,14 +10,15 @@ from sys import api_version
 #   Discord Repositories
 from discord.message import Message
 from discord.ext.commands import Bot
-from pylib.list.samplist import CommonIssues, CommonGlitches, CommonSAMPGlitches, CommonSAMPIssues, FrequentlyAskedQuestions
+from pylib.dictionary.pyChatFunctions import StringManagement
 
-#   pylib Repositories
+#   Pylib Repositories
 from pylib.aibot.pychat import PyChat
-
+from pylib.list.samplist import CommonIssues, CommonGlitches, CommonSAMPGlitches, CommonSAMPIssues, FrequentlyAskedSAMPQuestions
+from pylib.list.pychatlist import FrequentlyAskedPyChatQuestions
 
 class DiscordBot(Bot):
-    def __init__(self, command_prefix='?', name='PyChat', help_command=None, description=None, owner_id = 340540581174575107, **options):
+    def __init__(self, command_prefix='?', help_command=None, description=None, owner_id = 340540581174575107, **options):
         super().__init__(command_prefix = command_prefix, help_command=help_command, description=description, owner_id = owner_id, **options)
 
 
@@ -50,37 +51,61 @@ class DiscordBot(Bot):
 
             #   Initializing variables
             msg = message.channel
-            
-            ai = PyChat(name='PyChat')
-            text = message.content
+
+            ai = PyChat(self)
+            text = str(message.content).lower()
+            text = StringManagement.ReplaceCharacters(text)
             nlp = transformers.pipeline('conversational', model='microsoft/DialoGPT-small')
             os.environ['TOKENIZERS_PARALLELISM'] = "True"
             print(f'me > {text}')
 
             #   Date & Time
-            time = ['Date', 'Time']
+
 
             #   SAMP Documentations
             #   Initializing variables / Lists
-            
-            # Have to find a better way to go through the list
-            glitch = [
+
+            res = ''
+            samp = ''
+            pychat = ''
+            timeDate= ''
+
+            textlist =[
+                        #   SA:MP Documentations
+                        [
                         CommonIssues(), 
                         CommonGlitches(), 
                         CommonSAMPIssues(),
                         CommonSAMPGlitches(),
-                        FrequentlyAskedQuestions(),
-                    ]
-            samp = ''
+                        FrequentlyAskedSAMPQuestions(),
+                        ],
 
-            for i in glitch: 
-                if text in i:samp = text
+                        #   PyChat Documentations
+                        [FrequentlyAskedPyChatQuestions(),],
+
+                        #   Time / Date / Math
+                        ['date', 'time'],
+            ]
+
+            #   Looping through the lists
+
+            #   Samp Documentations
+            for i in textlist[0]:
+                if text in i: samp = text
+
+            #   PyChat Documentations
+            for i in textlist[1]:
+                if text in i: pychat = text
+
+            #   Time and Date:
+            for i in textlist[2]:
+                if text in i: timeDate = i
 
             # Waking up PyCHat
             #if ai.PyChatWakeUp(text) is True: res = 'Greetings, I\'m PyChat, How can i be at your service today?'
-            if text in time: res = ai.AiToday(text)
+            if text in timeDate:res = ai.AiDateTime(text)
+            elif text in pychat: res = ai.PyChatDocumentations(text) 
             elif text in samp:res = ai.PyChatSampDocumentations(text)
-            elif 'PyChat' in text: res = ai.PyChatDocumentations(text) 
 
 
             #elif close in text: res = ai.PyChatCloseDown(text)

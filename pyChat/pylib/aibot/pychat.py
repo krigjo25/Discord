@@ -14,27 +14,28 @@ from pylib.dictionary.pyChatFunctions import StringManagement
 
 class PyChat(Cog):
 
-    def __init__(self, bot, name, ):
+    def __init__(self, bot ):
 
         self.bot = bot
-        self.name = name
-        print(f'--- Starting up the AI, {name} --')
+        self.name = self.bot.user
+        print(f'--- Starting up the AI, {self.name} --')
 
         return
 
     @staticmethod
-    def AiToday(text):
+    def AiDateTime(text):
 
         """
             Returns time or date 
         """
 
+        #   Initializing variables
         text = str(text).capitalize()
         time = datetime.now().time().strftime('%H:%M')
         date = datetime.now().date().strftime('%d. %b, %Y')
 
-        if 'Date' in text:res =  f'Today\'s date : {date}'
-        elif 'Time' in text:res = f'Current time : {time}'
+        if 'date' in text:res =  f'Today\'s date : {date}'
+        elif 'time' in text:res = f'Current time : {time}'
         else: return
 
         return res
@@ -42,12 +43,9 @@ class PyChat(Cog):
     @staticmethod
     def PyChatSampDocumentations(text):
 
-        #   Initializing classes
-        sm = StringManagement()
-
         #   Initializing variables
         text = str(text).capitalize()
-        text = sm.ReplaceCharacters(text)
+        text = StringManagement.ReplaceCharacters(text)
 
         #   listed functions
         faq =  [
@@ -61,23 +59,22 @@ class PyChat(Cog):
         #   Filter out None
         faq = list(filter(None, faq))
 
-        for i, j in faq:return j
+        for i in faq:return i
 
         return
 
 
     def PyChatDocumentations(self, text):
-
+    
+        text = StringManagement.ReplaceCharacters(text)
+        
         faq = [
                 FAQ.GeneralPyChatQuestions(self, text)
             ]
-
+        print(faq)
         faq = list(filter(None, faq))
 
-        if self.name in text:
-
-            for i in faq:return i
-
+        for i in faq:return i
 
         return
 

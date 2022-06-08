@@ -90,13 +90,13 @@ def CommonSAMPGlitches():
 
     return faq
 
-def FrequentlyAskedQuestions():
+def FrequentlyAskedSAMPQuestions():
 
     faq = [
             #   What is samp?
             'What is samp',
             'Samp system requirements',
-            'Samp installation procedureHow to install samp?',
+            'Samp installation procedure',
             'How can i download samp?',
             'How can i downgrade samp?',
 

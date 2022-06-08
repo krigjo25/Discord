@@ -1,6 +1,6 @@
 
 #   Python Responsories+
-from pylib.list.samplist import CommonGlitches, CommonIssues, CommonSAMPGlitches, CommonSAMPIssues, FrequentlyAskedQuestions
+from pylib.list.samplist import CommonGlitches, CommonIssues, CommonSAMPGlitches, CommonSAMPIssues, FrequentlyAskedSAMPQuestions
 
 class SampFAQ():
 
@@ -10,8 +10,8 @@ class SampFAQ():
     def GeneralSAMPQuestions(question):
 
         #   Initializing lists
-        faq = FrequentlyAskedQuestions()
-
+        faq = FrequentlyAskedSAMPQuestions()
+        question = str(question).capitalize()
         #   Returns a list of SAMP Support
 
         if question in faq:
@@ -22,13 +22,13 @@ class SampFAQ():
 
             response = {
                             'What is samp':'**San Andreas Multi-Player**\nKnown as (SA:MP/SA-MP/SAMP) Is a unoffical multiplayer feature for Grand Theft Auto San Andreas. It can be played over internett or LAN, with up to 1,000 other players online at once.\n\n**Requirements to play SA:MP**\nSA:MP requires GTA:SA PC Game US/EN v.1.00\nThere is no support for SA:MP for (Steam/Windows Store / Direct2Drive) Versions.',
-                            'Samp system requirements':'**System Requirements for SA:MP**\nSA:MP can run on any computer, which can rund GTA:SA Single Player, but gives better player experience.\nHowever the larger server with lower specs, the slower the game may run.\n\n**Minimum requirements for GTA:SA**:\n:arrow_right: 1 GHz Procsessor,\n  :fast_forward: Pentium 3 / Athlon or equilant.\n:arrow_right: 256MB RAM,\n:arrow_right: Winows 98 / 2000 / XP / Vista,\n:arrow_right: 64MB Graphics Card (DirectX 9 compatible),\n  :fast_forward: Radeon 8500 / GeForce 3 or equilant.\n:arrow_right: 8X DVD-ROM Drive,\n:arrow_right: 3.6GB free SSD/HD space,\n:arrow_right: DirectX9 compatible soundcard.\n\n**Recomended System Requirements for GTA:SA**:\n:arrow_right: Intel pentium 4 HT 2.8 GHz Processor Intel pentium D 3.0 GHz / AMD Athlon X2 3800+,\n:arrow_right:1GB RAM,\n:arrow_right: Windows 98/Me/2000/XP,\n:arrow_right:PCIe 256 Graphics Card (DirectX 9c compatible),\n  :fast_forward:  Radeon x800 / GeForce 6.7 or equivalent,\n:arrow_right: 16x DVD-ROM Drive,\n:arrow_right: 5.0GB free SSD/HD space,\n:arrow_right: DirectX 9 compatible.\n\n**SA:MP specific requirements**:\nIn addition to the standard SP requirements, SA:MP requires.\n:arrow_right: 50MB free SSD/HD space,\n:arrow_right: An internett connection(512k, Broadband is highly recommended for a smooth game play.\n:arrow_right:A GTA:SA copy for PC v.1.0 US / EU,\n**Note: greater versions than v1.0 nor GTA:SA copies from (Steam, Microsoft Store, Steam or Direct2Drive).**',
-                            'Samp installation procedure':f'**Procedure to install SA:MP**\n:arrow_right: Download the SA:MP client at {link[question]}. Check back when you get the message \'Incorrect Version\' error.\n:arrow_right: Run samp.exe file & follow the instructions closely.\n:arrow_right: The client will ask you to locate the installation path to GTA:SA, By default it\'s \'C:\\Program Files\\Rockstar Games\\GTA San Andreas\', however make sure the path is the correct path for your GTA:SA installation.\n:arrow_right: It\'s extremely important the SA-MP is installed in the same folder as gta_sa.exe, SA-MP Requires the core of GTA:SA files to run.',
+                            #'Samp installation procedure':f'**Procedure to install SA:MP**\n:arrow_right: Download the SA:MP client at {link[question]}. Check back when you get the message \'Incorrect Version\' error.\n:arrow_right: Run samp.exe file & follow the instructions closely.\n:arrow_right: The client will ask you to locate the installation path to GTA:SA, By default it\'s \'C:\\Program Files\\Rockstar Games\\GTA San Andreas\', however make sure the path is the correct path for your GTA:SA installation.\n:arrow_right: It\'s extremely important the SA-MP is installed in the same folder as gta_sa.exe, SA-MP Requires the core of GTA:SA files to run.',
+                            #'Samp system requirements':'**System Requirements for SA:MP**\nSA:MP can run on any computer, which can rund GTA:SA Single Player, but gives better player experience.\nHowever the larger server with lower specs, the slower the game may run.\n\n**Minimum requirements for GTA:SA**:\n:arrow_right: 1 GHz Procsessor,\n  :fast_forward: Pentium 3 / Athlon or equilant.\n:arrow_right: 256MB RAM,\n:arrow_right: Winows 98 / 2000 / XP / Vista,\n:arrow_right: 64MB Graphics Card (DirectX 9 compatible),\n  :fast_forward: Radeon 8500 / GeForce 3 or equilant.\n:arrow_right: 8X DVD-ROM Drive,\n:arrow_right: 3.6GB free SSD/HD space,\n:arrow_right: DirectX9 compatible soundcard.\n\n**Recomended System Requirements for GTA:SA**:\n:arrow_right: Intel pentium 4 HT 2.8 GHz Processor Intel pentium D 3.0 GHz / AMD Athlon X2 3800+,\n:arrow_right:1GB RAM,\n:arrow_right: Windows 98/Me/2000/XP,\n:arrow_right:PCIe 256 Graphics Card (DirectX 9c compatible),\n  :fast_forward:  Radeon x800 / GeForce 6.7 or equivalent,\n:arrow_right: 16x DVD-ROM Drive,\n:arrow_right: 5.0GB free SSD/HD space,\n:arrow_right: DirectX 9 compatible.\n\n**SA:MP specific requirements**:\nIn addition to the standard SP requirements, SA:MP requires.\n:arrow_right: 50MB free SSD/HD space,\n:arrow_right: An internett connection(512k, Broadband is highly recommended for a smooth game play.\n:arrow_right:A GTA:SA copy for PC v.1.0 US / EU,\n**Note: greater versions than v1.0 nor GTA:SA copies from (Steam, Microsoft Store, Steam or Direct2Drive).**',
             }
 
             response = response[question]
 
-            return question, response
+            return response
 
         return
 
@@ -50,7 +50,7 @@ class SampFAQ():
 
             res = f'{title} {res}'
 
-            return question, res
+            return res
 
         elif question in error:
 
@@ -87,7 +87,7 @@ class SampFAQ():
 
             response = response[question]
 
-            return question, response
+            return response
 
         return
 
@@ -133,6 +133,7 @@ class SampFAQ():
                     
                     'Parachute glitches':'',
                     }
+
             response = {
 
                         #   War glitches
@@ -165,6 +166,6 @@ class SampFAQ():
 
             response = response[question]
 
-            return question, response
+            return response
 
         return
