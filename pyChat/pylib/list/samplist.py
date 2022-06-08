@@ -93,7 +93,13 @@ def CommonSAMPGlitches():
 def FrequentlyAskedQuestions():
 
     faq = [
-            #  Server Configurations
+            #   What is samp?
+            'What is samp',
+            'Samp system requirements',
+            'Samp installation procedureHow to install samp?',
+            'How can i download samp?',
+            'How can i downgrade samp?',
 
                 
    ]
+    return faq

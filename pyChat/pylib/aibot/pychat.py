@@ -2,15 +2,21 @@
 #   Python Repositories
 import numpy as np
 from datetime import datetime
-
+#   Discord Repositories
+from discord.ext.commands import Cog
 #   pylib Repositories
+from pylib.documentations.pychatDocumentation import FAQ
 from pylib.documentations.sampDocumentations import SampFAQ
 #from pylib.documentations.ecrpgDocumentation import ECRPGFAQ
 
-class PyChat():
+#   Custom functions
+from pylib.dictionary.pyChatFunctions import StringManagement
 
-    def __init__(self, name):
+class PyChat(Cog):
 
+    def __init__(self, bot, name, ):
+
+        self.bot = bot
         self.name = name
         print(f'--- Starting up the AI, {name} --')
 
@@ -36,14 +42,20 @@ class PyChat():
     @staticmethod
     def PyChatSampDocumentations(text):
 
+        #   Initializing classes
+        sm = StringManagement()
+
+        #   Initializing variables
         text = str(text).capitalize()
+        text = sm.ReplaceCharacters(text)
 
         #   listed functions
         faq =  [
 
                 SampFAQ.SAMPGlitches(text),
-                SampFAQ.CommonSAMPErrors(text),            
-                
+                SampFAQ.CommonSAMPErrors(text),
+                SampFAQ.GeneralSAMPQuestions(text),
+
                 ]
 
         #   Filter out None
@@ -53,23 +65,21 @@ class PyChat():
 
         return
 
-    @staticmethod
-    def PyChatEcrpgDocumentations(text):
-        text = str(text).capitalize()
 
-        #   listed functions
-        faq =  []
+    def PyChatDocumentations(self, text):
 
-        #   Filter out None
+        faq = [
+                FAQ.GeneralPyChatQuestions(self, text)
+            ]
+
         faq = list(filter(None, faq))
 
-        for i in faq:return i
+        if self.name in text:
+
+            for i in faq:return i
+
 
         return
-
-    def PyChatDocumentations(text):
-        res = ''
-        return res
 
     def PyChatResponse(text):return print(f'AI > {text}')
     def PyChatWakeUp(self, text):return True if self.name in text else False

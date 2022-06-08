@@ -16,6 +16,7 @@ class StringManagement():
                         '-':'',
                         '\'':'',
                         '\"':'',
+                        '\\':'',
         }
 
         return arg.translate(str.maketrans(dictionary))

@@ -14,8 +14,9 @@ from pylib.systemModule.discordBot import DiscordBot                            
 from pylib.systemModule.commandError import ErrorHandler                                                 #   Error Handling Module
 from pylib.systemModule.frequentlyaskedquestions import FrequentlyAskedQuestions                        #   Help module
 
-from pylib.systemModule.discordBot import DiscordBot                                        #   The Client#
-from pylib.systemModule.commandError import ErrorHandler                                    #   Error Handling Module
+#   The AI
+from pylib.aibot.pychat import PyChat
+from pylib.documentations.pychatDocumentation import FAQ
 
 
 #   miniGames Module
@@ -49,7 +50,8 @@ class DiscordSetup():
 
 
     def SystemSetup(self):
-        
+        self.bot.add_cog(PyChat(self.bot))
+        self.bot.add_cog(FAQ(self.bot))
         self.bot.add_cog(ErrorHandler(self.bot))
         self.bot.add_cog(FrequentlyAskedQuestions(self.bot))
 

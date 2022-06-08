@@ -10,7 +10,7 @@ from sys import api_version
 #   Discord Repositories
 from discord.message import Message
 from discord.ext.commands import Bot
-from pylib.list.samplist import CommonIssues, CommonGlitches, CommonSAMPGlitches, CommonSAMPIssues
+from pylib.list.samplist import CommonIssues, CommonGlitches, CommonSAMPGlitches, CommonSAMPIssues, FrequentlyAskedQuestions
 
 #   pylib Repositories
 from pylib.aibot.pychat import PyChat
@@ -50,7 +50,7 @@ class DiscordBot(Bot):
 
             #   Initializing variables
             msg = message.channel
-            txt = ''
+            
             ai = PyChat(name='PyChat')
             text = message.content
             nlp = transformers.pipeline('conversational', model='microsoft/DialoGPT-small')
@@ -68,7 +68,8 @@ class DiscordBot(Bot):
                         CommonIssues(), 
                         CommonGlitches(), 
                         CommonSAMPIssues(),
-                        CommonSAMPGlitches(), 
+                        CommonSAMPGlitches(),
+                        FrequentlyAskedQuestions(),
                     ]
             samp = ''
 
@@ -76,9 +77,10 @@ class DiscordBot(Bot):
                 if text in i:samp = text
 
             # Waking up PyCHat
-            if ai.PyChatWakeUp(text) is True: res = 'Greetings, I\'m PyChat, How can i be at your service today?'
-            elif text in time: res = ai.AiToday(text)
+            #if ai.PyChatWakeUp(text) is True: res = 'Greetings, I\'m PyChat, How can i be at your service today?'
+            if text in time: res = ai.AiToday(text)
             elif text in samp:res = ai.PyChatSampDocumentations(text)
+            elif 'PyChat' in text: res = ai.PyChatDocumentations(text) 
 
 
             #elif close in text: res = ai.PyChatCloseDown(text)
