@@ -77,12 +77,12 @@ def CommonSAMPGlitches():
                 'Walking glitches',
 
                 #   Interior glitches
-                #   Skin Glitches
                 #   Texture glitches
-                'The Garver Bridge',#
+                'The Garver Bridge',
                 'Other texture glitches',
 
                 #   Misc glitches
+                'Skin glitch',
                 'Dorethy glitch',
                 'Parachute glitches',
                 
@@ -90,10 +90,10 @@ def CommonSAMPGlitches():
 
     return faq
 
-def WarBugs():
+def FrequentlyAskedQuestions():
 
-        faq =  [
-      
-                ]
+    faq = [
+            #  Server Configurations
 
-        return faq
+                
+   ]
