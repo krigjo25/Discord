@@ -102,10 +102,10 @@ class DiscordBot(Bot):
                 if text in i: timeDate = i
 
             # Waking up PyCHat
-            #if ai.PyChatWakeUp(text) is True: res = 'Greetings, I\'m PyChat, How can i be at your service today?'
+            if ai.PyChatWakeUp(text) is True: res = ai.PyChatSampDocumentations(text)
             if text in timeDate:res = ai.AiDateTime(text)
             elif text in pychat: res = ai.PyChatDocumentations(text) 
-            elif text in samp:res = ai.PyChatSampDocumentations(text)
+            #elif text in samp:res = 
 
 
             #elif close in text: res = ai.PyChatCloseDown(text)

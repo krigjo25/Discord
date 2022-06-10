@@ -79,7 +79,8 @@ class PyChat(Cog):
         return
 
     def PyChatResponse(text):return print(f'AI > {text}')
-    def PyChatWakeUp(self, text):return True if self.name in text else False
+
+    def PyChatWakeUp(self, text):return True if 'pychat' in text else False
 
     @staticmethod
     def PyChatCloseDown(text):

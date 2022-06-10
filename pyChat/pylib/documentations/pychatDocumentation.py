@@ -16,8 +16,19 @@ class FAQ(Cog):
 
     def __init__(self, bot):
         self.bot = bot
-        
-        pass
+
+        return
+
+    def ReadChangelog():
+
+        with open('pyChat/changelog.md', 'r') as f:
+
+            changelog = f.read(415)
+            print(f)
+            #   Closing the document
+            f.close()
+
+        return changelog
 
     def GeneralPyChatQuestions(self, text):
 
@@ -27,9 +38,6 @@ class FAQ(Cog):
         # Initializing variables
         text = str(text).lower()
         text = StringManagement.ReplaceCharacters(text)
-        #   Returns a list of SAMP Support
-        nlp = pipeline('conversational', model='microsoft/DialoGPT-small')
-        environ['TOKENIZERS_PARALLELISM'] = "True"
 
         if text in faq:
 
@@ -37,33 +45,16 @@ class FAQ(Cog):
             svr = len(self.bot.guilds)
 
             link = {
+                    'what are you pychat':'https://github.com/krigjo25/Discord/blob/main/pyChat/readme.md',
                     }
 
             res = {
-                            'what are you pychat':f'''Greetings, i\'m PyChat\nThank you for being curious about me, it makes me happy.\nI\'m an Artificial Intellegence or abbrivation AI & i\'m designed to be your friend and help you out.\n\n**More details about me**\nI watch around *{svr}* **Discord Servers**.\nI were public  **released** at *{getenv('PyChatRelease')}* & :new: **Upgraded** *{getenv('PyChatUpdated')}*.\nMy **Current release** is *{getenv('PyChatv')}* :person_with_probing_cane: & I\'m **maintained** by *@Krigjo25#5588*:flag_no:'\nI\'m **hosted** *locally* from Norway:flag_no:.\nIf you go to the link you can check some information about me https://www.github.com.''',
-                            'pychat changelog':self.ReadChangelog(),
+                            'what are you pychat':f'''Greetings, i\'m PyChat\nGreetings, I\'m PyChat Thank you for being curious about me, it makes me happy.\nI\'m an Artificial Intelligence or abbreviation AI & I\'m designed to be your friend and help you out.\n\n**More details about me**\n I watch around around *{svr}* **Discord Servers**.\nI was publicly **released** at *{getenv('PyChatRelease')}* & :new: **Upgraded** *{getenv('PyChatUpdated')}*.\nMy **Current release** is *{getenv('PyChatv')}* :person_with_probing_cane: & & I\'m  **maintained** by *@Krigjo25#5588*:flag_no:'\nI\'m **hosted** *locally* from Norway:flag_no:.\nIf you go to the link you can check some information about me {link[text]}''',
+                            #'pychat changelog':FAQ.ReadChangelog(),
             }
 
             res = res[text]
-
+            print(res)
             return res
 
-        else:
-            #   The nlp
-            chat = nlp(Conversation(text), pad_token_id=50250)
-            res = str(chat)
-            res = res[res.find('bot >>')+6:].strip()
-        
-            return res
         return
-
-    def ReadChangelog(self):
-
-        with open('Pybut/changelog.md', 'r') as f:
-
-            changelog = f.read(415)
-
-            #   Closing the document
-            f.close()
-
-        return changelog

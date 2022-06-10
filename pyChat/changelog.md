@@ -2,6 +2,6 @@
 
 ***0.1 preutal-beta***
 
-Bot Created & released
+First release Candidate.
 maintained by,
 ***@krigjo25***
