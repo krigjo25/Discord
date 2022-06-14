@@ -53,7 +53,7 @@ class DiscordBot(Bot):
             msg = message.channel
 
             ai = PyChat(self)
-            text = str(message.content).lower()
+            text = str(message.content).capitalize()
             text = StringManagement.ReplaceCharacters(text)
             nlp = transformers.pipeline('conversational', model='microsoft/DialoGPT-small')
             os.environ['TOKENIZERS_PARALLELISM'] = "True"
@@ -92,6 +92,7 @@ class DiscordBot(Bot):
             #   Samp Documentations
             for i in textlist[0]:
                 if text in i: samp = text
+            print(samp)
 
             #   PyChat Documentations
             for i in textlist[1]:
@@ -102,10 +103,10 @@ class DiscordBot(Bot):
                 if text in i: timeDate = i
 
             # Waking up PyCHat
-            if ai.PyChatWakeUp(text) is True: res = ai.PyChatSampDocumentations(text)
+            #if ai.PyChatWakeUp(text) is True: res = ai.PyChatSampDocumentations(text)
             if text in timeDate:res = ai.AiDateTime(text)
             elif text in pychat: res = ai.PyChatDocumentations(text) 
-            #elif text in samp:res = 
+            elif text in samp:res = ai.PyChatSampDocumentations(text)
 
 
             #elif close in text: res = ai.PyChatCloseDown(text)

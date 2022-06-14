@@ -1,7 +1,7 @@
 def FrequentlyAskedPyChatQuestions():
     faq = [
-            'what is pychat',
-            'what are you pychat',
+            'What is pychat',
+            'What are you pychat',
             ]
 
     return faq

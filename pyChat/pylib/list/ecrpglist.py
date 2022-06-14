@@ -2,7 +2,7 @@ def ECRPGGeneralFAQ():
 
     faq = [
                 #   What is ECRPG
-                'whats ecrpg',
+                'Whats ecrpg',
                 'What is ecrpg', #1
                 
 

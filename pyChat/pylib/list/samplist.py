@@ -68,8 +68,8 @@ def CommonSAMPGlitches():
                 'Turbo knife',#
                 'Switch\'ing',
                 'Slide glitch',
-                'floor glitch',#
-                'infinite ammo',# No reload required
+                'Floor glitch',#
+                'Infinite ammo',# No reload required
                 'Crouch glitch',
                 'Distance shots',
 
@@ -97,8 +97,8 @@ def FrequentlyAskedSAMPQuestions():
             'What is samp',
             'Samp system requirements',
             'Samp installation procedure',
-            'How can i download samp?',
-            'How can i downgrade samp?',
+            'How can i download samp',
+            'How to downgrade gta',
 
                 
    ]

@@ -60,6 +60,7 @@ class PyChat(Cog):
         faq = list(filter(None, faq))
 
         for i in faq:return i
+        print(i)
 
         return
 
