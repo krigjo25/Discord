@@ -92,7 +92,6 @@ class DiscordBot(Bot):
             #   Samp Documentations
             for i in textlist[0]:
                 if text in i: samp = text
-            print(samp)
 
             #   PyChat Documentations
             for i in textlist[1]:
