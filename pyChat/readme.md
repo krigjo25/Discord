@@ -76,8 +76,7 @@ Ask a question
 
 >  Documentations
 >>  GTA:SA / SA:MP FAQ<br>
->  ~Communication~<br>
->  ~google search~<br>
+
 
 ## Updates
 
