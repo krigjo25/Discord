@@ -67,15 +67,16 @@ Ask a question
 
 ## Classifications
 
-* Predicting what the user request based on text.
-* Predicting what the user searches after
+* Predicting what the user request
+* Predicting what the user searching for
+*
 
 * 
 
 ## Features
 
 >  Documentations
->>  GTA:SA / SA:MP FAQ<br>
+>>  GTA:SA FAQ<br>
 
 
 ## Updates
