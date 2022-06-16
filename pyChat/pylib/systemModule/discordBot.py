@@ -115,6 +115,7 @@ class DiscordBot(Bot):
 
                 else:
                     #   The nlp
+
                     chat = nlp(transformers.Conversation(text), pad_token_id=50250)
                     res = str(chat)
                     res = res[res.find('bot >>')+6:].strip()

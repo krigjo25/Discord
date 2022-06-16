@@ -51,6 +51,7 @@ class FAQ(Cog):
             res = {
                             'What are you pychat':f'Greetings,  Thank you for being curious about me, it makes me happy.\nI\'m an Artificial Intelligence or abbreviation AI & I\'m designed to be your friend and help you out.\n\n**More details about me**\n I watch around around *{svr}* **Discord Servers**.\nI was publicly **released** at *{getenv("PyChatRelease")} * & :new: **Upgraded** *{getenv("PyChatUpdated")}*.\nMy **Current release** is *{getenv("PyChatv")}* :person_with_probing_cane: & & I\'m  **maintained** by *@Krigjo25#5588*:flag_no:\nI\'m **hosted** *locally* from Norway:flag_no:.\nIf you go to the link you can check some information about me {link[0]}',
                             'Pychat changelog':FAQ.ReadChangelog(),
+
             }
 
             res = res[text]

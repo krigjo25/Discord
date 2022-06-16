@@ -14,6 +14,7 @@
 > Features<br>
 > Updates
 
+### [Classifications](#classifications)
 ### [Features](#Features)
 
 ### [Responsories](#Responsories)
@@ -58,19 +59,25 @@ PyChat is a discord support bot
 
 PyChat Offical Release:<br>
 
-PyCaht Updated:<br>
+PyChat Updated:<br>
 
 
 ## How to use the bot
 Ask a question
 
+## Classifications
+
+* Predicting what the user request based on text.
+* Predicting what the user searches after
+
+* 
 
 ## Features
 
->   Chat Features
->>  SA:MP Issues<br>
->>  East Coast RPG FAQ<br>
->>  Artificial Intellegence
+>  Documentations
+>>  GTA:SA / SA:MP FAQ<br>
+>  ~Communication~<br>
+>  ~google search~<br>
 
 ## Updates
 
