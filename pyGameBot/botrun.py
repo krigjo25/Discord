@@ -15,7 +15,7 @@ def RunBot ():
         disc.GamersModule()
         disc.CommunityModule()
 
-        disc.bot.run('OTc2NDgyOTUwNTgzNTUwMDAy.Gkt_29.igwWfxxjsThJAs7bDv2osREIV-UYw4hzDH-Kbo')
+        disc.bot.run('PyGame')
 
 
 if __name__ == '__main__':
