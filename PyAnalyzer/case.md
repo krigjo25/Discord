@@ -21,10 +21,3 @@
 
     *   Analyze how the server is used by members, moderators
     *   Create virtual statics
-
-*   Ecrpg Analysis
-
-    *   Job analyzis,
-    *   Stats Analysis,
-    *   online analysis
-    *   How long a user tends to be online
