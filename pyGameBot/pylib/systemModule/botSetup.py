@@ -23,13 +23,13 @@ from pylib.systemModule.discordBot import DiscordBot                            
 from pylib.systemModule.commandError import ErrorHandler                                    #   Error Handling Module
 
 #   Community Module
-from pylib.communityModule.community import Community                                       #   Community module
+from pylib.communityModule.community import CommunityModule                                     #   Community module
 
 #   miniGames Module
 from pylib.gameModule.miniGamesModule.EightBall.askQ import EightBall                       #   EightBall
-from pylib.gameModule.miniGamesModule.jumbleGame.jumble import JumbleGame                   #   Jumble Game
-from pylib.gameModule.miniGamesModule.integerGame.guessTheNumber import GuessTheNumber              #   Guess the number
-from pylib.gameModule.miniGamesModule.reactionsGames.rockPaperScissors import RockScissorPaper       #   Rock, Scissors & Paper
+#from pylib.gameModule.miniGamesModule.jumbleGame.jumble import JumbleGame                   #   Jumble Game
+from pylib.gameModule.miniGamesModule.integerGame.intGames import MathGame             #   Guess the number
+#from pylib.gameModule.miniGamesModule.reactionsGames.rockPaperScissors import RockScissorPaper       #   Rock, Scissors & Paper
 
 # Importing .evn file
 load_dotenv()
@@ -47,12 +47,11 @@ class DiscordSetup():
     def SystemConiguration(self):
 
         #   Bot intents
-        self.intents.bans = True                    #   Allows the bot to ban / unban members
         self.intents.guilds = True                  #   Allows the bot to interect with guilds
         self.intents.emojis = True                  #   emoji, sticker related events
         self.intents.members = True                 #   Allows the bot to interact with members
-        self.intents.messages = True                #   Allows thmessages Guild & DM
-        self.intents.presences = True               #   Allows the bot to track member activty
+        self.intents.messages = True                #   Allows the messages Guild & DM
+        self.intents.presences = False               #   Allows the bot to track member activty
         self.intents.message_content =True          #   Allows the bot to send embeded message
         self.intents.guild_reactions = True         #   Allows the bot to add reactions with-in the guild  
 
@@ -68,15 +67,15 @@ class DiscordSetup():
 
     def CommunityModule(self):
 
-        self.bot.add_cog(Community(self.bot))
+        self.bot.add_cog(CommunityModule(self.bot))
 
         return
 
     def GamersModule(self):
             #   miniGames
         self.bot.add_cog(EightBall(self.bot))
-        self.bot.add_cog(JumbleGame(self.bot))
-        self.bot.add_cog(GuessTheNumber(self.bot))
-        self.bot.add_cog(RockScissorPaper(self.bot))
+        #self.bot.add_cog(JumbleGame(self.bot))
+        self.bot.add_cog(MathGame(self.bot))
+        #self.bot.add_cog(RockScissorPaper(self.bot))
 
         return

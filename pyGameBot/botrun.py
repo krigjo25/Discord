@@ -9,13 +9,13 @@ def RunBot ():
         
         #   Initializing classes
         disc = DiscordSetup()
-        botKey = getenv('BotTokenTest')
+        botKey = getenv('PyGameBot')
 
         disc.SystemSetup()
         disc.GamersModule()
         disc.CommunityModule()
 
-        disc.bot.run(botKey)
+        disc.bot.run('OTc2NDgyOTUwNTgzNTUwMDAy.Gkt_29.igwWfxxjsThJAs7bDv2osREIV-UYw4hzDH-Kbo')
 
 
 if __name__ == '__main__':

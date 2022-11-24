@@ -42,7 +42,7 @@ class CommunityModule(Cog, name='Community Module'):
             self.embed.add_field(name = ':man: Master', value=f'{Master} :flag_no:', inline=True)
             self.embed.add_field(name = ':arrows_counterclockwise: Server Counting', value=f'Watching {svr} \nDiscord Servers', inline=True)
 
-        if args == 'log':
+        elif args == 'log':
 
 
             self.embed.title = 'Change log'
@@ -103,16 +103,9 @@ class CommunityFunctions():
 
     def ReadChangelog(self):
 
-        with open('changelog.md', 'r') as f:
-
-<<<<<<< Updated upstream
         #   Opens the changelog
         with open('pyRess/changelog.md', 'r') as f:
-
             changelog = f.read(293)
-=======
-            changelog = f.read(415)
->>>>>>> Stashed changes
 
             #   Closing the document
             f.close()

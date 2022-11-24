@@ -31,8 +31,7 @@ class GameDictionary():
                     }
 
         #   Randomize the dictionary
-        x = len(dictionary)
-        x = randrange(1,x)
+        x = randrange(1,len(dictionary))
 
         return dictionary.get(x)
 
@@ -48,8 +47,7 @@ class GameDictionary():
                     }
 
         #   Randomize the dictionary
-        x = len(dictionary)
-        x = randrange(1,x)
+        x = randrange(1,len(dictionary))
 
         return dictionary.get(x)
 
@@ -80,8 +78,7 @@ class GameDictionary():
                            }
 
         #   Randomize the dictionary
-        x = len(dictionary)
-        x = randrange(1,x)
+        x = randrange(1,len(dictionary))
 
         return dictionary.get(x)
 
@@ -112,8 +109,7 @@ class GameError():
 }
 
         #   Randomize the dictionary
-        x = len(dictionary)
-        x = randrange(1,x)
+        x = randrange(1,len(dictionary))
 
         return dictionary.get(x)
 
@@ -136,17 +132,15 @@ class PhiliosopicAnswer():
                     8:'As Socrets once said, you already know the answer of the question, since you had an idea of asking the question.',
                     9:'Would you be able to let it go?',
                     10:'A Question does not arise with out it\'s answer, so place your attention on where the question has arised',
-                    11:'From where does the question actually answer?',
+                    11:'From where does the question actually arise? Your mind or heart?',
                     12:'Life is just like one of the elements on earth, just flow with it',
                     13:'Einstein said once if the world were ending, and i had one hour to solve a problem " i would use 50 minutes to think about the issue, then use the 10 last minutes to solve the issue".',
                     14:'As the thought araises from with-in it can only be answered from with-in',
-
+                    15:'Answers comes from with-in your self.'
 }
 
         #   Randomize the dictionary
-        x = len(dictionary)
-        x = randrange(1,x)
-        print(dictionary.get(x))
+        x = randrange(1,len(dictionary))
 
         return dictionary.get(x)
 
@@ -171,12 +165,12 @@ class PhiliosopicAnswer():
 }
 
         #   Randomize the dictionary
-        x = len(dictionary)
-        x = randrange(1,x)
+        x = randrange(1,len(dictionary))
 
         return dictionary.get(x)
 
 class ReactionGame():
+
     #   arg Game Dictionaries
     def RockScissorPaper(self):
 
@@ -187,8 +181,7 @@ class ReactionGame():
 }
 
         #   Randomize the dictionary
-        x = len(dictionary)
-        x = randrange(1,x)
+        x = randrange(1,len(dictionary))
 
         return dictionary.get(x)
 
@@ -203,8 +196,7 @@ class ReactionGame():
                 }
 
         #   Randomize the dictionary
-        x = len(dictionary)
-        x = randrange(1,x)
+        x = randrange(1,len(dictionary))
 
         return dictionary.get(x)
     
@@ -240,8 +232,7 @@ class ReactionGame():
 }
 
         #   Randomize the dictionary
-        x = len(dictionary)
-        x = randrange(1,x)
+        x = randrange(1,len(dictionary))
 
         return dictionary.get(x)
 
@@ -277,8 +268,7 @@ class ReactionGame():
                     }
 
         #   Randomize the dictionary
-        x = len(dictionary)
-        x = randrange(1,x)
+        x = randrange(1,len(dictionary))
 
         return dictionary.get(x)
 
