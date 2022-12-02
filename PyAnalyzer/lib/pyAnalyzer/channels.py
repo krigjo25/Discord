@@ -134,15 +134,3 @@ class ChannelAnalysis(Cog):
         self.embed.description = ''
 
         return
-
-    @command(name = 'ea', pass_context=True)
-    async def emojiAnalysis(self, ctx):
-
-        await ctx.send('Under Construction')
-
-        return
-
-    @command(name = 'rea', pass_context=True)
-    async def reactionAnalysis(self, ctx):
-        await ctx.send('Under Construction')
-        return
