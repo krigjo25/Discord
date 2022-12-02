@@ -1,13 +1,19 @@
 #  Repositories
-from datetime import date
+import pandas as pd
+
 
 #   Discord Repositories
 from discord.embeds import Embed
-from discord import Color, Member
+from discord import Forbidden
 from discord.ext.commands import command, Cog
 
 class ServerAnalysis(Cog):
 
+    '''
+        #   Fetching the Discord Server information
+        #   Fetching roles
+        #   Fetching Posts
+    '''
     def __init__(self, bot):
 
         self.embed = Embed()
@@ -15,175 +21,164 @@ class ServerAnalysis(Cog):
 
         return
 
-    @command(name = 'serverinfo', pass_context = True)
+    @command(name = 'sa', pass_context = True)
     async def DiscordServerInformation(self, ctx):
 
-        #   Fetching the guild name, rank, days online
-        srv = ctx.guild  
-        create = srv.created_at
-        today = date.today()
-        delta = 0#today - create
+        #   Initializing variables
 
+        try:
 
-        #   Counting roles in the guild
-        role = len(srv.roles)
+            #   Initializing variables
+            srv = ctx.guild
+            banned = len([i async for i in srv.bans(limit=None)])
 
-        #   Counting members
-        total = len([i for i in srv.members])
-        bot = len([i for i in srv.members if i.bot])
-        members = len([i for i in srv.members if not i.bot])
-        nitro = 0#len([i for i in srv.members if nitro])
-        boost = len(srv.premium_subscribers)
-
-        #   Counting bans in the guild
-        banned = len([i async for i in srv.bans(limit=2000)])
-
-        #   Counting Channels
-        totalChannels = len([i for i in srv.channels if str(i.type) != 'category'])
-        voiceChannels = len([i for i in srv.channels if str(i.type) == 'text'])
-        textChannels = len([i for i in srv.channels if str(i.type) == 'voice'])
-        categories = len([i for i in srv.channels if str(i.type) == 'category'])
-
-        #   Prepare the message
-        self.embed.title = f'Server Information'
-        self.embed.add_field(name = f'Server Name', value =f'**{srv}**\n ID: **{srv.id}**\n Created : **{srv.created_at}**\n {delta} days ago', inline = True)
-        self.embed.add_field(name = f'Total Server Roles', value =f'{srv} has total of **{role}** roles', inline = True)
-        self.embed.add_field(name = f'Total Members', value = f'{srv} has the total of **{total}** members in the server.\n **{members}** are members.\n **{bot}** are bots.\n**{nitro}** of the members has nitro.\n**{boost}** of the members has Boosted the server.', inline = True)
-        self.embed.add_field(name = f'Total banned Members', value = f'{srv} has the total of **{banned}** banned members', inline = True)
-        self.embed.add_field(name = f'Total Channels', value = f'{srv} has the total of **{totalChannels}** Channels.\n**{voiceChannels}** is Voice Channels\n**{textChannels}** is Text Channels.\n**{categories}** is categories.', inline = True)
-
-        #   Send the message
-        await ctx.send(embed = self.embed)
-
-        #   Clean up
-        del bot
-        del nitro
-        del total
-        del banned
-        del members
-        del categories
-        del textChannels
-        del totalChannels
-        del voiceChannels
-
-        #   Clearing embed fields
-        self.embed.clear_fields()
-
-        return
-
-    @command(name='roleinfo', pass_context = True)
-    async def RoleAnalyzer(self, ctx):
-
-        srv = ctx.guild
-        #   Counting roles
-        count = len(srv.roles)
-
-        #   Extracting role infomration
-        role = await srv.fetch_roles()
-
-        for i in role:
-
-            #   Finding roles
-            id = srv.get_role(i.id)
-            id = len(id.members)
-    
-
-            #   Create a new field
-            self.embed.add_field(name = f'{i.name}', value = f' Role ID : **{i.id}**,\n Members : **{id}**,')
-
-
-        #   Send embed message
-
-        self.embed.title = f'Role Overview for {srv}'
-        self.embed.description = f'Counting **{count}** Roles'
-        await ctx.send(embed = self.embed)
-
-        return
-
-    @command(name='mi', pass_context = True)
-    async def MemberAnalyzer(self, ctx, *, member:Member = None):
-
-        if member == None: return
+            #   Creating a Dataframe
+            overview = [srv.name, srv.id, f'{srv.owner},', srv.created_at.date(), '  ', len(srv.roles), len(srv.premium_subscribers),  banned, srv.member_count, len(srv.channels), len(srv.scheduled_events)]
+            row = ['**ServerName**: ', '**ServerID**: ', '**Owner(s)**: ', '**Created**: ', ' ', '**Total roles**: ', '**Total Boosts** :', '**Total banned** :', '**Total Members**: ', '**Total Channels :**', '**Scheduled Events** :']
+            overview = pd.DataFrame(overview, index = row, columns = [''])
+        
+        except Exception as e: print(e)
         else:
+            #   Prepare & Send message
+            self.embed.title = f'Server Information'
+            self.embed.description = f'{overview}'
+
+            #   Send the message
+            await ctx.send(embed = self.embed)
 
 
+            #   Cleaning up the Code
+            del row
+            del banned
+            del overview
 
-                #self.embed.add_field(name = f'sdf')
+            self.embed.clear_fields()
+            self.embed.description = ''
 
-            self.embed.title = f'Profile information of {member}'
-            self.embed.description = f'Member Avatar : **{member.avatar}**\nMember ID : **{member.id}**\nBot : **{member.bot}**\nAccount Color :**{member.accent_color}**\nBanner : **{member.banner}**\nStatus : **{member.status}**\nSystem : **{member.system}**\nAccount Created : **{member.created_at}**\n Avatar : {member.default_avatar}\n Flags : {member.display_name}'
-            '''
-            Profile Information\n
+            return
 
-            Member Avatar : {member.default_avatar}\n
-            Member Avatar : **{member.avatar}**\n
-            Nick : {member.display_name}\n
-            Member ID : **{member.id}**\n
-            Status : **{member.status}**\n
-            Bot : **{member.bot}**\n
-
-            Account Color :**{member.accent_color}**\n
-            Banner : **{member.banner}**\n
-
-            Role Information:
-            Roles : {member.roles}\n
-            Highest role : {member.top_role}\n
-            
-            Permissions and Colour
-            Color : {member.color}\n
-            Permissions : {member.permissions}\n
-            System : **{member.system}**\n
-            Account Created : **{member.created_at}**\n
-            '''
-            await ctx.send(embed=self.embed)
-
-
-
-
-class RoleAnalysis(Cog):
-
-    def __init__(self, bot):
-
-        self.embed = Embed()
-        self.bot = bot
-
-        return
-
-    @command(name='roles', pass_context = True)
+    @command(name='ra', pass_context = True)
     async def RoleAnalyzer(self, ctx):
 
+        #   Initializing variables
+        string = ''
         srv = ctx.guild
-        #   Counting roles
         count = len(srv.roles)
+       
+        #    Creating a DataFrame
+        row = []
+        column = ['']
+
+        roleID = []
+        roleName = []
+        memberCount = []
 
         #   Extracting role infomration
-        role = await srv.fetch_roles()
+        for i in await srv.fetch_roles():
 
-        for i in role:
+            #   Fetch roles roles
+            j = srv.get_role(i.id)
 
-            #   Finding roles
-            id = srv.get_role(i.id)
-            id = len(id.members)
-    
+            rolename = [i.mention]
+            roleid = [i.id]
 
-            #   Create a new field
-            self.embed.add_field(name = f'{i.name}', value = f' Role ID : **{i.id}**,\n Members : **{id}**,')
+            #   Appending to the dataframe
+            row.append('')
+            roleID.append(roleid)
+            roleName.append(rolename)
+            memberCount.append(len(j.members))
 
+            #   Cleaning up
+            del roleid 
+            del rolename
+  
+        roleID = pd.DataFrame(roleID, index = row, columns = column)
+        roleName = pd.DataFrame(roleName, index = row, columns = column)
+        memberCount = pd.DataFrame(memberCount, index = row, columns = column)
+            
+        #   Send embed message  
+        #   Metadata
+        self.embed.url = ''
+        self.embed.set_image(url='')
 
-        #   Send embed message
-
+        #   Prepare & send message
         self.embed.title = f'Role Overview for {srv}'
-        self.embed.description = f'Counting **{count}** Roles'
+        self.embed.description = f'Counting **{count} Roles'
+        self.embed.add_field(name = 'Role ID', value = roleID, inline= True)
+        self.embed.add_field(name = 'Role Name', value = roleName, inline= True)
+        self.embed.add_field(name = 'Member Count', value = memberCount, inline= True)
         await ctx.send(embed = self.embed)
+
+        #   Cleaning up the Code
+        del roleID
+        del roleName
+        del memberCount
+
+        self.embed.clear_fields()
+        self.embed.description = ''
+
+
 
         return
 
-class MemberAnalysis(Cog):
-    pass
+    @command(name= 'ca', pass_context=True)
+    async def ChannelAnalysis(self, ctx):
 
-class PostAnalysis(Cog):
-    pass
+        categoryID = []
+        categoryName = []
+        categoryType = []
+        channelCount = []
 
-class ThreadAnalysis(Cog):
-    pass
+        channelName = []
 
+        txt = 0
+        voice = 0
+        for i in ctx.guild.channels:
+
+            try:
+
+                if str(i.type) == 'category':
+    
+                    cid = [i.id]
+                    cname = [i.name]
+                    ctype = [str(i.type)]
+
+                    categoryID.append(cid)
+                    categoryName.append(cname)
+                    categoryType.append(ctype)
+
+                if str(i.type) =='voice':voice += 1
+                elif str(i.type) == 'text':txt += 1
+
+            except Forbidden as e : print(e)
+
+        txt = [f'{txt} Text Channels']
+        voice = [f'{voice} Voice Channel']
+
+        channelCount.append(voice)
+        channelCount.append(txt)
+
+        #   Create DataFrame
+        column = ['']
+        row = []
+
+
+        for i in range(len(categoryID)):
+            row.append('')
+
+        categoryID = pd.DataFrame(categoryID, index = row, columns= column)
+        categoryName = pd.DataFrame(categoryName, index = row, columns= column)
+        categoryType = pd.DataFrame(categoryType, index = row, columns= column)
+
+        channelName = pd.DataFrame(channelName, index = i, columns = column)
+        channelCount = pd.DataFrame(channelCount, index = ['',''], columns= column)
+        #   Prepare & send embed message
+        self.embed.title = 'Category Analysis'
+        self.embed.add_field(name ='Category ID', value = categoryID)
+        self.embed.add_field(name ='Category Name', value = categoryName)
+        self.embed.add_field(name ='Category Type', value = categoryType)
+        self.embed.add_field(name ='Channel Count', value = channelCount)
+
+        await ctx.send(embed=self.embed)
+
+        self.embed.clear_fields()

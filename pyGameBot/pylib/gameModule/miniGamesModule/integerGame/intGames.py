@@ -61,11 +61,11 @@ class MathGame(Cog):
                 continue
 
 
-    def GenereateRandomizedInteger(self, mode, arg):
+    def GenereateRandomizedInteger(self, mode, lvl):
 
         if mode == 'Guess the number':
 
-            match arg:
+            match lvl:
                 case 1: return r.randint(1, 10)
                 case 2: return r.randint(1, 20)
                 case 3: return r.randint(1, 30)
@@ -83,7 +83,7 @@ class MathGame(Cog):
 
         if mode == 'Little Professor':
 
-            match arg:
+            match lvl:
                 case 1: return r.randint(1, 9)
                 case 2: return r.randint(10, 99)
                 case 3: return r.randint(100, 999)
@@ -91,9 +91,9 @@ class MathGame(Cog):
                 case 5: return r.randint(10000, 99999)
                 case 6: return r.randint(100000, 9999999)
 
-            if arg == 1 or 4: return r.randint(1, 9)
-            elif arg == 2 or 5: return r.randint(10, 99)
-            elif arg == 3 or 6: return r.randint(99, 100)
+            if lvl == 1 or 4: return r.randint(1, 9)
+            elif lvl == 2 or 5: return r.randint(10, 99)
+            elif lvl == 3 or 6: return r.randint(99, 100)
 
     def GameConfigurations(self, mode, lvl):
 

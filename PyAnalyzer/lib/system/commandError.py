@@ -9,6 +9,7 @@ from random import randrange
 from asyncio.exceptions import TimeoutError
 
 #   Discord Responsories
+from discord import Forbidden
 from discord.embeds import Embed
 from discord.colour import Color
 from discord.ext.commands import Cog
@@ -42,6 +43,7 @@ class ErrorHandler(Cog):
 
        #    Classes initialization
         BadArgs = BadArgument
+        forbidden = Forbidden
         timeout = TimeoutError
         roleError = CheckFailure
         NotFound = MemberNotFound
@@ -84,7 +86,7 @@ class ErrorHandler(Cog):
             """
 
             #   Initializing variables
-            cmd = str(ctx.Command)
+            cmd = str(ctx.command)
             errorModule = str(misingargs)
 
             #   Community Module
@@ -109,14 +111,26 @@ class ErrorHandler(Cog):
         elif isinstance(error, cmdNotFound):
 
             #   Prepare and send the embed
-            print(ctx.command)
             errorModule = str(cmdNotFound)
             self.embed.title = 'Command were not Found in the dictionary'
             self.embed.description = f'{cmdError.ErrorDescriptionDictionary(errorModule[36:51])}'
             await ctx.send(embed=self.embed)
 
             if cmd == None:
-                botmsg = f'Master, The cmd attribute is not correct'
+                #   Prepare and send the embed
+                errorModule = str(cmdNotFound)
+                self.embed.title = 'Command were not Found in the dictionary'
+                self.embed.description = f'{cmdError.ErrorDescriptionDictionary(errorModule[36:51])}'
+                await ctx.send(embed=self.embed)
+
+        if isinstance(error, forbidden):
+
+            #   Prepare and send the embed
+            errorModule = str(cmdNotFound)
+            self.embed.title = 'Command were not Found in the dictionary'
+            self.embed.description = f'{cmdError.ErrorDescriptionDictionary(errorModule[36:51])}'
+            await ctx.send(embed=self.embed)
+
 
         #   Non Discord errors
         elif isinstance(error, invokeError):
@@ -189,6 +203,7 @@ class ErrorMessageDictionary():
                             11:'Sir, you\'ve started the "Self destruction protocol", press "enter" to continue, press "esc" to stop.',
                             12:'0101010001101000011001010010000001100011011011110110110101101101011000010110111001100100001000000110010001101111011001010111001100100000011011100110111101110100001000000110010101111000011010010111001101110100',
 }
+
 
         elif errorModule == 'MemberNotFound':
 

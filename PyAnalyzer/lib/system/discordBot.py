@@ -16,21 +16,21 @@ class DiscordBot(Bot):
 
     def __init__(self, command_prefix='?', help_command=None, description=None, owner_id = 340540581174575107, **options):
         super().__init__(command_prefix = command_prefix, help_command=help_command, description=description, owner_id = owner_id, **options)
-
-
         return
 
     async def on_ready(self):
 
-        print(f'Pycord.py v{api_version} has been loaded')
-        
-        svr = self.guilds
-        srv= [i for i in svr]
+        try :
 
-        for i in srv:
-            print(f'{self.user.name} has establized an connection to {i}')
+            svr = [i for i in self.guilds]
+
+            print(f'Py-cord.py v{api_version} has been loaded')
+
+            for i in svr:
+                print(f'{self.user.name} has establized an connection to {i}')
 
 
+        except Exception as e: print(e)
 
         return
 
