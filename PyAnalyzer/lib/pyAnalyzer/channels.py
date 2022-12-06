@@ -1,8 +1,8 @@
 #  Repositories
 import pandas as pd
 import emoji
+
 #   Discord Repositories
-from discord import Forbidden
 from discord.embeds import Embed
 from discord.ext.commands import command, Cog
 
@@ -92,7 +92,7 @@ class ChannelAnalysis(Cog):
                 del thread
                 del member
 
-            except Forbidden:
+            except Exception:
                 print(f'channel {i.name} could not be accsessed')
                 continue
 

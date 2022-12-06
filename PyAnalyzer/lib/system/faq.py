@@ -1,4 +1,7 @@
 
+#   Other responsories
+import pandas as pd
+
 #   Discord Repositories
 from discord.embeds import Embed
 from discord import Color
@@ -9,6 +12,8 @@ class FrequentlyAskedQuestions(Cog):
         self.bot = bot
         self.embed = Embed(color=Color.dark_purple())
 
+        return
+
 #   Frequently Asked Question
 
     @command(name='faq', pass_context=True)
@@ -17,7 +22,6 @@ class FrequentlyAskedQuestions(Cog):
         if args == 'server':self.embed = self.HelpServer()
         elif args == 'channel':self.embed = self.HelpChannel()
         elif args == 'member': self.embed = self.HelpMember()
-        elif args == 'bot': self.embed = self.HelpBot()
         else:
 
             self.embed.title = 'Frequently Asked Questions:question:'
@@ -42,6 +46,8 @@ class FrequentlyAskedQuestions(Cog):
         self.embed.add_field(name= '?sa', value = 'Run a server analysis')
         self.embed.add_field(name= '?ra', value = 'Run a role Analysis')
         self.embed.add_field(name= '?ca', value = 'Run a Channel Analysis')
+        self.embed.add_field(name='?loga', value = 'Run Audit log Analysis')
+        self.embed.add_field(name= '?bota', value = 'Run a Bot Analysis')
 
         return self.embed
 
@@ -67,12 +73,5 @@ class FrequentlyAskedQuestions(Cog):
         self.embed.title = 'Frequently Asked Questions:question:'
         self.embed.add_field(name= '?mpa (member name)', value = 'Run aMember Profile Analysis')
         self.embed.add_field(name= '?topma', value = 'Top Members')
-
-        return self.embed
-    
-    def HelpBot(self):
-
-        self.embed.title = 'Bot Analysis'
-        self.embed.add_field(name= 'Bot Analysis', value = 'Under Constructions')
 
         return self.embed
