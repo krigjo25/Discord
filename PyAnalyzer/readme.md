@@ -1,4 +1,4 @@
-# Discord bot GameBot
+# Discord bot PyAnalyzer
 
 ## Table of content
 
@@ -30,24 +30,21 @@ goes by the name Kristoffer, born in 94, :flag_no:.<br>
 maintaining Python & SQL projects<br>
 otherwise just being a human.
 
-### Project info
+### ProjectInformation
 
 Information about the design can be found in the given links below
 includes the text files below,
 
 #### Status
 
-    project start :<br>
+##### Project start
+
         23.10-21
 
-   Last Update :<br>
-        15.04-22
 
-    Current verison:<br>
-        1.0.0 RC 1
+##### Version
+    1.0.0 RC 1
 
-    SQL Database:
-        mariadb
 ## Py-Analyzer
 
 Creating a bot to analyze Discord server<br> 
@@ -72,13 +69,6 @@ in the bot  **?'**, e.g **'?help'**
 ####    Member Analysis
 
 *   Profile information about a member, Guild Profile and personal profile
-
-## What has been learned
-
-
-## Feautures
-
-
 
 ### What makes this bot unique
 
