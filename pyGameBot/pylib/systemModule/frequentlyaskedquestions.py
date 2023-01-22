@@ -24,7 +24,7 @@ class FrequentlyAskedQuestions(Cog):
         if args == None:
 
             self.embed.title = 'Frequently Asked Questions:question:'
-            self.embed.title = ' Usage ** ?help (Category)** for more details\n\n'
+            self.embed.description = ' Usage ** ?help (Category)** for more details\n\n'
             self.embed.add_field(name=':people_holding_hands: Community Module', value='Ever heard of the guy whom joined a community? \n He were never seen again.', inline=True)
             self.embed.add_field(name=':signal_strength: Gamers Module',value='An Irishman arrived at J.F.K. Airport and wandered around the terminal with tears streaming down his cheeks...', inline=True)
 
@@ -36,9 +36,14 @@ class FrequentlyAskedQuestions(Cog):
 
             elif args == 'gamersmodule': self.embed = game.GamersModule(args)
             
-            elif args == 'minigamesmodule' or args == 'ractiongames' or args == 'scramblegames'or args == 'other':self.embed = game.miniGamesModule(args)
+            elif args == 'minigamesmodule' :self.embed = game.miniGamesModule(args)
 
         await ctx.send(embed=self.embed)
+
+        #   Clear and save space
+        del game
+        del args
+
         self.embed.clear_fields()
 
         return
@@ -54,6 +59,7 @@ class FrequentlyAskedQuestions(Cog):
         return self.embed
 
 class PyGames(Cog):
+
     def __init__(self, bot):
 
         self.bot = bot
@@ -64,34 +70,26 @@ class PyGames(Cog):
     def GamersModule(self):
 
         self.embed.title = 'Gamers Module'
-        self.embed.description = 'Python Games'
+        self.embed.description = 'Games created with Python'
         self.embed.add_field(name ='miniGames', value ='USA National News')
 
         return self.embed
 
     def miniGamesModule(self, args):
 
-        if args == 'reactiongames':
+        if args == 'mathgames':
 
-            self.embed.title = 'Reaction Games'
+            self.embed.add_field(name='?int', value=' - Guess the number', inline=True)
+            self.embed.add_field(name='?lip', value='- Little Proffessor', inline=True)
+
+
+        elif args == 'wordgames':
+
+            self.embed.add_field(name='?ask', value='- Ask a Philisopher a question', inline=True)
+            self.embed.add_field(name=':question: ?jumble', value=' - unscrabble a jumble', inline=True)
+            self.embed.add_field(name=':question: ?scrabble', value=' - unscrabble a jumble', inline=True)
             self.embed.add_field(name='?rsp', value='- :rock:, :scissors:, :page_facing_up:', inline=True)
 
-        elif args == 'Scramble Games':
-
-            self.embed.title = 'Scramble Games'
-            self.embed.add_field(name=':question: ?jumble', value=' - unscrabble a jumble', inline=True)
-
-        elif args == 'other':
-
-            self.embed.title = 'Misc Games'
-            self.embed.add_field(name=':person_in_lotus_position: ?ask (Question)', value='- How can cops be the worst pool players?\n They always shoot the eight ball first', inline=True)
-            self.embed.add_field(name=':seven:, :eight:, :nine: ?int (easiest / easy / normal / hard / kimpossible)', value='- How could the two four skip a meal?\n they already eight ', inline=True)
-
-        else:
-
-            self.embed.title = 'Minigames Module'
-            self.embed.add_field(name='Reacton Games', value='', inline=True)
-            self.embed.add_field(name='Scramble Games', value=' - unscrabble a jumble', inline=True)
-            self.embed.add_field(name='Text Based Games', value='- How can cops be the worst pool players?\n They always shoot the eight ball first', inline=True)
-
+        #   Save space
+        del args
         return self.embed

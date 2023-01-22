@@ -1,4 +1,4 @@
-# Discord bot GameBot
+# Discord PyAnalyzer
 
 ## Table of content
 

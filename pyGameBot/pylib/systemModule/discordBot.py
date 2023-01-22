@@ -16,19 +16,19 @@ from pylib.systemModule.databasePython import MariaDB
 load_dotenv()
 
 class DiscordBot(Bot):
+
     def __init__(self, command_prefix='?', help_command=None, description=None, owner_id = 340540581174575107, **options):
         super().__init__(command_prefix, help_command=help_command, description=description, owner_id = owner_id, **options)
 
     async def on_ready(self):
-        srv= []
-        svr = self.guilds
 
-        for i in svr:
-            srv.append(i)
+        try:
+            svr = [i for i in self.guilds]
+            print(f'Py-cord.py v{api_version} has been loaded')
 
-        print(f'''Discord.py v{api_version} has been loaded.
-{self.user.name} has establized a connection following servers :\n
-{srv[0]}''')
+            for i in svr: print(f'{self.user.name} has establized an connection to {i}')
+
+        except Exception as e : print(e)
 
         return
 

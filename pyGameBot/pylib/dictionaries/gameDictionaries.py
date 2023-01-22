@@ -1,125 +1,29 @@
 
 # Python Repositories
+import random as r
 from os import getenv
-from random import randrange, shuffle
-
 
 #   Dotenv Repositories
 from dotenv import load_dotenv
 
-
+#   Custom libraries
+from pylib.systemModule.databasePython import MariaDB
 load_dotenv()
 
-class GameDictionary():
+class Philosopher():
 
-    def __init__(self):
-        return
+    '''
+            #   Author : krigjo25
+            #   Date   :  12.01-23
 
-    """
-        Dictionary for the gameModule
-    """
-
-    #   After a game ends
-    def CorrectAnswer(self):
-
-        """
-            #   When a player has won a game
-        """
-        dictionary =  {
-                        1:'Congratulation you guessed correct',
-                        2:'',
-                    }
-
-        #   Randomize the dictionary
-        x = randrange(1,len(dictionary))
-
-        return dictionary.get(x)
-
-    def GameOver(self):
-
-        """
-            When a player has lost a game
-        """
-
-        dictionary = {
-                        1:f'Game Over',
-                        2:'',
-                    }
-
-        #   Randomize the dictionary
-        x = randrange(1,len(dictionary))
-
-        return dictionary.get(x)
-
-    def CustomAnswer(self, num, x):
-
-        if num > x:
-
-            dictionary = {
-                            1:'Well well, we like the answer more humble than a greater answer',
-                            2:'The given number is not humble enough, try again.',
-                            3:'is greater than the answer ',1:'Do you know why the equal sign are so humble? neither were less or greater !',
-                            }
-
-        elif num < x:
-
-            dictionary = {
-                            1:f'**{num}** is less, we want more',
-                            2:f'**{num}** is less than i ask for',
-                            3:f'**{num}** is less akward than :100:',
-                            4:f'**{num}** is less humble',
-                            }
-
-        else:
-
-            dictionary = {
-                            1:f'Thank you for the humble answer, sir ',
-                            2:f'Well thats equal..'
-                           }
-
-        #   Randomize the dictionary
-        x = randrange(1,len(dictionary))
-
-        return dictionary.get(x)
-
-class GameError():
-
-    def __init__(self):
-        return
-
-        #   Game Errors    
-    def DifficultyError(self, diff):
-
-        """
-
-        #   Difficulty doesnt not exist
-        #   looping Through difficulties available
-
-        """
-        diff = str(diff)
-
-        dictionary = {
-                        1:f'let\'s fake it ',
-                        2:f'difficulty mode IMPOSSIBLE enabled.',
-                        3:f'bo, it looks like you wrote an unavailable mode, thanks',
-                        4:f'This is an empty error arg',
-                        5:f'Created by @krigjo25',
-                        6:f'Went looking for the selected Difficulty couldn\'t solve the type issue',
-                        7:f'Sometimes this happends.',
-}
-
-        #   Randomize the dictionary
-        x = randrange(1,len(dictionary))
-
-        return dictionary.get(x)
-
-class PhiliosopicAnswer():
+            #   Dictionary for Eightball game
+    '''
 
     def __init__(self):
         return
 
     #   AskQ dictionaries
-    def PhiliosopicAnswer(self):
+    def Answer(self):
 
         dictionary = {
                     1:'What do you sense about it?',
@@ -140,7 +44,7 @@ class PhiliosopicAnswer():
 }
 
         #   Randomize the dictionary
-        x = randrange(1,len(dictionary))
+        x = r.randrange(1,len(dictionary))
 
         return dictionary.get(x)
 
@@ -165,12 +69,18 @@ class PhiliosopicAnswer():
 }
 
         #   Randomize the dictionary
-        x = randrange(1,len(dictionary))
+        x = r.randrange(1,len(dictionary))
 
         return dictionary.get(x)
 
 class ReactionGame():
 
+    '''
+            #   Author : krigjo25
+            #   Date   :  12.01-23
+
+            #   Dictionary for Emoji game
+    '''
     #   arg Game Dictionaries
     def RockScissorPaper(self):
 
@@ -181,7 +91,7 @@ class ReactionGame():
 }
 
         #   Randomize the dictionary
-        x = randrange(1,len(dictionary))
+        x = r.randrange(1,len(dictionary))
 
         return dictionary.get(x)
 
@@ -189,21 +99,21 @@ class ReactionGame():
 
         dictionary = {
 
-                    1:f'Pybut draws a **tie**',
-                    2:'Sir, lets **tie** a **tie**',
-                    3:'What did the **tie** say to the **bowtie**? You\'re a weirdo',
-                    4:f'Pybut **draw**ing a toe.',
+                    1:f'The computer draws a tie',
+                    2:'let\'s tie a tie',
+                    3:'What did the tie say to the **bowtie**? You\'re a weirdo',
+                    4:f'The cumputer drawing a toe.',
                 }
 
         #   Randomize the dictionary
-        x = randrange(1,len(dictionary))
+        x = r.randrange(1,len(dictionary))
 
         return dictionary.get(x)
     
-    def BotWin(self, arg):
+    def Computer(self, arg):
 
         #   Initializing variables
-        bot = getenv('botName')
+        bot = 'Computer'
         
         if arg == '\U0001FAA8':
 
@@ -232,14 +142,14 @@ class ReactionGame():
 }
 
         #   Randomize the dictionary
-        x = randrange(1,len(dictionary))
+        x = r.randrange(1,len(dictionary))
 
         return dictionary.get(x)
 
-    def MemberWin(self, arg, arg1):
+    def Player(self, arg, arg1):
 
         #   Initializing variables
-        bot = getenv('botName')
+        bot = 'Computer'
 
         if arg == '\U0001FAA8':
 
@@ -268,39 +178,312 @@ class ReactionGame():
                     }
 
         #   Randomize the dictionary
-        x = randrange(1,len(dictionary))
+        x = r.randrange(1,len(dictionary))
+
+        return dictionary.get(x)
+
+class ScrabbleGame():
+
+    '''
+            #   Author : krigjo25
+            #   Date   :  12.01-23
+
+            #   Dictionary for Scrabble Game
+    '''
+    def ComputeScore(self, word):
+        
+        '''
+            #   Author : krigjo25
+            #   Date   :  12.01-23
+
+            #   Prompts the words for each player
+            #   Calculating the score for both words
+            #   Returning score from string
+
+        '''
+        #   Initializing variables
+        result = 0
+        word = str(word).lower()
+
+        #   Initializing arrays
+        alpha = [   'a', 'b', 'c', 'd',
+                    'e', 'f', 'g', 'h',
+                    'i', 'j', 'k', 'l',
+                    'm', 'n', 'o', 'p',
+                    'q', 'r', 's', 't',
+                    'u', 'v', 'w', 'x',
+                    'y', 'z']
+
+        POINTS = [  1, 3, 3, 2,
+                    1, 4, 2, 4, 
+                    1, 8, 5, 1,
+                    3, 1, 1, 3,
+                    10, 1, 1, 1,
+                    1, 4, 4, 8,
+                    4, 10 ]
+
+        for i in word: 
+            if i in alpha: result += POINTS[alpha.index(i)]
+
+        return result
+    
+    def PlayerComputer(self):
+
+        #   Initializing a list of words
+        word = ['test','demo']
+
+        #   Shuffle the words
+        word = r.shuffle(word)
+        x = r.randrange(0,len(word))
+
+        return word[x]
+
+    def Computer(self, arg):
+
+        #   Initializing variables
+        bot = 'Computer'
+        
+        if arg == '\U0001FAA8':
+
+            dictionary = {
+                            1:f'That moment, when you realize :stone doesn\'t play along with :Scissors',
+                            2:f'Congratulations, this game were Rock Hard !',
+                            3:f'It were crushing days for the scissors',
+                            4:f'pyBot Says : look behind you. **running away **.',
+}
+
+        elif arg == '\U0001F4C4':
+
+            dictionary = {
+                            1:f'{bot} sent your stone to North-Korea !',
+                            2:f'You recieved a new stone as a christmas :gift:',
+                            3:f'You have been mumified by {bot}',
+}
+
+        else:
+        
+            dictionary = {
+                            1:f'Noone : \'\'\n{bot} : Oh snap',
+                            2:f'The paper were succsessfully cut in two by {bot} ',
+                            3:f'{bot} flexed with his scissors, you lost',
+                            4:f'i won '
+}
+
+        #   Randomize the dictionary
+        x = r.randrange(1,len(dictionary))
+
+        return dictionary.get(x)
+
+    def Player(self, arg, arg1):
+
+        #   Initializing variables
+        bot = 'Computer'
+
+        if arg == '\U0001FAA8':
+
+            dictionary = {
+                            0:f'{bot} had the idea of using a {arg1} against your {arg}, {bot} thought the {arg1} were strong enough to cut thorugh your {arg}, lets do a wii-match',
+                            1:f'Congratulations, lets do it again',
+                            2:f'You just had a {arg}, while {bot} had the thought of {arg1} would be a grate choice.',
+                            3:f'OH SNAP, you just scared {bot}, he never returned to the battle field.',
+                    }
+
+        elif arg == '\U0001F4C4':
+
+            dictionary = {
+                            0:f'{bot} threw {arg1} at you, but you grabbed it with his {arg}, and wrapped it into a :package: \n you gave a :package: to {bot}, how considerate of you !',
+                            1:f'You wrappend {bot}\'s {arg1} into a :gift: and sent it to the North-Pole, Santa were stoned for the Christmas ',
+                            2:f'You made a mumified version of {bot}',
+                    }
+
+        else:
+        
+            dictionary = {
+                            0:f'Noone : \'\'\n{bot} : Oh snap',
+                            1:f'You succsessfully cut the {arg1} with a {arg}',
+                            2:f'you showed of with his :scissors: which he thought were a knife, but the goal were reached, {bot} ran.',
+                            3:f'you won '
+                    }
+
+        #   Randomize the dictionary
+        x = r.randrange(1,len(dictionary))
 
         return dictionary.get(x)
 
 class JumbleCategory():
 
+    '''
+            #   Author : krigjo25
+            #   Date   :  12.01-23
+
+            #   Dictionary for JumbleGame
+    '''
+
     def __init__(self) -> None:
         pass
 
-    def Titles(self):
+    def JumbleCategories(self):
 
-        category = [
-                    ['Random Jumbles', 'selecting a random jumble category\n'],
-                    ['Walt Disney', '- Animation,\n- Characters,\n- Roles,\n'],
-                    ['Animal kingdom', '- flyingCreatures \n- Cats\n'],
-                    ]
-
+        category = MariaDB.SelectTable(getenv("categories"))
         return category
 
     def SubTitle(self, sub):
 
         sub = str(sub).lower()
 
-        if sub == 'walt disney':
+        match sub:
+            case 'walt disney': 
+                sub = ['- Characters\n- Animations,\n- Roles']
 
-            category = ['- Characters\n- Animations,\n- Roles']
+            case 'animal kingdom':
+                sub = ['- flyingCreatures \n- Cats,\n- Dogs']
 
-        elif sub == 'animal kingdom':
+        return sub
 
-            category = ['- flyingCreatures \n- Cats,\n- Dogs']
+    def JumbleGenerator(self, jumble):
+
+        '''
+            #   Author : krigjo25
+            #   Date   :  12.01-23
+
+            #   Shuffles the characters of the word
+            #   Creating a new word with joining the elements of the iterator
+
+        '''
+        #   Shuffle the characters of the word
+        jumble = r.sample(jumble, len(jumble))
+    
+        #   Join the elements of the iterator with particular character.
+        jumble = ''.join(jumble)
+        
+        #   Returning the jumbled word
+        return jumble
+
+    def RetrieveDisneyJumble(self, sub, category):
+
+        """
+            Retrieve a Disney movie from the database,
+            choose one of the selected values
+        """
+        category = str(category).lower().replace(" ", "")
+
+        #   Initializing database connection
+        db = MariaDB(database=getenv("db2"))
+        query = f'SELECT {sub} FROM {category}'
+
+
+        word = db.SelectTable(query)
+
+        #   Counting the rows in the database
+        x = db.RowCount(query)
+        x = r.randint(1, x)
+
+        #   Closing the connection
+        db.closeConnection()
+
+        return  word[x]
+
+class GameOver():
+
+    '''
+            #   Author : krigjo25
+            #   Date   :  12.01-23
+
+            #   Dictionary for game won, losses, tie
+    '''
+
+    def __init__(self):
+        return
+
+    #   When the answer is correct
+    def CorrectAnswer(self):
+
+        '''
+            #   Author : krigjo25
+            #   Date   :  12.01-23
+
+            #   Dictionary for game Won
+        '''
+
+        dictionary =  {
+                        1:'Congratulation you guessed correct',
+                        2:'',
+                    }
+
+        #   Randomize the dictionary
+        x = r.randrange(1,len(dictionary))
+
+        #   Returning the value
+        return dictionary.get(x)
+
+    def IncorrectAnswer(self):
+
+        '''
+            #   Author : krigjo25
+            #   Date   :  12.01-23
+
+            #   Dictionary for game losses
+        '''
+
+        dictionary = {
+                        1:f'Game Over',
+                        2:'EEE',
+                    }
+
+        #   Randomize the dictionary
+        x = r.randrange(1,len(dictionary))
+
+        return dictionary.get(x)
+
+    def TowTie(self):
+
+        '''
+            #   Author : krigjo25
+            #   Date   :  12.01-23
+
+            #   Dictionary for game Ties
+        '''
+        dictionary = {
+
+                    1:f'The computer draws a tie',
+                    2:'let\'s tie a tie',
+                    3:'What did the tie say to the **bowtie**? You\'re a weirdo',
+                    4:f'The cumputer drawing a toe.',
+                }
+
+        #   Randomize the dictionary
+        x = r.randrange(1,len(dictionary))
+
+        return dictionary.get(x)
+ 
+    #   Integer games
+    def CustomAnswer(self, num, x):
+
+        if num > x:
+
+            dictionary = {
+                            1:'Well well, we like the answer more humble than a greater answer',
+                            2:'The given number is not humble enough, try again.',
+                            3:'is greater than the answer ',1:'Do you know why the equal sign are so humble? neither were less or greater !',
+                            }
+
+        elif num < x:
+
+            dictionary = {
+                            1:f'**{num}** is less, we want more',
+                            2:f'**{num}** is less than i ask for',
+                            3:f'**{num}** is less akward than :100:',
+                            4:f'**{num}** is less humble',
+                            }
+
         else:
-            category = ['An unexpected error']
 
-        for sub in category:
+            dictionary = {
+                            1:f'Thank you for the humble answer, sir ',
+                            2:f'Well thats equal..'
+                           }
 
-            return sub
+        #   Randomize the dictionary
+        x = r.randrange(1,len(dictionary))
+
+        return dictionary.get(x)

@@ -13,26 +13,30 @@ load_dotenv()
 #   Selecting, Inserting or updates a table
 class MariaDB():
 
-    '''         mariaDB
+    '''
+            #   Author : krigjo25
+            #   Date   :  12.01-23
 
-        Connects to the preferably used database from
-        mariaDB. with Commands, such as SELECT, INSERT,
-        UPDATE, CREATE DATABASE, CREATE TABLE
-                
-        the function also calls a procedure and a function.
+            #   Connecting to preferably database in MariaDB
+
+            #   SELECT, Counting rows, 
+            #   Dropping / Creating databases, Counting rows in a table
+            #   Delete records, insert records
     '''
 
-    def __init__(self):
+    def __init__(self, database):
 
         try:
 
             #   Initializing the database connection
+            self.database = database
+
             self.conn = mariadb.connect(
                                         host = getenv('H0ST'), 
                                         user = getenv('MASTER'), 
                                         port = int(getenv('PORT')), 
                                         password = getenv('PASSWORD'),
-                                        database = getenv('database'))
+                                        database = self.database)
 
             #   Creating a cursor to execute the statements
             self.cur = self.conn.cursor()
@@ -44,32 +48,34 @@ class MariaDB():
         return
 
     def closeConnection (self):
+        return self.conn.close()
 
-        #   Closing the connection to the database
-        self.conn.close()
+    def Database(self):
 
+        arg = input("Drop / Create database name :")        
+        query = f"{arg};"
+        self.cur.execute(query)
 
         return
 
-    def selectFromTable (self, database, query):
+    def SelectTable (self, table, query = None, column = None):
 
+        #   Select a table from the database
+        if query == None and column == None:
+            query = f"SELECT * FROM {table};"
 
-        #   Database selection
-        self.conn.database = database
 
         #  Execute the query.
         self.cur.execute(query)
 
-
         #   Fetching the sql selection
         sql = self.cur.fetchall()
 
-        #   Initializing a list to return
-        sqlData = []
+        #   Initializing a list 
+        sqlData = [i for i in sql]
     
-        #   append to the list
-        for i in sql:
-            sqlData.append(i)
+        #   Clean up
+        del sql
 
         #   Returning the values in sqlData
         return sqlData
@@ -86,43 +92,46 @@ class MariaDB():
         self.cur.fetchall()
 
         #   Counts the rows in the cursor
-        counter = self.cur.rowcount
+        return self.cur.rowcount
 
-        return counter
-
-    def newRecord(self, database, clm1, clm2):
+    def newRecord(self, database, table, column, column1, clm1, clm2):
 
         #   Database selection
         self.conn.database = database
 
-        #   Retrieve values from the .env file
-        table = getenv('table1')
-        column1 = getenv('column1')
-        column2 = getenv('column2')
-
         #   Creating a query to be executed
-        query = f'INSERT INTO {table}({column1}, {column2}) VALUES (%s, %s)' & (clm1, clm2)
+        query = f'INSERT INTO {table} ({column}, {column1}) VALUES (%s, %s)' & (clm1, clm2)
 
         #   Executes the query 
         self.cur.execute(query)
         self.conn.commit()
+
+        #   Clean up
+        del query
+        del column
+        del column1
+        del database
+        
 
         return
 
-    def DelRecord(self, database, query):
+    def DelRecord(self, database, table, column, query):
 
         #   Database selection
         self.conn.database = database
 
-        #   Retrieve values from the .env file
-        table = getenv('table1')
-        column1 = getenv('column1')
         
         #   Creating a query to be executed
-        query = f'DELETE FROM {table} WHERE {column1} = {query}'
+        query = f'DELETE FROM {table} WHERE {column} = {query}'
 
         #   Executes the query 
         self.cur.execute(query)
         self.conn.commit()
+
+        #   Clean up
+        del query
+        del table
+        del column
+        del database
 
         return

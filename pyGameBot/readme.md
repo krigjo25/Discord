@@ -1,3 +1,4 @@
+
 # Discord bot GameBot
 
 ## Table of content
@@ -7,7 +8,7 @@
 >>> Krigjo25
 >>> Contact
 
-> [About-pyGameBot](#About-pyGameBot)
+> [About-pyAnalyzer](#About-pyAnalyzer)
 >> project information 
 >> How to use the bot
 >> Features
@@ -21,7 +22,6 @@
 
 > [Project-Summary](#project-Summary)
 
-## Introduction
 
 ## Introduction
 
@@ -49,56 +49,44 @@ includes the text files below,
 
     SQL Database:
         mariadb
-## pyBut
+## Py-Analyzer
 
-
-pyBut made as an assistant bot for discord.<br> 
+Creating some minigames for Discord<br> 
 It is made with love, for the members, <br>
 he prefix command used in<br>
 in the bot  **?'**, e.g **'?help'**
 
-
 ### Feautures
 
-#### Games
+#### Server Information
 
-*   EightBall
-*   Jumble
-*   Guess The number
-*   Rock Scissors & Paper
+*   Server name, id, days ago the server were created
+*   Total Roles in the server
+*   Total Members / Total banned members
+*   Total Channels
 
+####    Role information
+
+*   Counting how many roles there is
+*   Information about the roles, how many member there is, id, and name
+
+####    Member Analysis
+
+*   Profile information about a member, Guild Profile and personal profile
 
 ## What has been learned
-
-*   [RSSReader]()
-
-### What makes krigjo25 unique
-
-The bot is made with love for python,<br> 
-it will serve you as a humble bot
 
 
 ## Feautures
 
 
-### Games-Module
->  text based games<br>
->> 8ball <br>
->> jumble <br>
->> guess The Number<br>
->> reaction game (Rock, Scissor & paper)<br>
-
-
-### Challanges 
-
 ### What makes this bot unique
 
 The bot is made with love for python.
 
-## Required Responsories
+## Responsories
 
-- discord.py [Rapptz](https://github.com/Rapptz/discord.py),  <br>
-- MariaDB [MariaDB Community](https://github.com/mariadb-corporation/mariadb-connector-python), <br>
+- pycord.py [Rapptz](https://github.com/Rapptz/discord.py),  <br>
 - python_dotenv [Saurabh Kumar](https://github.com/motdotla/dotenv),<br>
 
 
@@ -113,7 +101,6 @@ for how the projects is created, how it is used,<br>
 is another story.
 
 ### Contact information
-
 
 [ContactInformation](https://github.com/krigjo25/Discord/blob/main/krigjo25/read-me.md)
 

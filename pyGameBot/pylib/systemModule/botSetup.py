@@ -26,10 +26,8 @@ from pylib.systemModule.commandError import ErrorHandler                        
 from pylib.communityModule.community import CommunityModule                                     #   Community module
 
 #   miniGames Module
-from pylib.gameModule.miniGamesModule.EightBall.askQ import EightBall                       #   EightBall
-#from pylib.gameModule.miniGamesModule.jumbleGame.jumble import JumbleGame                   #   Jumble Game
-from pylib.gameModule.miniGamesModule.integerGame.intGames import MathGame             #   Guess the number
-#from pylib.gameModule.miniGamesModule.reactionsGames.rockPaperScissors import RockScissorPaper       #   Rock, Scissors & Paper
+from pylib.gameModule.miniGames.intGames import MathGames
+from pylib.gameModule.miniGames.wordGames import WordGames
 
 # Importing .evn file
 load_dotenv()
@@ -73,9 +71,9 @@ class DiscordSetup():
 
     def GamersModule(self):
             #   miniGames
-        self.bot.add_cog(EightBall(self.bot))
+        self.bot.add_cog(WordGames(self.bot))
         #self.bot.add_cog(JumbleGame(self.bot))
-        self.bot.add_cog(MathGame(self.bot))
+        self.bot.add_cog(MathGames(self.bot))
         #self.bot.add_cog(RockScissorPaper(self.bot))
 
         return
