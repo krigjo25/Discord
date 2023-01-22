@@ -15,7 +15,7 @@ def RunBot ():
 
         disc.Analyzer()
         disc.SystemSetup()
-        disc.bot.run('OTAzNjE5NzU5NTg3ODUyMzM4.YXvnew.D9Y7_8HfDPiaJTN6aci4HBSbRj0')
+        disc.bot.run(getenv("PyAnalyzerToken"))
 
 
 if __name__ == '__main__':
