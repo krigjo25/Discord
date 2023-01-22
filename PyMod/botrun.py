@@ -5,6 +5,7 @@ from dotenv import load_dotenv
 from pylib.systemModule.botSetup import DiscordSetup
 
 load_dotenv()
+
 def RunBot ():
 
         # necsessary values from .env
