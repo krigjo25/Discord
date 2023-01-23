@@ -1,6 +1,7 @@
 #   Python responsories
-from sys import exit
-from os import getenv
+import sys
+import os
+
 from datetime import datetime, date
 
 #   Database responsories
@@ -21,49 +22,51 @@ class MariaDB():
 
             #   SELECT, Counting rows, 
             #   Dropping / Creating databases, Counting rows in a table
-            #   Delete records, insert records
+            #   Delete, Select records, 
     '''
 
     def __init__(self, database):
 
+        self.database = database
+
         try:
 
             #   Initializing the database connection
-            self.database = database
-
             self.conn = mariadb.connect(
-                                        host = getenv('H0ST'), 
-                                        user = getenv('MASTER'), 
-                                        port = int(getenv('PORT')), 
-                                        password = getenv('PASSWORD'),
+                                        host = os.getenv('H0ST'), 
+                                        user = os.getenv('MASTER'), 
+                                        port = int(os.getenv('PORT')), 
+                                        password = os.getenv('PASSWORD'),
                                         database = self.database)
 
             #   Creating a cursor to execute the statements
             self.cur = self.conn.cursor()
 
         except mariadb.Error as e:
-            print(f"\nError connecting to the database: \n {e}")
-            exit(1)
+            print(f"\nError connecting to the database:\n{e}")
+            sys.exit(1)
 
+        else: print("Connection success")
         return
 
     def closeConnection (self):
         return self.conn.close()
 
-    def Database(self):
+    def Database(self, arg, db):
+ 
+        query = f"{str(arg).upper()} DATABASE {db};"
 
-        arg = input("Drop / Create database name :")        
-        query = f"{arg};"
-        self.cur.execute(query)
+        return self.cur.execute(query)
 
-        return
-
-    def SelectTable (self, table, query = None, column = None):
+    def SelectTable (self, table, column = None):
 
         #   Select a table from the database
-        if query == None and column == None:
-            query = f"SELECT * FROM {table};"
+        if  column == None: query = f"SELECT * FROM {table};"
 
+        else:
+
+            for i in column: query += f"{i},"
+            query = f"SELECT {query} FROM {table};"
 
         #  Execute the query.
         self.cur.execute(query)
@@ -74,16 +77,15 @@ class MariaDB():
         #   Initializing a list 
         sqlData = [i for i in sql]
     
-        #   Clean up
+        #   Clearing some space
         del sql
+        del query
+        del column
 
         #   Returning the values in sqlData
         return sqlData
 
-    def RowCount(self, database, query):
-
-        #   Database selection
-        self.conn.database = database
+    def RowCount(self, query):
 
         #   Executes the query and retrieve the rows
         self.cur.execute(query)
@@ -94,13 +96,42 @@ class MariaDB():
         #   Counts the rows in the cursor
         return self.cur.rowcount
 
-    def newRecord(self, database, table, column, column1, clm1, clm2):
+    #   Not working properly
+    def newRecord(self, database, table, *dbcolumn):
 
+        #   Initializing variables
+        column = ""
+        values = ""
         #   Database selection
         self.conn.database = database
 
+        #   How to know if its a column or value?
+        for i in dbcolumn: column +=f"{i},"
+
         #   Creating a query to be executed
-        query = f'INSERT INTO {table} ({column}, {column1}) VALUES (%s, %s)' & (clm1, clm2)
+        query = f'INSERT INTO {table} ({column}) VALUES ({values})'
+
+        #   Executes the query 
+        self.cur.execute(query)
+        self.conn.commit()
+
+        #   Clear some space
+        del i
+
+        del query
+        del column
+        del database
+        del dbcolumn
+        del dbvalues
+        
+
+        return
+
+    def DelRecord(self, *query):
+
+        
+        #   Creating a query to be executed
+        query = f'DELETE FROM {query[0]} WHERE {query[1]} = {query[3]};'
 
         #   Executes the query 
         self.cur.execute(query)
@@ -108,30 +139,9 @@ class MariaDB():
 
         #   Clean up
         del query
-        del column
-        del column1
-        del database
-        
 
         return
 
-    def DelRecord(self, database, table, column, query):
-
-        #   Database selection
-        self.conn.database = database
-
-        
-        #   Creating a query to be executed
-        query = f'DELETE FROM {table} WHERE {column} = {query}'
-
-        #   Executes the query 
-        self.cur.execute(query)
-        self.conn.commit()
-
-        #   Clean up
-        del query
-        del table
-        del column
-        del database
-
-        return
+if __name__ == "__main__":
+    db = MariaDB(os.getenv("db2"))
+    db.closeConnection()

@@ -12,7 +12,7 @@ from discord.ext.commands import Cog, command
 
 #   Importing local libraries
 from pylib.systemModule.databasePython import MariaDB
-from dictionaries.gameDictionaries import Philosopher, JumbleCategory, GameOver,ReactionGame, ScrabbleGame
+from pylib.dictionaries.gameDictionaries import Philosopher, JumbleCategory, GameOver,ReactionGame, ScrabbleGame
 
 load_dotenv()
 
@@ -150,7 +150,7 @@ class WordGames(Cog):
 
                 #   Prepare and send embed message
                 self.embed.title = f'Selected Category : {category}'
-                self.embed.description = f' please select one of the sub-category below:\n {categories.SubTitle(category)}'
+                self.embed.description = f' please select one of the sub-category below:\n {jumble.SubTitle(category)}'
                 await ctx.send(embed=self.embed)
         
                 #   Clearing the fields
@@ -160,7 +160,7 @@ class WordGames(Cog):
                 prompt = await self.bot.wait_for('message', timeout=sec)
                 prompt = str(prompt.content).lower().replace(" ", "")
 
-                answer = jumble.RetrieveDisneyJumble(sub, category)
+                answer = jumble.RetrieveCategory(sub, category)
                 answer = str(answer[0])
 
                 virvel = jumble.JumbleGenerator(answer)
@@ -176,37 +176,65 @@ class WordGames(Cog):
 
         while True:
 
+            #   Declear a string variable
+            string = ""
+
+            virvel = jumble.JumbleGenerator(answer)
+
+            self.embed.title = 'Jumble Game'
+            self.embed.description = f'Guess the jumbled word (q to quit): {virvel}\n'
+            await ctx.send(embed=self.embed)
+            self.embed.clear_fields()
+
             try :
 
                 #   Prompting the user for a word
                 prompt = await self.bot.wait_for('message', timeout=sec)
                 prompt = str(prompt.content)
+                #   Clear fields
 
-                #   Append the word
-                word.append(prompt)
+                if tmpt == 0 or prompt == "q":
+
+                    for i in word: string += f"**{i}**,"
+
+                    self.embed.title = f"{GameOver.IncorrectAnswer()}"
+                    self.embed.description = f"**Game Summary**\nWords tried : ({string})\n\nThe correct answer : **{answer}**"
+                    await ctx.send(embed=self.embed)
+ 
+                    self.embed.clear_fields()
+
+                    break
+
+                #   Decrease the counter, append word and create a new virvel
+                tmpt -= 1
+                
                 virvel = jumble.JumbleGenerator(answer)
+            except Exception as e: print(e)
 
-            except Exception as e: 
-                print(e)
-
-
-            #   Combining the answers
-            if prompt == answer:
+            else:
 
                 word.append(prompt)
 
+                #   Combining the answers
+                if prompt == answer:
+
+                    for i in word: string += f"{i},"
+                
                 #   Prepare & send the embed message
                 self.embed.title = f'Game Summary'
-                self.embed.description = f'words tried : **{word}**\nCounted {len(word)} attempts.\n{GameOver.CorrectAnswer()}'
+                self.embed.description = f'words tried : (**{string}**)\nCounted {len(word)} attempts.\n{GameOver.CorrectAnswer()}'
+                await ctx.send(embed=self.embed)
 
-                return await ctx.send(embed=self.embed)
-            else:
-                #   Append the word
-                word.append(prompt)
-                virvel = jumble.JumbleGenerator(answer)
+                break
 
-            #   Retruning when reaches zero
-            #if tempt == 0: return print(f"{GameOver.IncorrectAnswer()}\nGame Summary\nWords tried : **{word}**\n\nThe correct answer : **{answer}**")
+        #   Save space and clear fields
+        del tmpt
+        del string
+        del virvel
+        del prompt
+
+        return
+
 
     @command(name="ask")
     async def EightBall(self, ctx):
@@ -261,12 +289,13 @@ class WordGames(Cog):
 
             #   Clear fields and save space
 
-            del arr
-            del prompt
-            del answer
-            self.embed.clear_fields()
+        del arr
+        del prompt
+        del answer
 
-            return
+        self.embed.clear_fields()
+
+        return
 
     @command(name="rsp")
     async def RockScissorPaper(self, ctx):
@@ -292,13 +321,12 @@ class WordGames(Cog):
         self.embed.description = 'Choose one of the following reaction below'
         message = await ctx.send(embed=self.embed)
 
-        for i in arr:
-            await message.add_reaction(arr[i])
+        for i in arr: await message.add_reaction(arr[i])
 
         def emojiCheck(reaction, member):
 
-            reaction = str(reaction)
-            member == ctx.author.name 
+            reaction, member = str(reaction), ctx.author
+
             return member !=self.bot.user and reaction
 
         try :
@@ -373,9 +401,9 @@ class WordGames(Cog):
                 if i == '':
                     word.remove(i)
                     string = f'{ScrabbleGame().PlayerComputer()}'
-                    print(string)
+
                     word.append()
-            print(word)
+
 
         except Exception as e:  print(e)
 
@@ -388,8 +416,10 @@ class WordGames(Cog):
             elif score[0] < score[1]: print("Player 2 is the winner")
             else: print(GameOver().TowTie())
 
-            #   Clean up
+            #   Save some space
+            del i
             del word
             del score
+            del string
         
         return

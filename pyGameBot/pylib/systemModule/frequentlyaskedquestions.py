@@ -7,19 +7,25 @@ from discord.ext.commands import command, Cog
 from discord.ext.commands.core import has_any_role
 
 class FrequentlyAskedQuestions(Cog):
+
+    """
+        #   Author : Krigjo25
+        #   Date : 01.23-23
+
+        #   Discord command menu
+        #   Gamers Module,
+        #   Community module
+    """
+
     def __init__(self,bot):
+
         self.bot = bot
         self.embed = Embed(color=Color.dark_purple())
 
-#   Frequently Asked Question
+    #   Frequently Asked Question
 
     @command(name='help', pass_context=True)
     async def FrequentlyAskedQuestions(self, ctx, *, args=None):
-
-        #   Initialize classes
-        game = PyGames(bot=self.bot)
-
-
 
         if args == None:
 
@@ -28,20 +34,24 @@ class FrequentlyAskedQuestions(Cog):
             self.embed.add_field(name=':people_holding_hands: Community Module', value='Ever heard of the guy whom joined a community? \n He were never seen again.', inline=True)
             self.embed.add_field(name=':signal_strength: Gamers Module',value='An Irishman arrived at J.F.K. Airport and wandered around the terminal with tears streaming down his cheeks...', inline=True)
 
-        else:
+        else: 
 
             args = str(args).lower().replace(" ", "")
 
-            if args == 'communitymodule':self.embed = self.CommunityModule()
+            match args:
 
-            elif args == 'gamersmodule': self.embed = game.GamersModule(args)
-            
-            elif args == 'minigamesmodule' :self.embed = game.miniGamesModule(args)
+                #   Gamers Module
+                case "gamersmodule" : self.embed = self.GamersModule()
+                case "adventure" : self.embed = self.GamersModule(args)
+                case "wordgames" : self.embed = self.GamersModule(args)
+                case "mathgames" : self.embed = self.GamersModule(args)
+
+                #   Community module
+                case "communitymodule" : self.embed = self.CommunityModule()
 
         await ctx.send(embed=self.embed)
 
         #   Clear and save space
-        del game
         del args
 
         self.embed.clear_fields()
@@ -58,38 +68,31 @@ class FrequentlyAskedQuestions(Cog):
 
         return self.embed
 
-class PyGames(Cog):
 
-    def __init__(self, bot):
-
-        self.bot = bot
-        self.embed = Embed(color=Color.dark_purple())
-
-        return
-
-    def GamersModule(self):
+    def GamersModule(self, arg = None):
 
         self.embed.title = 'Gamers Module'
         self.embed.description = 'Games created with Python'
-        self.embed.add_field(name ='miniGames', value ='USA National News')
 
-        return self.embed
+        if arg == None:
+            self.embed.add_field(name ='MathGames', value =' Such as guess the number, little proffessor')
+            self.embed.add_field(name ='WordGames', value =' Such as Eightball, Jumble, Scrabble, Rock, Scissors and paper')
 
-    def miniGamesModule(self, args):
-
-        if args == 'mathgames':
+        elif arg == "mathgames":
 
             self.embed.add_field(name='?int', value=' - Guess the number', inline=True)
             self.embed.add_field(name='?lip', value='- Little Proffessor', inline=True)
-
-
-        elif args == 'wordgames':
+        
+        elif arg == "wordgames":
 
             self.embed.add_field(name='?ask', value='- Ask a Philisopher a question', inline=True)
             self.embed.add_field(name=':question: ?jumble', value=' - unscrabble a jumble', inline=True)
             self.embed.add_field(name=':question: ?scrabble', value=' - unscrabble a jumble', inline=True)
             self.embed.add_field(name='?rsp', value='- :rock:, :scissors:, :page_facing_up:', inline=True)
 
-        #   Save space
-        del args
+        else: self.embed.description = "Did not find the game you looking for"
+
+        #   Clear some space
+        del arg
+
         return self.embed

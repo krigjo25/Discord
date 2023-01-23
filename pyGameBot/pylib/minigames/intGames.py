@@ -9,15 +9,15 @@ from discord.ext.commands import Cog, command
 
 #   Importing local libraries
 from pylib.systemModule.databasePython import MariaDB
-from dictionaries.gameDictionaries import  GameOver
+from pylib.dictionaries.gameDictionaries import  GameOver
 
-class MathGames():
+class MathGames(Cog):
 
     '''
         #   Author : krigjo25
         #   Date   :  12.01-23
 
-        #   Collection of Classic WordGames
+        #   Collection of Classic Math Games
     '''
 
     def __init__(self, bot):
@@ -67,7 +67,6 @@ class MathGames():
 
             try :
 
-                self.embed.title = 'Choose a level'
                 prompt = await self.bot.wait_for('message', timeout=60)
                 prompt = str(prompt.content).lower()
 
@@ -76,9 +75,9 @@ class MathGames():
                 elif prompt < 0 : raise ValueError('Choose an integer grater than 0')
 
             except (ValueError, TypeError) as e:
+
                 print(e)
                 continue
-
 
     def GenerateIntegers(self, lvl):
 
@@ -93,7 +92,6 @@ class MathGames():
             case 8: return r.randint(0,80)
             case 9: return r.randint(0,90)
             case 10: return r.randint(0,100)
-
 
         return
 
@@ -198,7 +196,7 @@ class MathGames():
 
     #   Games
     @command(name="lip")
-    async def LittleProffessor(self):
+    async def LittleProffessor(self, ctx):
 
         #   Game Configurations
         #   Prompting a level input
@@ -252,6 +250,18 @@ class MathGames():
     @command(name="int")
     async def GuessTheNumber(self, ctx):
 
+        self.embed.title = "Welcome to the Guess the number"
+        self.embed.description = f' Please choose a level'
+        await ctx.send(embed = self.embed)
+
+        print("Test")
+        lvl = self.GameLevel()
+        print(lvl)
+
+        n = self.GenerateIntegers(lvl)
+        print(n)
+
+        print("Test")
         #   Initializing variables
         tempt = 3
         lg = f"less than :**{l}** greater than **{g}**\n"
@@ -260,13 +270,11 @@ class MathGames():
         l = []
         g = []
         t = len(l) + len(g)
+
         
+        #   Game Conftemptgurations
 
-        #   Game Configurations
-        lvl = self.GameLevel()
-        n = self.GenerateIntegers(lvl)
-
-        self.embed.description = f' lvl choosen : {lvl}\n attempts :**{i}** attempts, sir.\n'
+        self.embed.description = f' lvl choosen : {lvl}\n attempts :**{tempt}** attempts, sir.\n'
         await ctx.send(embed=self.embed)
 
         while True:
@@ -283,7 +291,7 @@ class MathGames():
 
                 if x > n:
                     l.append(x)
-                    self.embed.title = f'**attempts left :** {i} | {lg}'
+                    self.embed.title = f'**attempts left :** {tempt} | {lg}'
                     self.embed.description = GameOver.CustomAnswer(n, x)
                     await ctx.send(embed=self.embed)
 
@@ -297,12 +305,12 @@ class MathGames():
                     self.embed.description = GameOver.CustomAnswer(n, x)
                     await ctx.send(embed=self.embed)
 
-                if i == 0:
+                if tempt == 0:
 
                     #   Prepare and send the embed message
                     self.embed.title = 'The Game is over'
                     self.embed.description = f'{GameOver.IncorrectAnswer()}'
-                    self.embed.add_field(name='**Game Summary**', value=f'You guessed **{c}** of **{t}** times\n<{l} | {g}>\nThe correct answer were {x}', inline=False)
+                    self.embed.add_field(name='**Game Summary**', value=f'<{l} | {g}>\nThe correct answer were {x}', inline=False)
                     await ctx.send(embed=self.embed)
 
             #   Clear and save space

@@ -23,94 +23,71 @@ class CommunityModule(Cog, name='Community Module'):
 
 #   Bot Info
     @command(name="botinfo")
-    async def BotInfo(self, ctx, args=None):
+    async def BotInfo(self, ctx, arg=None):
         
         svr = len(self.bot.guilds)
         Master = self.bot.get_user(340540581174575107)
-        botName = 'pyGame'
 
-        if args == None:
+        if arg == None:
 
-            self.embed.title = f':notebook: About {botName}'
-            self.embed.url=f'https://github.com/krigjo25/Discord/blob/main/{botName}/RSSBot.md'
-            self.embed.description = ''
+            self.embed.title = ':notebook: About PyGame'
+            self.embed.url = 'https://github.com/krigjo25/Discord/blob/main/pyGame/readme.md'
+            self.embed.description = 'About The bot'
             self.embed.add_field(name = ':rotating_light: Released', value=getenv('BotCreated'), inline=True)
             self.embed.add_field(name = ' :new: Updated', value=getenv('BotUpdated'), inline=True)
-            self.embed.add_field(name = ':person_with_probing_cane: Current Version', value= '0.1.0rb', inline=True)
+            self.embed.add_field(name = ':person_with_probing_cane: Current Version', value= getenv('BotVersion'), inline=True)
             self.embed.add_field(name = ':toolbox: Responsory', value='https://github.com/krigjo25/Discord/blob/main/RSSBot/.md#Responsories', inline=True)
             self.embed.add_field(name = ':cloud: Hosted', value=getenv('HOSTED'), inline=True)
             self.embed.add_field(name = ':man: Master', value=f'{Master} :flag_no:', inline=True)
             self.embed.add_field(name = ':arrows_counterclockwise: Server Counting', value=f'Watching {svr} \nDiscord Servers', inline=True)
 
-        if args == 'log':
+        elif arg == 'log':
 
-            changelog = f'*** What is new? ***\n{self.ReadChangelog()}\n'
 
-            await ctx.send(changelog)
-            self.embed.clear_fields()
+            self.embed.title = "What is new?"
+            self.embed.url = "https://github.com/krigjo25/Discord/blob/main/pyGameBot/changelog.md"
+            self.embed.description = f"{self.ReadChangelog()}"
+
+        await ctx.send(embed = self.embed)
+
+        #   Clear space and fields
+        del arg
+
+        self.embed.clear_fields()
 
         return
 
-#   Online members
-    @command(name='memberlist', pass_context=True)
-    async def MembersList(self, ctx):
-
-
-        #   Retriving the server
-        svr = ctx.guild
-
-        self.embed.title = 'Server Members'
-        
-        #   Fetching members
-        for member in svr.members:
-            
-            #   Declare variables
-            status = str(member.status)
-            nick = str(member.nick)
-            botUser = self.bot.user
-
-            #   Add emoji to status
-            if status == 'online':
-                status = ':heart_on_fire:'
-
-            elif status == 'idle':
-                status = ':dash:'
-            
-            elif status == 'dnd':
-                status = ':technologist:'
-
-            elif status == 'offline':
-                status = ':sleeping:'
-            
-            #   Fetch user nick
-            if nick == 'None':
-                nick = ' '
-            else:
-                nick = f'Nick : {member.nick}\n'
-            if member != botUser:
-                self.embed.add_field(name=f'{member.name}#{member.discriminator}',value=f'{nick} Status : {status} ', inline=False)
-        await ctx.send(embed = self.embed)
-        self.embed.clear_fields()
-
-#   Random Meme
     @command(name='meme', pass_context= True)
     async def GetRedditMeme(self, ctx):
-        """" GetRedditMeme
-            Generates a random meme from reddit
+
+        """
+            #   Author : Krigjo25
+            #   Date : 01.23-23
+
+            #   Generates a random Meme from reddit
+
         """
 
         async with aiohttp.ClientSession() as cs:
+
             async with cs.get('https://www.reddit.com/r/dankmemes/new.json?sort=hot') as r:
+
                 res = await r.json()
                 post = res['data']['children'] [randrange(0, 24)]
+
                 self.embed.title = post["data"]["title"]
                 self.embed.url = 'https://www.urbandictionary.com/define.php?term=Reddit'
                 self.embed.set_image(url=post['data']['url'])
                 self.embed.description = f'Hot meme porn from  {ctx.author.name}'
 
                 await ctx.send(embed=self.embed)
-                self.embed.clear_fields()
-                self.embed.set_image(url= '')
+
+            #   Clearing some space
+            del res
+            del post
+
+            self.embed.clear_fields()
+            self.embed.remove_image()
 
         return
 
@@ -118,16 +95,21 @@ class CommunityModule(Cog, name='Community Module'):
     async def randomInt(self, ctx, arg, argTwo):
 
         """
-            randomInt
+            #   Author : Krigjo25
+            #   Date : 01.23-23
 
-            Generates a random integer 
-            between arg and argTwo
-
+            #   Generates a random integer between given arguments
+            #   Gamers Module,
+            #   Community module
         """
 
-        arg = int(arg)
-        arg2 = int(argTwo)
-        x = randint(arg, arg2)
+        try : 
+            arg = int(arg)
+            arg2 = int(argTwo)
+            
+        except Exception as e: print(e)
+
+        else: x = randint(arg, arg2)
 
         await ctx.send(x)
 
@@ -137,7 +119,7 @@ class CommunityModule(Cog, name='Community Module'):
 
         # Updating read max 32 lines
 
-        with open('RSSBot/design/changelog.md', 'r') as f:
+        with open('pyGameBot/changelog.md', 'r') as f:
 
             changelog = f.read()
 

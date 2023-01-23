@@ -322,23 +322,21 @@ class JumbleCategory():
     def __init__(self) -> None:
         pass
 
-    def JumbleCategories(self):
+    def JumbleCategories(self): return MariaDB.SelectTable(getenv("categories"))
 
-        category = MariaDB.SelectTable(getenv("categories"))
-        return category
+    def SubTitle(self, arg):
 
-    def SubTitle(self, sub):
+        arg = str(arg)
 
-        sub = str(sub).lower()
+        match arg:
 
-        match sub:
             case 'walt disney': 
-                sub = ['- Characters\n- Animations,\n- Roles']
+                arg = ['- Characters\n- Animations,\n- Roles']
 
             case 'animal kingdom':
-                sub = ['- flyingCreatures \n- Cats,\n- Dogs']
+                arg = ['- flyingCreatures \n- Cats,\n- Dogs']
 
-        return sub
+        return arg
 
     def JumbleGenerator(self, jumble):
 
@@ -350,6 +348,7 @@ class JumbleCategory():
             #   Creating a new word with joining the elements of the iterator
 
         '''
+
         #   Shuffle the characters of the word
         jumble = r.sample(jumble, len(jumble))
     
@@ -359,27 +358,38 @@ class JumbleCategory():
         #   Returning the jumbled word
         return jumble
 
-    def RetrieveDisneyJumble(self, sub, category):
+    def RetrieveCategory(self, sub, category):
 
         """
-            Retrieve a Disney movie from the database,
-            choose one of the selected values
+            #   Retrieve a category from the database,
+            #   choose one of the selected values
         """
+
         category = str(category).lower().replace(" ", "")
 
         #   Initializing database connection
         db = MariaDB(database=getenv("db2"))
         query = f'SELECT {sub} FROM {category}'
 
+        try:
 
-        word = db.SelectTable(query)
+            word = db.SelectTable(query)
 
-        #   Counting the rows in the database
-        x = db.RowCount(query)
-        x = r.randint(1, x)
+            #   Counting the rows in the database
+            x = db.RowCount(query)
+
+        except Exception as e : print(e)
+        else:
+
+            x = r.randint(1, x)
 
         #   Closing the connection
         db.closeConnection()
+
+        #   Clear some space
+        del x
+        del db
+        del query
 
         return  word[x]
 
