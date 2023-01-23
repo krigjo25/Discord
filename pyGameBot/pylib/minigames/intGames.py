@@ -56,7 +56,7 @@ class MathGames(Cog):
 
         return word
 
-    async def GameLevel(self, ctx):
+    def GameLevel(self, prompt):
 
         '''
             #   Choosing the difficulty level of the game
@@ -66,9 +66,6 @@ class MathGames(Cog):
         while True:
 
             try :
-
-                prompt = await self.bot.wait_for('message', timeout=60)
-                prompt = str(prompt.content).lower()
 
                 if prompt >= 1 : return prompt
                 elif prompt == None: raise TypeError('Input required')
@@ -98,6 +95,7 @@ class MathGames(Cog):
     def Operators(self, lvl):
 
         if lvl > 0 and lvl < 10:
+
             n = x + y
             mf = f"{x} + {y} = "
 
@@ -250,76 +248,113 @@ class MathGames(Cog):
     @command(name="int")
     async def GuessTheNumber(self, ctx):
 
-        self.embed.title = "Welcome to the Guess the number"
+        self.embed.title = "Guess the number"
         self.embed.description = f' Please choose a level'
         await ctx.send(embed = self.embed)
 
-        print("Test")
-        lvl = self.GameLevel()
-        print(lvl)
+        #   Checking if the answer is an integer
+        while True:
+
+            try:
+
+                lvl = await self.bot.wait_for('message', timeout=60)
+                lvl = int(lvl.content)
+
+                if lvl > 0: break
+                else: raise ValueError("The level can not be less than one")
+
+            except Exception as e:
+
+                self.embed.title = "An error arised"
+                self.embed.description = f' {e}\n try again'
+                await ctx.send(embed = self.embed)
+                continue
 
         n = self.GenerateIntegers(lvl)
-        print(n)
 
-        print("Test")
         #   Initializing variables
         tempt = 3
-        lg = f"less than :**{l}** greater than **{g}**\n"
 
         #   Declare lists
-        l = []
-        g = []
-        t = len(l) + len(g)
+        ints = []
 
-        
         #   Game Conftemptgurations
 
-        self.embed.description = f' lvl choosen : {lvl}\n attempts :**{tempt}** attempts, sir.\n'
-        await ctx.send(embed=self.embed)
+        self.embed.description = f'Game Level : {lvl}\nUser attempts :**{tempt}**'
+        await ctx.send(embed = self.embed)
 
         while True:
 
             
             try :
+
                 #   Prompting the user
                 x = await self.bot.wait_for('message')
                 x = int(x.content)
 
-            except (ValueError, TypeError) as e: continue
+                t = len(ints)
+
+            except (ValueError, TypeError) as e:
+
+                self.embed.title = "An error arised"
+                self.embed.description = f' {e}\n try again'
+                await ctx.send(embed = self.embed)
+
+                continue
 
             else:
 
-                if x > n:
-                    l.append(x)
-                    self.embed.title = f'**attempts left :** {tempt} | {lg}'
-                    self.embed.description = GameOver.CustomAnswer(n, x)
+                if x < n:
+
+                    #   Decrease the attempt by 1
+                    tempt -= 1
+                    print("test")
+
+                    #   Append the word into a list
+                    ints.append(x)
+
+                    #   Prepare embed message
+                    self.embed.title = f'**attempts left :** {tempt}\nInteger tried :{ints}\n'
+                    self.embed.description = GameOver().CustomAnswer(n, x)
                     await ctx.send(embed=self.embed)
 
                 elif x > n:
 
-                    g.append(x)
-                    self.embed.description = GameOver.CustomAnswer(n, x)
+                    #   Decrease the attempt by 1
+                    tempt -= 1
+
+                    #   Append the word into a list
+                    ints.append(x)
+
+                    #   Prepare embed message
+                    self.embed.title = f'**attempts left :** {tempt}\nInteger tried :{ints}\n'
+                    self.embed.description = GameOver().CustomAnswer(n, x)
                     await ctx.send(embed=self.embed)
 
                 else:
-                    self.embed.description = GameOver.CustomAnswer(n, x)
-                    await ctx.send(embed=self.embed)
+
+                    self.embed.title = "You won"
+                    self.embed.description = f"**attempts left :** {tempt}\nInteger tried :{ints}\n{GameOver().CustomAnswer(n, x)}"
+                    return await ctx.send(embed=self.embed)
 
                 if tempt == 0:
 
                     #   Prepare and send the embed message
                     self.embed.title = 'The Game is over'
-                    self.embed.description = f'{GameOver.IncorrectAnswer()}'
+                    self.embed.description = f'{GameOver().IncorrectAnswer()}'
                     self.embed.add_field(name='**Game Summary**', value=f'<{l} | {g}>\nThe correct answer were {x}', inline=False)
-                    await ctx.send(embed=self.embed)
+                    
+                    break
 
-            #   Clear and save space
-            del lvl
-            del n
-            del t
-            del l
-            del g
+                await ctx.send(embed=self.embed)
 
-            self.embed.clear_fields()
+        #   Clear and save space
+        del lvl
+        del n
+        del t
+        del l
+        del g
 
-            return
+        self.embed.clear_fields()
+
+        return
