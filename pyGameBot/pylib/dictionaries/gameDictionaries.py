@@ -469,21 +469,22 @@ class GameOver():
     #   Integer games
     def CustomAnswer(self, num, x):
 
-        if num > x:
+        if x > num:
 
             dictionary = {
                             1:'Well well, we like the answer more humble than a greater answer',
                             2:'The given number is not humble enough, try again.',
-                            3:'is greater than the answer ',1:'Do you know why the equal sign are so humble? neither were less or greater !',
+                            3:'is greater than the answer ',
+                            4:'Do you know why the equal sign are so humble? neither were less or greater !',
                             }
 
-        elif num < x:
+        elif x < num:
 
             dictionary = {
-                            1:f'**{num}** is less, we want more',
-                            2:f'**{num}** is less than i ask for',
-                            3:f'**{num}** is less akward than :100:',
-                            4:f'**{num}** is less humble',
+                            1:f"is less, we want more",
+                            2:f'is less than i ask for',
+                            3:f'is less akward than :100:',
+                            4:f'is less humble',
                             }
 
         else:
@@ -496,4 +497,32 @@ class GameOver():
         #   Randomize the dictionary
         x = r.randrange(1,len(dictionary))
 
+        #   Clear some space
+        del x, num
+
         return dictionary.get(x)
+
+class MathDictionary():
+
+    def Operators(self):
+
+        '''
+            #   Author : krigjo25
+            #   Date   :  12.01-23
+
+            #   Dictionary for game Won
+        '''
+
+        dictionary = {  1:'+',
+                        2:'-',
+                        3:'/',
+                        4:'*',
+                        }
+
+        r.shuffle(dictionary)
+
+        arg = []
+        rint = r.randint(1, len(dictionary))
+
+
+        return dictionary.values(dictionary[rint])
