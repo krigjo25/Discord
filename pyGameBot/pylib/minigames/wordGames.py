@@ -541,7 +541,6 @@ class WordGames(Cog):
         #   Visualizing the hangman
         hangman = []
         answer = Hangman().ChooseWord()
-        print(answer)
 
         #   Game Configuration
         while True:
@@ -631,7 +630,6 @@ class WordGames(Cog):
 
             else:
 
-                print(prompt, answer)
                 #   Checking if prompt is equal to answer
                 if prompt in answer:
 

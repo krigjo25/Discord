@@ -504,8 +504,32 @@ class GameOver():
 
         return dictionary.get(x)
  
-    #   Integer games
-    def CustomAnswer(self, num, x):
+class MathDictionary():
+
+    def Operators(self):
+
+        '''
+            #   Author : krigjo25
+            #   Date   :  12.01-23
+
+            #   Dictionary for game Won
+        '''
+
+        dictionary = {  1:'+',
+                        2:'-',
+                        3:'/',
+                        4:'*',
+                        }
+
+        r.shuffle(dictionary)
+
+        arg = []
+        rint = r.randint(1, len(dictionary))
+
+
+        return dictionary.values(dictionary[rint])
+
+    def intGame(self, num, x):
 
         if x > num:
 
@@ -539,28 +563,3 @@ class GameOver():
         del x, num
 
         return dictionary.get(x)
-
-class MathDictionary():
-
-    def Operators(self):
-
-        '''
-            #   Author : krigjo25
-            #   Date   :  12.01-23
-
-            #   Dictionary for game Won
-        '''
-
-        dictionary = {  1:'+',
-                        2:'-',
-                        3:'/',
-                        4:'*',
-                        }
-
-        r.shuffle(dictionary)
-
-        arg = []
-        rint = r.randint(1, len(dictionary))
-
-
-        return dictionary.values(dictionary[rint])
