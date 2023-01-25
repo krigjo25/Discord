@@ -56,7 +56,7 @@ INSERT INTO `waltDisneyTitles` (`title`) VALUES
 ('The Little Marmaid'),
 ('The Princsess And The Frog');
 
-INSERT INTO `jumbleGenres` (`genre`) VALUES
+INSERT INTO `miniGames` (`genre`) VALUES
 ('Action'),
 ('Animation'),
 ('Adventure'),
