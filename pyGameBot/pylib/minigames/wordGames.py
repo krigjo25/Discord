@@ -41,6 +41,8 @@ class WordGames(Cog):
 
         '''
 
+        #   Declare a list
+        count = []
         try :
 
 
@@ -61,9 +63,10 @@ class WordGames(Cog):
 
             match lvl:
 
-                case 1: count = 60.0
-                case 5: count = 30.0
-                case 10: count = 15.0
+                case 1: count.append(60.0)
+
+                case 5: count.append(30.0)
+                case 10: count.append(15.0)
 
         #   Delete and save space
         del lvl
@@ -118,71 +121,73 @@ class WordGames(Cog):
         '''
 
         #   Initializing the classes
-        db = MariaDB(database= getenv("db2"))
+
         jumble = JumbleCategory()
 
         #   Configure the jumble Settings
         word = []
-        sec = self.GameLevel()
+        sub = ""
+        category = ""
+
+        sec = 60.0#self.GameLevel()
+
+        for i in MariaDB(database= getenv("db2")).SelectTable(getenv("categories"), "Categories"): category += f"**{i}**\n "
 
         #   Prepare and send the Welcome message
-        self.embed.title = 'Jumble Game'
-        self.embed.description = f'Welcome to the jumble Game\n Yo have {sec} sec to solve the puzzle, please select one of the categories below:\n'
-
-        for category, sub in jumble.JumbleCategories():
-            self.embed.add_field(name = f'{category}', value=f'{sub}',inline=True)
-
+        self.embed.title = 'Welcome to the Jumble Game'
+        self.embed.description = f'You have {sec} sec to solve a puzzle, please select one of the categories below:\n\n{category}'
         await ctx.send(embed=self.embed)
-
-        #   Clear fields
 
         self.embed.clear_fields()
 
         #   Prepare and retrieve the category
-        category = await self.bot.wait_for('message', timeout=sec)
-        category = str(category.content).lower()
+        prompt = await self.bot.wait_for('message', timeout=sec)
+        prompt = str(prompt.content).lower()
+
 
 
         #  Walt Disney
-        match category:
+        match prompt:
 
-            case "walt disney":
+            case "waltdisney":
+
+                #   Select sub categories
+                category = MariaDB(database=getenv("db2")).SelectRow(getenv("categories"), 1)
+
+                for i in category[2:]: sub += f"{i}, "
 
                 #   Prepare and send embed message
-                self.embed.title = f'Selected Category : {category}'
-                self.embed.description = f' please select one of the sub-category below:\n {jumble.SubTitle(category)}'
+                self.embed.title = f'Selected category, {category[1]}'
+                self.embed.description = f'{sub}'
                 await ctx.send(embed=self.embed)
-        
-                #   Clearing the fields
+
                 self.embed.clear_fields()
-        
-                #   Assigning message from the user and handle it
+
+                #   Prepare and retrieve the sub category
                 prompt = await self.bot.wait_for('message', timeout=sec)
-                prompt = str(prompt.content).lower().replace(" ", "")
+                prompt = str(prompt.content).lower()
 
-                answer = jumble.RetrieveCategory(sub, category)
-                answer = str(answer[0])
+                answer = MariaDB(database=getenv("db2")).SelectColumn(category[1], "roles", prompt, "characters")
 
-                virvel = jumble.JumbleGenerator(answer)
-
-                self.embed.title = f'The jumbled Character is seen in \'img\'\n You have **{sec}** sec to resolve which Character it is '
-                self.embed.description = f'{virvel}'
-                await ctx.send(embed = self.embed)
-
-                #   Clearing the fields
-                del prompt
+                #   Clearing some space
+                del sub
                 del category
-                self.embed.clear_fields()
+
 
         while True:
 
             #   Declear a string variable
             string = ""
 
-            virvel = jumble.JumbleGenerator(answer)
+            x = len(answer)
+            x = r.randrange(0, x)
+        
+            virvel = jumble.JumbleGenerator(answer[x])
+        
+            print(answer[x])
 
             self.embed.title = 'Jumble Game'
-            self.embed.description = f'Guess the jumbled word (q to quit): {virvel}\n'
+            self.embed.description = f'Guess the jumbled word (q to quit): **{virvel}**\n'
             await ctx.send(embed=self.embed)
             self.embed.clear_fields()
 
@@ -191,9 +196,10 @@ class WordGames(Cog):
                 #   Prompting the user for a word
                 prompt = await self.bot.wait_for('message', timeout=sec)
                 prompt = str(prompt.content)
+
                 #   Clear fields
 
-                if tmpt == 0 or prompt == "q":
+                if prompt == "q":
 
                     for i in word: string += f"**{i}**,"
 
@@ -205,10 +211,6 @@ class WordGames(Cog):
 
                     break
 
-                #   Decrease the counter, append word and create a new virvel
-                tmpt -= 1
-                
-                virvel = jumble.JumbleGenerator(answer)
             except Exception as e: print(e)
 
             else:
@@ -216,25 +218,26 @@ class WordGames(Cog):
                 word.append(prompt)
 
                 #   Combining the answers
-                if prompt == answer:
+                if prompt == answer[x]:
 
-                    for i in word: string += f"{i},"
-                
-                #   Prepare & send the embed message
-                self.embed.title = f'Game Summary'
-                self.embed.description = f'words tried : (**{string}**)\nCounted {len(word)} attempts.\n{GameOver.CorrectAnswer()}'
-                await ctx.send(embed=self.embed)
+                    for i in word: string += f"{i} "
 
-                break
+                    #   Prepare & send the embed message
+                    self.embed.title = f'Game Summary'
+                    self.embed.description = f'words tried : ( **{string}** )\nCounted {len(word)} attempts.\n{GameOver().CorrectAnswer()}'
+                    await ctx.send(embed=self.embed)
+
+                    break
 
         #   Save space and clear fields
-        del tmpt
+        #del tmpt
+        del word
         del string
         del virvel
         del prompt
+        del answer
 
         return
-
 
     @command(name="ask")
     async def EightBall(self, ctx):
@@ -260,6 +263,8 @@ class WordGames(Cog):
         #   Wait for an answer and handling the string
         prompt = await self.bot.wait_for('message', timeout=60)
         prompt = str(prompt.content).lower()
+        quiz = prompt
+
         prompt = prompt.split(" ")
 
         try :
@@ -279,19 +284,19 @@ class WordGames(Cog):
         else:
 
             #   Checking for certain words in prompted message.
-            if "how" in prompt or "what" in prompt[0] : answer = Philosopher().Answer()
-            else: answer = Philosopher().DumbFacts() 
+            if "how" in prompt or "what" in prompt[0] : prompt = Philosopher().Answer()
+            else: prompt = Philosopher().DumbFacts() 
 
             #   Prepare and send the embed
-            self.embed.title = ':8ball: ask the Oracle'
-            self.embed.description = f' You asked the Oracle\n \"***{prompt}***\"\n the response \n{answer}'
+            self.embed.title = f':8ball: Answer for {quiz}'
+            self.embed.description = f'{prompt}'
             await ctx.send(embed=self.embed)
 
             #   Clear fields and save space
 
         del arr
+        del quiz
         del prompt
-        del answer
 
         self.embed.clear_fields()
 
@@ -321,17 +326,17 @@ class WordGames(Cog):
         self.embed.description = 'Choose one of the following reaction below'
         message = await ctx.send(embed=self.embed)
 
-        for i in arr: await message.add_reaction(arr[i])
-
-        def emojiCheck(reaction, member):
-
-            reaction, member = str(reaction), ctx.author
-
-            return member !=self.bot.user and reaction
+        for i in arr:  await message.add_reaction(i)
 
         try :
 
-            prompt, member = await self.bot.wait_for('reaction_add', timeout=30.0, check=emojiCheck)
+            def emojiCheck(reaction, member):
+
+                reaction, member = str(reaction), ctx.author
+
+                return member !=self.bot.user and reaction
+
+            prompt, member = await self.bot.wait_for('reaction_add', timeout=30.0, check= emojiCheck)
 
         except Exception as e : sys.exit(e)
 
@@ -375,7 +380,8 @@ class WordGames(Cog):
                 
                 return
 
-    def Scrabble(self):
+    @command(name="Scrabble")
+    async def Scrabble(self, ctx):
 
         '''
             #   Author : krigjo25
@@ -386,23 +392,27 @@ class WordGames(Cog):
             #   Printing the winner
 
             #   Player required : 1 - 2
+
         '''
+
+        #   Prepare and send the Welcome message
+        self.embed.title = 'Welcome to the Scrabble Game'
+        self.embed.description = f' Type in a word to get the points'
+        await ctx.send(embed=self.embed)
 
         try:
 
             #   Prompts the words for both players
             word = [str(input("Player 1: ")), str(input("Player 2: "))]
 
+            for i in word:
+                if bool(i) == False: 
+                    word.remove(i)
+                    word.append(ScrabbleGame().PlayerComputer())
+            print(word)
+
             for i in str(word):
                 if i.isdigit(): raise ValueError('Can not contain digits')
-
-            for i in word:
-
-                if i == '':
-                    word.remove(i)
-                    string = f'{ScrabbleGame().PlayerComputer()}'
-
-                    word.append()
 
 
         except Exception as e:  print(e)
@@ -412,14 +422,22 @@ class WordGames(Cog):
             score = [ScrabbleGame().ComputeScore(word[0]), ScrabbleGame().ComputeScore(word[1])]
 
             #  Checking whom Scored Highest and print the winner
-            if score[0] > score[1]: print("Player 1 is the winner")
-            elif score[0] < score[1]: print("Player 2 is the winner")
+            if score[0] > score[1]:
+
+                self.embed.title = 'Player 1 is the winner'
+                await ctx.send(embed=self.embed)
+
+            elif score[0] < score[1]: 
+
+                self.embed.title = 'Player 2 is the winner'
+
+                await ctx.send(embed=self.embed)
             else: print(GameOver().TowTie())
 
             #   Save some space
             del i
             del word
             del score
-            del string
+
         
         return

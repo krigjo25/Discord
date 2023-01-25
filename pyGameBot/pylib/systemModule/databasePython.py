@@ -58,14 +58,22 @@ class MariaDB():
 
         return self.cur.execute(query)
 
-    def SelectTable (self, table, column = None):
+    def SelectTable (self, table, *column, ):
+
+        #   Initializing a list
+        sqlData = []
+        query = ""
 
         #   Select a table from the database
-        if  column == None: query = f"SELECT * FROM {table};"
 
-        else:
+        if bool(column) == False:
 
-            for i in column: query += f"{i},"
+            query = f"SELECT * from {table};"
+            print(query)
+
+        elif bool(column) == True:
+
+            for i in column : query += f"{i} "
             query = f"SELECT {query} FROM {table};"
 
         #  Execute the query.
@@ -73,10 +81,78 @@ class MariaDB():
 
         #   Fetching the sql selection
         sql = self.cur.fetchall()
+        
 
         #   Initializing a list 
-        sqlData = [i for i in sql]
-    
+        for i in sql:
+            for j in i:
+                if j != None: sqlData.append(j)
+
+        #   Clearing some space
+        del sql
+        del query
+        del column
+
+        #   Returning the values in sqlData
+        return sqlData
+
+    def SelectRow(self, table, value, *column):
+
+        #   Initializing a list
+        sqlData = []
+
+        #   Row selectinon
+        if bool(column) == False: query = f"SELECT * FROM {table} WHERE id = \"{value}\""
+        else :
+
+            print("Test")
+            for i in column : query += f"{i},"
+            query = f"SELECT {column} FROM {table} WHERE id = \"{value}\""
+
+        #  Execute the query.
+        self.cur.execute(query)
+        #   Fetching the sql selection
+        sql = self.cur.fetchall()
+
+        #   Initializing a list 
+        for i in sql:
+            for j in i:
+                if j != None: sqlData.append(j)
+
+        #   Clearing some space
+        del sql
+        del query
+        del column
+
+        #   Returning the values in sqlData
+        return sqlData
+
+    def SelectColumn(self, table,  column1, value, *arg,):
+
+        #   Declare arrays
+        sqlData = []
+
+        #   Declare variables
+        column = ""
+
+        #   Iterating through the argument
+
+        for i in arg : column += f"{i} "
+
+        query = f"SELECT {column} FROM {table} WHERE {column1} = \"{value}\";"
+
+        #  Execute the query.
+        self.cur.execute(query)
+
+        #   Fetching the sql selection
+        sql = self.cur.fetchall()
+        
+
+        #   Initializing a list 
+        for i in sql:
+            for j in i:
+                if j != None: sqlData.append(j)
+
         #   Clearing some space
         del sql
         del query
@@ -88,6 +164,7 @@ class MariaDB():
     def RowCount(self, query):
 
         #   Executes the query and retrieve the rows
+
         self.cur.execute(query)
 
         #   Fetch the cursor

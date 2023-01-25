@@ -234,6 +234,7 @@ class ScrabbleGame():
 
         #   Shuffle the words
         word = r.shuffle(word)
+        print(word, len(word))
         x = r.randrange(0,len(word))
 
         return word[x]
@@ -322,21 +323,6 @@ class JumbleCategory():
     def __init__(self) -> None:
         pass
 
-    def JumbleCategories(self): return MariaDB.SelectTable(getenv("categories"))
-
-    def SubTitle(self, arg):
-
-        arg = str(arg)
-
-        match arg:
-
-            case 'walt disney': 
-                arg = ['- Characters\n- Animations,\n- Roles']
-
-            case 'animal kingdom':
-                arg = ['- flyingCreatures \n- Cats,\n- Dogs']
-
-        return arg
 
     def JumbleGenerator(self, jumble):
 
@@ -358,7 +344,7 @@ class JumbleCategory():
         #   Returning the jumbled word
         return jumble
 
-    def RetrieveCategory(self, sub, category):
+    def RetrieveCategory(self, category, sub):
 
         """
             #   Retrieve a category from the database,
@@ -369,14 +355,15 @@ class JumbleCategory():
 
         #   Initializing database connection
         db = MariaDB(database=getenv("db2"))
-        query = f'SELECT {sub} FROM {category}'
 
         try:
 
-            word = db.SelectTable(query)
+            word = db.SelectTable(category, sub)
 
             #   Counting the rows in the database
-            x = db.RowCount(query)
+            print(len(word))
+            x = db.RowCount(word)
+            print(f" test :{x}")
 
         except Exception as e : print(e)
         else:
@@ -389,7 +376,6 @@ class JumbleCategory():
         #   Clear some space
         del x
         del db
-        del query
 
         return  word[x]
 
