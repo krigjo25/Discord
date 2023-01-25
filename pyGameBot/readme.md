@@ -1,22 +1,22 @@
 
-# Discord bot GameBot
+# Discord pyGame
 
 ## Table of content
 
 > [Introduction](#Introduction)
->> About the Developer
+>> About the Maintainer
 >>> Krigjo25
 >>> Contact
 
-> [About-pyAnalyzer](#About-pyAnalyzer)
+> [PyGame](#Pygame)
 >> project information 
 >> How to use the bot
 >> Features
 >> Updates
 
-> [Responsories](#Responsories)
-
 > [Credentials](#Credentials)
+>> Responsories
+>> APIs
 >> Disclaimers
 >> References
 
@@ -49,50 +49,43 @@ includes the text files below,
 
     SQL Database:
         mariadb
-## Py-Analyzer
+
+## PyGame
 
 Creating some minigames for Discord<br> 
 It is made with love, for the members, <br>
 he prefix command used in<br>
 in the bot  **?'**, e.g **'?help'**
 
-### Feautures
-
-#### Server Information
-
-*   Server name, id, days ago the server were created
-*   Total Roles in the server
-*   Total Members / Total banned members
-*   Total Channels
-
-####    Role information
-
-*   Counting how many roles there is
-*   Information about the roles, how many member there is, id, and name
-
-####    Member Analysis
-
-*   Profile information about a member, Guild Profile and personal profile
-
-## What has been learned
-
-
 ## Feautures
+
+### Available games
+
+-   Hangman
+-   Scrabble
+-   Eightball
+-   Rock, Scissors and paper
+-   Guess the number
+-   Little Proffessor
+
 
 
 ### What makes this bot unique
 
 The bot is made with love for python.
 
-## Responsories
-
-- pycord.py [Rapptz](https://github.com/Rapptz/discord.py),  <br>
-- python_dotenv [Saurabh Kumar](https://github.com/motdotla/dotenv),<br>
-
-
- 
 
 ## Credentials
+
+### Responsories
+
+-   pycord.py [Rapptz](https://github.com/Rapptz/discord.py),  <br>
+-   python_dotenv [Saurabh Kumar](https://github.com/motdotla/dotenv),<br>
+-   requests [Kenneth Reitz](https://requests.readthedocs.io/en/latest/)<nt>
+
+### API
+
+-   [NAPI Ninjas](https://api-ninjas.com/)<br>
 
 ### Disclaimer
 
@@ -103,8 +96,3 @@ is another story.
 ### Contact information
 
 [ContactInformation](https://github.com/krigjo25/Discord/blob/main/krigjo25/read-me.md)
-
-### References
-
-[references](https://github.com/krigjo25/Discord/blob/main/krigjo25/read-me.md)
-

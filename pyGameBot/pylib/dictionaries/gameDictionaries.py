@@ -1,6 +1,9 @@
 
 # Python Repositories
 import random as r
+import requests as req
+
+
 from os import getenv
 
 #   Dotenv Repositories
@@ -8,7 +11,44 @@ from dotenv import load_dotenv
 
 #   Custom libraries
 from pylib.systemModule.databasePython import MariaDB
+
 load_dotenv()
+
+class Hangman():
+
+    '''
+            #   Author : krigjo25
+            #   Date   :  12.01-23
+
+            #   Dictionary for Scrabble Game
+    '''
+    # Choose word test
+    def ChooseWord(self):
+
+        '''
+            #   Using an api to select a word to be choosen
+        '''
+
+        parse = 'https://api.api-ninjas.com/v1/randomword'
+        response = req.get(parse, headers={'X-Api-Key': getenv("DictionaryToken")})
+        string = ""
+        try:
+
+            if response.status_code != req.codes.ok: raise Exception(response.status_code)
+
+        except Exception as e : return e
+        else:
+
+            print("Success")
+
+            for i in response.text[8:]:
+                if i.isalpha(): string += i
+
+        #   Clear some space
+        del parse
+        del response
+
+        return string
 
 class Philosopher():
 
@@ -190,6 +230,7 @@ class ScrabbleGame():
 
             #   Dictionary for Scrabble Game
     '''
+
     def ComputeScore(self, word):
         
         '''
@@ -201,6 +242,7 @@ class ScrabbleGame():
             #   Returning score from string
 
         '''
+
         #   Initializing variables
         result = 0
         word = str(word).lower()
@@ -226,18 +268,6 @@ class ScrabbleGame():
             if i in alpha: result += POINTS[alpha.index(i)]
 
         return result
-    
-    def PlayerComputer(self):
-
-        #   Initializing a list of words
-        word = ['test','demo']
-
-        #   Shuffle the words
-        word = r.shuffle(word)
-        print(word, len(word))
-        x = r.randrange(0,len(word))
-
-        return word[x]
 
     def Computer(self, arg):
 
@@ -310,6 +340,27 @@ class ScrabbleGame():
         x = r.randrange(1,len(dictionary))
 
         return dictionary.get(x)
+
+    def CheckWord(self, word):
+
+        """
+            # Using an api to check if the word exist in the online dictionary.
+        """
+        parse = 'https://api.api-ninjas.com/v1/dictionary?word={}'.format(word)
+        response = req.get(parse, headers={'X-Api-Key': getenv("DictionaryToken")})
+
+        try:
+
+            if response.status_code != req.codes.ok: raise Exception(response.status_code)
+
+        except Exception as e : return e
+        else: print("Success")
+
+        #   Clear some space
+        del word
+        del parse
+        del response
+        return
 
 class JumbleCategory():
 
@@ -422,8 +473,9 @@ class GameOver():
         '''
 
         dictionary = {
-                        1:f'Game Over',
+                        1:f'Incorrect Answer',
                         2:'EEE',
+                        3:"Try again..."
                     }
 
         #   Randomize the dictionary
