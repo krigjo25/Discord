@@ -1,8 +1,9 @@
 #   Importing Responsories
+import os
 import sys
 import random as r
 import time as t
-from os import getenv
+
 from dotenv import load_dotenv
 
 #   Discord library
@@ -136,7 +137,7 @@ class WordGames(Cog):
             break
 
 
-        for i in MariaDB(database= getenv("db2")).SelectTable(getenv("categories"), "Categories"): category += f"**{i}**\n "
+        for i in MariaDB(database= os.getenv("db2")).SelectTable(os.getenv("categories"), "Categories"): category += f"**{i}**\n "
 
         #   Prepare and send the Welcome message
         self.embed.title = 'Welcome to the Jumble Game'
@@ -157,7 +158,7 @@ class WordGames(Cog):
             case "waltdisney":
 
                 #   Select sub categories
-                category = MariaDB(database=getenv("db2")).SelectRow(getenv("categories"), 1)
+                category = MariaDB(database=os.getenv("db2")).SelectRow(os.getenv("categories"), 1)
 
                 for i in category[2:]: sub += f"{i}, "
 
@@ -172,7 +173,7 @@ class WordGames(Cog):
                 prompt = await self.bot.wait_for('message', timeout=sec)
                 prompt = str(prompt.content).lower()
 
-                answer = MariaDB(database=getenv("db2")).SelectColumn(category[1], "roles", prompt, "characters")
+                answer = MariaDB(database=os.getenv("db2")).SelectColumn(category[1], "roles", prompt, "characters")
 
                 #   Clearing some space
                 del sub
@@ -531,7 +532,8 @@ class WordGames(Cog):
     async def Hangman(self, ctx):
 
         #   Initializing variables
-        x = 20
+        #x = 20
+        n = 0
         sec = 60.0
         letters = ""
 
@@ -539,7 +541,9 @@ class WordGames(Cog):
         l = []
 
         #   Visualizing the hangman
-        hangman = []
+        hangman = [i for i in os.listdir(os.getenv("hangman"))]
+        print(hangman)
+
         answer = Hangman().ChooseWord()
 
         #   Game Configuration
@@ -549,7 +553,7 @@ class WordGames(Cog):
 
                 #   Prepare and send the Welcome message
                 self.embed.title = 'Game Configurations'
-                self.embed.description = f'Please choose a level'
+                self.embed.description = f'Choose a level'
                 await ctx.send(embed = self.embed)
 
                 #   Wait for level input
@@ -571,8 +575,6 @@ class WordGames(Cog):
                 elif lvl > 39 and lvl < 50: count = 20
                 else: count = 5
 
-                x -= count
-
                 break
 
         self.embed.title = "Hangman game"
@@ -581,7 +583,6 @@ class WordGames(Cog):
 
         #   Hangman game
         while True:
-
 
             if count == 0:
 
@@ -596,7 +597,6 @@ class WordGames(Cog):
             count -= 1
 
             try :
-
 
                 #   Initializing a variable
                 string = ""
@@ -623,15 +623,17 @@ class WordGames(Cog):
                 self.embed.title = "Game Summary"
                 print(len(l))
                 self.embed.description = f"Counting x words : **{total}**\nLetters typed in : {letters}\nError Message: **{e}**\nType in a letter again"
-                #self.embed.set_thumbnail(url = hangman[x])
                 await ctx.send(embed = self.embed)
+                n += 1
                 
                 continue
 
             else:
 
+
                 #   Checking if prompt is equal to answer
-                if prompt in answer:
+                print(answer)
+                if prompt == answer:
 
                     self.embed.title = "Winner"
                     self.embed.description = f"**Game Summary**\nGuessed {letters}\nTotal attempts: {total}\nPlay again?"
@@ -641,18 +643,19 @@ class WordGames(Cog):
 
                 else:
 
+                    print("test")
                     #   Prepare the embed message
                     self.embed.title = "Game Summary"
                     self.embed.description = f"Counting x words : **{total}**\nLetters typed in : {letters}\nError\n{GameOver().IncorrectAnswer()}"
-                    #self.embed.set_thumbnail(url = hangman[x])
+                    self.embed.set_thumbnail(url = f"attachment://{hangman[n]}")
                     await ctx.send(embed = self.embed)
 
                     #   clear fields
                     self.embed.clear_fields()
-                    self.embed.remove_thumbnail()
+                    self.embed.remove_image()
 
             #   increase value for thumbnail
-            x += 1
+            n += 1
 
             #   Clear some space
             del prompt
