@@ -36,19 +36,14 @@ otherwise just being a human.
 Information about the design can be found in the given links below
 includes the text files below,
 
-#### Status
-
-    project start :<br>
-        23.10-21
-
-   Last Update :<br>
-        15.04-22
-
-    Current verison:<br>
-        1.0.0 RC 1
-
-    SQL Database:
-        mariadb
+> Project start :<br>
+>   23.10-21
+>
+>   Last update :<br>
+>   26.01-23
+>
+>   SQL Database:<br>
+>   mariadb
 
 ## PyGame
 
@@ -56,6 +51,10 @@ Creating some minigames for Discord<br>
 It is made with love, for the members, <br>
 he prefix command used in<br>
 in the bot  **?'**, e.g **'?help'**
+
+### What makes this bot unique
+
+The bot is made with love for python.
 
 ## Feautures
 
@@ -68,12 +67,20 @@ in the bot  **?'**, e.g **'?help'**
 -   Guess the number
 -   Little Proffessor
 
+### Eightball
+
+*   Guessing the number by type an answer such as What, How or Why.
+
+*   Sending back an answer based on Philiosophy.
 
 
-### What makes this bot unique
+### Guess the number
 
-The bot is made with love for python.
+*   Guessing the number by type an int
 
+*   4 difficulties levels (easiest - kimpossible)
+
+*   retrieve an answer wheter its correct or not
 
 ## Credentials
 

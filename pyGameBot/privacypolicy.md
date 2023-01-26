@@ -1,4 +1,4 @@
-<h1>Privacy Policy for PyMod</h1>
+<h1>Privacy Policy for PyGame</h1>
 
 <h2> Introduction</h2>
 
