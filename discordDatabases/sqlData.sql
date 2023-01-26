@@ -1,3 +1,24 @@
+
+/* Welcome and leave messages*/
+INSERT INTO welcome (welcome) VALUES
+('noOne : . {member.mention} : appeared.'),
+('{member.mention} brought us a :nut: '),
+('pyButt just sent the server a gift. {member.mention}'),
+('we are pleased to meat you, {member.mention}.'),
+('{self.bot.user} Threw a pokemon ball, {member.mention} appeard'),
+('');
+
+INSERT INTO abcent (abcent) VALUES
+('vanished'),
+('we wish the best for you, {member.mention}'),
+('{member.mention} just used a nut and disapeared into the jungle :nuts:'),
+('{member.mention}, used a time machine back to 1800s'),
+('I hope you find happyness anywhere else, {member.mention}.'),
+(' ');
+
+
+
+
 INSERT INTO waltdisney ( characters, roles, animation) VALUES
 ('Aladdin', 'Hero', 'Aladdin'),
 ('Clayton', 'Villian', 'Tarzan'),
@@ -56,20 +77,6 @@ INSERT INTO `waltDisneyTitles` (`title`) VALUES
 ('The Little Marmaid'),
 ('The Princsess And The Frog');
 
-INSERT INTO `miniGames` (`genre`) VALUES
-('Action'),
-('Animation'),
-('Adventure'),
-('Comedy'),
-('Drama'),
-('Fantasy'),
-('Historical'),
-('Mystery'),
-('Romance'),
-('Science Fiction'),
-('Thriller'),
-('Western'),
-('Other');
-
 INSERT INTO `Categories` (`Categories`, `sub`, `sub1`, `sub2`) VALUES
 ("waltdisney", "Heros", "Princess", "Classics");
+
