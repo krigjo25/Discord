@@ -14,42 +14,6 @@ from pylib.systemModule.databasePython import MariaDB
 
 load_dotenv()
 
-class Hangman():
-
-    '''
-            #   Author : krigjo25
-            #   Date   :  12.01-23
-
-            #   Dictionary for Scrabble Game
-    '''
-    # Choose word test
-    def ChooseWord(self):
-
-        '''
-            #   Using an api to select a word to be choosen
-        '''
-
-        parse = 'https://api.api-ninjas.com/v1/randomword'
-        response = req.get(parse, headers={'X-Api-Key': getenv("DictionaryToken")})
-        string = ""
-        try:
-
-            if response.status_code != req.codes.ok: raise Exception(response.status_code)
-
-        except Exception as e : return e
-        else:
-
-            print("Success")
-
-            for i in response.text[8:]:
-                if i.isalpha(): string += i
-
-        #   Clear some space
-        del parse
-        del response
-
-        return string
-
 class Philosopher():
 
     '''
@@ -73,7 +37,7 @@ class Philosopher():
                     5:'Just let your self, experience the question.',
                     6:'Visualize the question, and the answer will arrive.',
                     7:'If an human is a genious, then The best answers always comes from with-in, just believe in your self enough.',
-                    8:'As Socrets once said, you already know the answer of the question, since you had an idea of asking the question.',
+                    8:'As Socrates once said, you already know the answer of the question, since you had the idea of asking the question.',
                     9:'Would you be able to let it go?',
                     10:'A Question does not arise with out it\'s answer, so place your attention on where the question has arised',
                     11:'From where does the question actually arise? Your mind or heart?',
@@ -269,98 +233,12 @@ class ScrabbleGame():
 
         return result
 
-    def Computer(self, arg):
+    def CheckWord(self, arg):
 
-        #   Initializing variables
-        bot = 'Computer'
-        
-        if arg == '\U0001FAA8':
-
-            dictionary = {
-                            1:f'That moment, when you realize :stone doesn\'t play along with :Scissors',
-                            2:f'Congratulations, this game were Rock Hard !',
-                            3:f'It were crushing days for the scissors',
-                            4:f'pyBot Says : look behind you. **running away **.',
-}
-
-        elif arg == '\U0001F4C4':
-
-            dictionary = {
-                            1:f'{bot} sent your stone to North-Korea !',
-                            2:f'You recieved a new stone as a christmas :gift:',
-                            3:f'You have been mumified by {bot}',
-}
-
-        else:
-        
-            dictionary = {
-                            1:f'Noone : \'\'\n{bot} : Oh snap',
-                            2:f'The paper were succsessfully cut in two by {bot} ',
-                            3:f'{bot} flexed with his scissors, you lost',
-                            4:f'i won '
-}
-
-        #   Randomize the dictionary
-        x = r.randrange(1,len(dictionary))
-
-        return dictionary.get(x)
-
-    def Player(self, arg, arg1):
-
-        #   Initializing variables
-        bot = 'Computer'
-
-        if arg == '\U0001FAA8':
-
-            dictionary = {
-                            0:f'{bot} had the idea of using a {arg1} against your {arg}, {bot} thought the {arg1} were strong enough to cut thorugh your {arg}, lets do a wii-match',
-                            1:f'Congratulations, lets do it again',
-                            2:f'You just had a {arg}, while {bot} had the thought of {arg1} would be a grate choice.',
-                            3:f'OH SNAP, you just scared {bot}, he never returned to the battle field.',
-                    }
-
-        elif arg == '\U0001F4C4':
-
-            dictionary = {
-                            0:f'{bot} threw {arg1} at you, but you grabbed it with his {arg}, and wrapped it into a :package: \n you gave a :package: to {bot}, how considerate of you !',
-                            1:f'You wrappend {bot}\'s {arg1} into a :gift: and sent it to the North-Pole, Santa were stoned for the Christmas ',
-                            2:f'You made a mumified version of {bot}',
-                    }
-
-        else:
-        
-            dictionary = {
-                            0:f'Noone : \'\'\n{bot} : Oh snap',
-                            1:f'You succsessfully cut the {arg1} with a {arg}',
-                            2:f'you showed of with his :scissors: which he thought were a knife, but the goal were reached, {bot} ran.',
-                            3:f'you won '
-                    }
-
-        #   Randomize the dictionary
-        x = r.randrange(1,len(dictionary))
-
-        return dictionary.get(x)
-
-    def CheckWord(self, word):
-
-        """
-            # Using an api to check if the word exist in the online dictionary.
-        """
-        parse = 'https://api.api-ninjas.com/v1/dictionary?word={}'.format(word)
-        response = req.get(parse, headers={'X-Api-Key': getenv("DictionaryToken")})
-
-        try:
-
-            if response.status_code != req.codes.ok: raise Exception(response.status_code)
-
-        except Exception as e : return e
-        else: print("Success")
-
-        #   Clear some space
-        del word
-        del parse
-        del response
-        return
+        #print(bool(self.APINinja(arg)))
+        #   Checking if api ninja has the word
+        if APITools().CheckWord(arg): return True
+        else: return False
 
 class JumbleCategory():
 
@@ -563,3 +441,81 @@ class MathDictionary():
         del x, num
 
         return dictionary.get(x)
+
+class APITools():
+
+    #   API-Ninja
+    def CheckWord(self, word):
+
+        """
+            # Using an api to check if the word exist in the online dictionary.
+        """
+
+        parse = f'https://api.api-ninjas.com/v1/dictionary?word={word}'
+        response = req.get(parse, headers={'X-Api-Key': getenv("DictionaryToken")})
+
+        try:
+            if "true" in response.text: pass
+            else :  raise ValueError()
+
+            if response.status_code != req.codes.ok: raise Exception(response.status_code)
+
+        except Exception : return False
+
+        #   Clear some space
+        del word
+        del parse
+        del response
+
+        return True
+
+    def ChooseWord(self):
+
+        '''
+            #   API to choose a randomly generated word
+        '''
+
+        parse = 'https://api.api-ninjas.com/v1/randomword'
+        response = req.get(parse, headers={'X-Api-Key': getenv("DictionaryToken")})
+        string = ""
+
+        try:
+
+            if response.status_code != req.codes.ok: raise Exception(response.status_code)
+            print(response.status_code)
+        except Exception as e : return e
+        else:
+
+            print("Success")
+
+            for i in response.text[8:]:
+                if i.isalpha(): string += i
+
+        #   Clear some space
+        del parse
+        del response
+
+        return string
+    
+    def WordDefinition(self, word):
+
+        """
+            # Using an api to check if the word exist in the online dictionary.
+        """
+
+        parse = f'https://api.api-ninjas.com/v1/dictionary?word={word}'
+        response = req.get(parse, headers={'X-Api-Key': getenv("DictionaryToken")})
+
+        try:
+            print(response.text)
+
+            if response.status_code != req.codes.ok: raise Exception(response.status_code)
+
+        except Exception as e: return False
+
+        #   Clear some space
+        del word
+        del parse
+        del response
+
+        return True

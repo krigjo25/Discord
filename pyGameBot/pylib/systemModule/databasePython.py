@@ -66,27 +66,27 @@ class MariaDB():
 
         #   Select a table from the database
 
-        if bool(column) == False:
-
-            query = f"SELECT * from {table};"
-            print(query)
+        if bool(column) == False: query = f"SELECT * from {table};"
 
         elif bool(column) == True:
 
             for i in column : query += f"{i} "
-            query = f"SELECT {query} FROM {table};"
+            query = f"SELECT {query}FROM {table};"
 
         #  Execute the query.
-        self.cur.execute(query)
+        try :
 
-        #   Fetching the sql selection
-        sql = self.cur.fetchall()
-        
+            self.cur.execute(query)
 
-        #   Initializing a list 
-        for i in sql:
-            for j in i:
-                if j != None: sqlData.append(j)
+        except Exception as e: print(e)
+        else:
+            #   Fetching the sql selection
+            sql = self.cur.fetchall()
+            #   Iterating through the sql list
+            for i in sql:
+
+                for j in i:
+                    if j != None: sqlData.append(j)
 
         #   Clearing some space
         del sql
@@ -100,14 +100,10 @@ class MariaDB():
 
         #   Initializing a list
         sqlData = []
+        query = ""
 
-        #   Row selectinon
-        if bool(column) == False: query = f"SELECT * FROM {table} WHERE id = \"{value}\""
-        else :
-
-            print("Test")
-            for i in column : query += f"{i},"
-            query = f"SELECT {column} FROM {table} WHERE id = \"{value}\""
+        #   Select row
+        if bool(column) == False: query = f"SELECT * FROM {table} WHERE categories = \"{value}\";"
 
         #  Execute the query.
         self.cur.execute(query)
@@ -127,39 +123,48 @@ class MariaDB():
         #   Returning the values in sqlData
         return sqlData
 
-    def SelectColumn(self, table,  column1, value, *arg,):
+    def SelectColumn(self, table, where, value, *column):
 
         #   Declare arrays
         sqlData = []
 
         #   Declare variables
-        column = ""
+        arg = ""
 
         #   Iterating through the argument
 
-        for i in arg : column += f"{i} "
+        for i in column : arg += f"{i} "
 
-        query = f"SELECT {column} FROM {table} WHERE {column1} = \"{value}\";"
+        query = f"SELECT {arg}FROM {table} WHERE {where} = \"{value}\";"
 
         #  Execute the query.
-        self.cur.execute(query)
+        try :
 
-        #   Fetching the sql selection
-        sql = self.cur.fetchall()
-        
+            self.cur.execute(query)
 
-        #   Initializing a list 
-        for i in sql:
-            for j in i:
-                if j != None: sqlData.append(j)
+        except Exception as e: print(e)
+        else:
 
+            #   Fetching the sql selection
+            sql = self.cur.fetchall()
+
+            #   Iterating through the sql list
+            for i in sql:
+
+                for j in i:
+                    if j != None: sqlData.append(j)
+
+        print(sqlData)
         #   Clearing some space
-        del sql
-        del query
-        del column
+        del sql, query
+        del column, value
+        del where
+        del arg
 
+        print(sqlData)
         #   Returning the values in sqlData
         return sqlData
+
 
     def RowCount(self, query):
 

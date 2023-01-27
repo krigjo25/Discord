@@ -34,7 +34,7 @@ class MemberAnalysis(Cog):
         try:
 
             if member == None: return await ctx.send('Member not found, try again')
-            
+
             if str(member.web_status) != 'offline': 
                 status = f'**Web Status** :'
                 MemberStatus = f'{member.web_status}'

@@ -19,7 +19,7 @@ INSERT INTO abcent (abcent) VALUES
 
 
 
-INSERT INTO waltdisney ( characters, roles, animation) VALUES
+INSERT INTO waltdisney ( characters, roles, animationname) VALUES
 ('Aladdin', 'Hero', 'Aladdin'),
 ('Clayton', 'Villian', 'Tarzan'),
 ('Simba', 'Hero', ' The Lion King'),
@@ -77,6 +77,10 @@ INSERT INTO `waltDisneyTitles` (`title`) VALUES
 ('The Little Marmaid'),
 ('The Princsess And The Frog');
 
-INSERT INTO `Categories` (`Categories`, `sub`, `sub1`, `sub2`) VALUES
+
+INSERT INTO `categories` (`categories`) VALUES
+("random");
+
+INSERT INTO `categories` (`categories`, `sub`, `sub1`, `sub2`) VALUES
 ("waltdisney", "Heros", "Princess", "Classics");
 
