@@ -1,8 +1,6 @@
-
 # Python Repositories
 import random as r
 import requests as req
-
 
 from os import getenv
 
@@ -519,3 +517,8 @@ class APITools():
         del response
 
         return True
+
+class Madlibs():
+
+    def MadlibsOne(self, *args):
+        print(args)

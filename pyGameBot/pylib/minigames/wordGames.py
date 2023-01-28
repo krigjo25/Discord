@@ -81,7 +81,6 @@ class WordGames(Cog):
 
             return count
 
-    #   Finished
     @command(name="jumble")
     async def JumbleGame(self, ctx):
 
