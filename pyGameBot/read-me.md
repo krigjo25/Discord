@@ -1,4 +1,3 @@
-
 # Discord pyGame
 
 ## Table of content
@@ -60,27 +59,36 @@ The bot is made with love for python.
 
 ### Available games
 
--   Hangman
+-   JumbleGame
 -   Scrabble
 -   Eightball
--   Rock, Scissors and paper
--   Guess the number
--   Little Proffessor
 
 ### Eightball
 
-*   Guessing the number by type an answer such as What, How or Why.
+The game works with asking any question into the input field.<br>
+Questions containing numbers will output a ValueError.
 
-*   Sending back an answer based on Philiosophy.
+The program sends you a feedback 
 
+*      if the question can not be asked by sending an exception in this case a ValueError.
 
-### Guess the number
+*      With a Philiosopic answer if the question can be asked. 
 
-*   Guessing the number by type an int
+### JumbleGame
 
-*   4 difficulties levels (easiest - kimpossible)
+The intention of the game is to unscrabble a given word.<br>
+The given word is based on category which is saved in a MariaDB database<br>
+except random, the category random is an API by [API-Ninja](https://api-ninjas.com/)
 
-*   retrieve an answer wheter its correct or not
+### Scrabble
+
+The intention of the game is to send a valid English word into the program<br>
+Then the program will check if the word does actually exists
+
+-   If the word does not exists, the player will recieve zero points for the word
+
+The points system is ranged for each letter as in scrabble.
+
 
 ## Credentials
 
@@ -102,4 +110,4 @@ is another story.
 
 ### Contact information
 
-[ContactInformation](https://github.com/krigjo25/Discord/blob/main/krigjo25/read-me.md)
+[ContactInformation](https://github.com/krigjo25/contactinformation)
