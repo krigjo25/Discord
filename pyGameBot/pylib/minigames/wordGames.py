@@ -27,7 +27,6 @@ class WordGames(Cog):
         #   Collection of Classic WordGames
     '''
 
-
     def __init__(self, bot):
 
         self.bot = bot
@@ -66,13 +65,13 @@ class WordGames(Cog):
 
             else:
 
-                if lvl < 10: count.append(60.0)
-                elif lvl > 9 and lvl < 20: count.append(50.0)
-                elif lvl > 19 and lvl < 30: count.append(40.0)
-                elif lvl > 29 and lvl < 40: count.append(30.0)
-                elif lvl > 39 and lvl < 50: count.append(20.0)
+                if lvl < 10: count = 60.0
+                elif lvl > 9 and lvl < 20: count = 50.0
+                elif lvl > 19 and lvl < 30: count = 40.0
+                elif lvl > 29 and lvl < 40: count = 30.0
+                elif lvl > 39 and lvl < 50: count = 20.0
                 else:
-                    count.append(15.0)
+                    count = 15.0
 
             #   Delete and save space
             del lvl
@@ -513,7 +512,7 @@ class WordGames(Cog):
 
         #   Initializing classes
         rsp = ReactionGame()
-
+        sec = 0.0
         #   Initializing an array with Rock, Scissors, Paper
         arr = ['\U0001FAA8', '\U00002702', '\U0001F4C4']
 
@@ -529,14 +528,19 @@ class WordGames(Cog):
 
                 #   Wait for level input
                 lvl = await self.bot.wait_for('message', timeout=60)
-                lvl = int(lvl.content).lower()
+                lvl = str(lvl.content).lower()
 
-                #   Check the level input
+                #   Error messages
+                if "q" in lvl: return 
+                elif lvl.isalpha() : raise ValueError("\"Q\" to quit otherwise, the level has to be digits")
+                
+                lvl = int(lvl)
                 if lvl < 1: raise ValueError('The level can not be less than one')
-
-            except Exception as e : print(type(e))
+            except Exception as e : print(e)
 
             else:
+
+                lvl = int(lvl)
 
                 #   Configuring the timer based on level
                 if lvl < 10: sec = 60.0
@@ -545,7 +549,7 @@ class WordGames(Cog):
                 elif lvl > 29 and lvl < 40: sec = 30.0
                 elif lvl > 39 and lvl < 50: sec = 20.0
                 else: sec = 15.0
-
+                print(f"Sec:{sec}")
             break
 
         #   Prepare, Send and Add reaction to the message
@@ -565,7 +569,7 @@ class WordGames(Cog):
 
             prompt, member = await self.bot.wait_for('reaction_add', timeout=sec, check= emojiCheck)
 
-        except Exception as e : sys.exit(e)
+        except Exception as e : print(e)
 
         else:
 
