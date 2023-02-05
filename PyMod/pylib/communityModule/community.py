@@ -1,23 +1,25 @@
 #   Python Repositories
-from os import getenv
-from random import randint, randrange, shuffle
+import os
+import random as r
 from dotenv import load_dotenv
 
 #   Discord Repositories
 import aiohttp
+
 from discord.utils import get
 from discord.colour import Color
 from discord.embeds import Embed
 from discord.ext.commands import Cog, command
-from discord.permissions import PermissionOverwrite
-
-#  pyLib Repositories
-
-from pylib.systemModule.databasePython import MariaDB
 
 load_dotenv()
 
 class CommunityModule(Cog, name='Community Module'):
+
+    """
+        #   Information about the bot
+        #   Member list
+        #   Reddit meme
+    """
     def __init__(self, bot):
         self.bot = bot
         self.embed = Embed(color=Color.dark_purple())
@@ -33,22 +35,21 @@ class CommunityModule(Cog, name='Community Module'):
 
         botName = 'PyMod'
         svr = len(self.bot.guilds)
-        botMaster = self.bot.get_user(340540581174575107)
 
         if args == None:
 
             self.embed.title = f':notebook: About {botName}'
             self.embed.url=f'https://github.com/krigjo25/Discord/blob/main/{botName}/readme.md'
             self.embed.description = ''
-            self.embed.add_field(name = ':rotating_light: Released', value=getenv('BotCreated'), inline=True)
-            self.embed.add_field(name = ':new: Updated', value=getenv('PyModUpdated'), inline=True)
-            self.embed.add_field(name = ':person_with_probing_cane: Current Version', value= getenv('PyModV'), inline=True)
-            self.embed.add_field(name = ':toolbox: Responsory', value=getenv('Responsory'), inline=True)
-            self.embed.add_field(name = ':cloud: Hosted', value=getenv('Hosted'), inline=True)
-            self.embed.add_field(name = ':man: Master', value=f'My master goes by the name, {botMaster} :flag_no:', inline=True)
+            self.embed.add_field(name = ':rotating_light: Released', value=os.getenv('BotCreated'), inline=True)
+            self.embed.add_field(name = ':new: Updated', value=os.getenv('PyModUpdated'), inline=True)
+            self.embed.add_field(name = ':person_with_probing_cane: Current Version', value= os.getenv('PyModV'), inline=True)
+            self.embed.add_field(name = ':toolbox: Responsory', value=os.getenv('Responsory'), inline=True)
+            self.embed.add_field(name = ':cloud: Hosted', value=os.getenv('Hosted'), inline=True)
+            self.embed.add_field(name = ':man: Master', value=f'My master goes by the name, {self.bot.get_user(340540581174575107)} :flag_no:', inline=True)
             self.embed.add_field(name = ':arrows_counterclockwise: Server Counting', value=f'Watching {svr} \nDiscord Servers', inline=True)
             self.embed.add_field(name = ':thought_balloon: To do list', value = '[Future projects](https://github.com/krigjo25/Discord/projects/1)', inline=True)
-            #self.embed.add_field(name = 'Bot latency', values = f'**{round(self.bot.latency * 10000)}** MS!', inline=True)
+            self.embed.add_field(name = 'Bot latency', values = f'**{round(self.bot.latency * 10000)}** MS!', inline=True)
             await ctx.send(embed = self.embed)
 
             self.embed.clear_fields()
@@ -58,7 +59,7 @@ class CommunityModule(Cog, name='Community Module'):
 
             self.embed.title = 'Change log'
             self.embed.url=f'https://github.com/krigjo25/Discord/blob/main/{botName}/changelog.md'
-            self.embed.description = f'*** What is new ***\n{CommunityFunctions.ReadChangelog()}'
+            self.embed.description = f'*** What is new ***\n{CommunityFunctions().ReadChangelog()}'
             
 
             await ctx.send(embed= self.embed)
@@ -66,7 +67,8 @@ class CommunityModule(Cog, name='Community Module'):
             self.embed.clear_fields()
             self.embed.url= ''
 
-
+        #   Clear some memory
+        del args, botName, svr, botMaster
         return
 
 #   Online members
@@ -90,20 +92,27 @@ class CommunityModule(Cog, name='Community Module'):
             status = str(member.status)
 
             #   Add emoji to status
-            if status == 'online':status = ':heart_on_fire:'
-            elif status == 'idle':status = ':dash:' 
-            elif status == 'dnd':status = ':technologist:'
-            elif status == 'offline':status = ':sleeping:'
+            match status:
+
+                case "online" : status = ":heart_on_fire:"
+                case "idle" : status = ":dash:"
+                case "dnd": status = ":technologist:"
+                case "offline" : status =":sleeping:"
 
             #   Fetch user nick
             if nick == 'None':nick = ' '
             else:nick = f'Nick : {member.nick}\n'
 
-            if member.bot == False:
-                self.embed.add_field(name=f'{member.name}#{member.discriminator}',value=f'{nick} Status : {status} ', inline=False)
+            if member.bot == False: self.embed.add_field(name=f'{member.name}#{member.discriminator}',value=f'{nick} Status : {status} ', inline=False)
 
         await ctx.send(embed = self.embed)
         self.embed.clear_fields()
+
+        #   Clear some memories
+        del svr, member
+        del nick, status
+
+        return
 
 #   Random Meme
     @command(name='meme', pass_context= True)
@@ -114,9 +123,9 @@ class CommunityModule(Cog, name='Community Module'):
         """
 
         async with aiohttp.ClientSession() as cs:
-            async with cs.get('https://www.reddit.com/r/dankmemes/new.json?sort=hot') as r:
-                res = await r.json()
-                post = res['data']['children'] [randrange(0, 24)]
+            async with cs.get('https://www.reddit.com/r/dankmemes/new.json?sort=hot') as response:
+                response = await response.json()
+                post = response['data']['children'] [r.randrange(0, 24)]
                 self.embed.title = post["data"]["title"]
                 self.embed.url = 'https://www.urbandictionary.com/define.php?term=Reddit'
                 self.embed.set_image(url=post['data']['url'])
@@ -125,25 +134,42 @@ class CommunityModule(Cog, name='Community Module'):
                 await ctx.send(embed=self.embed)
                 self.embed.clear_fields()
                 self.embed.set_image(url= '')
+        
+        #   Save some memories
+        del response, post
+
         return
 
 #   Random Number
     @command (name='randint')
-    async def randomInt(self, ctx, arg, argTwo):
+    async def randomInt(self, ctx, *arg):
 
         """
-            randomInt
-
-            Generates a random integer 
-            between arg and argTwo
-
+            #   Generates a random integer 
+            #   between arg and argTwo
         """
+        try :
 
-        arg = int(arg)
-        arg2 = int(argTwo)
-        x = randint(arg, arg2)
+            if len(arg) > 2: raise ValueError()
+            elif len(arg) < 2: raise ValueError()
+            
+            for i in arg: 
+                if str(i).isalpha(): raise TypeError('100')
 
-        await ctx.send(x)
+        except Exception as e :
+
+            self.embed.title = "An Error occured.."
+            self.embed.description = "In order to generate a random integer, please only choose two integers neither less or more"
+            await ctx.send(embed = self.embed)
+
+        else:
+    
+            self.embed.title = "Generating random integer"
+            self.embed.description = f"{arg[r.randrange(int(arg[0]), int(arg[1]))]}"
+            await ctx.send(embed = self.embed)
+
+        #   Clear some memory
+        del arg
 
         return
 
@@ -153,26 +179,28 @@ class CommunityModule(Cog, name='Community Module'):
     async def YesNoMaybe(self, ctx):
 
         '''
-            Randomly choosing between yes, no maybe
+            #   Randomly choosing between yes, no maybe
         '''
 
         #   Creating a list to keep the words in
-        dictionary = ['Yes', 'No']
+        array = ['Yes', 'No', "Maybe"]
 
         #   Randomizing the words
-        x = randint(0,1)
-        shuffle(dictionary)
+        r.shuffle(array)
 
         #   Prepare and send the embed
-        self.embed.title = f"{dictionary[x]}"
+        self.embed.title = f"{array[r.randrange(0,1)]}"
         await ctx.send(embed=self.embed)
+
+        #   save some memory
+        del array
 
         return 
 
     @command(name='ping')
     async def PingBot(self, ctx):
 
-                    #   Prepare & Send embeded message
+        #   Prepare & Send embeded message
         self.embed.title = f'Bot Latency : **{round(self.bot.latency * 1000)}** MS!'
         self.embed.description = ''
         await ctx.send(embed=self.embed)

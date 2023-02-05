@@ -419,11 +419,12 @@ class MemberModeration(Cog):
         time = humanfriendly.parse_timespan(time)
 
         #   Creating log channel if not exist :x:
-        if not role: 
+        if not role:
 
             if role == None:
                 ch, role = await ModerationChecks.CheckRole(self, ctx, f'{role}')
                 role = get(srv.roles, name =role)
+
         if reason == None or time > 604800:
 
             self.embed.description = f' Could not sush **{member}** due to there were no reason or time to shush'

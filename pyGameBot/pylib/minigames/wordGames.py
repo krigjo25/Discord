@@ -181,7 +181,7 @@ class WordGames(Cog):
             else: break
         
 
-        if prompt in category[0]: answer = APITools().ChooseWord()
+        if prompt in category[0]: answer = APITools().NinjaChoice()
         else:
 
             try :
@@ -444,7 +444,7 @@ class WordGames(Cog):
                 word = [p1, p2]
 
                 for i in word:
-                    if bool(ScrabbleGame().CheckWord(i)) == False:  raise ValueError(f'"{i}" Is not a word')
+                    if bool(APITools().NinjaDefinition(i)) == False:  raise ValueError(f'"{i}" Is not a word')
 
             except (ValueError, TypeError) as e:
 

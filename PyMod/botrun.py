@@ -10,7 +10,7 @@ def RunBot ():
 
         # necsessary values from .env
         disc = DiscordSetup()
-        botKey = getenv('PyModToken')
+        botKey = getenv('Token')
 
         disc.SystemSetup()
         disc.MiscModuleSetup()

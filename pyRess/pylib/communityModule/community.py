@@ -47,7 +47,7 @@ class CommunityModule(Cog, name='Community Module'):
 
             self.embed.title = 'Change log'
             self.embed.url=f'https://github.com/krigjo25/Discord/blob/main/changelog.md'
-            self.embed.description = f'*** What is new ***\n{CommunityFunctions.ReadChangelog()}'
+            self.embed.description = f'*** What is new ***\n{CommunityFunctions().ReadChangelog()}'
             
 
         await ctx.send(embed= self.embed)

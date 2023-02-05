@@ -443,33 +443,11 @@ class MathDictionary():
 class APITools():
 
     #   API-Ninja
-    def CheckWord(self, word):
 
-        """
-            # Using an api to check if the word exist in the online dictionary.
-        """
-
-        parse = f'https://api.api-ninjas.com/v1/dictionary?word={word}'
-        response = req.get(parse, headers={'X-Api-Key': getenv("DictionaryToken")})
-
-        try:
-            if "true" in response.text: pass
-            else :  raise ValueError()
-
-            if response.status_code != req.codes.ok: raise Exception(response.status_code)
-
-        except Exception : return False
-
-        #   Clear some space
-        del word
-        del parse
-        del response
-
-        return True
-
-    def ChooseWord(self):
+    def NinjaChoice(self):
 
         '''
+            #   API by API-Ninja
             #   API to choose a randomly generated word
         '''
 
@@ -479,44 +457,44 @@ class APITools():
 
         try:
 
-            if response.status_code != req.codes.ok: raise Exception(response.status_code)
-            print(response.status_code)
+            if response.status_code != req.codes.ok: raise Exception("Something went wrong with the connection to Ninja API")
         except Exception as e : return e
         else:
 
-            print("Success")
-
-            for i in response.text[8:]:
+            for i in response.text:
                 if i.isalpha(): string += i
 
         #   Clear some space
-        del parse
-        del response
+        del parse, response
 
         return string
-    
-    def WordDefinition(self, word):
+
+    def NinjaDefinition(self, word):
 
         """
-            # Using an api to check if the word exist in the online dictionary.
+            #   API by API-Ninja
+            # Using an api to check wether the word exist or not.
         """
-
+        print("Test ninja definition")
         parse = f'https://api.api-ninjas.com/v1/dictionary?word={word}'
         response = req.get(parse, headers={'X-Api-Key': getenv("DictionaryToken")})
+        json = dict(response.json())
 
         try:
-            print(response.text)
-
             if response.status_code != req.codes.ok: raise Exception(response.status_code)
 
-        except Exception as e: return False
+        except Exception as e: return e
+        else:
 
-        #   Clear some space
+            for i, j in json.items(): 
+                if "valid" in i :  json = j
+
+        #   Clear some memory
         del word
         del parse
         del response
 
-        return True
+        return json
 
 class Madlibs():
 
