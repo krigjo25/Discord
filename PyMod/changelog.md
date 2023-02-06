@@ -11,3 +11,14 @@
 **maintained by**,<br>
 ***@krigjo25***<br>
 *Sun, 17/04-22, 15:22*
+
+
+**Bot creation**
+
+***0.0 preutal-beta***
+
+-  Created a bot called pymod, with simple moderation capabilities
+
+**maintained by**,<br>
+***@krigjo25***<br>
+*Fri, 15/04-22, 15:22*

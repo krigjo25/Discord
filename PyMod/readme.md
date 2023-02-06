@@ -2,34 +2,32 @@
 
 <h2 align="center">Table of content</h2>
 
-### [Introduction](#Introduction)
+### [Introduction](#introduction)
 >   About the Maintainer
->   
->   Contact
 
-### [PyMod](#PyMod)
+### [PyMod](#pymod)
 
 > About the bot<br>
 > Project Status<br>
 > How to use the bot<br>
 > Features<br>
 
-### [Features](#Features)
+### [Features](#features)
 
 > Community Module<br>
 > Moderation commands<br>
 > Administrator commands<br>
 > Updates
 
-### [Responsories](#Responsories)
+### [Responsories](#responsories)
 
-### [Credentials](#Credentials)
+### [Credentials](#credentials)
 
 > PrivacyPolicy<br>
-> Termsofusage
+> Termsofusage<br>
 > licence
 
-### [Project Summary](#project-Summary)
+### [Project Summary](#project-summary)
 
 # Introduction
 
@@ -39,40 +37,22 @@ goes by the name Kristoffer, born in 94, :flag_no:.<br>
 maintaining Python & SQL projects<br>
 otherwise just being a human.
 
-##  Contact Information
+<h1 align="center"> About Pymod</h1>
 
-**Discord:** <br>
-Krigjo25#5588<br>
+Pymod is a discord moderator command assistant,<br>
+Intention of the bot is to easy accsess discord moderation.
 
-**Website:**<br> 
-www.website.com
-
-<h1 align="center"> About PyMod</h1>
-
-I'm your discord moderator command assistant, <br>
-My intention is just to assist you in your discord server
-
-<h2 align="center">How to use  PyMod</h2>
+## How to use the bot
 
 Command prefix for the bot **?**, e.g **?help** 
 
 -   Moderator's privileges required **kick**
-
 -   Administrator's privileges required **Administrator**
 
 ## Project Status
 
-**Project name**:<br>
-PyMod
+Bot created at 15.04-22, and have a last update at 11.05-22
 
-**Project start** :<br>
-15.04-22
-
-**Last Update** :<br>
-11.05-22
-
-**Project version**:<br>
-?botinfo
 
 <h2 align="center"> Features</h2>
 
@@ -80,6 +60,7 @@ PyMod
 
 ### Community-Module
 
+Commands which is available for everyone.
 > botinfo (optional: log )
 >> Information about the bot
 >
@@ -97,45 +78,44 @@ PyMod
 
 ## Bot Post Moderation Utility
 
-Roles used in the project :
+Automated roles in the project :
 
--   sushed  - Muted players
+>   Sushed  - Muted members
 
 <h2 align="center"> Moderation Module</h2>
 
 ##   General Moderator commands
 
-These commands does not required any spesific permissions
+These commands does not required any spesific permissions but requires the role moderator
 
 >   cls (channel name) (int)
->>  Clear the chat limit 100 lines each time the command is used
+>  -    Clear the chat limit 100 lines each time the command is used
 >
 >   poll
->>  Creates a poll
+>  -    Creates a poll
 >
 >   Online
->>  Checks whom is online/offline
+>  -    Checks whom is online/offline
 >
 >   Warn*
->>  Manually warn a member
+>  -    Manually warn a member
 
 ##   Moderators with kick_members privileges
 
 Commands which requires **kick_members**
 >   kick* (member name) (reason)
->>  Kicks a member from the server
+>   -   Kicks a member from the server
 
 ##   Moderators with moderate_members privileges
 
 Commands which requires **moderate_members**
 
 >   sush* (memberName) (1s - 1 w) (reason)
->>  Snoozes a member for given minute
->>
->> Limitations : 1we mute.    e.g : sush MemberName 1s / 1m / 1d / 1w / 1y reason
+>  -    Snoozes a member for given minute
+>  -    Limitations : 1 w mute.    e.g : sush MemberName 1s / 1m / 1d / 1w reason
 >
 >   lift (memberName)
->>  Removes the mute and the role.
+>   -   Removes the mute and the role.
 
 
 ##   Moderators with manage_channels & manage_threads privileges
@@ -144,68 +124,63 @@ Commands which requires **manage_channels**
 Commands which requires **manage_threads**
 
 >  ~~chedit~~
->>  Modify a channel, permissions
+>>  ~~Modify a channel, permissions~~
 
 >   chdel
->>  Deletes a channel
+>  -    Deletes a channel
 >
 >   chcre
->>  Creates a new channel
+>  -   Creates a new channel
 
 ##   Moderators with manage_Roles privileges
 
 Commands which requires **manage_roles**
 >   crero* (roleName)
->>  - Pre made permissions,
->>  - Customize your own permissions,
->>  - Premade Colours
->>  - Customize your own  colours
+>  - Pre made permissions,
+>  - Customize your own permissions,
+>  - Premade Colours
+>  - Customize your own  colours
 >
 >   remro* (memberName)
->>  Removes a member from the roles
+>  -    Removes a member from the roles
 >
 >   sero* (memberName) (role)
->>  Set a member's role
+>  -   Set a member's role
 >
 >   dero* (roleName)
->>  Deletes a role from the server
+>  -   Deletes a role from the server
 
 - "*" records the given command in the moderationlog channel
 
 ## List of Premade Permissions
 
 >   Members
->>
->>  Full Membership Permissions
->>>  Chat previligies, Stream previliges & Voice Previliges
->>
->>  Chat Permissions only
->>> Send_messages, add_reactions, external_emojis, read_message_history & use_slash_commands
->>
->>  StreamPermissions
->>>  Chat Permissions & stream
->>
->>  VoicePermissions
->>> Chat Permissions, speak, connect, request_to_speak, send_tts_messages,
->>> use_voice_activation
+>   -   Full Membership Permissions
+>   -   Chat previligies, Stream previliges & Voice Previliges
+>   -   Chat Permissions only
+>   -   permissions enabled :<br>Send_messages,<br> add_reactions,<br> external_emojis,<br> read_message_history & use_slash_commands<br>
+>  StreamPermissions
+>  -    permissions enabled :<br>Chat Permissions & stream
+>
+>   VoicePermissions
+>   -   permissions enabled :<br> Chat Permissions,<br> speak, connect,<br> request_to_speak,<br> send_tts_messages,<br> use_voice_activation
 >
 >   Moderator
->>
->>  GuildModerator
->>>  manage_guild
->>
+>
+>>  GuildModerator<br>
+>>  manage_guild
+>
 >> Role Moderator
->>
->>> manage_roles
->>
+>> -   manage_roles
+>
 >> Voice Moderator
->>> They're able to move, mute, deafen members. They have priority_speaker previliges
->>
+>> -    They're able to move, mute, deafen members. They have priority_speaker previliges
+>
 >> Member Moderator
->>> They're able to manage nicknames & moderate members
->>
+>> -    They're able to manage nicknames & moderate members
+>
 >>  ModerationMananger
->>  Has every moderation possiblities the other moderation type + they're able to kick members
+>>   -   Has every moderation possiblities the other moderation type + they're able to kick members
 
 ## List of premade Colours
 
@@ -213,28 +188,41 @@ Commands which requires **manage_roles**
 <h2 align="center"> Administrator module</h2>
 
 >   ban* (member) (reason)
->>  Ban a discord user from the server
+>  -   Ban a discord user from the server
 >
 >   banlist
->>  View a list of banned server members
+>  -    View a list of banned server members
 >                           
 >   unban* (member)
->>  Unban a discord user from the server
+>   -   Unban a discord user from the server
 >
 >   announce (channelName)
->>  Creates an announcement in the given channel as the bot
->> - "*" records the command in the channel auditlog
+>  -   Creates an announcement in the given channel as the bot
+> - **"*"** records the command in the channel auditlog
 
+##  Credentials
 
-## Responsories
+### Responsories
 
--   discord.py [Rapptz](https://github.com/Rapptz/discord.py),
--   ~~Anti-Spam [Skelmis](https://github.com/Skelmis/DPY-Anti-Spam/commits?author=Skelmis)~~,
--   humanfriendly [Peter Odding](https://github.com/xolox/python-humanfriendly),
--   MariaDB [MariaDB Community](https://github.com/mariadb-corporation/mariadb-connector-python),
--   python_dotenv [Saurabh Kumar](https://github.com/motdotla/dotenv),
+-   discord.py by [Rapptz](https://github.com/Rapptz/discord.py),
+-   ~~Anti-Spam by [Skelmis](https://github.com/Skelmis/DPY-Anti-Spam/commits?author=Skelmis)~~,
+-   humanfriendly by [Peter Odding](https://github.com/xolox/python-humanfriendly),
+-   MariaDB by [MariaDB Community](https://github.com/mariadb-corporation/mariadb-connector-python),
+-   python_dotenv by [Saurabh Kumar](https://github.com/motdotla/dotenv),
 
+### API
 
+-   [NAPI Ninjas](https://api-ninjas.com/)<br>
+
+### Disclaimer
+
+The developer can only have the responsibility,<br>
+for how the projects is created, how it is used,<br>
+is another story.
+
+### Contact information
+
+[ContactInformation](https://github.com/krigjo25/contactinformation)
  
 # Bot Summary
 
@@ -246,10 +234,9 @@ Commands which requires **manage_roles**
     *   manage_role previliges
         *   Created some roles permissions
         *   Created some role Colours
-    
-## Credentials
 
-Bot Created by @krigjo25
+
+Bot developed by @krigjo25
 
 [Terms of Use]() <br>
 [Privacy Policy notice]()<br> 

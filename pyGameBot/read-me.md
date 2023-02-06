@@ -2,24 +2,22 @@
 
 ## Table of content
 
-> [Introduction](#Introduction)
->> About the Maintainer
->>> Krigjo25
->>> Contact
+> [Introduction](#introduction)<br>
+> About the Maintainer<br>
 
-> [PyGame](#Pygame)
->> project information 
->> How to use the bot
->> Features
->> Updates
+> [PyGame](#pygame)<br>
+> project information<br>
+> How to use the bot<br>
+> Features<br>
+> Updates
 
-> [Credentials](#Credentials)
->> Responsories
->> APIs
->> Disclaimers
->> References
+> [Credentials](#credentials)<br>
+> Responsories<br>
+> APIs<br>
+> Disclaimers<br>
+> References
 
-> [Project-Summary](#project-Summary)
+> [Project-Summary](#project-summary)
 
 
 ## Introduction

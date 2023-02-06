@@ -36,81 +36,65 @@ class CommunityModule(Cog, name='Community Module'):
         botName = 'PyMod'
         svr = len(self.bot.guilds)
 
-        if args == None:
+        match args:
+            case None :
 
-            self.embed.title = f':notebook: About {botName}'
-            self.embed.url=f'https://github.com/krigjo25/Discord/blob/main/{botName}/readme.md'
-            self.embed.description = ''
-            self.embed.add_field(name = ':rotating_light: Released', value=os.getenv('BotCreated'), inline=True)
-            self.embed.add_field(name = ':new: Updated', value=os.getenv('PyModUpdated'), inline=True)
-            self.embed.add_field(name = ':person_with_probing_cane: Current Version', value= os.getenv('PyModV'), inline=True)
-            self.embed.add_field(name = ':toolbox: Responsory', value=os.getenv('Responsory'), inline=True)
-            self.embed.add_field(name = ':cloud: Hosted', value=os.getenv('Hosted'), inline=True)
-            self.embed.add_field(name = ':man: Master', value=f'My master goes by the name, {self.bot.get_user(340540581174575107)} :flag_no:', inline=True)
-            self.embed.add_field(name = ':arrows_counterclockwise: Server Counting', value=f'Watching {svr} \nDiscord Servers', inline=True)
-            self.embed.add_field(name = ':thought_balloon: To do list', value = '[Future projects](https://github.com/krigjo25/Discord/projects/1)', inline=True)
-            self.embed.add_field(name = 'Bot latency', values = f'**{round(self.bot.latency * 10000)}** MS!', inline=True)
-            await ctx.send(embed = self.embed)
+                self.embed.title = f':notebook: About {botName}'
+                self.embed.url=f'https://github.com/krigjo25/Discord/blob/main/{botName}/readme.md'
 
-            self.embed.clear_fields()
-            self.embed.url= ''
+                self.embed.add_field(name = ':rotating_light: Released', value=os.getenv('BotCreated'), inline=True)
+                self.embed.add_field(name = ':new: Updated', value=os.getenv('PyModUpdated'), inline=True)
+                self.embed.add_field(name = ':person_with_probing_cane: Current Version', value= os.getenv('PyModV'), inline=True)
+                self.embed.add_field(name = ':toolbox: Responsory', value=os.getenv('Responsory'), inline=True)
+                self.embed.add_field(name = ':cloud: Hosted', value=os.getenv('Hosted'), inline=True)
+                self.embed.add_field(name = ':man: Master', value=f'{self.bot.get_user(340540581174575107)} :flag_no:', inline=True)
+                self.embed.add_field(name = ':arrows_counterclockwise: Server Counting', value=f'Watching **{svr}** Discord Servers', inline=True)
+                self.embed.add_field(name = ':thought_balloon: To do list', value = '[Future projects](https://github.com/krigjo25/Discord/projects/1)', inline=True)
+                self.embed.add_field(name = "Bot's latency :", value = round(self.bot.latency * 1000), inline = True)
 
-        if args == 'log':
+            case "log":
 
-            self.embed.title = 'Change log'
-            self.embed.url=f'https://github.com/krigjo25/Discord/blob/main/{botName}/changelog.md'
-            self.embed.description = f'*** What is new ***\n{CommunityFunctions().ReadChangelog()}'
-            
+                self.embed.title = 'Change log'
+                self.embed.url=f'https://github.com/krigjo25/Discord/blob/main/{botName}/changelog.md'
+                self.embed.description = CommunityFunctions().ReadChangelog()
 
-            await ctx.send(embed= self.embed)
-
-            self.embed.clear_fields()
-            self.embed.url= ''
+        await ctx.send(embed = self.embed)
 
         #   Clear some memory
-        del args, botName, svr, botMaster
+        self.embed.clear_fields()
+
+        del args, botName, svr
+
         return
 
 #   Online members
-    @command(name='memberlist', pass_context=True)
+    @command(name='mlist', pass_context=True)
     async def MembersList(self, ctx):
 
-        '''
-            Retrive List of server members
-        '''
+        """
+            #   Retrive List of server members
+        """
 
-        #   Initialize variables
-        svr = ctx.guild
-
-        self.embed.title = 'Server Members'
-        
         #   Fetching members
-        for member in svr.members:
-            
-            #   Intializing variables
-            nick = str(member.nick)
-            status = str(member.status)
+        for member in ctx.guild.members:
 
             #   Add emoji to status
-            match status:
+            match str(member.status):
 
                 case "online" : status = ":heart_on_fire:"
                 case "idle" : status = ":dash:"
                 case "dnd": status = ":technologist:"
                 case "offline" : status =":sleeping:"
 
-            #   Fetch user nick
-            if nick == 'None':nick = ' '
-            else:nick = f'Nick : {member.nick}\n'
+            if member.bot == False and member.nick != None: self.embed.add_field(name=f'{member.name}#{member.discriminator}',value=f'Nick {member.nick} Status : {status} ', inline=False)
+            elif member.bot == False : self.embed.add_field(name=f'{member.name}#{member.discriminator}',value=f'Status : {status} ', inline=False)
 
-            if member.bot == False: self.embed.add_field(name=f'{member.name}#{member.discriminator}',value=f'{nick} Status : {status} ', inline=False)
-
+        self.embed.title = 'Server Members'
         await ctx.send(embed = self.embed)
         self.embed.clear_fields()
 
         #   Clear some memories
-        del svr, member
-        del nick, status
+        del member, status
 
         return
 
@@ -118,8 +102,8 @@ class CommunityModule(Cog, name='Community Module'):
     @command(name='meme', pass_context= True)
     async def GetRedditMeme(self, ctx):
 
-        """" GetRedditMeme
-                Generates a random meme from reddit
+        """
+            #   Generates a random meme from reddit
         """
 
         async with aiohttp.ClientSession() as cs:
@@ -189,7 +173,7 @@ class CommunityModule(Cog, name='Community Module'):
         r.shuffle(array)
 
         #   Prepare and send the embed
-        self.embed.title = f"{array[r.randrange(0,1)]}"
+        self.embed.title = f"{array[r.randrange(0,2)]}"
         await ctx.send(embed=self.embed)
 
         #   save some memory
@@ -197,13 +181,6 @@ class CommunityModule(Cog, name='Community Module'):
 
         return 
 
-    @command(name='ping')
-    async def PingBot(self, ctx):
-
-        #   Prepare & Send embeded message
-        self.embed.title = f'Bot Latency : **{round(self.bot.latency * 1000)}** MS!'
-        self.embed.description = ''
-        await ctx.send(embed=self.embed)
 
     #   List Roles
     @command(name='liro')
@@ -217,21 +194,23 @@ class CommunityModule(Cog, name='Community Module'):
         '''
 
         #   Initializing variables
-        svr = ctx.guild
-        roles = svr.roles
-        i = []
         x = 0
-        
 
-        for role in roles:
+        #   Iteration over the ctx guild roles
+        for role in ctx.guild.roles:
 
+            #   Increasing by one
             x += 1
+
+            #   Adding a embed field.
             self.embed.add_field(name = f'Role No {x}', value=f'{role.mention}')
 
         #   Prepare, send & Clean up embed
         self.embed.title = 'Server roles'
         await ctx.send(embed=self.embed)
 
+        #   save some memories
+        del x
         self.embed.clear_fields()
 
         return
@@ -239,15 +218,19 @@ class CommunityModule(Cog, name='Community Module'):
 class CommunityFunctions():
 
 
-    def ReadChangelog():
+    def ReadChangelog(self):
 
         #   Opens the changelog
-        with open('PyMod/changelog.md', 'r') as f:
+        try :
 
-            #   Read x bytes
-            changelog = f.read(415)
+            with open('changelog.md', 'r') as f:
+
+                #   Read x bytes
+                changelog = f.read(415)
 
         #   Closing the document
             f.close()
+
+        except Exception as e : print(e)
 
         return changelog
