@@ -6,10 +6,9 @@ from discord.ext.commands import command, Cog
 
 class FrequentlyAskedQuestions(Cog):
 
-    cmdPre = '?'
-
-    def __init__(self,bot):
+    def __init__(self, bot):
         self.bot = bot
+        self.prefix = "?"
         self.embed = Embed(color=Color.dark_purple())
 
 #   Frequently Asked Question
@@ -17,40 +16,16 @@ class FrequentlyAskedQuestions(Cog):
     @command(name='help', pass_context=True)
     async def FrequentlyAskedQuestions(self, ctx, *, args = None):
 
-        #   Initializing Classes
-        faq = FrequentlyAskedQuestions
-        #sys = SystemModule
-        #avs = AdminiralVonSnider
-        
-        if args == None:
+        args = str(args).lower().replace(" ", "")
 
-            self.embed.title = ':classical_building: Frequently Asked Questions:question:'
-            self.embed.description = f' Usage ** {faq.cmdPre}help (Category)** for more details\n\n'
-            self.embed.add_field(name=':people_holding_hands: Community Module', value='Ever heard of the guy whom joined a community? \n He were never seen again.', inline=True)
+        match args:
 
-            #   Moderator Commands
-            if ctx.author.guild_permissions.kick_members or ctx.author.guild_permissions.manage_roles:
-                self.embed.add_field(name='Moderator Module', value = 'A joke here', inline=True)
+            case None:
 
-            if ctx.author.guild_permissions.administrator:
-                self.embed.add_field(name='Administrator Module', value='A joke here', inline=True)
-
-        else:
-            
-            args = str(args).lower().replace(" ", "")
-
-
-            #   Bot-Modules
-
-            if  args == 'communitymodule': self.embed = self.CommunityModule()
-
-            #   Administration
-            elif args == 'moderatormodule': self.embed = self.ModeratorModule(ctx)
-            elif args == 'administratormodule': self.embed = self.AdministratorModule()
-
-            else:
-                self.embed.title = 'Frequently Asked Questions:question:'
-                self.embed.title = f'Usage ** {faq.cmdPre}help (Category)** for more details\n\n'
+                self.embed.color = Color.dark_purple()
+                self.embed.title = ':classical_building: Frequently Asked Questions:question:'
+                self.embed.description = f' Usage ** {self.prefix}help (Category)** for more details\n\n'
+                
                 self.embed.add_field(name=':people_holding_hands: Community Module', value='Ever heard of the guy whom joined a community? \n He were never seen again.', inline=True)
 
                 #   Moderator Commands
@@ -61,73 +36,79 @@ class FrequentlyAskedQuestions(Cog):
                 if ctx.author.guild_permissions.administrator:
                     self.embed.add_field(name='Administrator Module', value='A joke here', inline=True)
 
+            case "communitymodule": self.embed = self.CommunityModule()
+            case "moderatormodule": self.embed = self.ModeratorModule(ctx)
+            case "administratormodule": self.embed = self.AdministratorModule()
+
         await ctx.send(embed=self.embed)
+
+        #   Clear some memory
+        del args
         self.embed.clear_fields()
 
         return
 
     def CommunityModule(self):
 
-        faq = FrequentlyAskedQuestions
-
-        self.embed.title=':people_holding_hands: Community-Module'
-        self.embed.description='Use ** ?help (Command)**, for more details, sir.\n\n'
+        self.embed.color = Color.dark_purple()
+        self.embed.title=':people_holding_hands: Community Module'
+        self.embed.description=f'Use ** {self.prefix}help (Command)**, for more details, sir.\n\n'
 
         self.embed.add_field(name='/', value='- for built-ins ', inline=True)
-        self.embed.add_field(name= f'{faq.cmdPre}liro', value='list of roles')
-        self.embed.add_field(name= f'{faq.cmdPre}ping', value='Checkout the bots latency')
-        self.embed.add_field(name= f'{faq.cmdPre}memberlist', value ='list of members', inline=True)
-        self.embed.add_field(name= f'{faq.cmdPre}yesnomaybe ', value='- Randomly chooses between yes / no or maybe', inline=True)
-        self.embed.add_field(name= f'{faq.cmdPre}botinfo \n(optional parameter: log)', value='- how did the bot fail the exam? She was a bit rusty', inline=True)
-        self.embed.add_field(name= f'{faq.cmdPre}meme', value='- What do you call a gamer whom works at an abortion clinic? :rofl:\n Spawn Camper ', inline=True)
+        self.embed.add_field(name= f'{self.prefix}liro', value='list of roles')
+        self.embed.add_field(name= f'{self.prefix}ping', value='Checkout the bots latency')
+        self.embed.add_field(name= f'{self.prefix}memberlist', value ='list of members', inline=True)
+        self.embed.add_field(name= f'{self.prefix}yesnomaybe ', value='- Randomly chooses between yes / no or maybe', inline=True)
+        self.embed.add_field(name= f'{self.prefix}botinfo \n(optional parameter: log)', value='- how did the bot fail the exam? She was a bit rusty', inline=True)
+        self.embed.add_field(name= f'{self.prefix}meme', value='- What do you call a gamer whom works at an abortion clinic? :rofl:\n Spawn Camper ', inline=True)
 
+        #   Clear some memory
         return self.embed
 
     #   Server Moderation
     def ModeratorModule(self,ctx):
 
-        faq = FrequentlyAskedQuestions
-
         self.embed.title = 'Moderator Module'
+        self.embed.color = Color.dark_purple()
 
         if ctx.author.guild_permissions.kick_members:
 
-            self.embed.add_field(name = f':bar_chart: {faq.cmdPre}poll', value = '- Run a poll', inline=True)
-            self.embed.add_field(name = f'{faq.cmdPre}kick', value = '- Kicks a user off the server ', inline=True)
-            self.embed.add_field(name = f'{faq.cmdPre}online', value= '- Checks whom is online / offline', inline=True)
+            self.embed.add_field(name = f'{self.prefix}Member kick', value = '- Kicks a user off the server ', inline=True)
+            self.embed.add_field(name = f'{self.prefix}online', value= '- Checks whom is online / offline', inline=True)
 
         if ctx.author.guild_permissions.manage_roles:
 
-            self.embed.add_field(name=f'{faq.cmdPre}remro', value='- Demote a person from the role', inline=True)
-            self.embed.add_field(name=f'{faq.cmdPre}dero', value='- Deletes a role from the server', inline=True)
-            self.embed.add_field(name=f'{faq.cmdPre}crero', value='- Creates a role in the server', inline=True)
-            self.embed.add_field(name=f'{faq.cmdPre}sero', value='- Promotes a regular user to given role', inline=True)
-            self.embed.add_field(name=f'{faq.cmdPre}colro', value='- Promotes a regular user to given role', inline=True)
+            self.embed.add_field(name=f'{self.prefix}Role Demote', value='- Demote a person from the role', inline=True)
+            self.embed.add_field(name=f'{self.prefix}Role Delete', value='- Deletes a role from the server', inline=True)
+            self.embed.add_field(name=f'{self.prefix}Role Create', value='- Creates a role in the server', inline=True)
+            self.embed.add_field(name=f'{self.prefix}sero', value='- Promotes a regular user to given role', inline=True)
+            self.embed.add_field(name=f'{self.prefix}colro', value='- Promotes a regular user to given role', inline=True)
             pass
 
         if ctx.author.guild_permissions.manage_channels:
 
-            self.embed.add_field(name=f'{faq.cmdPre}chdel', value='- Deletes a channel from the server ', inline=True)
-            self.embed.add_field(name=f'{faq.cmdPre}cls', value= '- Clears the given channel Chat:bangbang:', inline=True)
-            self.embed.add_field(name=f'{faq.cmdPre}chcre', value='- Create a new channel default : hidden ', inline=True)
+            self.embed.add_field(name=f'{self.prefix}ch Delete', value='- Deletes a channel from the server ', inline=True)
+            self.embed.add_field(name=f'{self.prefix}ch Clear', value= '- Clears the given channel Chat:bangbang:', inline=True)
+            self.embed.add_field(name=f'{self.prefix}ch Create', value='- Create a new channel default : hidden ', inline=True)
 
         if ctx.author.guild_permissions.moderate_members:
 
-            self.embed.add_field(name=f'{faq.cmdPre}lift', value= '- lift a sush from a member', inline=True)
-            self.embed.add_field(name=f'{faq.cmdPre}sush', value= '- Shush a member for ammount of time ', inline=True)
-            self.embed.add_field(name=f'{faq.cmdPre}warn', value= '- Warn a member for their behavior', inline=True)
+            self.embed.add_field(name = f':bar_chart: {self.prefix}Member poll', value = '- Run a poll', inline=True)
+            self.embed.add_field(name=f'{self.prefix}Member Lift', value= '- lift a sush from a member', inline=True)
+            self.embed.add_field(name=f'{self.prefix}Member Sush', value= '- Shush a member for ammount of time ', inline=True)
+            self.embed.add_field(name=f'{self.prefix}Member Warn', value= '- Warn a member for their behavior', inline=True)
 
         return self.embed
 
+    #   Server Adminsistration
     def AdministratorModule(self):
 
-        faq = FrequentlyAskedQuestions
-
+        self.embed.color = Color.dark_purple()
         self.embed.title = 'Administrator Module'
-        self.embed.add_field(name=f':bar_chart: {faq.cmdPre}poll', value='-Run a poll', inline=True)
-        self.embed.add_field(name=f'{faq.cmdPre}unban', value= '- unban a member ', inline=True)
-        self.embed.add_field(name=f':bar_chart: {faq.cmdPre}banlist', value='-View banned members', inline=True)
-        self.embed.add_field(name=f'{faq.cmdPre}announce', value= '- Talk as the bot in a given channel', inline=True)
-        self.embed.add_field(name=f':no_pedestrians: {faq.cmdPre}ban', value='- Probhits a Discord user to enter your channel', inline=True)
+        self.embed.add_field(name=f':bar_chart: {self.prefix}poll', value='-Run a poll', inline=True)
+        self.embed.add_field(name=f'{self.prefix}Member unban', value= '- unban a member ', inline=True)
+        self.embed.add_field(name=f':bar_chart: {self.prefix}Member banlist', value='-View banned members', inline=True)
+        self.embed.add_field(name=f'{self.prefix}Member announce', value= '- Talk as the bot in a given channel', inline=True)
+        self.embed.add_field(name=f':no_pedestrians: {self.prefix}Member ban', value='- Probhits a Discord user to enter your channel', inline=True)
 
         return self.embed

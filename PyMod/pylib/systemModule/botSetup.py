@@ -28,13 +28,17 @@ from pylib.communityModule.community import CommunityModule                     
 from pylib.postModerationModule.moderatorModule.roleModeration import RoleModeration
 from pylib.postModerationModule.moderatorModule.rolePermissions import RolePermissions
 from pylib.postModerationModule.administratorModule.administrator import Administrator
-from pylib.postModerationModule.moderatorModule.moderator import ChannelModeration, MemberModeration, ManageModeration
+from pylib.postModerationModule.moderatorModule.moderator import ChannelModeration, MemberModeration
 
 # Importing .evn file
 load_dotenv()
 
 class DiscordSetup():
 
+    """
+        #   Discord bot configuration
+        #   Cogs for the bot
+    """
     def __init__(self):
 
         #self.appinfo = AppInfo()
@@ -45,6 +49,9 @@ class DiscordSetup():
 
     def SystemConiguration(self):
 
+        """
+            #   Bot itents
+        """
         #   Bot intents
         self.intents.bans = True                    #   Allows the bot to ban / unban members
         self.intents.guilds = True                  #   Allows the bot to interect with guilds
@@ -77,7 +84,6 @@ class DiscordSetup():
         #   Other modules
         self.bot.add_cog(MemberModeration(self.bot))
         self.bot.add_cog(ChannelModeration(self.bot))
-        self.bot.add_cog(ManageModeration(self.bot))
 
 
         return

@@ -27,31 +27,27 @@ class FrequentlyAskedQuestions(Cog):
     @command(name='help', pass_context=True)
     async def FrequentlyAskedQuestions(self, ctx, *, args=None):
 
-        if args == None:
+        args = str(args).lower().replace(" ", "")
+        match args:
+            case None:
 
-            self.embed.title = 'Frequently Asked Questions:question:'
-            self.embed.description = ' Usage ** ?help (Category)** for more details\n\n'
-            self.embed.add_field(name=':people_holding_hands: Community Module', value='Ever heard of the guy whom joined a community? \n He were never seen again.', inline=True)
-            self.embed.add_field(name=':signal_strength: Gamers Module',value='An Irishman arrived at J.F.K. Airport and wandered around the terminal with tears streaming down his cheeks...', inline=True)
-
-        else: 
-
-            args = str(args).lower().replace(" ", "")
-
-            match args:
+                self.embed.title = 'Frequently Asked Questions:question:'
+                self.embed.description = ' Usage ** ?help (Category)** for more details\n\n'
+                self.embed.add_field(name=':people_holding_hands: Community Module', value='Ever heard of the guy whom joined a community? \n He were never seen again.', inline=True)
+                self.embed.add_field(name=':signal_strength: Gamers Module',value='An Irishman arrived at J.F.K. Airport and wandered around the terminal with tears streaming down his cheeks...', inline=True)
 
                 #   Gamers Module
-                case "gamersmodule" : self.embed = self.GamersModule()
-                case "adventure" : self.embed = self.GamersModule(args)
-                case "wordgames" : self.embed = self.GamersModule(args)
-                case "mathgames" : self.embed = self.GamersModule(args)
+            case "gamersmodule" : self.embed = self.GamersModule()
+            case "adventure" : self.embed = self.GamersModule(args)
+            case "wordgames" : self.embed = self.GamersModule(args)
+            case "mathgames" : self.embed = self.GamersModule(args)
 
                 #   Community module
-                case "communitymodule" : self.embed = self.CommunityModule()
+            case "communitymodule" : self.embed = self.CommunityModule()
 
         await ctx.send(embed=self.embed)
 
-        #   Clear and save space
+        #   Clear some memory
         del args
 
         self.embed.clear_fields()

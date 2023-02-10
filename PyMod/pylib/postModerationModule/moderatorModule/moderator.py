@@ -2,130 +2,29 @@
 #   Python Repositories
 import datetime
 import asyncio
-import humanfriendly
+import humanfriendly as hf
 
 #   Discord Repositories
+import discord as d
 from discord.utils import get
-from discord import Guild, Member, utils
+from discord import utils, PermissionOverwrite, Permissions
+
 from discord.abc import GuildChannel
 from discord.embeds import Embed, Colour
-from discord.ext.commands import Cog, command
+from discord.ext.commands import Cog, command, before_invoke, group, after_invoke
 from discord.ext.commands.core import has_permissions
-from pylib.postModerationModule.moderatorModule.rolePermissions import ModerationChecks
 from pylib.dictionaries.systemmessages import Dictionaries
 
-
-class ChannelModeration(Cog):
-
-    '''
-        Commands which requires permission such as
-        manageChannels, manageThreads, manageMessages
-    '''
+class InvokeBefore(): pass
+class ModerationChecks(Cog):
 
     def __init__(self, bot):
 
         self.bot = bot
-        self.warn = 0    
-        self.now = datetime.datetime.now()
-        self.curTime = self.now.strftime('%H:%M, %d.%b - %y')  
+        self.now= datetime.datetime.strftime('%H:%M, %d.%b - %y')  
         self.embed = Embed(color=Colour.dark_purple(), description= '')
 
-        return
-
-    #   :x: Creating a channel
-    @command(name="chcre")
-    @has_permissions(manage_channels=True)
-    async def CreateChannel(self, ctx, chName):
-
-        # Declaring variables
-        srv = ctx.guild
-        #getRole = get(srv.roles, {role})
-        ch = get(srv.channels, name=chName)
-        chlog = get(srv.channels, name='moderationlog')
-
-        #   Create a new channel
-        #if not ch: await GeneralModeration.CheckChannel(ch)
-        #else:self.embed.title = f'{ch} Already exists.'
-
-        #   3:  prepare, send & Clean up embed
-        self.embed.color = Colour.dark_red()
-        self.embed.description=f''
-        await chlog.send(embed=self.embed)
-
-        self.embed.clear_fields()
-        self.embed = Embed(color=Colour.dark_purple())
-
-        return
-
-    #   Delete a channel
-    @command(name="chdel")
-    @has_permissions(manage_channels=True)
-    async def DeleteChannel(self, ctx, ch):
-
-        '''
-            #   1 Declare necsessary variables
-            #   2 Delete the channel and prepare the embed
-            #   3 Send & Clean up the embeded message
-        '''
-
-        #   Declaring variables
-        srv = ctx.guild
-        srvch = GuildChannel
-
-        ch = get(srv.channels, name=ch)
-        chlog = get(srv.channels, name='moderationlog')
-
-        #   Checking wheter the channel exist or not
-
-        if ch:
-
-            self.embed.title = f'{ctx.author.name} has Deleted the {ch} channel.'
-            ch = await srvch.delete(ch)
-            
-
-        else:
-            self.embed.title = f'The Channel Does not exist'
-
-        #   prepare, Send & Clean up embeded message
-        self.embed.color = Colour.dark_red()
-        self.embed.description=f''
-        await chlog.send(embed=self.embed)
-
-        self.embed.clear_fields()
-        self.embed.color = Embed(color=Colour.dark_purple())
-
-        return
-
-class ManageModeration(Cog):
-
-    def __init__(self, bot):
-
-        self.bot = bot
-        self.warn = 0    
-        self.now = datetime.datetime.now()
-        self.curTime = self.now.strftime('%H:%M, %a, %d.%b - %y')  
-        self.embed = Embed(color=Colour.dark_purple(), description= '')
-
-        return
-
-        #   General moderator commands
-
-    #   Clearing all messages
-    @command(name="cls")
-    @has_permissions(manage_messages=True)
-    async def ClearChat(self, ctx, ch, x):
-
-        #   Initializing variables
-        x = int(x)
-        srv = ctx.guild
-        ch = get(srv.channels, name=ch)
-        purge = await ch.purge(limit=x)
-
-        # Generate a log channel
-        chlog = await ModerationChecks.CheckChannel(self, ctx, 'auditlog')
-        await chlog.send(f'**{len(purge)}** lines purged, in **{ch}** by **{ctx.author.name}**')
-
-        return
+class DefaultModeration(Cog):
 
     #   Default Moderator comamnds
     @command(name='poll', pass_context= True)
@@ -134,92 +33,13 @@ class ManageModeration(Cog):
 
         """
 
-            #   creating a poll with default two values to choose from
+            #   Creating a poll with default two values to choose from
             #   Using reaction to vote
             #   Title of the poll, how many options and Questions
 
         """
 
-        #   Initializing variables
-        i = 1
-        li = []
-        srv = ctx.guild
-        ch = get(srv.channels, name=f'{ch}')
-
-        #   Creating a channel to log the warning 
-        if not ch:
-            ch = await ModerationChecks.CheckChannel(self, ctx, ch)
-
-        #   Prepare, send and clean up
-        self.embed.title = f'{title}:question:,'
-        self.embed.description = 'Please type in how many opinions you\'d like:question:'
-
-        await ctx.send(embed=self.embed)
-
-        self.embed.clear_fields()
-
-        def msgCheck(arg):
-
-            author = ctx.author
-            arg = str(arg.content)
-
-            return author != self.bot.user and arg
-
-        arg = await self.bot.wait_for('message', timeout=30.0, check=msgCheck)
-        x = int(arg.content)
-
-        # Creating the Options
-        while i <= x:
-
-            j = 0
-
-            self.embed.description = f'Name your option NO {i}'
-            await ctx.send(embed=self.embed)
-
-            arg = await self.bot.wait_for('message', timeout=30.0, check=msgCheck)
-            option = str(arg.content)
-
-            li.append(option)
-            self.embed.add_field(name= f'Option nr {i} ', value = li[j])
-
-            j += 1
-            i += 1
-
-        # Prepare, send & clean up embed
-
-        self.embed.title ='Summary'
-        self.embed.description = f'Question : *{title}*\n **start** / **q**'
-        await ctx.send(embed=self.embed)
-
-
-        #   Retrieve the channel name & Check if it exists
-        arg = await self.bot.wait_for('message', timeout=30.0, check=msgCheck)
-        arg = str(arg.content)
-
-        if arg != 'q':
-
-            #   Issues to retrieve the channel name
-            #ch = await ModerationChecks.CheckChannel(self, ctx, ch)
-
-            #   Prepare, send & Clean up embed
-            self.embed.title = f'{title}:question:'
-            self.embed.description = f' Greetings fellas, its time for a poll, choose between \n {option}'
-
-            message = await ctx.send(embed=self.embed)
-
-            self.embed.clear_fields()
-
-            while i > x:
-
-                i = 0
-                i += 1
-            await message.add_reaction(Dictionaries.BotPoll(i))
-
-        elif title == 'q' or arg == 'q':
-
-            return await ctx.send('The poll has ended')
-
-        return
+        pass
 
     #   Checking wheter whom is offline and online
     @command(name='online', pass_context=True)
@@ -348,144 +168,331 @@ class ManageModeration(Cog):
             await ctx.send(embed = self.embed)
             self.embed.clear_fields()
 
-class MemberModeration(Cog):
+class ChannelModeration(Cog):
+
+    '''
+        #   Channel moderation
+        #   Commands for Moderators with manage_channels & manage_messages
+
+    '''
 
     def __init__(self, bot):
 
         self.bot = bot
+        self.warn = 0
         self.now = datetime.datetime.now()
-        self.curTime = self.now.strftime('%a, %d.%b -%y')  
+        self.curTime = self.now.strftime('%H:%M, %d.%b - %y')
         self.embed = Embed(color=Colour.dark_purple(), description= '')
 
         return
 
-    #  :x: Warn
-    @command(name="warn")
-    @has_permissions(manage_messages=True)
-    async def UserWarn(self, ctx, member:Member, *, reason=None):
+    @before_invoke(coro= "ch")
+    async def CheckModChannel(self, ctx):
 
-        #   Initializing variables
-        srv = ctx.guild
-        chlog= get(srv.channels, name='auditlog')
+        #   Fetching the channel "auditlog"
+        ch = get(ctx.guild.channels, name = "auditlog")
 
-        #   Creating a channel to log the warning 
-        if not ch:
-            ch = await ModerationChecks.CheckChannel(self, ctx, 'auditlog')
-
-        #   Counting warnings
-
-        #   How to make sure only the user retrieve the warning?
-
-        if reason == None or member == ctx.author:
-
-            self.embed.title  = 'Warning not sent'
-            self.embed.description = ' please provide a reason for the warn'
-
-            if member == ctx.author:self.embed.description = 'Can not warn your self'
-
+        try :
+            if ch: return True
+        
+        except TypeError as e: print(e)
         else:
 
+            perms = { 
+                        ctx.guild.default_role:PermissionOverwrite(view_channel=False)
+                    }
 
-            message = f'Greetings **{member}**.\n You recieve this Notification, because you have been warned by **{ctx.author}**.\n\n Due to :\n *{reason}*\n\nPlease read and follow the suggested guidelines for behavior in our disocrd channel'
-            await member.send(message)
+            ch = await ctx.guild.create_text_channel("auditlog", overwrites=perms)
 
-            self.embed.title = f'**{member}** has been warned'
-            self.embed.description = f' **Due to**\n *{reason}*.\n\n by\n**{ctx.author.name}**,\n{self.curTime}*'
+            #   Prepare and send embeded message
+            self.embed.color = Colour.dark_red()
+            self.embed.title = f'Auto Generated Channel'
+            self.embed.description = f"Created to have easy accsess to bot commands used by admin / moderator"
+            await ch.send(embed=self.embed)
+    
+        #   Clear some memory
+        self.embed.clear_fields()
+        self.embed.color = Colour.dark_purple()
 
-        self.embed.color = Colour.dark_red()
-        await chlog.send(embed=self.embed)
+        return
+        print("test")
+
+        return
+
+    @after_invoke(coro = "ch")
+    async def ClearMemory(self, ctx):
+
         self.embed.clear_fields()
         self.embed.color = Colour.dark_purple()
 
         return
 
-   #   Mute Members
-    @command(name="sush")
-    @has_permissions(moderate_members = True)
-    async def SushMember(self, ctx, member:Member, time=None, *, reason=None):
+    @group(pass_contex = True)
+    @has_permissions(manage_channels = True)
+    async def ch(self, ctx):
+
+        #   Calling a command to invoke first
+        await self.CheckModChannel(ctx)
+        await self.ClearMemory(ctx)
+
+    #   Create a channel
+    @ch.command()
+    async def Create(self, ctx, ch):
 
         """
-
-            #  1 Removing and set a new role to the player
-            #  2 send the selected member a message
-            #  3 Log the mute in a channel called moderation Log
-
+            #   Fetch given channel
+            #   Fetch the auditlog
+            #   Check if both exist
+            #   If both does not raise any errors create a new Channel
         """
+        #   Fetch channel
+        arg = ch
+        ch = get(ctx.guild.channels, name = f"{ch}")
+        
+        chlog = get(ctx.guild.channels, name = "auditlog")
 
-        #   Initializing variables
-        srv = ctx.guild
-        role = get(srv.roles, name ='Sushed')
-        ch = get(srv.channels, name='auditlog')
-        time = humanfriendly.parse_timespan(time)
+        try :
+            
+            if ch: raise ValueError(f"Channel {ch} already exists")
+            if not chlog : raise Exception("Channel auditlog does not exist yet")
 
-        #   Creating log channel if not exist :x:
-        if not role:
+        except Exception as e:
 
-            if role == None:
-                ch, role = await ModerationChecks.CheckRole(self, ctx, f'{role}')
-                role = get(srv.roles, name =role)
-
-        if reason == None or time > 604800:
-
-            self.embed.description = f' Could not sush **{member}** due to there were no reason or time to shush'
-
-            if time > 604800:self.embed.description = f' Could not sush **{member}** due to a limitation for 1w'
-
-            #   Prepare, send & Clean up embed
             self.embed.color = Colour.dark_red()
-            self.embed.title = 'An erro occurred'
+            self.embed.title = f"An Exception occured"
+            self.embed.description = f"{e} Try another name."
+            await ctx.send(embed=self.embed)
 
-            await ch.send(embed=self.embed)
-            self.embed.clear_fields()
-            self.embed.color = Colour.dark_purple()
+            #   Clear some memory
+            del ch, arg, chlog
+
+            return
+
+        else :
+
+            perms = { 
+                            ctx.guild.default_role:PermissionOverwrite(view_channel=False)
+                    }
+
+            ch = await ctx.guild.create_text_channel(f'{arg}', overwrites=perms)
+
+            #   Prepare and send embeded message
+            self.embed.color = Colour.dark_red()
+            self.embed.title = f'{ctx.author.name} Created the channel : \"{ch}\"'
+            await chlog.send(embed=self.embed)
+
+        #   Clear some memory
+        del ch, arg, chlog
+
+        return 
+
+    #   Delete a channel
+    @ch.command()
+    async def Delete(self, ctx, ch):
+
+        """
+                #   Fetch both channels
+                #   Check if they exist
+                #   Delete the channel
+        """
+
+        #   Fetch channel
+        arg = get(ctx.guild.channels, name = f"{ch}")
+        chlog = get(ctx.guild.channels, name = "auditlog")
+
+        try :
+            #   If channel does not exist raise ValueError
+            if not arg: raise ValueError(f"Channel \"{ch}\" Does not Exists")
+            elif not chlog : raise Exception("Channel auditlog does not exist yet")
+
+        except Exception as e:
+
+                self.embed.color = Colour.dark_red()
+                self.embed.title = f"An Exception occured"
+                self.embed.description = f"{e}\nTry another name."
+                await ctx.send(embed=self.embed)
+        else :
+            #   Delete GuildChannel
+            await GuildChannel.delete(ch)
+
+        #   Clear memory
+        del ch, arg, chlog
+        return 
+
+    #   Clearing all messages
+    @ch.command()
+    async def Clear(self, ctx, ch, x):
+
+        """
+            #   Initializing the channels
+            #   Checking wheter the values are correct or not
+            #   Print a message
+            #   Clearing a selected chat
+        """
+
+        #   Initializing Channels
+        ch = get(ctx.guild.channels, name = ch)
+        chlog = get(ctx.guild.channels, name = "auditlog")
+
+        try :
+
+            if not str(x).isdigit(): raise ValueError("You can not use alphabetical or ghlupical letters")
+            elif int(x) < 0 or int(x) > 1000: raise ValueError("Choose an integer between 1-1000")
+            else : x = int(x)
+
+            if not ch : raise TypeError("Channel does not exist in the server")
+            elif not chlog : raise TypeError("Could not find the auditlog channel")
+
+        except Exception as e: 
+            
+            self.embed.title = f"An error occured"
+            self.embed.description = f'The channel {ch}, were not cleared as requested due to\n{e}'
+            self.embed.color = Colour.dark_red()
+            ch.send(embed = self.embed)
 
         else:
 
+            #   Prepare & send the embed message
+            self.embed.title = f"{ctx.author} has cleared {x} chat lines in {ch} channel."
+            self.embed.color = Colour.dark_red()
+            await chlog.send(embed = self.embed)
+
+        #   Remove content from the channel
+        x = await ch.purge(limit=x)
+
+        #   Saving some memory
+        del ch, chlog, x
+
+        return
+
+class MemberModeration(Cog):
+
+    def __init__(self, bot):
+
+        self.bot = bot
+        self.now = datetime.datetime.now().strftime('%H:%M, %a, %d.%b - %y')
+        self.embed = Embed(color=Colour.dark_purple(), description= '')
+
+        return
+
+    #  :x: Warn
+    @group(pass_context = True)
+    @has_permissions(moderate_members=True)
+    async def Member(self, ctx): 
+        self.embed.color = Colour.dark_red()
+
+    @Member.command()
+    async def Warn(self, ctx, member:d.Member, *, reason=None):
+
+        #   Fetch the channel log
+        chlog = get(ctx.guild.channels, name='auditlog')
+
+        try:
+            if reason == None: raise TypeError("Please provide a reason for the warn")
+            elif member == ctx.author: raise TypeError(" Can not warn your self")
+
+        except Exception as e :
+
+            self.embed.title = "An error occured"
+            self.embed.description =f"{e}"
+
+        else:
+
+            #   Prepare the embed message
+            self.embed.title = f'**{member}** has been warned'
+            self.embed.description = f' **Due to**\n *{reason}*.\n\n by\n**{ctx.author.name}**,\n{self.now}*'
+
+            #   Message the user about the warn
+            message = f'Greetings **{member}**.\n You recieve this Notification, because you have been warned by **{ctx.author}**.\n\n Due to :\n *{reason}*\n\nPlease read and follow the suggested guidelines for behavior in our disocrd channel'
+            await member.send(message)
+
+        await chlog.send(embed=self.embed)
+
+        #   Clear some memory
+        del message, reason, chlog, member
+        return
+
+   #   Mute Members
+    @Member.command()
+    async def Sush(self, ctx, member:d.Member, time=None, *, reason=None):
+
+        """
+
+            #   Fetch the channel
+            #   Check if "time" argument is digits
+            #   #   Set the time as int if it is a digit
+            #   Check if the channel exists
+            #   Check if there is a reason for unmute
+            #   Check if the time is less than 1 week
+            #   Check if the author is the member
+            #   Calculate the time
+            #   Prepare and messages
+            #   timeout and send the message
+
+        """
+
+        #   Fetching the channel
+        ch = get(ctx.guild.channels, name='auditlog')
+
+        try:
+
+            if not str(time).isdigit(): raise Exception("The argument has to be only seconds")
+            else : time = int(time)
+
+            if not ch : raise Exception("Auditlog does not exists")
+
+            if reason == None: raise Exception(f" Could not sush **{member}** due to there were no reason to mute the member")
+            if time > 604800: raise Exception(f' Could not sush **{member}** due to a limitation for 1w')
+            elif member == ctx.author: raise Exception(f"Could not sush your self.")
+
+        except Exception as e: 
+
+            self.embed.title = "An Exception occured"
+            self.embed.description = f"{e}"
+            await ch.send(embed = self.embed)
+
+            #   Clear some memory
+            del time, ch, reason, member
+
+            return
+
+        else:
+
+            #   Calculating the time
+            time = hf.parse_timespan(time)
+
             #   Prepare, send & Clean up embed
             self.embed.title = f' **{member}** has been sushed'
-            self.embed.description = f'by **{ctx.author.name}** \n for {datetime.timedelta(seconds=time)}\nDue to\n**{reason}.**\n*{self.curTime}*'
+            self.embed.description = f'by **{ctx.author.name}** \n for {datetime.timedelta(seconds=time)}\nDue to\n**{reason}.**\n*{self.now}*'
 
             self.embed.color = Colour.dark_red()
             await ch.send(embed=self.embed)
-            self.embed.clear_fields()
-            self.embed.color = Colour.dark_purple()
 
-            #   Set role, set timeout & send member DM
+            #   Prepare and send the member, the message and sush the member
+            message = f"""Greetings, **{member}**.\n
+            You recieve this message, because you have been sushed by **{ctx.author}**\n
+            You are sushed for **{datetime.timedelta(seconds=time)}**.\n
+            During this time you will not able to use {ctx.guild} channels.\n
+            The reason for this intervention is\n
+            *{reason}*"""
 
-            await member.add_roles(role)
+            await member.send(f'{message}')
             await member.timeout(until = utils.utcnow() + datetime.timedelta(seconds=time), reason = reason)
 
-            message = f'''Greetings, **{member}**.
-            
-            You recieve this message, because you have been sushed by **{ctx.author}**
-            You are sushed for **{datetime.timedelta(seconds=time)}**.
-            
-            During this time you will not able to use {ctx.guild} channels.
-            
-            The reason for this intervention is
-            *{reason}*'''
-            await member.send(f'{message}')
-
-        
-            # Automatic un-mute & Notify the user
+            #   Automatic un-mute & Notify the user
             await asyncio.sleep(time)
-            await member.remove_roles(role)
             await member.send(f'Greetings **{member}**.\n\n Your sush, has been lifted you can now use {ctx.guild}')
 
         return
 
-    @command(name="lift")
-    @has_permissions(moderate_members = True)
-    async def LiftSush(self, ctx, member:Member):
+    @Member.command()
+    async def Lift(self, ctx, member:d.Member):
 
         """
-
             1   Checking if there is a role called 'Sushed'
             2   Checking if there is a log channel
             3   Removing the role and lift the sush
             4   send the selected member a message
-
-
         """
 
         srv = ctx.guild
@@ -511,10 +518,9 @@ class MemberModeration(Cog):
         return
 
     #   Kick Members
-    #   Kick a user from the server :x:
-    @command(name='kick')
+    @Member.command()
     @has_permissions(kick_members= True)
-    async def Kick(self, ctx, member:Member, *, reason=None):
+    async def kick(self, ctx, member:d.Member, *, reason=None):
 
         """
 
@@ -554,29 +560,5 @@ class MemberModeration(Cog):
 
         self.embed.clear_fields()
         self.embed.color = Colour.dark_purple()
-
-        return
-
-    @command(name = 'auditlog')# :x:
-    @has_permissions(view_audit_log = True)
-    async def ReadAuditlog(self, ctx, limit = 3):
-
-        #   Initializing variables
-        srv = ctx.guild
-        t = 'test Kick'
-        ch = get(srv.channels, name='auditlog')
-
-        '''
-            with open (f'audit_logs_{srv.name}') as f:
-            async for entry in srv.audit_logs(limit=limit):
-                f.write(f'{entry.user} did {entry.action} to{ entry.target} reason {entry.reason}')
-        '''
-
-        async for entry in Guild.audit_logs(limit = limit):
-            self.embed.add_field(name = f'{entry.user} did {entry.action}', value = f'{entry.target} reason {entry.reason} ')
-        
-        self.embed.title = 'Audit logs'
-        self.embed.description = 'Some snippets from the auditlog'
-        await ctx.send(embed = self.embed)
 
         return

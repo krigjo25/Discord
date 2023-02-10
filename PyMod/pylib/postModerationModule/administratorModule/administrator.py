@@ -67,7 +67,6 @@ class Administrator(Cog):
     #   Prohbit a user to enter the channel again
     @command(name='ban')
     @has_permissions(ban_members=True, administrator=True)
-
     async def BanMember(self, ctx, member:Member, *, reason=None):
 
         """
@@ -211,5 +210,29 @@ class Administrator(Cog):
         self.embed.title = 'Server News announcement'
         self.embed.description = f'{message}\n\nSincerely,\n**{ctx.author.name}**\n\n ***published  {self.curTime}***'
         await channel.send(embed=self.embed)
+
+        return
+
+    @command(name = 'auditlog')# :x:
+    @has_permissions(view_audit_log = True)
+    async def ReadAuditlog(self, ctx, limit = 3):
+        
+        #   Initializing variables
+        srv = ctx.guild
+        t = 'test Kick'
+        ch = get(srv.channels, name='auditlog')
+
+        '''
+            with open (f'audit_logs_{srv.name}') as f:
+            async for entry in srv.audit_logs(limit=limit):
+                f.write(f'{entry.user} did {entry.action} to{ entry.target} reason {entry.reason}')
+        '''
+
+        async for entry in Guild.audit_logs(limit = limit):
+            self.embed.add_field(name = f'{entry.user} did {entry.action}', value = f'{entry.target} reason {entry.reason} ')
+        
+        self.embed.title = 'Audit logs'
+        self.embed.description = 'Some snippets from the auditlog'
+        await ctx.send(embed = self.embed)
 
         return

@@ -9,7 +9,8 @@ from discord.ext.commands.core import has_permissions
 
 #   Pylib
 from pylib.dictionaries.systemmessages import Dictionaries
-from pylib.postModerationModule.moderatorModule.rolePermissions import RolePermissions, ModerationChecks
+from pylib.postModerationModule.moderatorModule.rolePermissions import RolePermissions
+from pylib.postModerationModule.moderatorModule.moderator import ModerationChecks
 
 class RoleModeration(Cog):
 
@@ -205,8 +206,8 @@ class RoleModeration(Cog):
         role = get(srv.roles, name=f'{arg}')
         ch = get(srv.channels, name='auditlog')
 
-        if not ch:
-            ch = await ModerationChecks.CheckChannel(self, ctx, 'auditlog')
+        if not ch: pass
+            #ch = await ModerationChecks.CheckChannel(self, ctx, 'auditlog')
 
         if role:
 

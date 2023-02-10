@@ -22,13 +22,13 @@ class DiscordBot(Bot):
 
     async def on_ready(self):
 
-        try:
-            svr = [i for i in self.guilds]
-            print(f'Py-cord.py v{api_version} has been loaded')
+        #   Initialize a list of guilds
+        svr = [i for i in self.guilds]
 
-            for i in svr: print(f'{self.user.name} has establized an connection to {i}')
+        #   Print API name and version
+        print(f'Py-cord.py v{api_version} has been loaded')
 
-        except Exception as e : print(e)
+        for i in svr: print(f'{self.user.name} has establized an connection to {i}')
 
         return
 

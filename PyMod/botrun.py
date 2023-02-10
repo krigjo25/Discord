@@ -1,13 +1,17 @@
-
+#    Python responsories
 from os import getenv
 from dotenv import load_dotenv
 
+#    Custom library
 from pylib.systemModule.botSetup import DiscordSetup
 
 load_dotenv()
 
 def RunBot ():
 
+        """
+                #    
+        """
         # necsessary values from .env
         disc = DiscordSetup()
         botKey = getenv('Token')

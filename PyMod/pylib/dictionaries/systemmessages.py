@@ -21,7 +21,6 @@ class Dictionaries():
 
         return dictionary.get(x)
 
-
     def EmojiDictionary ():
 
         #   Creating a dictionary for emojies

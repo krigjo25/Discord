@@ -1,85 +1,11 @@
-#   Python Repositories
-
-
 #   Discord Repositories
 from discord.utils import get
 from discord.colour import Color
-from discord.abc import GuildChannel
 from discord import PermissionOverwrite
 from discord.embeds import Embed, Colour
-from discord import Member, Permissions, utils
-from discord.ext.commands.core import has_permissions
+from discord import Permissions
 
-from discord.ext.commands import Cog, command
-
-class ModerationChecks(Cog):
-
-    def __init__(self, bot):
-
-        self.bot = bot
-        self.curTime = self.now.strftime('%H:%M, %d.%b - %y')  
-        self.embed = Embed(color=Colour.dark_purple(), description= '')
-
-    async def CheckChannel(self, ctx, arg):
-
-        srv = ctx.guild
-        ch = utils.get(srv.channels, name=f'{arg}')
-
-        if not ch:
-
-            perms = { 
-                        srv.default_role:PermissionOverwrite(
-                                                                    view_channel=False
-                                                                )
-            }
-
-            ch = await srv.create_text_channel(f'{arg}', overwrites=perms)
-    
-            if arg == 'auditlog':
-
-                self.embed.color = Colour.dark_red()
-                self.embed.title = 'Auto generated channel'
-                self.embed.description = 'This channel is used to log every Moderation in this server, it is made to avoid abusage of the Moderation / administration commands'
-
-                await ch.send(embed=self.embed)
-                self.embed.clear_fields()
-                self.embed.color = Colour.dark_purple()
-
-        return ch
-
-    async def CheckRole (self, ctx, role, *, reason= None):
-
-        #   Initializing variables
-        srv = ctx.guild
-        role = get(srv.roles, name=f'{role}')
-
-
-        #   Check if there is a role called auditlog
-        ch = await ModerationChecks.CheckChannel(self, ctx, 'auditlog')
-
-        #   Pre-role assignments
-        if role != 'Sushed':
-
-            #   Prepare & create the role
-            role = 'Sushed'
-            reason = f'Sushed is an automatically generated to mark muted members'
-            perms = Permissions()
-            await srv.create_role(name=f'{role}', permissions = perms, reason = reason)
-
-            #   Prepare, send & Clean up embed
-            self.embed.color = Colour.dark_red()
-            self.embed.title = f'Auto generated role {role}'
-            self.embed.description = f'{reason}'
-
-            await ch.send(embed=self.embed)
-
-            self.embed.clear_fields()
-            self.embed.color = Colour.dark_purple()
-
-        else: pass
-
-        return ch, role
-
+from discord.ext.commands import Cog
 
 class RolePermissions(Cog):
 

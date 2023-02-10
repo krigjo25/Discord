@@ -166,7 +166,7 @@ class ErrorHandler(Cog):
                 self.embed.title = 'You sent me a Bad Arguments'
                 self.embed.description = cmdError.ErrorDescriptionDictionary(errorModule)
                 await ctx.send(embed=self.embed)
-                   
+
                 await self.bot.send(f'{botmsg}', tts = True)
 
         else:

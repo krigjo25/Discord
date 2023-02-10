@@ -19,15 +19,13 @@ class DiscordBot(Bot):
 
     async def on_ready(self):
 
-        srv= []
-        svr = self.guilds
+        #   Initialize a list of guilds
+        svr = [i for i in self.guilds]
 
-        for i in svr:
-            srv.append(i)
+        #   Print API name and version
+        print(f'Py-cord.py v{api_version} has been loaded')
 
-        print(f'''Discord.py v{api_version} has been loaded.
-{self.user.name} has establized a connection following servers :\n
-{srv[0]}''')
+        for i in svr: print(f'{self.user.name} has establized an connection to {i}')
 
         return
         
