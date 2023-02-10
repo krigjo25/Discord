@@ -27,11 +27,12 @@ class RoleModeration(Cog):
         return
 
     #   Role Management
-
-    #   Get a list of roles a member has
-    @command(name='memro')
+    @Cog.group(pass_context = True)
     @has_permissions(manage_roles = True)
-    async def MemberRoleList(self, ctx, role, *, reason= None):
+    def role(self, ctx): pass
+
+    @role.command()
+    async def List(self, ctx, role, *, reason= None):
 
         """
 
@@ -53,9 +54,8 @@ class RoleModeration(Cog):
         return
 
     #   Create role
-    @command(name='crero')
-    @has_permissions(manage_roles = True)
-    async def CreateRole(self, ctx, role, *, reason= None):
+    @role.command()
+    async def Create(self, ctx, role, *, reason= None):
 
         """
 
@@ -191,9 +191,8 @@ class RoleModeration(Cog):
         return
 
     #   Delete Role
-    @command(name='dero') # :X
-    @has_permissions(manage_roles = True)
-    async def DeleteRole(self, ctx, arg ):
+    @role.command()
+    async def Delete(self, ctx, arg ):
 
         """
             1   Checking if there is any channels called 'moderationlog'
@@ -250,9 +249,8 @@ class RoleModeration(Cog):
         return
  
     #   Remove role 
-    @command(name='remro')
-    @has_permissions(manage_roles = True)
-    async def RemoveMemberRole(self, ctx, member:Member, role, *, reason=None ):
+    @role.command()
+    async def Demote(self, ctx, member:Member, role, *, reason=None ):
 
         """
             1   Checking if there is any channels called 'auditlog'
@@ -307,9 +305,8 @@ class RoleModeration(Cog):
         return self.embed
 
     #   Set Role
-    @command(name='sero')
-    @has_permissions(manage_roles = True)
-    async def SetMemberRole(self, ctx, member:Member, role, *, reason= None):
+    @role.command()
+    async def Set(self, ctx, member:Member, role, *, reason= None):
 
         #   Initializing variables
         srv = ctx.guild
@@ -344,9 +341,8 @@ class RoleModeration(Cog):
 
 
     #   Change Color for the role
-    @command(name='colro')
-    @has_permissions(manage_roles = True)
-    async def SetRoleColor(self, ctx, role, *, reason= None):
+    @role.command()
+    async def Color(self, ctx, role, *, reason= None):
 
         #   Initializing classes
         dc = Dictionaries

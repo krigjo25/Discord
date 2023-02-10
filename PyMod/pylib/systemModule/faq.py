@@ -20,7 +20,7 @@ class FrequentlyAskedQuestions(Cog):
 
         match args:
 
-            case None:
+            case "none":
 
                 self.embed.color = Color.dark_purple()
                 self.embed.title = ':classical_building: Frequently Asked Questions:question:'
@@ -73,16 +73,17 @@ class FrequentlyAskedQuestions(Cog):
 
         if ctx.author.guild_permissions.kick_members:
 
-            self.embed.add_field(name = f'{self.prefix}Member kick', value = '- Kicks a user off the server ', inline=True)
+            self.embed.add_field(name = f'{self.prefix}member kick', value = '- Kicks a user off the server ', inline=True)
             self.embed.add_field(name = f'{self.prefix}online', value= '- Checks whom is online / offline', inline=True)
 
         if ctx.author.guild_permissions.manage_roles:
 
-            self.embed.add_field(name=f'{self.prefix}Role Demote', value='- Demote a person from the role', inline=True)
-            self.embed.add_field(name=f'{self.prefix}Role Delete', value='- Deletes a role from the server', inline=True)
-            self.embed.add_field(name=f'{self.prefix}Role Create', value='- Creates a role in the server', inline=True)
-            self.embed.add_field(name=f'{self.prefix}sero', value='- Promotes a regular user to given role', inline=True)
-            self.embed.add_field(name=f'{self.prefix}colro', value='- Promotes a regular user to given role', inline=True)
+            self.embed.add_field(name=f'{self.prefix}role Demote', value='- Demote a person from the role', inline=True)
+            self.embed.add_field(name=f'{self.prefix}role List', value='- list roles', inline=True)
+            self.embed.add_field(name=f'{self.prefix}role Delete', value='- Deletes a role from the server', inline=True)
+            self.embed.add_field(name=f'{self.prefix}role Create', value='- Creates a role in the server', inline=True)
+            self.embed.add_field(name=f'{self.prefix}role Set', value='- Promotes a regular user to given role', inline=True)
+            self.embed.add_field(name=f'{self.prefix}role Color', value='- Promotes a regular user to given role', inline=True)
             pass
 
         if ctx.author.guild_permissions.manage_channels:

@@ -24,11 +24,13 @@ class ModerationChecks(Cog):
         self.now= datetime.datetime.strftime('%H:%M, %d.%b - %y')  
         self.embed = Embed(color=Colour.dark_purple(), description= '')
 
-class DefaultModeration(Cog):
+class messagesModeration(Cog):
 
-    #   Default Moderator comamnds
-    @command(name='poll', pass_context= True)
-    @has_permissions(manage_messages=True)
+    @group(pass_contex = True)
+    @has_permissions(manage_channels = True)
+    async def msg(self, ctx): pass
+
+    @msg.command()
     async def polls(self, ctx, title, ch):
 
         """
@@ -42,8 +44,7 @@ class DefaultModeration(Cog):
         pass
 
     #   Checking wheter whom is offline and online
-    @command(name='online', pass_context=True)
-    @has_permissions(manage_messages=True)
+    @msg.command()
     async def OnlineMembers(self, ctx, args=None):
 
         #   Retriving the server
@@ -55,85 +56,80 @@ class DefaultModeration(Cog):
         self.embed.title = 'Server Members'
         self.embed.description = 'List of members'
 
-        if args == None:
+        try: pass
+        except Exception as e : pass
+        else :
+            
+            if args == None:
 
-            #   Fetching members
-            for member in srv.members:
+                #   Fetching members
+                for member in ctx.guild.members:
 
-                #   Initializing  variables
-                nick = str(member.nick)
-                status = str(member.status)
+                    #   Add emoji to status
+                    match str(member.status):
 
-                #   Add emoji to status
-                if status == 'idle': status = ':dash:'
-                elif status == 'offline': status = ':sleeping:'
-                elif status == 'dnd': status = ':technologist:'
-                if status == 'online': status = ':heart_on_fire:'
+                        case "dnd": status = ":technologist:"
+                        case "idle": status = ":dash:"
+                        case "online": status = ":heart_on_fire:"
+                        case "offline": status = ":sleeping:"
 
-                #   Fetch user nick
-                if nick == 'None': nick = ''
-                else: nick = f'Nick : {member.nick}\n'
+                    #   Fetch user nick
+                    if member.nick == None: nick = ''
+                    else: nick = f'Nick : {member.nick}\n'
 
-                if member.bot == False:
+                    if member.bot == False: self.embed.add_field(name=f'{member.name}#{member.discriminator}',value=f'{nick}\n Status : {status}\n Warnings : {self.warn}', inline=False)
 
-                    self.embed.add_field(name=f'{member.name} #{member.discriminator}',value=f'{nick}\n Status : {status}\n Warnings : {self.warn}', inline=False)
+            else:
+
+                args = str(args).lower()
+
+                if args == 'on':
+
+                    #   Fetching members
+                    for member in srv.members:
+
+                        #   Initializing variables
+                        status = str(member.status)
+                        nick = str(member.nick)
+
+                        #   Add emoji to status
+                        if status == 'idle': status = ':dash:'
+                        elif status == 'dnd': status = ':technologist:'
+                        elif status == 'online': status = ':heart_on_fire:'
+                        elif status == 'offline': status, off = False
+
+                        #   Fetch user nick
+                        if nick == 'None':nick = ''
+                        else:nick = f'Nick : {member.nick}\n'
+    
+                        if off != False & member.bot == False: self.embed.add_field(name=f'{member.name}, #{member.discriminator}',value=f'{nick}\n Status : {status}\n Warnings : {warn}', inline=False)
+
+                    await ctx.send(embed = self.embed)
+                    self.embed.clear_fields()
+
+                elif args == 'off':
+
+                    #   Fetching members
+                    for member in srv.members:
+
+                        status, nick = str(member.status), str(member.nick)
+
+                        #   Add emoji to status
+                        if status != 'offline': off = False
+                        elif status == 'offline':status = ':sleeping:'
+
+                        #   Fetch user nick
+                        if nick == 'None':nick = ''
+                        else:nick = f'Nick : {member.nick}\n'
+
+                        if off != False and member.bot == False:
+                            self.embed.add_field(name=f'{member.name}#{member.discriminator}',value=f'{nick}\n Status : {status}\n Warnings : {warn}', inline=False)
 
             await ctx.send(embed = self.embed)
-            self.embed.clear_fields()
 
-        if args != None:
-
-            args = str(args).lower()
-
-            if args == 'on':
-
-                #   Fetching members
-                for member in srv.members:
-
-                    #   Initializing variables
-                    status = str(member.status)
-                    nick = str(member.nick)
-
-                    #   Add emoji to status
-                    if status == 'idle': status = ':dash:'
-                    elif status == 'dnd': status = ':technologist:'
-                    elif status == 'online': status = ':heart_on_fire:'
-                    elif status == 'offline': status, off = ':sleeping:', False
-
-                    #   Fetch user nick
-                    if nick == 'None':nick = ''
-                    else:nick = f'Nick : {member.nick}\n'
- 
-                    if off != False & member.bot == False:
-
-                        self.embed.add_field(name=f'{member.name}, #{member.discriminator}',value=f'{nick}\n Status : {status}\n Warnings : {warn}', inline=False)
-
-                await ctx.send(embed = self.embed)
-                self.embed.clear_fields()
-
-            elif args == 'off':
-
-                #   Fetching members
-                for member in srv.members:
-
-                    status, nick = str(member.status), str(member.nick)
-
-                    #   Add emoji to status
-                    if status != 'offline': off = False
-                    elif status == 'offline':status = ':sleeping:'
-
-                    #   Fetch user nick
-                    if nick == 'None':nick = ''
-                    else:nick = f'Nick : {member.nick}\n'
-
-                    if off != False & member.bot == False:
-                        self.embed.add_field(name=f'{member.name}#{member.discriminator}',value=f'{nick}\n Status : {status}\n Warnings : {warn}', inline=False)
-
-                await ctx.send(embed = self.embed)
-                self.embed.clear_fields()
-
-    @command(name = 'bots', pass_context=True)
-    @has_permissions(manage_messages=True)
+        #   Clear memory
+        return
+    @msg.command()
     async def ServerBots(self, ctx, args=None):
 
         #   Initializing variables
@@ -562,3 +558,4 @@ class MemberModeration(Cog):
         self.embed.color = Colour.dark_purple()
 
         return
+
