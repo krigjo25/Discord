@@ -1,7 +1,7 @@
 #   Discord Repositories
 from discord import Intents
 
-# library Repositories
+#   library Repositories
 
 #   System module
 from pylib.systemModule.discordBot import DiscordBot                                         #   The Bot Client
@@ -14,6 +14,7 @@ from pylib.communityModule.community import CommunityModule                     
 #   Bot Utility
 
 #   Moderation Utility
+from pylib.postModerationModule.moderatorModule.miscModeration import MiscModeration
 from pylib.postModerationModule.moderatorModule.roleModeration import RoleModeration
 from pylib.postModerationModule.moderatorModule.rolePermissions import RolePermissions
 from pylib.postModerationModule.administratorModule.administrator import Administrator
@@ -28,7 +29,6 @@ class DiscordSetup():
     """
     def __init__(self):
 
-        #self.appinfo = AppInfo()
         self.intents = Intents()
         self.bot = DiscordBot(intents=self.SystemConiguration())
 
@@ -36,9 +36,6 @@ class DiscordSetup():
 
     def SystemConiguration(self):
 
-        """
-            #   Bot itents
-        """
         #   Bot intents
         self.intents.bans = True                    #   Allows the bot to ban / unban members
         self.intents.guilds = True                  #   Allows the bot to interect with guilds
@@ -65,11 +62,11 @@ class DiscordSetup():
         self.bot.add_cog(Administrator(self.bot))
 
         #   Role Moderation
-        #self.bot.add_cog(RoleModeration(self.bot))
-        #self.bot.add_cog(RolePermissions(self.bot))
+        self.bot.add_cog(RoleModeration(self.bot))
+        self.bot.add_cog(RolePermissions(self.bot))
 
         #   Other modules
-        #self.bot.add_cog(MemberModeration(self.bot))
+        self.bot.add_cog(MemberModeration(self.bot))
         self.bot.add_cog(ChannelModeration(self.bot))
 
 
@@ -79,5 +76,6 @@ class DiscordSetup():
 
         #   Community module
         self.bot.add_cog(CommunityModule(self.bot))
+        self.bot.add_cog(MiscModeration(self.bot))
 
         return

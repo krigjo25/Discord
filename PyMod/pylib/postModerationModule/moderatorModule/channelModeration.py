@@ -4,24 +4,15 @@ import datetime
 #   Discord Repositories
 import discord as d
 from discord.utils import get
+from discord.abc import GuildChannel
 from discord.embeds import Embed, Colour
 from discord.ext.commands import Cog, before_invoke, group, after_invoke, has_permissions
-
-class InvokeBefore(): pass
-class ModerationChecks(Cog):
-
-    def __init__(self, bot):
-
-        self.bot = bot
-        self.now= datetime.datetime.strftime('%H:%M, %d.%b - %y')  
-        self.embed = Embed(color=Colour.dark_purple(), description= '')
 
 class ChannelModeration(Cog):
 
     '''
         #   Channel moderation
         #   Commands for Moderators with manage_channels & manage_messages
-
     '''
 
     def __init__(self, bot):
@@ -30,7 +21,7 @@ class ChannelModeration(Cog):
         self.warn = 0
         self.now = datetime.datetime.now()
         self.curTime = self.now.strftime('%H:%M, %d.%b - %y')
-        self.embed = Embed(color=Colour.dark_purple(), description= '')
+        self.embed = Embed()
 
         return
 
@@ -55,6 +46,7 @@ class ChannelModeration(Cog):
             #   Prepare and send embeded message
             self.embed.color = Colour.dark_red()
             self.embed.title = f'Auto Generated Channel'
+            self.embed.timestamp = datetime.datetime.now()
             self.embed.description = f"Created to have easy accsess to bot commands used by admin / moderator"
             await ch.send(embed=self.embed)
     
@@ -68,7 +60,12 @@ class ChannelModeration(Cog):
     @after_invoke("ch")
     async def ClearMemory(self, ctx):
 
+        #   Clear some Memory
         self.embed.clear_fields()
+        self.embed.remove_image()
+        self.embed.remove_author()
+        self.embed.remove_footer()
+        self.embed.remove_thumbnail()
         self.embed.color = Colour.dark_purple()
 
         return
@@ -94,19 +91,19 @@ class ChannelModeration(Cog):
         #   Fetch channel
         arg = ch
         ch = get(ctx.guild.channels, name = f"{ch}")
-        
         chlog = get(ctx.guild.channels, name = "auditlog")
 
         try :
             
-            if ch: raise ValueError(f"Channel {ch} already exists")
+            if ch: raise ValueError(f"Channel \"{ch}\" already exists")
             if not chlog : raise Exception("Channel auditlog does not exist yet")
 
         except Exception as e:
 
             self.embed.color = Colour.dark_red()
-            self.embed.title = f"An Exception occured"
+            self.embed.title = f"An Exception Occured"
             self.embed.description = f"{e} Try another name."
+
             await ctx.send(embed=self.embed)
 
             #   Clear some memory
@@ -124,6 +121,7 @@ class ChannelModeration(Cog):
 
             #   Prepare and send embeded message
             self.embed.color = Colour.dark_red()
+            self.embed.timestamp = datetime.datetime.now()
             self.embed.title = f'{ctx.author.name} Created the channel : \"{ch}\"'
             await chlog.send(embed=self.embed)
 
@@ -143,26 +141,34 @@ class ChannelModeration(Cog):
         """
 
         #   Fetch channel
+
         arg = get(ctx.guild.channels, name = f"{ch}")
-        chlog = get(ctx.guild.channels, name = "auditlog")
+        ch = get(ctx.guild.channels, name = "auditlog")
 
         try :
             #   If channel does not exist raise ValueError
             if not arg: raise ValueError(f"Channel \"{ch}\" Does not Exists")
-            elif not chlog : raise Exception("Channel auditlog does not exist yet")
+            elif not ch : raise Exception("Channel auditlog does not exist yet")
 
         except Exception as e:
 
                 self.embed.color = Colour.dark_red()
                 self.embed.title = f"An Exception occured"
                 self.embed.description = f"{e}\nTry another name."
-                await ctx.send(embed=self.embed)
+                await ch.send(embed=self.embed)
         else :
             #   Delete GuildChannel
-            await d.abc.GuildChannel.delete(ch)
+            guild = GuildChannel
+            await guild.delete(arg)
+
+        self.embed.color = Colour.dark_red()
+        self.embed.timestamp = datetime.datetime.now()
+        self.embed.title = f"{ctx.author.name} has deleted {arg}"
+
+        await ch.send(embed=self.embed)
 
         #   Clear memory
-        del ch, arg, chlog
+        del ch, arg, guild
         return 
 
     #   Clearing all messages
@@ -177,6 +183,7 @@ class ChannelModeration(Cog):
         """
 
         #   Initializing Channels
+
         ch = get(ctx.guild.channels, name = ch)
         chlog = get(ctx.guild.channels, name = "auditlog")
 
@@ -190,17 +197,18 @@ class ChannelModeration(Cog):
             elif not chlog : raise TypeError("Could not find the auditlog channel")
 
         except Exception as e: 
-            
-            self.embed.title = f"An error occured"
-            self.embed.description = f'The channel {ch}, were not cleared as requested due to\n{e}'
+
             self.embed.color = Colour.dark_red()
-            ch.send(embed = self.embed)
+            self.embed.title = f"An Exception Occured"
+            self.embed.description = f'The channel {ch}, were not cleared as requested due to\n{e}'
+            await ch.send(embed = self.embed)
 
         else:
 
             #   Prepare & send the embed message
-            self.embed.title = f"{ctx.author} has cleared {x} chat lines in {ch} channel."
             self.embed.color = Colour.dark_red()
+            self.embed.timestamp = datetime.datetime.now()
+            self.embed.title = f"{ctx.author.name} has cleared {x} chat lines in {ch} channel."
             await chlog.send(embed = self.embed)
 
         #   Remove content from the channel

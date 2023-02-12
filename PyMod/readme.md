@@ -4,13 +4,13 @@
 
 ### [Introduction](#introduction)
 >   About the Maintainer
+>   Contact
 
 ### [PyMod](#pymod)
 
-> About the bot<br>
-> Project Status<br>
 > How to use the bot<br>
-> Features<br>
+> Project Status<br>
+> Available features<br>
 
 ### [Features](#features)
 
@@ -33,80 +33,92 @@
 
 ## About the Maintainer
 
-goes by the name Kristoffer, born in 94, :flag_no:.<br>
-maintaining Python & SQL projects<br>
-otherwise just being a human.
+Hey, my name is Kristoffer, I'm borin in 94, :norway:<br>
+[Contact](https://github.com/krigjo25/contactinformation) me through discord, messenger or at my website.<br>
+Bot developed by @krigjo25
 
-<h1 align="center"> About Pymod</h1>
+[Terms of Use](), [Privacy Policy notice]()<br> 
 
-Pymod is a discord moderator command assistant,<br>
-Intention of the bot is to easy accsess discord moderation.
+
+#   Pymod
+
+The bot is a discord moderator command assistant,<br>
+Intention of the bot is to easy accsess discord moderation system.
 
 ## How to use the bot
 
-Command prefix for the bot **?**, e.g **?help** 
+As the bot has a prefixed command **?**<br>
+You will have to type (eg. **?help**)
 
--   Moderator's privileges required **kick**
--   Administrator's privileges required **Administrator**
+## available features
+
+-   Community commands
+-   Moderator commands
+-   Administrator commands
 
 ## Project Status
 
-Bot created at 15.04-22, and have a last update at 11.05-22
+Bot created at 15.04-22, and have a last update at 12.02-23<br>
+The current version of the bot is v1
 
 
-<h2 align="center"> Features</h2>
+#   Features
 
 ## Bot Member Utility
 
-### Community-Module
+<h3 align = "center"> Community module</h3>
 
 Commands which is available for everyone.
-> botinfo (optional: log )
->> Information about the bot
+> botinfo (optional parameter : log )<br>
+> * Information about the bot
 >
-> meme
->> Generates a random meme from Reddit
+> meme<br>
+> * Generates a random meme from Reddit
 >
-> memberlist
->> list of members in the server
+> members (optional parameters : off, on<br>
+> * list of members in the server
 >
-> randint (integer one) (integer two)
->> generate a random integer
+> randint (integer one) (integer two)<br>
+> * generate a random integer
 >
-> liro
->> List the server roles
+> liro<br>
+> * List the server roles
+>
+> poll
+>  -    Creates a poll
 
 ## Bot Post Moderation Utility
 
-Automated roles in the project :
+<h3 align = "center"> Introduction</h3>
 
->   Sushed  - Muted members
+The bot has been coded to automate generate roles and channels
 
+### Roles
+
+
+>   Sushed<br>
+>   - Is a role for muted members
+
+### Channels
+>   auditlog<br>
+>   -   A channel log
 <h2 align="center"> Moderation Module</h2>
 
-##   General Moderator commands
+###  **Moderators with manage_channels**
 
-These commands does not required any spesific permissions but requires the role moderator
-
->   cls (channel name) (int)
+Commands which requires **manage_channels**
+>   ch Clear (channel name) (int)
 >  -    Clear the chat limit 100 lines each time the command is used
 >
->   poll
->  -    Creates a poll
+>   ch Create
+>  -    Deletes a channel
 >
->   Online
->  -    Checks whom is online/offline
->
->   Warn*
->  -    Manually warn a member
+>   ch Create
+>  -   Creates a new channel
+>  ~~ch Edit~~
+>  -    ~~Modify a channel, permissions~~
 
-##   Moderators with kick_members privileges
-
-Commands which requires **kick_members**
->   kick* (member name) (reason)
->   -   Kicks a member from the server
-
-##   Moderators with moderate_members privileges
+###  **Moderators with manage_member**
 
 Commands which requires **moderate_members**
 
@@ -116,43 +128,38 @@ Commands which requires **moderate_members**
 >
 >   lift (memberName)
 >   -   Removes the mute and the role.
-
-
-##   Moderators with manage_channels & manage_threads privileges
-
-Commands which requires **manage_channels**
-Commands which requires **manage_threads**
-
->  ~~chedit~~
->>  ~~Modify a channel, permissions~~
-
->   chdel
->  -    Deletes a channel
 >
->   chcre
->  -   Creates a new channel
+>   Warn*
+>  -    Manually warn a member
 
-##   Moderators with manage_Roles privileges
+###   **Moderators with kick_members**
+
+Commands which requires **kick_members**
+>   kick* (member name) (reason)
+>   -   Kicks a member from the server
+
+
+###   **Moderators with manage_Roles**
 
 Commands which requires **manage_roles**
->   crero* (roleName)
+>   role Create* (roleName)
 >  - Pre made permissions,
 >  - Customize your own permissions,
 >  - Premade Colours
 >  - Customize your own  colours
 >
->   remro* (memberName)
+>   role Demote* (memberName)
 >  -    Removes a member from the roles
 >
->   sero* (memberName) (role)
+>   role Set* (memberName) (role)
 >  -   Set a member's role
 >
->   dero* (roleName)
+>   role Delete* (roleName)
 >  -   Deletes a role from the server
 
 - "*" records the given command in the moderationlog channel
 
-## List of Premade Permissions
+### **List of Premade Permissions**
 
 >   Members
 >   -   Full Membership Permissions
@@ -164,25 +171,23 @@ Commands which requires **manage_roles**
 >
 >   VoicePermissions
 >   -   permissions enabled :<br> Chat Permissions,<br> speak, connect,<br> request_to_speak,<br> send_tts_messages,<br> use_voice_activation
->
+
 >   Moderator
 >
->>  GuildModerator<br>
->>  manage_guild
+>   Guild Moderator
+>   -   Manages the guilds with manage_guild permissions
 >
->> Role Moderator
->> -   manage_roles
+>   Role Moderator
+>   -  Can manage roles with mange_roles permissions
 >
->> Voice Moderator
->> -    They're able to move, mute, deafen members. They have priority_speaker previliges
+>   Voice Moderator
+>   -   They're able to move, mute, deafen members. They have priority_speaker previliges
 >
->> Member Moderator
->> -    They're able to manage nicknames & moderate members
+>   Member Moderator
+>   -    They're able to manage nicknames & moderate members
 >
->>  ModerationMananger
->>   -   Has every moderation possiblities the other moderation type + they're able to kick members
-
-## List of premade Colours
+>   ModerationMananger
+>   -   Has every moderation possiblities the other moderation type + they're able to kick members
 
 
 <h2 align="center"> Administrator module</h2>
@@ -210,33 +215,10 @@ Commands which requires **manage_roles**
 -   MariaDB by [MariaDB Community](https://github.com/mariadb-corporation/mariadb-connector-python),
 -   python_dotenv by [Saurabh Kumar](https://github.com/motdotla/dotenv),
 
-### API
-
--   [NAPI Ninjas](https://api-ninjas.com/)<br>
+### APIS
 
 ### Disclaimer
 
 The developer can only have the responsibility,<br>
 for how the projects is created, how it is used,<br>
 is another story.
-
-### Contact information
-
-[ContactInformation](https://github.com/krigjo25/contactinformation)
- 
-# Bot Summary
-
--   Created some basic commands for members
--   Moderation module
-    *   kick_members previliges
-    *   moderate_members previliges 
-    *   manage_channels previliges
-    *   manage_role previliges
-        *   Created some roles permissions
-        *   Created some role Colours
-
-
-Bot developed by @krigjo25
-
-[Terms of Use]() <br>
-[Privacy Policy notice]()<br> 

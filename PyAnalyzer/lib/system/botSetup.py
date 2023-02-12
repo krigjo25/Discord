@@ -1,8 +1,7 @@
-
 #   Discord Repositories
 from discord import Intents
 
-# library Repositories
+#   Library Repositories
 
 #   System module
 from lib.system.discordBot import DiscordBot                        #   The Client
@@ -46,6 +45,7 @@ class DiscordSetup():
         return
 
     def Analyzer(self):
+
         self.bot.add_cog(ServerAnalysis(self.bot))
         self.bot.add_cog(MemberAnalysis(self.bot))
         self.bot.add_cog(ChannelAnalysis(self.bot))

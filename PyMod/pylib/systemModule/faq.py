@@ -2,7 +2,7 @@
 #   Discord Repositories
 from discord.embeds import Embed
 from discord import Color
-from discord.ext.commands import command, Cog
+from discord.ext.commands import Cog, command, has_permissions, after_invoke, before_invoke
 
 class FrequentlyAskedQuestions(Cog):
 
@@ -11,39 +11,42 @@ class FrequentlyAskedQuestions(Cog):
         self.prefix = "?"
         self.embed = Embed(color=Color.dark_purple())
 
-#   Frequently Asked Question
+        return
+    @command(name = "help", pass_context = True)
+    async def faq(self, ctx, *, arg= None):
 
-    @command(name='help', pass_context=True)
-    async def FrequentlyAskedQuestions(self, ctx, *, args = None):
+        try :
 
-        args = str(args).lower().replace(" ", "")
+            if arg != None: arg = str(arg).lower().replace(" ", "")
 
-        match args:
+            if not str(arg).isalpha(): raise Exception()
 
-            case "none":
+        except Exception as e : print(e)
+        else:
+
+
+            if arg == None:
 
                 self.embed.color = Color.dark_purple()
                 self.embed.title = ':classical_building: Frequently Asked Questions:question:'
                 self.embed.description = f' Usage ** {self.prefix}help (Category)** for more details\n\n'
-                
                 self.embed.add_field(name=':people_holding_hands: Community Module', value='Ever heard of the guy whom joined a community? \n He were never seen again.', inline=True)
 
                 #   Moderator Commands
-                if ctx.author.guild_permissions.kick_members or ctx.author.guild_permissions.manage_roles:
-                    self.embed.add_field(name='Moderator Module', value = 'A joke here', inline=True)
+                if ctx.author.guild_permissions.kick_members or ctx.author.guild_permissions.manage_roles: self.embed.add_field(name='Moderator Module', value = 'A joke here', inline=True)
 
                 #   Administrator commands
-                if ctx.author.guild_permissions.administrator:
-                    self.embed.add_field(name='Administrator Module', value='A joke here', inline=True)
+                if ctx.author.guild_permissions.administrator:self.embed.add_field(name='Administrator Module', value='A joke here', inline=True)
+            else :
 
-            case "communitymodule": self.embed = self.CommunityModule()
-            case "moderatormodule": self.embed = self.ModeratorModule(ctx)
-            case "administratormodule": self.embed = self.AdministratorModule()
+                match arg:
+                    case "communitymodule": self.embed = self.CommunityModule()
+                    case "moderationmodule": self.embed = self.ModeratorModule(ctx)
+                    case "administratormodule": self.embed = self.AdministratorModule(ctx)
 
-        await ctx.send(embed=self.embed)
+        await ctx.send(embed = self.embed)
 
         #   Clear some memory
-        del args
         self.embed.clear_fields()
 
         return
@@ -62,11 +65,10 @@ class FrequentlyAskedQuestions(Cog):
         self.embed.add_field(name= f'{self.prefix}botinfo \n(optional parameter: log)', value='- how did the bot fail the exam? She was a bit rusty', inline=True)
         self.embed.add_field(name= f'{self.prefix}meme', value='- What do you call a gamer whom works at an abortion clinic? :rofl:\n Spawn Camper ', inline=True)
 
-        #   Clear some memory
         return self.embed
 
     #   Server Moderation
-    def ModeratorModule(self,ctx):
+    def ModeratorModule(self, ctx):
 
         self.embed.title = 'Moderator Module'
         self.embed.color = Color.dark_purple()
@@ -102,7 +104,7 @@ class FrequentlyAskedQuestions(Cog):
         return self.embed
 
     #   Server Adminsistration
-    def AdministratorModule(self):
+    async def AdministratorModule(self, ctx):
 
         self.embed.color = Color.dark_purple()
         self.embed.title = 'Administrator Module'

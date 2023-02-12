@@ -2,11 +2,11 @@
 import datetime
 
 #   Discord Repositories
-from discord import Member, utils
+import discord as d
+from discord import utils
 from discord.colour import Color
-from discord import PermissionOverwrite
 from discord.embeds import Embed, Colour
-from discord.ext.commands import Cog, command
+from discord.ext.commands import Cog, group, before_invoke, after_invoke
 from discord.ext.commands.core import has_permissions
 
 class Administrator(Cog):
@@ -14,16 +14,66 @@ class Administrator(Cog):
     def __init__(self, bot):
 
         self.bot = bot
-        self.now = datetime.datetime.now()
-        self.curtime = self.now.strftime('%H:%M, %a, %d.%b - %y')
+        self.now = datetime.datetime.now().strftime('%a, %d.%b-%y')
         self.embed = Embed(color=Color.dark_purple())
 
         return
 
+    @before_invoke("Ban")
+    async def CheckModChannel(self, ctx):
+
+        #   Fetching the channel "auditlog"
+        ch = utils.get(ctx.guild.channels, name = "auditlog")
+
+        try :
+            if ch: return True
+        
+        except TypeError as e: print(e)
+        else:
+
+            perms = { 
+                        ctx.guild.default_role:d.PermissionOverwrite(view_channel=False)
+                    }
+
+            ch = await ctx.guild.create_text_channel("auditlog", overwrites=perms)
+
+            #   Prepare and send embeded message
+            self.embed.color = Colour.dark_red()
+            self.embed.title = f'Auto Generated Channel'
+            self.embed.timestamp = datetime.datetime.now()
+            self.embed.description = f"Created to have easy accsess to bot commands used by admin / moderator"
+            await ch.send(embed=self.embed)
+    
+        #   Clear some memory
+        self.embed.clear_fields()
+        self.embed.color = Colour.dark_purple()
+
+        #   Clear some memory
+        del perms, ch
+
+        return
+
+    @after_invoke("Ban")
+    async def ClearMemory(self, ctx):
+
+        #   Clear some Memory
+        self.embed.clear_fields()
+        self.embed.remove_image()
+        self.embed.remove_author()
+        self.embed.remove_footer()
+        self.embed.remove_thumbnail()
+        self.embed.color = Colour.dark_purple()
+
+        return
+
     #   Ban management
-    @command(name='banlist')
-    @has_permissions(ban_members=True, administrator=True)
-    async def BannedList(self, ctx):
+    @group(pass_context = True)
+    @has_permissions(ban_members=True, administrator= True)
+    async def ban(self, ctx):
+        await self.CheckModChannel(ctx)
+        await self.ClearMemory(ctx)
+
+    async def List(self, ctx):
         """
             #   List of banned members
         """
@@ -48,26 +98,22 @@ class Administrator(Cog):
             self.embed.title = 'List of banned server members'
             self.embed.description =' User name & discriminator | Reason'
             self.embed.color = Color.dark_red()
+
             if banned:
                 for i in banned: self.embed.add_field(name= f'{i["name"]}#{i["discriminator"]}', value = f'{i["reason"]}', inline = True)
 
             else: self.embed.description = "Noone banned yet, Hurray :party:"
 
-            self.embed.add_field(name= ' End of List', value = ':-)', inline = False)
-
+            self.embed.add_field(name= '== End of List ==', value = ':-)', inline = False)
             await ctx.send(embed=self.embed)
 
         #   Clear some space
         del banned, entry, dictionary
 
-        self.embed.clear_fields()
-
         return
 
     #   Prohbit a user to enter the channel again
-    @command(name='ban')
-    @has_permissions(ban_members=True, administrator=True)
-    async def BanMember(self, ctx, member:Member, *, reason=None):
+    async def Member(self, ctx, member:d.Member, *, reason=None):
 
         """
             #   Ban a server member
@@ -94,25 +140,12 @@ class Administrator(Cog):
 
         else:
 
-            if not ch:
-
-                #   Requires a dictionary
-                #perms = PermissionOverwrite(read_messages=False)
-                await ctx.guild.create_text_channel(f"moderationlog")
-
-                ch = utils.get(ctx.guild.channels, name='moderationlog')
-                self.embed.color = Color.dark_red()
-                self.embed.title = 'Auto generated channel'
-                self.embed.description = 'This channel is used for every Moderation in this server, it is made to avoid abusage of the Moderation / administration commands'
-
-                await ch.send(embed = self.embed)
-                self.embed.clear_fields()
-            
             #   Log the ban
             self.embed.color = Color.dark_red()
+            self.embed.description = f"due to {reason}"
+            self.embed.timestamp = datetime.datetime.now()
             self.embed.title = f'{member} has been banned by {ctx.author}'
-            self.embed.description = f"due to {reason}\nDate:{self.curtime}"
-
+            
             await ch.send(embed=self.embed)
 
             #   Notify the user about the ban & ban the member
@@ -123,116 +156,46 @@ class Administrator(Cog):
         #   Clear some memory
         del reason, message
         del member, ch
-        self.embed.clear_fields()
-        self.embed.color = Color.dark_purple()
 
         return
 
     #   Allows a user to enter the channel again
-    @command(name='unban')
-    @has_permissions(ban_members=True, administrator= True)
-    async def Unban(self, ctx, *, name):
+    async def Unban(self, ctx, *, member:d.Member):
+
+        #   Check if there is a channel called moderation log
+        ch = utils.get(ctx.guild.channels, name='auditlog')
 
         try :
-            if len(name) != 2: raise ValueError("Did you forget the discriminator / name?")
+            if len(name) != 2: raise Exception("Did you forget the discriminator / name?")
+            elif not ch : raise Exception("auditlog channel does not exits")
 
         except Exception as e:
 
             #   Prepare emed message
             self.embed.color = Color.dark_red()
-            self.embed.title = f"An exception occured"
-            self.description = f"{e}"
+            self.embed.title = f"An Exception Occured"
+            self.description = f"{e}, try again"
             await ctx.send(embed = self.embed)
 
-            self.embed.clear_fields()
+            del ch, member
+            return
 
-        #######
         else:
-            srv = ctx.guild
-            name, discriminator = str(name).split('#')
+            name = str(member).split('#')
 
-        #   Check if there is a channel called moderation log
-        ch = utils.get(srv.channels, name='moderationlog')
-
-        if not ch:
-
-            #   Requires a dictionary
-            #perms = PermissionOverwrite(read_messages=False)
-            await ctx.guild.create_text_channel(f"moderationlog")
-
-            ch = utils.get(ctx.guild.channels, name='moderationlog')
+            #   Log the unban
             self.embed.color = Color.dark_red()
-            self.embed.title = 'Auto generated channel'
-            self.embed.description = 'This channel is used for every Moderation in this server, it is made to avoid abusage of the Moderation / administration commands'
+            self.embed.timestamp = datetime.datetime.now()
+            self.embed.title = f"{member[0]} has been unbanned by {ctx.author.name}"
 
-            await ch.send(embed = self.embed)
-            self.embed.clear_fields()
+            await ch.send(embed=self.embed)
 
-        #   Log the unban
-        self.embed.color = Color.dark_red()
-        self.embed.title = f"{member} unbanned"
-        self.description = f"**{member}** has been Unbanned by **{ctx.author}**\nDate : **{self.curTime}**"
+            #  Unban the given member
+            async for entry in ctx.guild.bans():
+                user = entry.user
+            
+                if user.name == name[0] or user.discriminator == name[1]: await ctx.guild.unban(user)
 
-        await ch.send(embed=self.embed)
-
-        self.embed = Embed(color=Colour.dark_purple(), description= '')
-
-        #   3:  Unban the given member
-        async for entry in ctx.guild.bans():
-            user = entry.user
-        
-            if (user.name) == (memberName) or (user.discriminator) == (memberDiscriminator): await srv.unban(user)
-
-        del member, memberName, memberDiscriminator
-
-        return
-
-    #   Announcements
-    @command(name='announce')
-    @has_permissions(administrator= True)
-    async def botSay(self, ctx, ch):
-
-        #   Prepare & send embeded message
-        self.embed.title = ''
-        self.embed.description = 'What would you like to announce?'
-        await ctx.send(embed=self.embed)
-        self.embed.clear_fields()
-
-        #   Get the user's message and procsess it
-        message = await self.bot.wait_for('message')
-        message = str(message.content)
-
-        # Find the given channel to send an announcement
-        srv = ctx.guild
-        channel = utils.get(srv.channels, name=ch)
-
-        #   Prepare & Send the embed message
-        self.embed.title = 'Server News announcement'
-        self.embed.description = f'{message}\n\nSincerely,\n**{ctx.author.name}**\n\n ***published  {self.curTime}***'
-        await channel.send(embed=self.embed)
-
-        return
-
-    @command(name = 'auditlog')# :x:
-    @has_permissions(view_audit_log = True)
-    async def ReadAuditlog(self, ctx, limit = 3):
-        
-        #   Initializing variables
-        srv = ctx.guild
-        t = 'test Kick'
-        ch = get(srv.channels, name='auditlog')
-
-        '''
-            with open (f'audit_logs_{srv.name}') as f:
-            async for entry in srv.audit_logs(limit=limit):
-                f.write(f'{entry.user} did {entry.action} to{ entry.target} reason {entry.reason}')
-        '''
-
-        async for entry in Guild.audit_logs(limit = limit):
-            self.embed.add_field(name = f'{entry.user} did {entry.action}', value = f'{entry.target} reason {entry.reason} ')
-        
-        self.embed.title = 'Audit logs'
-        self.embed.description = 'Some snippets from the auditlog'
-        await ctx.send(embed = self.embed)
+        del member, name, ch
 
         return

@@ -49,11 +49,12 @@ class ErrorHandler(Cog):
         #   Member not found 
         if isinstance(error, CommandNotFound):
 
+            error = str(CommandNotFound)[36:51]
             try:
-                self.embed.title = 'Member were not found in the server'
-                self.embed.description = cmdError.ErrorDescriptionDictionary(CommandNotFound)
+                self.embed.title = '404: Command Not Found'
+                self.embed.description = cmdError.ErrorDescriptionDictionary(error)
             
-            except Exception as e : print(e)
+            except (TypeError, Exception) as e : print(e)
 
             else :
                 await ctx.send(embed=self.embed)
@@ -73,17 +74,14 @@ class ErrorHandler(Cog):
         #   MissingRequiredArgument
         elif isinstance(error, MissingRequiredArgument):
 
-            """     Missing arguments
-
+            """
                 #   Checking if there is any dictionary for the command.
                 #   If a command is not listed send message to the bot maintainer.
                 #   Notify the user, about the inconvinience
-
             """
-            cmd = str(ctx.command).lower()
-            print(error)
+
             try: 
-                self.embed.title = cmdError.CommandNameError(cmd)
+                self.embed.title = cmdError.CommandNameError(str(ctx.command).lower())
                 self.embed.description = cmdError.ErrorDescriptionDictionary(str(MissingRequiredArgument)[36:59])
 
             except Exception as e : print(e)
@@ -93,8 +91,6 @@ class ErrorHandler(Cog):
 
         #   Command Not Found
         elif isinstance(error, CommandNotFound):
-
-            #   Prepare and send the embed
 
             try: 
                 self.embed.title = "404: Command were not found in the dictionary"
@@ -123,7 +119,7 @@ class ErrorHandler(Cog):
             elif isinstance(error.original, AttributeError):
 
                 try:
-                    self.embed.title = "Attribute error"
+                    self.embed.title = "Attribute Error"
                     self.embed.description = cmdError.ErrorDescriptionDictionary(str(AttributeError)[8:22])
                 
                 except Exception as e: print(e)
@@ -135,7 +131,7 @@ class ErrorHandler(Cog):
 
                 #   Prepare & send the embed
                 try:
-                    self.embed.title = "You sent me a Bad Arguments"
+                    self.embed.title = "Recieved Bad Arguments"
                     self.embed.description = cmdError.ErrorDescriptionDictionary(str(BadArgument))
 
                 except Exception as e: print(e)
@@ -146,7 +142,7 @@ class ErrorHandler(Cog):
 
         else:
 
-            # If none of the above, print it in the terminal
+            #   Print the output in the terminal
             print(f"Ignoring exception in command {ctx.commands}:\n\n", file=sys.stderr)
             traceback.print_exception(type(error), error, error.__traceback__, file=sys.stderr)
 
@@ -161,8 +157,7 @@ class ErrorMessageDictionary():
     def __init__(self) -> None:
         pass
 
-    def ErrorDescriptionDictionary (error, *cmd):
-
+    def ErrorDescriptionDictionary (self, error, *cmd):
         errorm = [   "CommandNotFound", "MemberNotFound", "MissingRequiredArgument",
                     "AttributeError", "TimeoutError"] 
         try:
@@ -170,12 +165,12 @@ class ErrorMessageDictionary():
             if error not in errorm : raise Exception(error) 
 
         except Exception as e :
-            print(f"Did not reconize the error :{e}")
+            print(f"Did not reconize the error :\n{e}")
 
             #   Clear some memory
             del errorm, error
 
-            return "No available descriptions"
+            return
 
         else:
 
@@ -183,7 +178,7 @@ class ErrorMessageDictionary():
 
                 case "CommandNotFound":
                     dictionary = {
-                                    1:'meep morp zeep :(\n',
+                                    1:'meep morp zeep :(',
                                     2:'Given command does not exists',
                                     3:'Sir, have you drunken to much?',
                                     4:'We all do mistakes, sometimes...',
@@ -248,13 +243,10 @@ class ErrorMessageDictionary():
                                     7:'Never got a response in time',
                                 }
 
-            #   Randomize the dictionary
-            x = r.randrange(1, len(dictionary))
-
             #   Clear some memory
-            del x, error, errorm, cmd
+            del error, errorm, cmd
 
-        return dictionary.get(x)
+        return dictionary.get(r.randrange(1, len(dictionary)))
 
     def CommandNameError(self, cmd):
 
@@ -269,9 +261,9 @@ class ErrorMessageDictionary():
                         'poll':f'{prefix}{cmd} (poll Name) (ChannelName)',
                         'online':f'{prefix}{cmd} optional (on/off)',
                         'kick':f'{prefix}{cmd} (MemberName) (reason)',
-                        'warn':f'{prefix}{cmd} (MemberName) (reason)',
-                        'sush':f'{prefix}{cmd} (MemberName) (1(s / m / d / w / y)) (reason)',
-                        'lift':f'{prefix}{cmd} (MemberName)',
+                        'member warn':f'{prefix}Member Warn (MemberName) (reason)',
+                        'member sush':f'{prefix}Member Sush (MemberName) (1(s / m / d / w / y)) (reason)',
+                        'member lift':f'{prefix}Member Lift (MemberName)',
 
                         #   Role Management
                         'role delete':f'{prefix}role Delete (RoleName)',
@@ -280,7 +272,7 @@ class ErrorMessageDictionary():
                         'sero':f'{prefix}{cmd} (MemberName) (roleName) optional (reason)',
 
                         #   Channel Management / message management
-                        'ch delete':f'{prefix}ch Delete (Channel Name)',
+                        'ch zelete':f'{prefix}ch Delete (Channel Name)',
                         'ch create':f'{prefix}ch Create (Channel Name)',
                         'ch clear':f'{prefix}ch Clear (channelName) (x lines)',
 

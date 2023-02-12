@@ -2,23 +2,18 @@
 import datetime
 
 #   Discord Repositories
+from discord import utils
 from discord.embeds import Embed, Colour
 from discord.ext.commands import Cog, before_invoke, group, after_invoke, has_permissions
 
 
 class InvokeBefore(): pass
-class ModerationChecks(Cog):
 
-    def __init__(self, bot):
+class MiscModeration(Cog):
 
-        self.bot = bot
-        self.now= datetime.datetime.strftime('%H:%M, %d.%b - %y')  
-        self.embed = Embed(color=Colour.dark_purple(), description= '')
-
-class miscModeration(Cog):
-
-    def __init__(self) -> None:
+    def __init__(self, bot) -> None:
         self.embed = Embed()
+        self.bot = bot
 
     @group(pass_contex = True)
     @has_permissions(manage_channels = True)
@@ -36,99 +31,6 @@ class miscModeration(Cog):
         """
 
         pass
-
-    #   Checking wheter whom is offline and online
-    @misc.command()
-    async def Members(self, ctx, args=None):
-
-        array = ["None", "on", "off"]
-
-        try:
-
-            if args != None:str(args).lower()
-            
-            if args not in array: raise Exception("Available parameters \"on\", \"off\"")
-            elif str(args).isdigit(): raise ValueError("The value can not consist of digits")
-
-        except Exception as e :
-
-            self.embed.title = "An exception arised"
-            self.embed.description = f"{e}"
-            ctx.send(embed = self.embed)
-
-            # Clear some memory
-            del args, array, e
-
-            self.embed.clear_fields()
-            self.embed.colour = Colour.dark_purple()
-
-        else :
-
-            if args == "None":
-
-                #   Fetching members
-                for member in ctx.guild.members:
-                        
-                    #   Add emoji to status
-                    match str(member.status):
-
-                        case "dnd": status = ":technologist:"
-                        case "idle": status = ":dash:"
-                        case "online": status = ":heart_on_fire:"
-                        case "offline": status = ":sleeping:"
-
-                    #   Fetch user nick
-                    if member.nick == None: nick = ''
-                    else: nick = f'Nick : {member.nick}\n'
-
-                    if member.bot == False: 
-                        self.embed.add_field(name=f'{member.name}#{member.discriminator}',value=f'{nick}\n Status : {status}\n Warnings : {self.warn}', inline=False)
-
-            elif args == "on":
-
-                #   Fetching members
-                for member in ctx.guild.members:
-
-                    #   Add emoji to status
-                    match member.status:
-                        case "offline" : off = False
-                        case "idle" : status = ":dash:"
-                        case "dnd" : status = ":technologist:"
-                        case "online" : status = ":heart_on_fire:"
-
-                    #   Fetch user nick
-                    if member.nick == None: nick = ''
-                    else: nick = f'Nick : {member.nick}\n'
-
-                    if off != False & member.bot == False: self.embed.add_field(name=f'{member.name}, #{member.discriminator}',value=f'{nick}\n Status : {status}', inline=False)
-
-            elif args == 'off':
-
-                #   Fetching members
-                for member in ctx.guild.members:
-
-                    #   Add emoji to status
-                    if member.status == 'offline': 
-
-                            status = ":sleeping:"
-                            off = True
-                    else : off = False
-
-                    #   Fetch user nick
-                    if member.nick == None :nick = ''
-                    else: nick = f'Nick : {member.nick}\n'
-
-                    if off == True and member.bot == False: self.embed.add_field(name=f'{member.name}#{member.discriminator}',value=f'{nick}\n Status : {status}', inline=False)
-
-            self.embed.title = 'Server Members'
-            self.embed.description = 'List of members'
-            await ctx.send(embed = self.embed)
-
-        #   Clear memory
-        del args, array, nick
-        del status
-
-        return
 
     @misc.command()
     async def ServerBots(self, ctx):
@@ -155,3 +57,83 @@ class miscModeration(Cog):
         await ctx.send(embed = self.embed)
         
         self.embed.clear_fields()
+
+    #   Announcements
+    @misc.command()
+    @has_permissions(administrator= True)
+    async def Announcement(self, ctx, ch):
+
+        #   Fetch the channel
+        ch = utils.get(ctx.guild.channels, name=ch)
+
+        try:
+            if not ch : raise Exception(f"Channel \"{ch}\" Not found")
+
+        except Exception as e:
+
+            self.embed.color = Colour.dark_purple()
+            self.embed.title = "An Exception Occured"
+            self.description = f"{e}, try again."
+            ctx.send(embed = self.embed)
+
+            return
+
+        else:
+            #   Prepare & send embeded message
+            self.embed.title = 'Server Announcement'
+            self.embed.description = 'What would you like to announce?'
+            await ctx.send(embed=self.embed)
+            self.embed.clear_fields()
+
+            #   Get the user's message and procsess it
+            message = await self.bot.wait_for('message')
+            message = str(message.content)
+
+            #   Prepare & Send the embed message
+            self.embed.description = message
+            self.embed.title = 'Server News announcement'
+            self.embed.timestamp = datetime.datetime.now()
+            self.embed.set_author(name = f"By : {ctx.author.name}")
+            
+            await ch.send(embed=self.embed)
+
+        del message, ch
+        return
+
+    @misc.command() #:x:
+    #@has_permissions(view_audit_log = True)
+    async def Auditlog(self, ctx, limit = 3):
+        
+        #   Initializing variables
+
+
+        t = 'test Kick'
+        ch = utils.get(ctx.guild.channels, name='auditlog')
+        array = []
+        '''
+            with open (f'audit_logs_{srv.name}') as f:
+            async for entry in srv.audit_logs(limit=limit):
+                f.write(f'{entry.user} did {entry.action} to{ entry.target} reason {entry.reason}')
+        '''
+
+        async for entry in ctx.guild.audit_logs(limit = limit):
+
+            entries = { "AuditlogEntry":entry.id,
+                        "AuditAction": entry.action,
+                        "UserName": entry.user.name,
+                        "UserDiscriminator": entry.user.discriminator,
+                        "TargetName": entry.target.name,
+                        "TargetDiscriminator": entry.target.discriminator,
+                        "Reason": entry.reason,
+                        "ExtraInformation": entry.extra,
+                        "Nick": entry.category,
+                        "Member Count": 3,}
+            array.append(entries)
+
+            #self.embed.add_field(name = f'{entry.user} did {entry.action}', value = f'{entry.target} reason {entry.reason} ')
+        for i in array:
+
+            print(i["Nick"],i["AuditlogEntry"], i["UserName"], i["UserDiscriminator"], i["AuditAction"], i["TargetName"], i["TargetDiscriminator"], i["ExtraInformation"], i["Reason"])
+
+        del entries, array
+        return

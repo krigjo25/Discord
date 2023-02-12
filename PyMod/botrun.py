@@ -12,14 +12,16 @@ def RunBot ():
         """
                 #        
         """
-        # necsessary values from .env
+        #  Bot Token
         botKey = getenv('Token')
 
-        DiscordSetup().SystemSetup()
-        DiscordSetup().MiscModuleSetup()
-        DiscordSetup().ModerationSetup()
+        #  Adding the cogs
+        disc = DiscordSetup()
+        disc.SystemSetup()
+        disc.MiscModuleSetup()
+        disc.ModerationSetup()
 
-        DiscordSetup().bot.run(botKey)
+        disc.bot.run(botKey)
 
 if __name__ == '__main__':
     RunBot()

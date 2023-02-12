@@ -20,81 +20,116 @@ class CommunityModule(Cog, name='Community Module'):
         #   Member list
         #   Reddit meme
     """
+
     def __init__(self, bot):
         self.bot = bot
         self.embed = Embed(color=Color.dark_purple())
 
 
-#   Bot Info
+    #   Bot Info
     @command(name="botinfo")
-    async def BotInfo(self, ctx, args=None):
+    async def BotInfo(self, ctx, arg=None):
 
         '''
             Retrive infomation about the bot
         '''
 
         botName = 'PyMod'
-        svr = len(self.bot.guilds)
 
-        match args:
-            case None :
+        if arg == "log":
 
-                self.embed.title = f':notebook: About {botName}'
-                self.embed.url=f'https://github.com/krigjo25/Discord/blob/main/{botName}/readme.md'
+            self.embed.title = 'Change log'
+            self.embed.url=f'https://github.com/krigjo25/Discord/blob/main/{botName}/changelog.md'
+            self.embed.description = CommunityFunctions().ReadChangelog()
 
-                self.embed.add_field(name = ':rotating_light: Released', value=os.getenv('BotCreated'), inline=True)
-                self.embed.add_field(name = ':new: Updated', value=os.getenv('PyModUpdated'), inline=True)
-                self.embed.add_field(name = ':person_with_probing_cane: Current Version', value= os.getenv('PyModV'), inline=True)
-                self.embed.add_field(name = ':toolbox: Responsory', value=os.getenv('Responsory'), inline=True)
-                self.embed.add_field(name = ':cloud: Hosted', value=os.getenv('Hosted'), inline=True)
-                self.embed.add_field(name = ':man: Master', value=f'{self.bot.get_user(340540581174575107)} :flag_no:', inline=True)
-                self.embed.add_field(name = ':arrows_counterclockwise: Server Counting', value=f'Watching **{svr}** Discord Servers', inline=True)
-                self.embed.add_field(name = ':thought_balloon: To do list', value = '[Future projects](https://github.com/krigjo25/Discord/projects/1)', inline=True)
-                self.embed.add_field(name = "Bot's latency :", value = round(self.bot.latency * 1000), inline = True)
+        else:
 
-            case "log":
+            self.embed.title = f':notebook: About {botName}'
+            self.embed.url=f'https://github.com/krigjo25/Discord/blob/main/{botName}/readme.md'
 
-                self.embed.title = 'Change log'
-                self.embed.url=f'https://github.com/krigjo25/Discord/blob/main/{botName}/changelog.md'
-                self.embed.description = CommunityFunctions().ReadChangelog()
+            self.embed.add_field(name = ':rotating_light: Released', value=os.getenv('BotCreated'), inline=True)
+            self.embed.add_field(name = ':new: Updated', value=os.getenv('PyModUpdated'), inline=True)
+            self.embed.add_field(name = ':person_with_probing_cane: Current Version', value= os.getenv('PyModV'), inline=True)
+            self.embed.add_field(name = ':toolbox: Responsory', value=os.getenv('Responsory'), inline=True)
+            self.embed.add_field(name = ':cloud: Hosted', value=os.getenv('Hosted'), inline=True)
+            self.embed.add_field(name = ':man: Master', value=f'{self.bot.get_user(340540581174575107)} :flag_no:', inline=True)
+            self.embed.add_field(name = ':arrows_counterclockwise: Server Counting', value=f'Watching **{len(self.bot.guilds)}** Discord Servers', inline=True)
+            self.embed.add_field(name = ':thought_balloon: To do list', value = '[Future projects](https://github.com/krigjo25/Discord/projects/1)', inline=True)
+            self.embed.add_field(name = "Bot's latency :", value = round(self.bot.latency * 1000), inline = True)
 
         await ctx.send(embed = self.embed)
 
         #   Clear some memory
         self.embed.clear_fields()
 
-        del args, botName, svr
+        del arg, botName
 
         return
 
-#   Online members
+    #   Online members
     @command(name='mlist', pass_context=True)
-    async def MembersList(self, ctx):
+    async def MembersList(self, ctx, arg = None):
 
         """
             #   Retrive List of server members
         """
 
+        self.embed.title = 'Server Members'
         #   Fetching members
         for member in ctx.guild.members:
+            if arg == "on" and member.bot == False:
 
-            #   Add emoji to status
-            match str(member.status):
+                if str(member.status) != "offline":
 
-                case "online" : status = ":heart_on_fire:"
-                case "idle" : status = ":dash:"
-                case "dnd": status = ":technologist:"
-                case "offline" : status =":sleeping:"
+                    #   Add emoji to status
+                    match str(member.status):
+                        case "online" : status = ":heart_on_fire:"
+                        case "idle" : status = ":dash:"
+                        case "dnd": status = ":technologist:"
 
-            if member.bot == False and member.nick != None: self.embed.add_field(name=f'{member.name}#{member.discriminator}',value=f'Nick {member.nick} Status : {status} ', inline=False)
-            elif member.bot == False : self.embed.add_field(name=f'{member.name}#{member.discriminator}',value=f'Status : {status} ', inline=False)
+                if member.nick == None: self.embed.add_field(name=f'{member.name}#{member.discriminator}',value=f'Status : {status} ', inline=False)
+                else :self.embed.add_field(name=f'{member.name}#{member.discriminator}',value=f'Nick {member.nick} Status : {status} ', inline=False)
 
-        self.embed.title = 'Server Members'
+            elif arg =="off" and member.bot == False:
+            
+                if str(member.status) == "offline":
+
+                    if member.nick == None: self.embed.add_field(name=f'{member.name}#{member.discriminator}',value=f'Status : {status} ', inline=False)
+                    else: self.embed.add_field(name=f'{member.name}#{member.discriminator}',value=f'Nick {member.nick}\nStatus : {status} ', inline=False) 
+
+                else: self.embed.description = "Everyone is online"
+
+            elif arg == "bot" and member.bot == True:
+
+                self.embed.title = "Server bots"
+                #   Add emoji to status
+                match str(member.status):
+                    case "online" : status = ":heart_on_fire:"
+                    case "idle" : status = ":dash:"
+                    case "dnd": status = ":technologist:"
+
+                if member.nick == None: self.embed.add_field(name=f'{member.name}#{member.discriminator}',value=f'Status : {status} ', inline=False)
+                else :self.embed.add_field(name=f'{member.name}#{member.discriminator}',value=f'Nick {member.nick} Status : {status} ', inline=False)
+
+            else:
+
+                if member.bot == False:
+
+                    #   Add emoji to status
+                    match str(member.status):
+                        case "online" : status = ":heart_on_fire:"
+                        case "idle" : status = ":dash:"
+                        case "dnd": status = ":technologist:"
+                        case "offline" : status =":sleeping:"
+
+                    if member.nick == None: self.embed.add_field(name=f'{member.name}#{member.discriminator}',value=f'Status : {status} ', inline=False)
+                    else : self.embed.add_field(name=f'{member.name}#{member.discriminator}',value=f'Nick {member.nick} Status : {status} ', inline=False)
+        self.embed.add_field(name = "== End Of List ==", value=" ")
         await ctx.send(embed = self.embed)
-        self.embed.clear_fields()
 
         #   Clear some memories
         del member, status
+        self.embed.clear_fields()
 
         return
 
@@ -109,13 +144,14 @@ class CommunityModule(Cog, name='Community Module'):
         async with aiohttp.ClientSession() as cs:
             async with cs.get('https://www.reddit.com/r/dankmemes/new.json?sort=hot') as response:
                 response = await response.json()
-                post = response['data']['children'] [r.randrange(0, 24)]
+                post = response['data']['children'][r.randrange(0, 24)]
                 self.embed.title = post["data"]["title"]
                 self.embed.url = 'https://www.urbandictionary.com/define.php?term=Reddit'
+                #self.embed.set_author(name = "")
                 self.embed.set_image(url=post['data']['url'])
                 self.embed.description = f'Hot meme porn from  {ctx.author.name}'
-
                 await ctx.send(embed=self.embed)
+
                 self.embed.clear_fields()
                 self.embed.set_image(url= '')
         
@@ -132,18 +168,19 @@ class CommunityModule(Cog, name='Community Module'):
             #   Generates a random integer 
             #   between arg and argTwo
         """
+
         try :
 
-            if len(arg) > 2: raise ValueError()
-            elif len(arg) < 2: raise ValueError()
+            print(arg)
+            if len(arg) < 0 or len(arg > 2): raise ValueError("Value has to be max and minimum 2 integers")
             
             for i in arg: 
-                if str(i).isalpha(): raise TypeError('100')
+                if str(i).isalpha(): raise TypeError('Can not use characters')
 
         except Exception as e :
 
-            self.embed.title = "An Error occured.."
-            self.embed.description = "In order to generate a random integer, please only choose two integers neither less or more"
+            self.embed.title = "An Error Occured.."
+            self.embed.description = f"{e}"
             await ctx.send(embed = self.embed)
 
         else:
@@ -187,29 +224,30 @@ class CommunityModule(Cog, name='Community Module'):
     async def ListRoles(self, ctx):
 
         '''
-            1   Retrieve roles from roles list
+            #   Retrieve the roles
             2 :x:   Check if its a member or bot role (only member roles)
             3 :x:  Mentioned
             4   send embed into the channel
         '''
 
         #   Initializing variables
-        x = 0
+        x = 1
 
         #   Iteration over the ctx guild roles
+        print(ctx.guild.roles)
         for role in ctx.guild.roles:
+
+            #   Adding a embed field.
+            self.embed.add_field(name = f'Role No.{x}', value=f'{role.mention}')
 
             #   Increasing by one
             x += 1
 
-            #   Adding a embed field.
-            self.embed.add_field(name = f'Role No {x}', value=f'{role.mention}')
-
-        #   Prepare, send & Clean up embed
+        #   Prepare & Send embed message
         self.embed.title = 'Server roles'
         await ctx.send(embed=self.embed)
 
-        #   save some memories
+        #   Clear some memory
         del x
         self.embed.clear_fields()
 
@@ -223,7 +261,7 @@ class CommunityFunctions():
         #   Opens the changelog
         try :
 
-            with open('changelog.md', 'r') as f:
+            with open("pymod/changelog.md", "r") as f:
 
                 #   Read x bytes
                 changelog = f.read(415)
@@ -232,5 +270,8 @@ class CommunityFunctions():
             f.close()
 
         except Exception as e : print(e)
+
+        #   Clear some memory
+        del f
 
         return changelog

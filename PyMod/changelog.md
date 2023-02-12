@@ -1,6 +1,16 @@
 
 **Changelog**
 
+**Release**
+
+***v1.0***
+
+-   Bot released
+
+**maintained by**,<br>
+***@krigjo25***<br>
+*Sun, 18/02-23, 13:00*
+
 **Auditlog**
 
 ***0.1 preutal-beta***
