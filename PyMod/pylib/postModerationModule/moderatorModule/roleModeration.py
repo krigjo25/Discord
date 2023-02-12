@@ -4,13 +4,12 @@
 from discord import Member
 from discord.utils import get
 from discord.embeds import Embed, Colour
-from discord.ext.commands import Cog, command
+from discord.ext.commands import Cog, group
 from discord.ext.commands.core import has_permissions
 
 #   Pylib
 from pylib.dictionaries.systemmessages import Dictionaries
 from pylib.postModerationModule.moderatorModule.rolePermissions import RolePermissions
-from pylib.postModerationModule.moderatorModule.moderator import ModerationChecks
 
 class RoleModeration(Cog):
 
@@ -27,9 +26,9 @@ class RoleModeration(Cog):
         return
 
     #   Role Management
-    @Cog.group(pass_context = True)
+    @group(pass_context = True)
     @has_permissions(manage_roles = True)
-    def role(self, ctx): pass
+    async def role(self, ctx): pass
 
     @role.command()
     async def List(self, ctx, role, *, reason= None):
@@ -73,9 +72,6 @@ class RoleModeration(Cog):
         srv = ctx.guild
         ch = get(srv.channels, name= 'auditlog')
         findRole = get(srv.roles, name = f'{role}')
-
-        if not ch:
-            ch = await ModerationChecks.CheckChannel(self, ctx, 'auditlog')
 
         if not findRole:
 
@@ -264,9 +260,6 @@ class RoleModeration(Cog):
         role = get(srv.roles, name=f'{role}')
         ch = get(srv.channels, name='auditlog')
 
-        if not ch:
-            ch = await ModerationChecks.CheckChannel(self, ctx, 'auditlog')
-
         #   Prepare, Send & Clean up embed
         self.embed.color = Colour.dark_red()
         self.embed.title = f'removing {member} from {role}'
@@ -313,9 +306,6 @@ class RoleModeration(Cog):
         role = get(srv.roles, name=f'{role}')
         ch = get(srv.channels, name='auditlog')
 
-        if not ch:
-            ch = await ModerationChecks.CheckChannel(self, ctx, 'auditlog')
-
         #   Prepare, Send & Clean up embed
         self.embed.color = Colour.dark_red()
         self.embed.title = f'removing {member} from {role}'
@@ -352,9 +342,6 @@ class RoleModeration(Cog):
         srv = ctx.guild
         ch = get(srv.channels, name= 'auditlog')
         findRole = get(srv.roles, name = f'{role}')
-
-        if not ch:
-            ch = await ModerationChecks.CheckChannel(self, ctx, 'auditlog')
 
         #   Prepare, send & Clean up
         self.embed.title = f'Choosing role Color'

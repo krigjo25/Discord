@@ -1,19 +1,9 @@
-#   Python Repositories
-#import requests
-
-from os import getenv
-from pyexpat.errors import messages
-
-#   Dotenv Repositories
-from dotenv import load_dotenv
-
 #   Discord Repositories
-from discord import Intents, AppInfo
+from discord import Intents
 
 # library Repositories
 
 #   System module
-
 from pylib.systemModule.discordBot import DiscordBot                                         #   The Bot Client
 from pylib.systemModule.commandError import ErrorHandler                                     #   Error Handling Module
 from pylib.systemModule.faq import FrequentlyAskedQuestions                                  #   Help module
@@ -21,17 +11,14 @@ from pylib.systemModule.faq import FrequentlyAskedQuestions                     
 #   Community Module
 from pylib.communityModule.community import CommunityModule                                  #   Community module
 
+#   Bot Utility
 
-# Bot Utility
-
-    # Moderation Utility
+#   Moderation Utility
 from pylib.postModerationModule.moderatorModule.roleModeration import RoleModeration
 from pylib.postModerationModule.moderatorModule.rolePermissions import RolePermissions
 from pylib.postModerationModule.administratorModule.administrator import Administrator
-from pylib.postModerationModule.moderatorModule.moderator import ChannelModeration, MemberModeration
-
-# Importing .evn file
-load_dotenv()
+from pylib.postModerationModule.moderatorModule.memberModeration import MemberModeration
+from pylib.postModerationModule.moderatorModule.channelModeration import ChannelModeration
 
 class DiscordSetup():
 
@@ -78,11 +65,11 @@ class DiscordSetup():
         self.bot.add_cog(Administrator(self.bot))
 
         #   Role Moderation
-        self.bot.add_cog(RoleModeration(self.bot))
-        self.bot.add_cog(RolePermissions(self.bot))
+        #self.bot.add_cog(RoleModeration(self.bot))
+        #self.bot.add_cog(RolePermissions(self.bot))
 
         #   Other modules
-        self.bot.add_cog(MemberModeration(self.bot))
+        #self.bot.add_cog(MemberModeration(self.bot))
         self.bot.add_cog(ChannelModeration(self.bot))
 
 

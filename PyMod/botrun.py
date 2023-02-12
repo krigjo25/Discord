@@ -10,17 +10,16 @@ load_dotenv()
 def RunBot ():
 
         """
-                #    
+                #        
         """
         # necsessary values from .env
-        disc = DiscordSetup()
         botKey = getenv('Token')
 
-        disc.SystemSetup()
-        disc.MiscModuleSetup()
-        disc.ModerationSetup()
+        DiscordSetup().SystemSetup()
+        DiscordSetup().MiscModuleSetup()
+        DiscordSetup().ModerationSetup()
 
-        disc.bot.run(botKey)
+        DiscordSetup().bot.run(botKey)
 
 if __name__ == '__main__':
     RunBot()
