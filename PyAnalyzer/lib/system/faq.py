@@ -1,16 +1,14 @@
-
-#   Other responsories
-import pandas as pd
-
 #   Discord Repositories
+
+from discord import Colour
 from discord.embeds import Embed
-from discord import Color
 from discord.ext.commands import command, Cog
 
 class FrequentlyAskedQuestions(Cog):
-    def __init__(self,bot):
+    def __init__(self, bot):
         self.bot = bot
-        self.embed = Embed(color=Color.dark_purple())
+        self.embed = Embed(color=Colour.dark_purple())
+        self.prefix = "?"
 
         return
 
@@ -19,9 +17,15 @@ class FrequentlyAskedQuestions(Cog):
     @command(name='faq', pass_context=True)
     async def FrequentlyAskedQuestions(self,ctx, args=None):
 
-        if args == 'server':self.embed = self.HelpServer()
-        elif args == 'channel':self.embed = self.HelpChannel()
-        elif args == 'member': self.embed = self.HelpMember()
+        try: pass
+        except Exception as e: pass
+        else: pass
+        if args != None:
+
+            match args:
+                case "server": self.embed = self.ServerAnalysis()
+                case "channel": self.embed = self.ChannelAnalysis()
+                case "member": self.embed = self.MemberAnalysis()
         else:
 
             self.embed.title = 'Frequently Asked Questions:question:'
@@ -32,46 +36,46 @@ class FrequentlyAskedQuestions(Cog):
         await ctx.send(embed=self.embed)
 
         self.embed.clear_fields()
-        self.embed.description = ''
+        del args
 
         return
 
-    def HelpServer(self): 
+    def ServerAnalysis(self): 
 
         '''
             #   Commands for Server Analysis
         '''
         
         self.embed.title = 'Server Analysis'
-        self.embed.add_field(name= '?sa', value = 'Run a server analysis')
-        self.embed.add_field(name= '?ra', value = 'Run a role Analysis')
-        self.embed.add_field(name= '?ca', value = 'Run a Channel Analysis')
-        self.embed.add_field(name='?loga', value = 'Run Audit log Analysis')
-        self.embed.add_field(name= '?bota', value = 'Run a Bot Analysis')
+        self.embed.add_field(name = f'{self.prefix}analysis server', value = 'Run a server analysis')
+        self.embed.add_field(name = f'{self.prefix}analysis role', value = 'Run a role Analysis')
+        self.embed.add_field(name = f'{self.prefix}analysis channel', value = 'Run a Channel Analysis')
+        self.embed.add_field(name = f'{self.prefix}analysis auditlog', value = 'Run Audit log Analysis')
+        self.embed.add_field(name = f'{self.prefix}analysis bot', value = 'Run a Bot Analysis')
 
         return self.embed
 
-    def HelpChannel(self): 
+    def ChannelAnalysis(self): 
 
         '''
         #   Commands for Channel Analysis
         '''
         self.embed.title = 'Frequently Asked Questions:question:'
 
-        self.embed.add_field(name= '?pa', value = 'Run a Post Analysis')
-        self.embed.add_field(name= '?ea', value = 'Run a Emoji Analysis')
-        self.embed.add_field(name= '?rea', value = 'Run a Reaction Analysis')
-        self.embed.add_field(name= '?sta', value = 'Run a Sticker Analysis')
+        self.embed.add_field(name= f'{self.prefix}analysis Post', value = 'Run a Post Analysis')
+        self.embed.add_field(name= f'{self.prefix}analysis emoji', value = 'Run a Emoji Analysis')
+        self.embed.add_field(name= f'{self.prefix}analysis reaction', value = 'Run a Reaction Analysis')
+        self.embed.add_field(name= f'{self.prefix}analysis sticker', value = 'Run a Sticker Analysis')
 
         return self.embed
     
-    def HelpMember(self):
+    def MemberAnalysis(self):
 
         '''
         #   Commands for Member Analysis
         '''
         self.embed.title = 'Frequently Asked Questions:question:'
-        self.embed.add_field(name= '?mpa (member name)', value = 'Run aMember Profile Analysis')
-        self.embed.add_field(name= '?topma', value = 'Top Members')
+        self.embed.add_field(name= f'{self.prefix}analysis member (member name)', value = 'Run aMember Profile Analysis')
+        self.embed.add_field(name= f'{self.prefix}analysis top', value = 'Top Members')
 
         return self.embed
