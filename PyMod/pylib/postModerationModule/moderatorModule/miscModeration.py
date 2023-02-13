@@ -102,7 +102,7 @@ class MiscModeration(Cog):
         return
 
     @misc.command() #:x:
-    #@has_permissions(view_audit_log = True)
+    @has_permissions(view_audit_log = True)
     async def Auditlog(self, ctx, limit = 3):
         
         #   Initializing variables

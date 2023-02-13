@@ -200,6 +200,7 @@ class CommunityModule(Cog, name='Community Module'):
     @community.command
     async def report(self, ctx): 
         #   Modual dialog
+        #   Topics to choose from : Report a server member, contact the staff, Misc, report a bug
         return
 
     #   List Roles
