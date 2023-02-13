@@ -4,7 +4,7 @@ import humanfriendly as hf
 
 #   Discord Repositories
 import discord as d
-from discord.utils import get
+from discord import utils
 from discord.embeds import Embed, Colour
 from discord.ext.commands import Cog, before_invoke, group, after_invoke, has_permissions
 
@@ -20,108 +20,29 @@ class MemberModeration(Cog):
 
         return
 
-    @before_invoke("Member")
-    async def CheckModChannel(self, ctx):
-
-        #   Fetching the channel "auditlog"
-        ch = get(ctx.guild.channels, name = "auditlog")
-
-        try :
-            if ch: return True
-        
-        except TypeError as e: print(e)
-        else:
-
-            perms = { 
-                        ctx.guild.default_role:d.PermissionOverwrite(view_channel=False)
-                    }
-
-            ch = await ctx.guild.create_text_channel("auditlog", overwrites=perms)
-
-            #   Prepare and send embeded message
-            self.embed.color = Colour.dark_red()
-            self.embed.title = f'Auto Generated Channel'
-            self.embed.timestamp = datetime.datetime.now()
-            self.embed.description = f"Created to have easy accsess to bot commands used by admin / moderator"
-            await ch.send(embed=self.embed)
-    
-        #   Clear some memory
-        self.embed.clear_fields()
-        self.embed.color = Colour.dark_purple()
-
-        #   Clear some memory
-        del perms, ch
-
-        return
-
-    @before_invoke("Member")
-    async def CheckRole(self, ctx):
-
-        #   Fetching the channel "auditlog"
-        ch = get(ctx.guild.channels, name = "auditlog")
-        role = get(ctx.guild.roles, name = "Sushed")
-
-        try :
-            if role:
-                #   Clear some memory
-                del role, ch
-                return True
-        
-        except TypeError as e: print(e)
-        else:
-            # Role Configurations
-            perm = d.Permissions(send_messages = False, request_to_speak = False, send_tts_messages = False, use_voice_activations = False)
-            await ctx.guild.create_role(name=f'{role}', permissions = perm, reason = f"Auto Generated - by Pymod")
-
-            #   Prepare and send embeded message
-            self.embed.color = Colour.dark_red()
-            self.embed.title = f'Auto Generated Role'
-            self.embed.timestamp = datetime.datetime.now()
-            self.embed.description = f"Created to store sushed members"
-            await ch.send(embed=self.embed)
-
-        del role, perm, ch
-
-        return
-
-    @after_invoke("Member")
-    async def ClearMemory(self, ctx):
-
-        #   Clear some Memory
-        self.embed.clear_fields()
-        self.embed.remove_image()
-        self.embed.remove_author()
-        self.embed.remove_footer()
-        self.embed.remove_thumbnail()
-        self.embed.color = Colour.dark_purple()
-
-        return
-
     @group(pass_context = True)
     @has_permissions(moderate_members=True)
-    async def Member(self, ctx):
+    async def member(self, ctx):  return
 
-        await self.CheckRole(ctx)
-        await self.CheckModChannel(ctx)
-        await self.ClearMemory(ctx)
-
-        return
-
-    @Member.command()
+    @member.command()
     async def Warn(self, ctx, member:d.Member, *, reason=None):
 
         #   Fetch the channel log
-        chlog = get(ctx.guild.channels, name='auditlog')
+        chlog = utils.get(ctx.guild.channels, name='auditlog')
 
         try:
-            if member == ctx.author: raise TypeError("Can not warn your self")
-            elif reason == None: raise TypeError("Please provide a reason for the warn")
+            if member == ctx.author: raise Exception("Can not warn your self")
+            elif reason == None: raise Exception("Please provide a reason for the warn")
 
         except Exception as e :
 
             self.embed.color = Colour.dark_red()
             self.embed.title = "An Exception Occured"
             self.embed.description =f"{e}, Try again !"
+
+            del chlog, member, reason
+
+            return
 
         else:
 
@@ -144,7 +65,7 @@ class MemberModeration(Cog):
         return
 
    #   Mute Members
-    @Member.command()
+    @member.command()
     async def Sush(self, ctx, member:d.Member, time=None, *, reason=None):
 
         """
@@ -161,17 +82,17 @@ class MemberModeration(Cog):
         """
 
         #   Fetching the channel
-        role = get(ctx.guild.roles, name ='Sushed')
-        ch = get(ctx.guild.channels, name='auditlog')
+        role = utils.get(ctx.guild.roles, name ='Sushed')
+        ch = utils.get(ctx.guild.channels, name='auditlog')
 
         try:
 
+            #   Checking if the selected member is the command invoker
             if member == ctx.author: raise Exception(f"Could not sush your self.")
             elif len(time) < 2: raise Exception(f"{time}s / m / h / d)")
-            #elif int(time) > 604800: raise Exception(f' Could not sush **{member}** due to a limitation for 1w')
+            elif int(time[0]) > 604800: raise Exception(f' Could not sush **{member}** due to a limitation for 1w')
             elif not ch : raise Exception("Auditlog does not exists")
             elif reason == None: raise Exception(f" Could not sush **{member}** due to there were no reason to mute the member")
-            #else : time = int(time)
 
         except Exception as e: 
 
@@ -201,12 +122,13 @@ class MemberModeration(Cog):
             await member.send(f"""Greetings, **{member.name}**.\nYou recieve this message, because server moderator {ctx.author.name} gave you an timeout for **{datetime.timedelta(seconds=time)}**.\nYou will not be able to use the {ctx.guild}'s channels, during this given time.\nThe reason for this intervention is\n*{reason}*""")
             await member.timeout(until = d.utils.utcnow() + datetime.timedelta(seconds=time), reason = reason)
 
+        #   Clear some memory
         del member, reason, time
         del ch
 
         return
 
-    @Member.command()
+    @member.command()
     async def Lift(self, ctx, member:d.Member):
 
         """
@@ -217,8 +139,8 @@ class MemberModeration(Cog):
         """
 
         #   Fetch channel and role
-        ch = get(ctx.guild.channels, name='auditlog')
-        role = get(ctx.guild.roles, name ='Sushed')
+        ch = utils.get(ctx.guild.channels, name='auditlog')
+        role = utils.get(ctx.guild.roles, name ='Sushed')
 
         try :
             #   Check for exceptions
@@ -234,9 +156,10 @@ class MemberModeration(Cog):
 
             del ch, role
             return
+
         else:
 
-            #   Prepare, send and clean up embed
+            #   Prepare & send embed message
             self.embed.color = Colour.dark_red()
             self.embed.title = f'Sush Lifted for {member}'
             self.embed.timestamp = datetime.datetime.now()
@@ -249,11 +172,12 @@ class MemberModeration(Cog):
         await member.timeout(until=None, reason="unmuted")
         await member.send(f'Greetings **{member}**.\n\n The sush has been lifted you can now use {ctx.guild}')
 
+        #   Clear some memory
         del role, ch, member
         return
 
     #   Kick Members
-    @Member.command()
+    @member.command()
     @has_permissions(kick_members= True)
     async def kick(self, ctx, member:d.Member, *, reason=None):
 
@@ -266,7 +190,7 @@ class MemberModeration(Cog):
         """
 
         #   Fetching the channel
-        ch = get(ctx.guild.channels, name='auditlog')
+        ch = utils.get(ctx.guild.channels, name='auditlog')
 
         try :
 
@@ -283,6 +207,7 @@ class MemberModeration(Cog):
 
             #   Clear some memory
             del ch, reason, member
+
         else:
 
             #   Prepare embed
@@ -299,3 +224,78 @@ class MemberModeration(Cog):
         await ch.send(embed=self.embed)
 
         return
+
+    @member.before_invoke
+    async def CheckModChannel(self, ctx):
+
+        #   Fetching the channel "auditlog"
+        ch = utils.get(ctx.guild.channels, name = "auditlog")
+
+        try :
+            if ch: return True
+        
+        except TypeError as e: print(e)
+        else:
+
+            #   Creating a channel
+            perms = {ctx.guild.default_role:d.PermissionOverwrite(view_channel=False)}
+            ch = await ctx.guild.create_text_channel("auditlog", overwrites=perms)
+
+            #   Prepare and send embeded message
+            self.embed.color = Colour.dark_red()
+            self.embed.title = f'Auto Generated Channel'
+            self.embed.timestamp = datetime.datetime.now()
+            self.embed.description = f"Created to have easy accsess to bot commands used by admin / moderator"
+            await ch.send(embed=self.embed)
+    
+        #   Clear some memory
+        del perms, ch
+        self.embed.description =""
+
+        return
+
+    @member.before_invoke
+    async def CheckRole(self, ctx):
+
+        #   Fetching the channel "auditlog"
+        ch = utils.get(ctx.guild.channels, name = "auditlog")
+        role = utils.get(ctx.guild.roles, name = "Sushed")
+
+        try :
+            if role:
+                #   Clear some memory
+                del role, ch
+                return True
+        
+        except TypeError as e: print(e)
+        else:
+
+            # Role Configurations
+            perm = d.Permissions(send_messages = False, request_to_speak = False, send_tts_messages = False, use_voice_activations = False)
+            await ctx.guild.create_role(name=f'{role}', permissions = perm, reason = f"Auto Generated - by Pymod")
+
+            #   Prepare and send embeded message
+            self.embed.color = Colour.dark_red()
+            self.embed.title = f'Auto Generated Role'
+            self.embed.timestamp = datetime.datetime.now()
+            self.embed.description = f"Created to store sushed members"
+            await ch.send(embed=self.embed)
+
+        del role, perm, ch
+
+        return
+
+    @member.after_invoke
+    async def ClearMemory(self):
+
+        #   Clear some Memory
+        self.embed.clear_fields()
+        self.embed.remove_image()
+        self.embed.remove_author()
+        self.embed.remove_footer()
+        self.embed.description = ""
+        self.embed.remove_thumbnail()
+        self.embed.color = Colour.dark_purple()
+
+        return
+

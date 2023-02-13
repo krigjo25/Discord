@@ -254,16 +254,15 @@ class ErrorMessageDictionary():
 
         dictionary = {
                         #   Community Module
-                        'dnd':f'{prefix}{cmd} (message)',
-                        'randint':f'{prefix}{cmd} (integer one) (integer two)',
+                        'community randint':f'{prefix}community randint (integer one) (integer two)',
 
                         #   Moderator module
-                        'poll':f'{prefix}{cmd} (poll Name) (ChannelName)',
-                        'online':f'{prefix}{cmd} optional (on/off)',
-                        'kick':f'{prefix}{cmd} (MemberName) (reason)',
-                        'member warn':f'{prefix}Member Warn (MemberName) (reason)',
-                        'member sush':f'{prefix}Member Sush (MemberName) (1(s / m / d / w / y)) (reason)',
-                        'member lift':f'{prefix}Member Lift (MemberName)',
+                        'community poll':f'{prefix}community poll (poll Name) (ChannelName)',
+                        'community online':f'{prefix}community online optional (on/off)',
+                        'member kick':f'{prefix}{cmd} (MemberName) (reason)',
+                        'member warn':f'{prefix}member Warn (MemberName) (reason)',
+                        'member sush':f'{prefix}member Sush (MemberName) (1(s / m / d / w / y)) (reason)',
+                        'member lift':f'{prefix}member Lift (MemberName)',
 
                         #   Role Management
                         'role delete':f'{prefix}role Delete (RoleName)',
@@ -272,12 +271,12 @@ class ErrorMessageDictionary():
                         'sero':f'{prefix}{cmd} (MemberName) (roleName) optional (reason)',
 
                         #   Channel Management / message management
-                        'ch zelete':f'{prefix}ch Delete (Channel Name)',
+                        'ch delete':f'{prefix}ch Delete (Channel Name)',
                         'ch create':f'{prefix}ch Create (Channel Name)',
                         'ch clear':f'{prefix}ch Clear (channelName) (x lines)',
 
                         #   Administrator module
-                        'unban':f'{prefix}{cmd} (MemberName)',
+                        'Ban unban':f'{prefix}{cmd} (MemberName)',
                         'announce':f'{prefix}{cmd} (channelName)',
                         'ban':f'{prefix}{cmd} (MemberName) (reason)',
                     }

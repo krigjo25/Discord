@@ -59,6 +59,7 @@ class MiscModeration(Cog):
         self.embed.clear_fields()
 
     #   Announcements
+    #   Modual dialog
     @misc.command()
     @has_permissions(administrator= True)
     async def Announcement(self, ctx, ch):

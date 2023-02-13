@@ -3,7 +3,7 @@ import datetime
 
 #   Discord Repositories
 import discord as d
-from discord.utils import get
+from discord import utils
 from discord.abc import GuildChannel
 from discord.embeds import Embed, Colour
 from discord.ext.commands import Cog, before_invoke, group, after_invoke, has_permissions
@@ -18,66 +18,14 @@ class ChannelModeration(Cog):
     def __init__(self, bot):
 
         self.bot = bot
-        self.warn = 0
-        self.now = datetime.datetime.now()
-        self.curTime = self.now.strftime('%H:%M, %d.%b - %y')
         self.embed = Embed()
-
-        return
-
-    @before_invoke("ch")
-    async def CheckModChannel(self, ctx):
-
-        #   Fetching the channel "auditlog"
-        ch = get(ctx.guild.channels, name = "auditlog")
-
-        try :
-            if ch: return True
-        
-        except Exception as e: pass
-        else:
-
-            perms = { 
-                        ctx.guild.default_role:d.PermissionOverwrite(view_channel=False)
-                    }
-
-            ch = await ctx.guild.create_text_channel("auditlog", overwrites=perms)
-
-            #   Prepare and send embeded message
-            self.embed.color = Colour.dark_red()
-            self.embed.title = f'Auto Generated Channel'
-            self.embed.timestamp = datetime.datetime.now()
-            self.embed.description = f"Created to have easy accsess to bot commands used by admin / moderator"
-            await ch.send(embed=self.embed)
-    
-        #   Clear some memory
-        del ch, perms
-        self.embed.clear_fields()
-        self.embed.color = Colour.dark_purple()
-
-        return
-
-    @after_invoke("ch")
-    async def ClearMemory(self, ctx):
-
-        #   Clear some Memory
-        self.embed.clear_fields()
-        self.embed.remove_image()
-        self.embed.remove_author()
-        self.embed.remove_footer()
-        self.embed.remove_thumbnail()
-        self.embed.color = Colour.dark_purple()
+        self.now = datetime.datetime.now().strftime('%H:%M, %d.%b - %y')
 
         return
 
     @group(pass_contex = True)
     @has_permissions(manage_channels = True)
-    async def ch(self, ctx):
-
-        #   Calling a command to invoke first
-        await self.CheckModChannel(ctx)
-        await self.ClearMemory(ctx)
-
+    async def ch(self, ctx): return
     #   Create a channel
     @ch.command()
     async def Create(self, ctx, ch):
@@ -90,12 +38,12 @@ class ChannelModeration(Cog):
         """
         #   Fetch channel
         arg = ch
-        ch = get(ctx.guild.channels, name = f"{ch}")
-        chlog = get(ctx.guild.channels, name = "auditlog")
+        ch = utils.get(ctx.guild.channels, name = f"{ch}")
+        chlog = utils.get(ctx.guild.channels, name = "auditlog")
 
         try :
             
-            if ch: raise ValueError(f"Channel \"{ch}\" already exists")
+            if ch: raise Exception(f"Channel \"{ch}\" already exists")
             if not chlog : raise Exception("Channel auditlog does not exist yet")
 
         except Exception as e:
@@ -142,33 +90,34 @@ class ChannelModeration(Cog):
 
         #   Fetch channel
 
-        arg = get(ctx.guild.channels, name = f"{ch}")
-        ch = get(ctx.guild.channels, name = "auditlog")
+        arg = utils.get(ctx.guild.channels, name = f"{ch}")
+        chlog = utils.get(ctx.guild.channels, name = "auditlog")
 
         try :
             #   If channel does not exist raise ValueError
-            if not arg: raise ValueError(f"Channel \"{ch}\" Does not Exists")
-            elif not ch : raise Exception("Channel auditlog does not exist yet")
+            if not arg: raise Exception(f"Channel \"{ch}\" Does not Exists")
+            elif not chlog : raise Exception("Channel auditlog does not exist yet")
 
         except Exception as e:
 
                 self.embed.color = Colour.dark_red()
                 self.embed.title = f"An Exception occured"
                 self.embed.description = f"{e}\nTry another name."
-                await ch.send(embed=self.embed)
-        else :
-            #   Delete GuildChannel
-            guild = GuildChannel
-            await guild.delete(arg)
+                await ctx.send(embed=self.embed)
+
+        #   Delete GuildChannel
+        guild = GuildChannel
+        await guild.delete(arg)
 
         self.embed.color = Colour.dark_red()
         self.embed.timestamp = datetime.datetime.now()
         self.embed.title = f"{ctx.author.name} has deleted {arg}"
 
-        await ch.send(embed=self.embed)
+        await chlog.send(embed=self.embed)
 
         #   Clear memory
         del ch, arg, guild
+
         return 
 
     #   Clearing all messages
@@ -184,24 +133,27 @@ class ChannelModeration(Cog):
 
         #   Initializing Channels
 
-        ch = get(ctx.guild.channels, name = ch)
-        chlog = get(ctx.guild.channels, name = "auditlog")
+        arg = utils.get(ctx.guild.channels, name = ch)
+        chlog = utils.get(ctx.guild.channels, name = "auditlog")
 
         try :
 
-            if not str(x).isdigit(): raise ValueError("You can not use alphabetical or ghlupical letters")
-            elif int(x) < 0 or int(x) > 1000: raise ValueError("Choose an integer between 1-1000")
-            else : x = int(x)
+            if arg == None : raise Exception(f"Channel \"{ch}\" does not exist in the server")
+            elif not chlog : raise Exception("Could not find the auditlog channel")
 
-            if not ch : raise TypeError("Channel does not exist in the server")
-            elif not chlog : raise TypeError("Could not find the auditlog channel")
+            if not str(x).isdigit(): raise Exception("You can not use alphabetical or ghlupical letters")
+            elif int(x) < 0 or int(x) > 1000: raise Exception("Choose an integer between 1-1000")
+            else : x = int(x)
 
         except Exception as e: 
 
             self.embed.color = Colour.dark_red()
             self.embed.title = f"An Exception Occured"
             self.embed.description = f'The channel {ch}, were not cleared as requested due to\n{e}'
-            await ch.send(embed = self.embed)
+            await ctx.send(embed = self.embed)
+
+            del ch, chlog, x, arg
+            return
 
         else:
 
@@ -212,10 +164,87 @@ class ChannelModeration(Cog):
             await chlog.send(embed = self.embed)
 
         #   Remove content from the channel
-        x = await ch.purge(limit=x)
+        await arg.purge(limit=x)
 
         #   Saving some memory
-        del ch, chlog, x
+        del ch, chlog, x, arg
 
         return
 
+    @ch.before_invoke
+    async def CheckModChannel(self, ctx):
+
+        #   Fetching the channel "auditlog"
+        ch = utils.get(ctx.guild.channels, name = "auditlog")
+
+        try :
+            if ch: return True
+        
+        except TypeError as e: print(e)
+        else:
+
+            perms = { 
+                        ctx.guild.default_role:d.PermissionOverwrite(view_channel=False)
+                    }
+
+            ch = await ctx.guild.create_text_channel("auditlog", overwrites=perms)
+
+            #   Prepare and send embeded message
+            self.embed.color = Colour.dark_red()
+            self.embed.title = f'Auto Generated Channel'
+            self.embed.timestamp = datetime.datetime.now()
+            self.embed.description = f"Created to have easy accsess to bot commands used by admin / moderator"
+            await ch.send(embed=self.embed)
+    
+        #   Clear some memory
+        self.embed.clear_fields()
+        self.embed.color = Colour.dark_purple()
+
+        #   Clear some memory
+        del perms, ch
+
+        return
+
+    #@ch.before_invoke
+    #async def CheckRole(self, ctx):
+
+        #   Fetching the channel "auditlog"
+        ch = utils.get(ctx.guild.channels, name = "auditlog")
+        role = utils.get(ctx.guild.roles, name = "Sushed")
+
+        try :
+            if role:
+                #   Clear some memory
+                del role, ch
+                return True
+        
+        except TypeError as e: print(e)
+        else:
+            # Role Configurations
+            perm = d.Permissions(send_messages = False, request_to_speak = False, send_tts_messages = False, use_voice_activations = False)
+            await ctx.guild.create_role(name=f'{role}', permissions = perm, reason = f"Auto Generated - by Pymod")
+
+            #   Prepare and send embeded message
+            self.embed.color = Colour.dark_red()
+            self.embed.title = f'Auto Generated Role'
+            self.embed.timestamp = datetime.datetime.now()
+            self.embed.description = f"Created to store sushed members"
+            await ch.send(embed=self.embed)
+
+        del role, perm, ch
+
+        return
+
+    @ch.after_invoke
+    async def ClearMemory(self, ctx):
+
+        #   Clear some Memory
+        self.embed.clear_fields()
+        self.embed.remove_image()
+        self.embed.remove_author()
+        self.embed.remove_footer()
+        self.embed.remove_thumbnail()
+        self.embed.color = Colour.dark_purple()
+        self.embed.description = ""
+
+        return

@@ -1,17 +1,12 @@
 #   Python Repositories
 import os
 import random as r
-from dotenv import load_dotenv
-
-#   Discord Repositories
 import aiohttp
-
-from discord.utils import get
-from discord.colour import Color
+#   Discord Repositories
+from discord.colour import Colour
 from discord.embeds import Embed
-from discord.ext.commands import Cog, command
+from discord.ext.commands import Cog, group
 
-load_dotenv()
 
 class CommunityModule(Cog, name='Community Module'):
 
@@ -23,11 +18,12 @@ class CommunityModule(Cog, name='Community Module'):
 
     def __init__(self, bot):
         self.bot = bot
-        self.embed = Embed(color=Color.dark_purple())
+        self.embed = Embed(color=Colour.dark_purple())
 
-
+    @group(pass_context = True)
+    async def community(): return
     #   Bot Info
-    @command(name="botinfo")
+    @community.command
     async def BotInfo(self, ctx, arg=None):
 
         '''
@@ -60,14 +56,13 @@ class CommunityModule(Cog, name='Community Module'):
         await ctx.send(embed = self.embed)
 
         #   Clear some memory
-        self.embed.clear_fields()
-
         del arg, botName
+        await self.ClearMemory()
 
         return
 
     #   Online members
-    @command(name='mlist', pass_context=True)
+    @community.command
     async def MembersList(self, ctx, arg = None):
 
         """
@@ -75,8 +70,10 @@ class CommunityModule(Cog, name='Community Module'):
         """
 
         self.embed.title = 'Server Members'
+
         #   Fetching members
         for member in ctx.guild.members:
+
             if arg == "on" and member.bot == False:
 
                 if str(member.status) != "offline":
@@ -124,17 +121,18 @@ class CommunityModule(Cog, name='Community Module'):
 
                     if member.nick == None: self.embed.add_field(name=f'{member.name}#{member.discriminator}',value=f'Status : {status} ', inline=False)
                     else : self.embed.add_field(name=f'{member.name}#{member.discriminator}',value=f'Nick {member.nick} Status : {status} ', inline=False)
+
         self.embed.add_field(name = "== End Of List ==", value=" ")
         await ctx.send(embed = self.embed)
 
         #   Clear some memories
         del member, status
-        self.embed.clear_fields()
+        await self.ClearMemory()
 
         return
 
 #   Random Meme
-    @command(name='meme', pass_context= True)
+    @community.command
     async def GetRedditMeme(self, ctx):
 
         """
@@ -152,8 +150,7 @@ class CommunityModule(Cog, name='Community Module'):
                 self.embed.description = f'Hot meme porn from  {ctx.author.name}'
                 await ctx.send(embed=self.embed)
 
-                self.embed.clear_fields()
-                self.embed.set_image(url= '')
+                await self.ClearMemory()
         
         #   Save some memories
         del response, post
@@ -161,21 +158,26 @@ class CommunityModule(Cog, name='Community Module'):
         return
 
 #   Random Number
-    @command (name='randint')
-    async def randomInt(self, ctx, *arg):
+    @community.command
+    async def randomInt(self, ctx, arg1, arg2):
 
         """
             #   Generates a random integer 
             #   between arg and argTwo
         """
+        arg = []
+        arg.append(arg1)
+        arg.append(arg2)
 
         try :
 
-            print(arg)
-            if len(arg) < 0 or len(arg > 2): raise ValueError("Value has to be max and minimum 2 integers")
-            
-            for i in arg: 
-                if str(i).isalpha(): raise TypeError('Can not use characters')
+            if len(arg) < 2 or len(arg > 2): raise Exception("You have to insert exact two integers")
+            for i in arg:
+                print(i)
+                for j in i:
+                    print(j)
+            if not str(arg).isdigit(): raise Exception('Can not use characters')
+        
 
         except Exception as e :
 
@@ -186,41 +188,22 @@ class CommunityModule(Cog, name='Community Module'):
         else:
     
             self.embed.title = "Generating random integer"
-            self.embed.description = f"{arg[r.randrange(int(arg[0]), int(arg[1]))]}"
+            self.embed.description = f"{r.randrange(int(arg[0]), int(arg[1]))}"
             await ctx.send(embed = self.embed)
 
         #   Clear some memory
-        del arg
+        del arg, arg1, arg2
+        #await self.ClearMemory()
 
         return
 
-#   Random Yes / No / Maybe
-
-    @command (name='yesnomaybe')
-    async def YesNoMaybe(self, ctx):
-
-        '''
-            #   Randomly choosing between yes, no maybe
-        '''
-
-        #   Creating a list to keep the words in
-        array = ['Yes', 'No', "Maybe"]
-
-        #   Randomizing the words
-        r.shuffle(array)
-
-        #   Prepare and send the embed
-        self.embed.title = f"{array[r.randrange(0,2)]}"
-        await ctx.send(embed=self.embed)
-
-        #   save some memory
-        del array
-
-        return 
-
+    @community.command
+    async def report(self, ctx): 
+        #   Modual dialog
+        return
 
     #   List Roles
-    @command(name='liro')
+    @community.command(name='liro')
     async def ListRoles(self, ctx):
 
         '''
@@ -249,8 +232,23 @@ class CommunityModule(Cog, name='Community Module'):
 
         #   Clear some memory
         del x
-        self.embed.clear_fields()
+        await self.ClearMemory()
 
+        return
+
+    @community.after_invoke
+    async def ClearMemory(self, ctx):  
+
+        #   Clear some Memory
+        self.embed.url = ""
+        self.embed.clear_fields()
+        self.embed.remove_image()
+        self.embed.remove_author()
+        self.embed.remove_footer()
+        self.embed.description = ""
+        self.embed.remove_thumbnail()
+        self.embed.color = Colour.dark_purple()
+        print("Test")
         return
 
 class CommunityFunctions():
@@ -261,7 +259,7 @@ class CommunityFunctions():
         #   Opens the changelog
         try :
 
-            with open("pymod/changelog.md", "r") as f:
+            with open("changelog.md", "r") as f:
 
                 #   Read x bytes
                 changelog = f.read(415)

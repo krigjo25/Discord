@@ -76,6 +76,6 @@ class DiscordSetup():
 
         #   Community module
         self.bot.add_cog(CommunityModule(self.bot))
-        self.bot.add_cog(MiscModeration(self.bot))
+        #self.bot.add_cog(MiscModeration(self.bot))
 
         return

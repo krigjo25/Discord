@@ -19,53 +19,6 @@ class Administrator(Cog):
 
         return
 
-    @before_invoke("Ban")
-    async def CheckModChannel(self, ctx):
-
-        #   Fetching the channel "auditlog"
-        ch = utils.get(ctx.guild.channels, name = "auditlog")
-
-        try :
-            if ch: return True
-        
-        except TypeError as e: print(e)
-        else:
-
-            perms = { 
-                        ctx.guild.default_role:d.PermissionOverwrite(view_channel=False)
-                    }
-
-            ch = await ctx.guild.create_text_channel("auditlog", overwrites=perms)
-
-            #   Prepare and send embeded message
-            self.embed.color = Colour.dark_red()
-            self.embed.title = f'Auto Generated Channel'
-            self.embed.timestamp = datetime.datetime.now()
-            self.embed.description = f"Created to have easy accsess to bot commands used by admin / moderator"
-            await ch.send(embed=self.embed)
-    
-        #   Clear some memory
-        self.embed.clear_fields()
-        self.embed.color = Colour.dark_purple()
-
-        #   Clear some memory
-        del perms, ch
-
-        return
-
-    @after_invoke("Ban")
-    async def ClearMemory(self, ctx):
-
-        #   Clear some Memory
-        self.embed.clear_fields()
-        self.embed.remove_image()
-        self.embed.remove_author()
-        self.embed.remove_footer()
-        self.embed.remove_thumbnail()
-        self.embed.color = Colour.dark_purple()
-
-        return
-
     #   Ban management
     @group(pass_context = True)
     @has_permissions(ban_members=True, administrator= True)
@@ -73,7 +26,7 @@ class Administrator(Cog):
         await self.CheckModChannel(ctx)
         await self.ClearMemory(ctx)
 
-    async def List(self, ctx):
+    async def list(self, ctx):
         """
             #   List of banned members
         """
@@ -113,7 +66,7 @@ class Administrator(Cog):
         return
 
     #   Prohbit a user to enter the channel again
-    async def Member(self, ctx, member:d.Member, *, reason=None):
+    async def member(self, ctx, member:d.Member, *, reason=None):
 
         """
             #   Ban a server member
@@ -160,7 +113,7 @@ class Administrator(Cog):
         return
 
     #   Allows a user to enter the channel again
-    async def Unban(self, ctx, *, member:d.Member):
+    async def unban(self, ctx, *, member:d.Member):
 
         #   Check if there is a channel called moderation log
         ch = utils.get(ctx.guild.channels, name='auditlog')
@@ -199,3 +152,47 @@ class Administrator(Cog):
         del member, name, ch
 
         return
+
+    @ban.before_invoke
+    async def CheckModChannel(self, ctx):
+
+        #   Fetching the channel "auditlog"
+        ch = utils.get(ctx.guild.channels, name = "auditlog")
+
+        try :
+            if ch: return True
+        
+        except TypeError as e: print(e)
+        else:
+
+            #   Creating a channel
+            perms = {ctx.guild.default_role:d.PermissionOverwrite(view_channel=False)}
+            ch = await ctx.guild.create_text_channel("auditlog", overwrites=perms)
+
+            #   Prepare and send embeded message
+            self.embed.color = Colour.dark_red()
+            self.embed.title = f'Auto Generated Channel'
+            self.embed.timestamp = datetime.datetime.now()
+            self.embed.description = f"Created to have easy accsess to bot commands used by admin / moderator"
+            await ch.send(embed=self.embed)
+    
+        #   Clear some memory
+        del perms, ch
+        self.embed.description =""
+
+        return
+
+    @ban.after_invoke
+    async def ClearMemory(self):
+
+        #   Clear some Memory
+        self.embed.clear_fields()
+        self.embed.remove_image()
+        self.embed.remove_author()
+        self.embed.remove_footer()
+        self.embed.description = ""
+        self.embed.remove_thumbnail()
+        self.embed.color = Colour.dark_purple()
+
+        return
+
