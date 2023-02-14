@@ -204,7 +204,7 @@ class CommunityModule(Cog, name='Community Module'):
         return
 
     #   List Roles
-    @community.command(name='liro')
+    @community.command
     async def ListRoles(self, ctx):
 
         '''
