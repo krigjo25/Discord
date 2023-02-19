@@ -19,6 +19,7 @@ class CommunityModule(Cog, name='Community Module'):
     """
         #   Author : krigjo25
         #   Date : 19.02-23
+        #   last updated :
 
         Class contains community commands
         botinfo,        -   Information about the bot
