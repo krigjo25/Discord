@@ -7,16 +7,17 @@ import humanfriendly as hf
 import discord as d
 from discord import utils
 from discord.embeds import Embed, Colour
-from discord.ext.commands import  Cog, group, has_permissions
+from discord.ext.commands import  Cog
 
 #   Modals
-from  pylib.moderation.modal import Member, Channel
+from  pylib.moderation.modal import Member
 
 class ChannelModeration(Cog):
 
     """
         #  Author : Krigjo25
-        #  Date :  2.18-23
+        #  Creation Date :  2.18-23
+        #  last update :
 
         #   Create channels
         #   Delete channels
@@ -34,22 +35,6 @@ class ChannelModeration(Cog):
     
     #   Slash command group
     channel = d.SlashCommandGroup(name = "channel", description = "Create something", default_member_permissions = d.Permissions(manage_channels = True))
-
-    @channel.command()
-    async def contact(self, ctx : d.ApplicationContext):
-
-        """
-            #   Report a rule voilator
-        """
-
-        await self.check_channel(ctx)
-
-        modal = Member(title = "Member Report")
-        await ctx.send_modal(modal)
-
-        del modal
-        await self.clear_memory(ctx)
-        return
 
     @channel.command()
     async def create(self, ctx : d.ApplicationContext, channeltype = "text", name = "test", age_restricted = False, bitrate = 0,  category = None, topic = None, delay = 0, reason = None, user_limit = 0, perm = None):

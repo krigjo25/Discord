@@ -4,18 +4,29 @@ import aiohttp
 import random as r
 
 #   Discord Repositories
-from discord import SlashCommandGroup,ApplicationContext
+
+from discord import SlashCommandGroup, ApplicationContext
 from discord.colour import Colour
 from discord.embeds import Embed
 from discord.ext.commands import Cog
+
+#custom responsories
+from pylib.moderation.modal import Member
 
 
 class CommunityModule(Cog, name='Community Module'):
 
     """
-        #   Information about the bot
-        #   Member list
-        #   Reddit meme
+        #   Author : krigjo25
+        #   Date : 19.02-23
+
+        Class contains community commands
+        botinfo,        -   Information about the bot
+        member,         -   A list of online / offline members
+        meme,           -   Meme (optional args : reddit)
+        report,         -   Reporting a server member using modals
+        support,        -   Support ticket using modals
+        roles           -   A list of server roles
     """
 
     def __init__(self, bot):
@@ -24,56 +35,54 @@ class CommunityModule(Cog, name='Community Module'):
 
     community = SlashCommandGroup(name = "communitycommands", description = "Commands for the community")
 
-    #   Bot Info
-    @community.command()    #   Information about the bot
+    @community.command()#   Information about the bot
     async def botinfo(self, ctx: ApplicationContext, arg=None):
 
         '''
-            Retrive infomation about the bot
+            Information about the bot
+            #   Arguments (log / todo / None)
+            #   Changelog
+            #   ToDo list
         '''
-
-        botName = 'PyMod'
 
         if arg == "log":
 
-            self.embed.title = 'Change log'
-            self.embed.url=f'https://github.com/krigjo25/Discord/blob/main/{botName}/changelog.md'
-            self.embed.description = CommunityFunctions().ReadChangelog()
+            self.embed.title = f"{ctx.bot.user.name} change log"
+            self.embed.url=f'https://github.com/krigjo25/Discord/blob/main/{ctx.bot.user.name}/changelog.md'
+            self.embed.description = CommunityFunctions().Readlog(arg)
 
         elif arg == "todo":
 
-            self.embed.title = 'Pymod todo'
-            self.embed.url=f'https://github.com/krigjo25/Discord/blob/main/{botName}/todo.md'
-            self.embed.description = CommunityFunctions().ReadChangelog()
+            self.embed.title = f"{ctx.bot.user.name} todo"
+            self.embed.url=f'https://github.com/krigjo25/Discord/blob/main/{ctx.bot.user.name}/todo.md'
+            self.embed.description = CommunityFunctions().Readlog(arg)
 
         else:
 
-            self.embed.title = f':notebook: About {botName}'
-            self.embed.url=f'https://github.com/krigjo25/Discord/blob/main/{botName}/readme.md'
+            self.embed.title = f':notebook: About {ctx.bot.user.name}'
+            self.embed.url=f'https://github.com/krigjo25/Discord/blob/main/{ctx.bot.user.name}/readme.md'
 
-            self.embed.add_field(name = ':rotating_light: Released', value=os.getenv('BotCreated'), inline=True)
-            self.embed.add_field(name = ':new: Updated', value=os.getenv('PyModUpdated'), inline=True)
-            self.embed.add_field(name = ':person_with_probing_cane: Current Version', value= os.getenv('PyModV'), inline=True)
-            self.embed.add_field(name = ':toolbox: Responsory', value=os.getenv('Responsory'), inline=True)
-            self.embed.add_field(name = ':cloud: Hosted', value=os.getenv('Hosted'), inline=True)
-            self.embed.add_field(name = ':man: Master', value=f'{self.bot.get_user(340540581174575107)} :flag_no:', inline=True)
-            self.embed.add_field(name = ':arrows_counterclockwise: Server Counting', value=f'Watching **{len(self.bot.guilds)}** Discord Servers', inline=True)
-            self.embed.add_field(name = ':thought_balloon: To do list', value = '[Future projects](https://github.com/krigjo25/Discord/projects/1)', inline=True)
+            self.embed.add_field(name = ':rotating_light: Released', value = os.getenv('BotCreated'), inline=True)
+            self.embed.add_field(name = ':new: Updated', value = os.getenv('PyModUpdated'), inline=True)
+            self.embed.add_field(name = ':person_with_probing_cane: Current Version', value = os.getenv('PyModV'), inline=True)
+            self.embed.add_field(name = ':toolbox: Responsory', value = os.getenv('Responsory'), inline=True)
+            self.embed.add_field(name = ':cloud: Hosted', value = os.getenv('Hosted'), inline=True)
+            self.embed.add_field(name = ':man: developed by', value = f'{self.bot.get_user(340540581174575107)} :flag_no:', inline=True)
+            self.embed.add_field(name = ':arrows_counterclockwise: Server Counting', value = f'Watching **{len(self.bot.guilds)}** Discord Servers', inline=True)
             self.embed.add_field(name = "Bot's latency :", value = round(self.bot.latency * 1000), inline = True)
 
         await ctx.respond(embed = self.embed)
 
         #   Clear some memory
-        del arg, botName
+        del arg
 
         return
 
-    #   Online members
-    @community.command() #  List of online members
-    async def list(self, ctx, arg = None):
+    @community.command()#  List of online members
+    async def member(self, ctx: ApplicationContext, arg = None):
 
         """
-            #   Retrive List of server members
+            List of server members
         """
 
         self.embed.title = 'Server Members'
@@ -134,135 +143,103 @@ class CommunityModule(Cog, name='Community Module'):
 
         #   Clear some memories
         del member, status
-        await self.ClearMemory()
 
         return
 
-#   Random Meme
-    @community.command()    #   Memes
-    async def reedditmeme(self, ctx):
+    @community.command()#   Memes
+    async def meme(self, ctx: ApplicationContext, arg = None):
 
         """
-            #   Generates a random meme from reddit
+            Generates a random meme
         """
 
-        async with aiohttp.ClientSession() as cs:
-            async with cs.get('https://www.reddit.com/r/dankmemes/new.json?sort=hot') as response:
-                response = await response.json()
-                post = response['data']['children'][r.randrange(0, 24)]
-                self.embed.title = post["data"]["title"]
-                self.embed.url = 'https://www.urbandictionary.com/define.php?term=Reddit'
-                #self.embed.set_author(name = "")
-                self.embed.set_image(url=post['data']['url'])
-                self.embed.description = f'Hot meme porn from  {ctx.author.name}'
-                await ctx.send(embed=self.embed)
+        meme = ["reddit"]
+        if arg == None:arg = meme[r.randint(len(meme - 1))]
 
-                await self.ClearMemory()
-        
-        #   Save some memories
-        del response, post
+        match str(arg).lower():
+            case "reddit":
+                async with aiohttp.ClientSession() as cs:
+                    async with cs.get('https://www.reddit.com/r/dankmemes/new.json?sort=hot') as response:
+                        response = await response.json()
+                        post = response['data']['children'][r.randrange(0, 24)]
+                        self.embed.title = post["data"]["title"]
+                        self.embed.url = 'https://www.urbandictionary.com/define.php?term=Reddit'
+                        #self.embed.set_author(name = "")
+                        self.embed.set_image(url=post['data']['url'])
+                        self.embed.description = f'Hot meme porn from  {ctx.author.name}'
+                        await ctx.respond(embed=self.embed)
 
-        return
-
-#   Random Number
-    @community.command()
-    async def random(self, ctx, arg1, arg2):
-
-        """
-            #   Generates a random integer 
-            #   between arg and argTwo
-        """
-        arg = []
-        arg.append(arg1)
-        arg.append(arg2)
-
-        try :
-
-            if len(arg) < 2 or len(arg > 2): raise Exception("You have to insert exact two integers")
-            for i in arg:
-                print(i)
-                for j in i:
-                    print(j)
-            if not str(arg).isdigit(): raise Exception('Can not use characters')
-        
-
-        except Exception as e :
-
-            self.embed.title = "An Error Occured.."
-            self.embed.description = f"{e}"
-            await ctx.send(embed = self.embed)
-
-        else:
-    
-            self.embed.title = "Generating random integer"
-            self.embed.description = f"{r.randrange(int(arg[0]), int(arg[1]))}"
-            await ctx.send(embed = self.embed)
-
-        #   Clear some memory
-        del arg, arg1, arg2
-        #await self.ClearMemory()
+                del response, post, cs, arg#   Clear some memory
 
         return
 
     @community.command()
-    async def report(self, ctx): 
+    async def report(self, ctx:ApplicationContext):
+        """
+            Reporting a rule voilator by a modal
+        """
+        modal = Member(title = "Member Report")
+        await ctx.send_modal(modal)
+        #   Modual dialog
+
+        return
+
+    @community.command()
+    async def support(self, ctx:ApplicationContext): 
+
+        """
+            Member Support
+        """
+        modal = Member(title = "Member Support")
+        await ctx.send_modal(modal)
         #   Modual dialog
         #   Topics to choose from : Report a server member, contact the staff, Misc, report a bug
         return
 
     #   List Roles
     @community.command()
-    async def roles(self, ctx):
+    async def roles(self, ctx:ApplicationContext):
 
         '''
-            #   Retrieve the roles
-            2 :x:   Check if its a member or bot role (only member roles)
-            3 :x:  Mentioned
-            4   send embed into the channel
+            Retrieve a list of the server roles
+
+            #   Initialize the variables
+            #   Iterate through server roles
+            #   respond to the command
         '''
 
-        #   Initializing variables
-        x = 1
+        x = 1#   Initializing variable
 
-        #   Iteration over the ctx guild roles
-        print(ctx.guild.roles)
-        for role in ctx.guild.roles:
-
-            #   Adding a embed field.
-            self.embed.add_field(name = f'Role No.{x}', value=f'{role.mention}')
-
-            #   Increasing by one
-            x += 1
-
-        #   Prepare & Send embed message
         self.embed.title = 'Server roles'
-        await ctx.send(embed=self.embed)
+        for role in ctx.guild.roles:#   for each role in guild.role 
+
+            self.embed.add_field(name = f'Role No.{x}', value=f'{role.mention}')#   Adding a embed field.
+
+            x += 1#   Increasing by one
+
+        await ctx.respond(embed=self.embed)
 
         #   Clear some memory
-        del x
-        await self.ClearMemory()
+        del x, role
 
         return
 
 class CommunityFunctions():
 
 
-    def ReadChangelog(self):
+    def Readlog(self, arg):
 
-        #   Opens the changelog
-        try :
+        try :#   Opens the changelog
+            if str(arg) == "log":
+                with open("changelog.md", "r") as f: changelog = f.read(415)#    Read x lines
 
-            with open("changelog.md", "r") as f:
+            elif str(arg) == "todo": 
+                with open("todo.md", "r") as f: changelog = f.read(415)#    Read x lines
 
-                #   Read x bytes
-                changelog = f.read(415)
-
-        #   Closing the document
-            f.close()
+            f.close()#  Closing the document
 
         except Exception as e : print(e)
 
-        #   Clear some memory
-        del f
+        del f#   Clear some memory
 
         return changelog
