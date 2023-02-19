@@ -1,15 +1,29 @@
 
 #   Python Repositories
 #import requests
+import os
 from sys import api_version
 
-#   dotenv Repositories
+#    Python responsories
 from dotenv import load_dotenv
+
+#   custom Repositories
+from pylib.systemModule.commandError import ErrorHandler                                     #   Error Handling Module
+from pylib.systemModule.faq import FrequentlyAskedQuestions                                  #   Help module
+
+#   Bot Utility
+
+#   Moderation Utility
+#from pylib.postModerationModule.moderatorModule.miscModeration import MiscModeration
+#from pylib.postModerationModule.moderatorModule.roleModeration import RoleModeration
+#from pylib.postModerationModule.moderatorModule.rolePermissions import RolePermissions
+#from pylib.postModerationModule.administratorModule.administrator import Administrator
+##from pylib.postModerationModule.moderatorModule.memberModeration import MemberModeration
+#from pylib.postModerationModule.moderatorModule.channelModeration import ChannelCreation, ChannelModeration
 
 #   Discord Repositories
 from discord.message import Message
 from discord.ext.commands import Bot
-
 
 load_dotenv()
 
@@ -18,10 +32,13 @@ class DiscordBot(Bot):
     def __init__(self, command_prefix='?', help_command=None, description=None, strip_after_prefix = True, owner_id = 340540581174575107, **options):
         super().__init__(command_prefix = command_prefix, help_command=help_command, description=description, strip_after_prefix = strip_after_prefix, owner_id = owner_id, **options)
 
-
         return
 
+        
     async def on_ready(self):
+
+        await self.sync_commands()
+        await self.wait_until_ready()
 
         #   Initialize a list of guilds
         svr = [i for i in self.guilds]
@@ -33,7 +50,7 @@ class DiscordBot(Bot):
         del svr
 
         return
-        
+
     async def on_message(self, message:Message):
 
         #   Procsess commands

@@ -8,18 +8,10 @@ from pylib.systemModule.botSetup import DiscordSetup
 load_dotenv()
 
 def RunBot ():
-
-        """
-                #        
-        """
-        #  Bot Token
-        botKey = getenv('Token')
-
-        #  Adding the cogs
+        botKey = getenv('Token')  #  Bot Token
         
         disc = DiscordSetup()
         disc.SystemSetup()
-        disc.MiscModuleSetup()
         disc.ModerationSetup()
 
         disc.bot.run(botKey)

@@ -1,11 +1,13 @@
 #   Python Repositories
 import os
-import random as r
 import aiohttp
+import random as r
+
 #   Discord Repositories
+from discord import SlashCommandGroup,ApplicationContext
 from discord.colour import Colour
 from discord.embeds import Embed
-from discord.ext.commands import Cog, group
+from discord.ext.commands import Cog
 
 
 class CommunityModule(Cog, name='Community Module'):
@@ -20,11 +22,11 @@ class CommunityModule(Cog, name='Community Module'):
         self.bot = bot
         self.embed = Embed(color=Colour.dark_purple())
 
-    @group(pass_context = True)
-    async def community(): return
+    community = SlashCommandGroup(name = "communitycommands", description = "Commands for the community")
+
     #   Bot Info
-    @community.command
-    async def BotInfo(self, ctx, arg=None):
+    @community.command()    #   Information about the bot
+    async def botinfo(self, ctx: ApplicationContext, arg=None):
 
         '''
             Retrive infomation about the bot
@@ -36,6 +38,12 @@ class CommunityModule(Cog, name='Community Module'):
 
             self.embed.title = 'Change log'
             self.embed.url=f'https://github.com/krigjo25/Discord/blob/main/{botName}/changelog.md'
+            self.embed.description = CommunityFunctions().ReadChangelog()
+
+        elif arg == "todo":
+
+            self.embed.title = 'Pymod todo'
+            self.embed.url=f'https://github.com/krigjo25/Discord/blob/main/{botName}/todo.md'
             self.embed.description = CommunityFunctions().ReadChangelog()
 
         else:
@@ -53,17 +61,16 @@ class CommunityModule(Cog, name='Community Module'):
             self.embed.add_field(name = ':thought_balloon: To do list', value = '[Future projects](https://github.com/krigjo25/Discord/projects/1)', inline=True)
             self.embed.add_field(name = "Bot's latency :", value = round(self.bot.latency * 1000), inline = True)
 
-        await ctx.send(embed = self.embed)
+        await ctx.respond(embed = self.embed)
 
         #   Clear some memory
         del arg, botName
-        await self.ClearMemory()
 
         return
 
     #   Online members
-    @community.command
-    async def MembersList(self, ctx, arg = None):
+    @community.command() #  List of online members
+    async def list(self, ctx, arg = None):
 
         """
             #   Retrive List of server members
@@ -132,8 +139,8 @@ class CommunityModule(Cog, name='Community Module'):
         return
 
 #   Random Meme
-    @community.command
-    async def GetRedditMeme(self, ctx):
+    @community.command()    #   Memes
+    async def reedditmeme(self, ctx):
 
         """
             #   Generates a random meme from reddit
@@ -158,8 +165,8 @@ class CommunityModule(Cog, name='Community Module'):
         return
 
 #   Random Number
-    @community.command
-    async def randomInt(self, ctx, arg1, arg2):
+    @community.command()
+    async def random(self, ctx, arg1, arg2):
 
         """
             #   Generates a random integer 
@@ -197,15 +204,15 @@ class CommunityModule(Cog, name='Community Module'):
 
         return
 
-    @community.command
+    @community.command()
     async def report(self, ctx): 
         #   Modual dialog
         #   Topics to choose from : Report a server member, contact the staff, Misc, report a bug
         return
 
     #   List Roles
-    @community.command
-    async def ListRoles(self, ctx):
+    @community.command()
+    async def roles(self, ctx):
 
         '''
             #   Retrieve the roles
@@ -235,21 +242,6 @@ class CommunityModule(Cog, name='Community Module'):
         del x
         await self.ClearMemory()
 
-        return
-
-    @community.after_invoke
-    async def ClearMemory(self, ctx):  
-
-        #   Clear some Memory
-        self.embed.url = ""
-        self.embed.clear_fields()
-        self.embed.remove_image()
-        self.embed.remove_author()
-        self.embed.remove_footer()
-        self.embed.description = ""
-        self.embed.remove_thumbnail()
-        self.embed.color = Colour.dark_purple()
-        print("Test")
         return
 
 class CommunityFunctions():

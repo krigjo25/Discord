@@ -6,9 +6,6 @@ from discord import utils
 from discord.embeds import Embed, Colour
 from discord.ext.commands import Cog, before_invoke, group, after_invoke, has_permissions
 
-
-class InvokeBefore(): pass
-
 class MiscModeration(Cog):
 
     def __init__(self, bot) -> None:

@@ -47,8 +47,8 @@ Intention of the bot is to easy accsess discord moderation system.
 
 ## How to use the bot
 
-As the bot has a prefixed command **?**<br>
-You will have to type (eg. **?help**)
+The bot uses Slash command, "/"
+You will have to type (eg. **/community help**)
 
 ## available features
 
@@ -58,7 +58,7 @@ You will have to type (eg. **?help**)
 
 ## Project Status
 
-Bot created at 15.04-22, and have a last update at 12.02-23<br>
+Bot created at 15.04-22, as a prefixed command and have a last update at 25.02-23<br>
 The current version of the bot is v1
 
 
@@ -69,24 +69,29 @@ The current version of the bot is v1
 <h3 align = "center"> Community module</h3>
 
 Commands which is available for everyone.
-> botinfo (optional parameter : log )<br>
+> /community botinfo (optional parameter : log )<br>
 > * Information about the bot
 >
-> meme<br>
+> /community meme (optional parameter : reddit<br>
 > * Generates a random meme from Reddit
 >
-> members (optional parameters : off, on<br>
+> /community members (optional parameters : off, on<br>
 > * list of members in the server
 >
-> randint (integer one) (integer two)<br>
+> /community random (integer one) (integer two)<br>
 > * generate a random integer
 >
-> liro<br>
+> /community roles<br>
 > * List the server roles
 >
-> poll
+> /community poll
 >  -    Creates a poll
-
+>
+> /community report
+>   -   Reporting a member for his / her behavior
+>
+> /community support
+>   -   Creating a post in the support channel
 ## Bot Post Moderation Utility
 
 <h3 align = "center"> Introduction</h3>
@@ -102,59 +107,42 @@ The bot has been coded to automate generate roles and channels
 ### Channels
 >   auditlog<br>
 >   -   A channel log
+>
+>   support<br>
+>   -   Generates a new post in help and support
+>
+>   report<br>
+>   -   Reporting a members behavior
+
 <h2 align="center"> Moderation Module</h2>
 
 ###  **Moderators with manage_channels**
 
 Commands which requires **manage_channels**
->   ch Clear (channel name) (int)
+>   /misc clear (channel name) (int)
 >  -    Clear the chat limit 100 lines each time the command is used
+>   -   Does not create duplicated channels due to deletion error.
 >
->   ch Create
->  -    Deletes a channel
+>   /create channel (channel name)
+>  -    Creates a new channel as default hidden
 >
->   ch Create
->  -   Creates a new channel
->  ~~ch Edit~~
->  -    ~~Modify a channel, permissions~~
+>   /delete channel (channel name)
+>   -   Deletes a channel if it exists
 
 ###  **Moderators with manage_member**
 
 Commands which requires **moderate_members**
 
->   sush* (memberName) (1s - 1 w) (reason)
->  -    Snoozes a member for given minute
->  -    Limitations : 1 w mute.    e.g : sush MemberName 1s / 1m / 1d / 1w reason
->
->   lift (memberName)
->   -   Removes the mute and the role.
->
->   Warn*
->  -    Manually warn a member
-
 ###   **Moderators with kick_members**
 
 Commands which requires **kick_members**
->   kick* (member name) (reason)
->   -   Kicks a member from the server
 
 
 ###   **Moderators with manage_Roles**
 
 Commands which requires **manage_roles**
->   role Create* (roleName)
->  - Pre made permissions,
->  - Customize your own permissions,
->  - Premade Colours
->  - Customize your own  colours
->
->   role Demote* (memberName)
->  -    Removes a member from the roles
->
->   role Set* (memberName) (role)
->  -   Set a member's role
->
->   role Delete* (roleName)
+
+>   /role delete* (roleName)
 >  -   Deletes a role from the server
 
 - "*" records the given command in the moderationlog channel
@@ -209,13 +197,15 @@ Commands which requires **manage_roles**
 
 ### Responsories
 
--   discord.py by [Rapptz](https://github.com/Rapptz/discord.py),
+-   pycord.py by [Pycord Development](https://github.com/Pycord-Development/pycord),
 -   ~~Anti-Spam by [Skelmis](https://github.com/Skelmis/DPY-Anti-Spam/commits?author=Skelmis)~~,
 -   humanfriendly by [Peter Odding](https://github.com/xolox/python-humanfriendly),
 -   MariaDB by [MariaDB Community](https://github.com/mariadb-corporation/mariadb-connector-python),
 -   python_dotenv by [Saurabh Kumar](https://github.com/motdotla/dotenv),
 
 ### APIS
+
+no apis used in the project
 
 ### Disclaimer
 
