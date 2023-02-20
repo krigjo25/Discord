@@ -10,6 +10,7 @@ import discord as d
 from discord.embeds import Embed
 from discord.colour import Color
 from discord.ext.commands import Cog
+from discord.errors import CheckFailure, ApplicationCommandError, ApplicationCommandInvokeError
 from discord.ext.commands.errors import CheckFailure, CommandNotFound, MissingRequiredArgument, BadArgument, MemberNotFound, CommandInvokeError
 
 class ErrorHandler(Cog):
@@ -45,8 +46,7 @@ class ErrorHandler(Cog):
         master = await self.bot.fetch_user(340540581174575107)
         botmsg = None
 
-        #   Member not found 
-        if isinstance(error, CommandNotFound):
+        if isinstance(error, CommandNotFound):#  Command Not Found
 
             error = str(CommandNotFound)[36:51]
             try:
@@ -57,8 +57,8 @@ class ErrorHandler(Cog):
             else :
                 await ctx.send(embed=self.embed)
 
-        #   Role not satisified
-        elif isinstance(error, CheckFailure):
+        
+        elif isinstance(error, CheckFailure):#  Role not satisified
 
             try: 
                 self.embed.title = '410:Unauthorized Role'
@@ -68,8 +68,8 @@ class ErrorHandler(Cog):
             else :
                 await ctx.send(embed=self.embed)
 
-        #   MissingRequiredArgument
-        elif isinstance(error, MissingRequiredArgument):
+        
+        elif isinstance(error, MissingRequiredArgument):#   Missing Required Argument
 
             """
                 #   Checking if there is any dictionary for the command.
@@ -85,13 +85,11 @@ class ErrorHandler(Cog):
             else :
                 await ctx.send(embed=self.embed)
 
-        #   Command Not Found
-        elif isinstance(error, CommandNotFound):
-
-                self.embed.title = "404: Command were not found in the dictionary"
-                self.embed.description = "Suggestion can be made though (github link)"
-                await ctx.send(embed=self.embed)
-
+        elif isinstance(error, ApplicationCommandInvokeError):
+            self.embed.title = "Application Command raised an Exception"
+            self.embed.description = f"The command **{ctx.command}** raised {error.original}"
+            await master.send(embed = self.embed)
+            
         #   Non Discord errors
         elif isinstance(error, CommandInvokeError):
 
@@ -130,7 +128,7 @@ class ErrorHandler(Cog):
         else:
 
             #   Print the output in the terminal
-            print(f"Ignoring exception in command {ctx.commands}:\n\n", file=sys.stderr)
+            print(f"Ignoring exception in command\n\n", file=sys.stderr)
             traceback.print_exception(type(error), error, error.__traceback__, file=sys.stderr)
 
         if botmsg != None: await master.dm(botmsg)
