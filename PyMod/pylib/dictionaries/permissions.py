@@ -7,7 +7,7 @@ from discord import Permissions
 
 from discord.ext.commands import Cog
 
-class RolePermissions(Cog):
+class RolePermission(Cog):
 
     def __init__(self, bot):
 
@@ -16,14 +16,12 @@ class RolePermissions(Cog):
 
         return
 
-    #   User Roles
+    #   User Permissions
     async def BasicRolePermissions(self, role):
 
         perms = {
 
                     role:Permissions(
-                                    #   UserRole
-
                                     #   Voice
                                     speak = True,
                                     connect = True,
@@ -492,11 +490,6 @@ class RolePermissions(Cog):
 
         perms = Permissions(
                                 #   UserRole
-                                speak = True,
-                                stream = True,
-                                connect = True,
-                                send_messages=True,
-                                read_message_history=True,
                                 administrator = True
 )
 

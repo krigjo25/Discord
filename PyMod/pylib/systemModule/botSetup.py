@@ -56,7 +56,7 @@ class DiscordSetup():
 
         #   Add Cogs
         self.bot.add_cog(ErrorHandler(self.bot))
-        self.bot.add_cog(FrequentlyAskedQuestions(self.bot))
+        #self.bot.add_cog(FrequentlyAskedQuestions(self.bot))
 
         return
 

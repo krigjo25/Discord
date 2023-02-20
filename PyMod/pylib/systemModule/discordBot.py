@@ -37,7 +37,9 @@ class DiscordBot(Bot):
         
     async def on_ready(self):
 
+        print("Sync commands")
         await self.sync_commands()
+        print("Loading the script")
         await self.wait_until_ready()
 
         #   Initialize a list of guilds
