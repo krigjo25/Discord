@@ -8,21 +8,48 @@ from discord.ext.commands import Cog
 
 class ChannelPermissions(Cog):
 
+    """
+        #  Author : Krigjo25
+        #  Creation Date :  2.18-23
+        #  last update :
+
+        #   Create channels
+        #   Delete channels
+        #   modify channels
+            Commands for Moderators with manage_channels & manage_messages
+    """
     def __init__(self):
 
         self.embed = d.Embed(color=Colour.dark_purple())
 
         return
 
-    async def SelectPermissions(self, arg):
+    async def SelectPermissions(self, ctx:d.ApplicationContext, arg, role = None):
 
+        if role == None: role = ctx.guild.default_role
         match str(arg).lower().replace(" ",""):
             case "member": return self.Member()
+            case "none": return self.hidden(role)
 
+    def hidden(self, role): return {role :d.PermissionOverwrite(view_channel = False,)}
 
     def Member(self):
 
-        perms = {d.PermissionOverwrite(#   Voice
+        perm = d.PermissionOverwrite(
+                                                # Text-Channels
+                                                send_messages=True,
+                                                add_reactions = True,
+                                                external_emojis = True,
+                                                change_nickname = True,
+                                                manage_messages = False,
+                                                manage_webhooks = False,
+                                                manage_channels = False,
+                                                mention_everyone = False,
+                                                read_message_history=True,
+                                                create_instant_invite = False)
+
+        return perm
+"""perm = d.PermissionOverwrite(#   Voice
                                                 speak = True,
                                                 connect = True,
                                                 request_to_speak = True,
@@ -61,45 +88,4 @@ class ChannelPermissions(Cog):
                                                 #   Server Settings permissions
                                                 view_audit_log = False,
                                                 view_guild_insights = False,
-                                                create_instant_invite = False)}
-
-        return perms
-
-"""
-add_reactions
-administrator
-attach_files
-ban_members
-change_nickname
-create_instant_invite
-create_private_threads
-create_public_threads
-deafen_members
-embed_links
-external_stickers
-kick_members
-manage_channels
-manage_emojis
-manage_emojis_and_stickers
-manage_events
-manage_guild
-manage_messages
-manage_nicknames
-manage_permissions
-manage_roles
-manage_threads
-manage_webhooks
-mention_everyone
-move_members
-mute_members
-priority_speaker
-send_messages_in_threads
-start_embedded_activities
-use_application_commands
-use_external_emojis
-use_external_stickers
-use_slash_commands
-value
-view_audit_log
-view_channel
-view_guild_insights  """
+                                                create_instant_invite = False)"""
