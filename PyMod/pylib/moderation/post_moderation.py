@@ -485,7 +485,7 @@ class Administrator(Cog):
         return
 
     @ban.command()    #   Prohbit a user to enter the channel again
-    async def member(self, ctx:d.ApplicationContext, member:d.Member, *, reason=None):
+    async def member(self, ctx:d.ApplicationContext, member:d.Member, *, reason:d.Option(str, "Reason for the ban", required = True)):
 
         """
             #   Ban a server member
@@ -496,17 +496,15 @@ class Administrator(Cog):
 
         """
 
+        ch = utils.get(ctx.guild.channels, name='auditlog') #   Fetch channel
         try :
-        
-            if reason == None: raise ValueError(f"Can not ban {member} with out a reason.")
-
-            #   Checks after moderationlog channel
-            ch = utils.get(ctx.guild.channels, name='moderationlog')
+            if not ch : raise Exception(f"Could not find \"**{ch}**\"")
+            
 
         except Exception as e :
 
             self.embed.color = Colour.dark_red()
-            self.embed.title =f"Tried to ban {member}"
+            self.embed.title =f"An Exception Occured "
             self.embed.description = f"{e}\n"
             await ctx.send(embed = self.embed)
 
@@ -534,8 +532,7 @@ class Administrator(Cog):
     @ban.command()#   Allows a user to enter the channel again
     async def unban(self, ctx:d.ApplicationContext, *, member:d.Member):
 
-        #   Check if there is a channel called moderation log
-        ch = utils.get(ctx.guild.channels, name='auditlog')
+        ch = utils.get(ctx.guild.channels, name='auditlog') #   Fetch channel
 
         try :
             if len(name) != 2: raise Exception("Did you forget the discriminator / name?")
@@ -566,9 +563,11 @@ class Administrator(Cog):
             async for entry in ctx.guild.bans():
                 user = entry.user
             
-                if user.name == name[0] or user.discriminator == name[1]: await ctx.guild.unban(user)
+                if user.name == name[0] or user.discriminator == name[1]: 
+                    await ctx.guild.unban(user)
+                    await member.send(f"Greetings, {member}, the administrator team has decided to unban you from {ctx.guild}\n You are now welcome back to the server.")
 
-        del member, name, ch
+        del member, name, ch, user
 
         return
 
