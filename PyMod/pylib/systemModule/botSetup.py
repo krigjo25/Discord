@@ -3,10 +3,11 @@ from discord import Intents
 
 #   library Repositories - System module
 from pylib.systemModule.discordBot import DiscordBot                                         #   The Bot Client
-#from pylib.systemModule.commandError import ErrorHandler                                     #   Error Handling Module
-#from pylib.systemModule.faq import FrequentlyAskedQuestions                                  #   Help module
+from pylib.systemModule.commandError import ErrorHandler                                     #   Error Handling Module
+from pylib.systemModule.faq import FrequentlyAskedQuestions                                  #   Help module
 
 #   Moderation Utility
+from pylib.communityModule.community import Community
 from pylib.moderation.post_moderation import ChannelModeration, Administrator, MiscModeration, RoleModeration, MemberModeration
 
 class DiscordSetup():
@@ -55,8 +56,9 @@ class DiscordSetup():
     def SystemSetup(self):
 
         #   Add Cogs
-        #self.bot.add_cog(ErrorHandler(self.bot))
-        #self.bot.add_cog(FrequentlyAskedQuestions(self.bot))
+        self.bot.add_cog(ErrorHandler(self.bot))
+        self.bot.add_cog(FrequentlyAskedQuestions(self.bot))
+        self.bot.add_cog(Community(self.bot))
 
         return
 

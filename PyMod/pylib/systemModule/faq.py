@@ -15,23 +15,42 @@ class FrequentlyAskedQuestions(Cog):
     help = d.SlashCommandGroup(name = "help", description = "Bot Documentation")
 
     @help.command()
-    async def community(self, ctx:d.ApplicationContext):
+    async def faq(self, ctx:d.ApplicationContext, arg = None):
 
+        match str(arg).lower():
+            case "community module": embed = self.community(ctx)
+            case "administrator module": embed = self.AdministratorModule(ctx)
+
+        if arg == None:
+
+            self.title = "Frequently Asked Questions"
+            self.embed.add_field(name = "Community Module", value = " ")
+            if ctx.author.guild_permissions.kick_members: self.embed.add_field(name = "Moderator Module", value = " ")
+            if ctx.author.guild_permissions.manage_roles: self.embed.add_field(name = "Moderator Module", value = " ")
+            if ctx.author.guild_permissions.manage_channels: self.embed.add_field(name = "Moderator Module", value = " ")
+            if ctx.author.guild_permissions.moderate_members: self.embed.add_field(name = "Moderator Module", value = " ")
+            if ctx.author.guild_permissions.administrator: self.embed.add_field(name = "Administrator Module", value = " ")
+
+        ctx.send(embed = self.embed)
+    
+    def community(self, ctx:d.ApplicationContext):
+
+        """
+            Community commands
+        """
         self.embed.color = Color.dark_purple()
         self.embed.title=':people_holding_hands: Community Module'
 
-        self.embed.add_field(name= f'/list roles', value='list of roles')
-        self.embed.add_field(name= f'/list members', value ='list of members', inline=True)
-        self.embed.add_field(name= f'/random ', value='- Randomly chooses between yes / no or maybe', inline=True)
-        self.embed.add_field(name= f'/botinfo \n(optional parameter: log, latency)', value='- how did the bot fail the exam? She was a bit rusty', inline=True)
-        self.embed.add_field(name= f'/help meme', value='- What do you call a gamer whom works at an abortion clinic? :rofl:\n Spawn Camper ', inline=True)
+        self.embed.add_field(name= f'/community roles', value='list of roles')
+        self.embed.add_field(name= f'/community members', value ='list of members', inline=True)
+        self.embed.add_field(name= f'/community botinfo (optional parameter: log, todo)', value='- how did the bot fail the exam? She was a bit rusty', inline=True)
+        self.embed.add_field(name= f'/community meme (optional argument : reddit)', value='- What do you call a gamer whom works at an abortion clinic? :rofl:\n Spawn Camper ', inline=True)
 
         return self.embed
 
     #   Server Moderation
-    @help.command()
-    @has_permissions()
-    async def moderator(self, ctx:d.ApplicationContext):
+
+    def channelmod(self, ctx:d.ApplicationContext):
 
         self.embed.title = 'Moderator Module'
         self.embed.color = Color.dark_purple()

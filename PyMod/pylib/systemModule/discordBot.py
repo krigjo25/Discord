@@ -48,7 +48,6 @@ class DiscordBot(Bot):
         await self.sync_commands()
         print("Loading the script")
         await self.wait_until_ready()
-        print(await self.application_info())
 
         #   Initialize a list of guilds
         svr = [i for i in self.guilds]

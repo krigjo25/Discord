@@ -14,7 +14,7 @@ from discord.ext.commands import Cog
 from pylib.moderation.modal import Member
 
 
-class CommunityModule(Cog, name='Community Module'):
+class Community(Cog, name='Community Module'):
 
     """
         #   Author : krigjo25
@@ -34,7 +34,7 @@ class CommunityModule(Cog, name='Community Module'):
         self.bot = bot
         self.embed = Embed(color=Colour.dark_purple())
 
-    community = SlashCommandGroup(name = "communitycommands", description = "Commands for the community")
+    community = SlashCommandGroup(name = "community", description = "Commands for the community")
 
     @community.command()#   Information about the bot :bug:
     async def botinfo(self, ctx: ApplicationContext, arg:d.Option(str, "Optional arguments (log / todo / bug)", required = False)):
@@ -59,13 +59,14 @@ class CommunityModule(Cog, name='Community Module'):
             self.embed.url=f'https://github.com/krigjo25/Discord/blob/main/{ctx.bot.user.name}/todo.md'
             self.embed.description = CommunityFunctions().Readlog(arg)
 
-        elif arg == "bug":
-            modal = Community(title = "Bug Report")
-            ctx.send_modal(modal)
+        elif arg == "bug": pass
+            #modal = Community(title = "Bug Report")
+            #ctx.send_modal(modal)
         else:
 
             self.embed.title = f':notebook: About {ctx.bot.user.name}'
             self.embed.url=f'https://github.com/krigjo25/Discord/blob/main/{ctx.bot.user.name}/readme.md'
+            self.embed.description = ctx.bot.description
 
             self.embed.add_field(name = ':rotating_light: Released', value = os.getenv('BotCreated'), inline=True)
             self.embed.add_field(name = ':new: Updated', value = os.getenv('PyModUpdated'), inline=True)
@@ -184,7 +185,7 @@ class CommunityModule(Cog, name='Community Module'):
         """
         modal = Member(title = "Member Report")
         await ctx.send_modal(modal)
-        #   Modual dialog
+
 
         return
 
@@ -196,8 +197,7 @@ class CommunityModule(Cog, name='Community Module'):
         """
         modal = Member(title = "Member Support")
         await ctx.send_modal(modal)
-        #   Modual dialog
-        #   Topics to choose from : Report a server member, contact the staff, Misc, report a bug
+
         return
 
     #   List Roles
@@ -275,6 +275,5 @@ class CommunityFunctions():
 
                     return embed
 
-        del f#   Clear some memory
 
         return log
