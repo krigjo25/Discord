@@ -29,6 +29,13 @@ load_dotenv()
 
 class DiscordBot(Bot):
 
+    """
+        The Discord bot
+        #   Author : krigjo25
+        #   Date :   21.02-23
+        #   Last update : 
+    """
+
     def __init__(self, command_prefix='?', help_command=None, description=None, strip_after_prefix = True, owner_id = 340540581174575107, **options):
         super().__init__(command_prefix = command_prefix, help_command=help_command, description=description, strip_after_prefix = strip_after_prefix, owner_id = owner_id, **options)
 
@@ -37,10 +44,10 @@ class DiscordBot(Bot):
         
     async def on_ready(self):
 
-        print("Sync commands")
-        await self.sync_commands()
-        print("Loading the script")
-        await self.wait_until_ready()
+        #print("Sync commands")
+        #await self.sync_commands()
+        #print("Loading the script")
+        #await self.wait_until_ready()
 
         #   Initialize a list of guilds
         svr = [i for i in self.guilds]

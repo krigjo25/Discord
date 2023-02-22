@@ -1,26 +1,10 @@
-#   Python Repositories
-import datetime
-import asyncio
-import humanfriendly as hf
-
-#   Discord Repositories
-import discord as d
-from discord import utils
-from discord.embeds import Embed, Colour
-from discord.ext.commands import  Cog
-
-#   Dicitionary
-from pylib.dictionaries.permissions import ChannelPermissions
-from pylib.moderation.modal import Channel, Role
-
 class Administrator(Cog):
 
     """
-        Commands for Moderators with administrator
+        #  Author : krigjo25
+        #  Date :   21.02-23
 
-        #   Author : krigjo25
-        #   Date :   21.02-23
-        #   Last update :      
+        Commands for Moderators with administrator
 
         #   Ban a member
         #   unban a member
@@ -189,15 +173,14 @@ class Administrator(Cog):
 class ChannelModeration(Cog):
 
     """
-        Commands for Moderators with manage_channels & manage_messages
-        
-        #   Author : Krigjo25
-        #   Creation Date :  18.02-23
-        #   last update :    20.02-23
+        #  Author : Krigjo25
+        #  Creation Date :  18.02-23
+        #  last update :    20.02-23
 
         #   Create channels
         #   Delete channels
         #   modify channels
+            Commands for Moderators with manage_channels & manage_messages
     """
 
     def __init__(self, bot):
@@ -594,15 +577,17 @@ class ChannelModeration(Cog):
 class MiscModeration(Cog):
 
     """
+        #  Author : krigjo25
+        #  Date :   21.02-23
+
         Miscerillious commands
-        #   Author : krigjo25
-        #   Date :   21.02-23
-        #   Last update: 22.02-23
 
         #   Create a role
         #   Delete a role
         #   modify a role
     """
+        #   Channel moderation
+        #   Commands for Moderators with manage_channels & manage_messages
 
     def __init__(self, bot):
 
@@ -616,14 +601,26 @@ class MiscModeration(Cog):
     misc = d.SlashCommandGroup(name = "misc", description = "misc moderator commands", default_member_permissions = d.Permissions(manage_channels = True))
 
     @misc.command()
-    async def announcement(self, ctx:d.ApplicationContext):
+    async def announcement(self, ctx:d.ApplicationContext, ch:d.Option(str, "Name of the channel you would like to add the announcement to", required = True)):
 
-        """
-            Community announcements
+        #   Fetch the channel
+        ch = utils.get(ctx.guild.channels, name=ch)
 
-        """
-        modal = Channel(title = "Channel Announcement")
-        await ctx.send_modal(modal)
+        try:
+            if not ch : raise Exception(f"Could not find the channel")
+
+        except Exception as e:
+
+            self.embed.color = Colour.dark_purple()
+            self.embed.title = "An Exception Occured"
+            self.description = f"{e}, try again."
+            await ctx.respond(embed = self.embed)
+
+            return
+
+        else:
+            modal = Channel(title= "Channel Announcement")
+            ctx.send_modal(modal)
         return
 
     @misc.after_invoke
@@ -644,11 +641,10 @@ class MiscModeration(Cog):
 class MemberModeration(Cog):
 
     """
+        #  Author : krigjo25
+        #  Date :   21.02-23
+
         Commands for Moderators with moderate members
-        
-        #   Author : krigjo25
-        #   Date :   21.02-23
-        #   Last update :
 
         #   Warn a member
         #   Sush a member
@@ -659,7 +655,7 @@ class MemberModeration(Cog):
     def __init__(self, bot):
 
         self.bot = bot
-        self.now = datetime.datetime.now()
+        self.now = datetime.datetime.now().strftime("%a, %d.%b-%y")
         self.embed = Embed()
 
         return
@@ -667,14 +663,10 @@ class MemberModeration(Cog):
     member = d.SlashCommandGroup(name = "member", description = "Member mananger", default_member_permissions = d.Permissions(moderate_members = True))
 
     @member.command()
-    async def warn(self, ctx:d.ApplicationContext, member:d.Member, *, reason:d.Option(str, "A paragraph / rule volaition statement", required = True)):
+    async def warn(self, ctx:d.ApplicationContext, member:d.Member, *, reason:d.Option(str, "A reason to warn the member", required = True)):
 
-        """
-            Warn a member for the member's behavior / rules or regulation voilation
-        """
-        await self.check_channels(ctx)  #   Manually call the function 
-
-        chlog = utils.get(ctx.guild.channels, name='auditlog')#   Fetch the channel log
+        #   Fetch the channel log
+        chlog = utils.get(ctx.guild.channels, name='auditlog')
 
         try:
             if member == ctx.author: raise Exception("Can not warn your self")
@@ -685,29 +677,28 @@ class MemberModeration(Cog):
             self.embed.color = Colour.dark_red()
             self.embed.title = "An Exception Occured"
             self.embed.description =f"{e}, Try again !"
-            ctx.send(embed = self.embed)
-            
-            del chlog, reason, member # Clear som data
+
+            del chlog, member, reason
+
             return
 
         else:
 
             #   Prepare the embed message
-            self.embed.timestamp = self.now
             self.embed.color = Colour.dark_red()
-            self.embed.description = f'*{reason}*\n\n User has been notified by a direct message.'
-            self.embed.title = f'**{member}** has been warned by {ctx.author.name}'
-            await chlog.send(embed=self.embed)
-
+            self.embed.description = f'*{reason}*.'
+            self.embed.timestamp = datetime.datetime.now()
+            self.embed.title = f'**{member}** has been warned by {ctx.author.name} Date: {self.now}'
 
             #   Message the user about the warn
-            self.embed.timestamp = self.now
-            self.embed.title = f"You have been warned by {ctx.author}"
-            self.embed.description = f"*{reason}*\n\nPlease read and follow the suggested guidelines for behavior in {ctx.guild}*"
-            await member.send(f"Greetings **{member}**.\n You recieve this Notification, because you are a member of {ctx.guild}.", embed = self.embed)
+            message = f'Greetings **{member}**.\n You recieve this Notification, because you have been warned by **{ctx.author}**.\n\n Due to :\n *{reason}*\n\nPlease read and follow the suggested guidelines for behavior in our disocrd channel'
+            await member.send(message)
+
+        await chlog.send(embed=self.embed)
 
         #   Clear some memory
-        del member, reason, chlog
+        del message, reason, chlog
+        del member
 
         return
 
@@ -716,9 +707,7 @@ class MemberModeration(Cog):
     async def sush(self, ctx:d.ApplicationContext, member:d.Member, time:d.Option(str, "Counting time, (1s / 1m / 1h / 1day)", required = True), *, reason:d.Option(str, "Provide a reason to mute the member", required = True)):
 
         """
-            Give a member a timeout
-
-            #   Role & Channel
+            #   Fetch the channel
             #   Check if "time" argument is digits
             #   #   Set the time as int if it is a digit
             #   Check if the channel exists
@@ -730,10 +719,13 @@ class MemberModeration(Cog):
             #   timeout and send the message
         """
 
-        ch = utils.get(ctx.guild.channels, name='auditlog')#    Fetch channel
+        #   Fetching the channel
+        role = utils.get(ctx.guild.roles, name ='Sushed')
+        ch = utils.get(ctx.guild.channels, name='auditlog')
 
-        try:#   Checking if the selected member is the command invoker
+        try:
 
+            #   Checking if the selected member is the command invoker
             if member == ctx.author: raise Exception(f"Could not sush your self.")
             elif len(time) < 2: raise Exception(f"{time}s / {time}m / {time}h / {time}d)")
             elif int(time[0]) > 604800: raise Exception(f' Could not sush **{member}** due to a limitation for 1w')
@@ -753,26 +745,24 @@ class MemberModeration(Cog):
 
         else:
 
-            time = hf.parse_timespan(time)#   Calculating the time
+            #   Calculating the time
+            time = hf.parse_timespan(time)
 
             #   Prepare, send & Clean up embed
             self.embed.timestamp = self.now
             self.embed.color = Colour.dark_red()
-            self.embed.title = f"**{member.name}** has been sushed by {ctx.author.name} for {datetime.timedelta(seconds=time)}"
-            self.embed.description = f"*{reason}*.\n\n User has been notified by a direct message."
+            self.embed.title = f"**{member.name}** has been sushed by {ctx.author.name} for {time}"
+            self.embed.description = f"*{reason}*."
             await ch.send(embed=self.embed)
 
             #   Prepare and send the member, the message and sush the member
-            self.embed.timestamp = self.now
-            self.embed.title = f"You have been sushed by {ctx.author} for {datetime.timedelta(seconds=time)}"
-            self.embed.description = f"*{reason}*\n\n Please read"
-            await member.send(f"Greetings, **{member.name}**.\nYou recieve this notification, because you're a member of {ctx.guild}, You will not be able to use {ctx.guild}'s channels for {time}.\n")
-            await member.send(embed = self.embed)
+            await member.add_roles(role)
+            await member.send(f"""Greetings, **{member.name}**.\nYou recieve this message, because server moderator {ctx.author.name} gave you an timeout for **{datetime.timedelta(seconds=time)}**.\nYou will not be able to use the {ctx.guild}'s channels, during this given time.\nThe reason for this intervention is\n*{reason}*""")
             await member.timeout(until = utils.utcnow() + datetime.timedelta(seconds=time), reason = reason)
 
         #   Clear some memory
         del member, reason, time
-        del ch
+        del ch, role
 
         return
 
@@ -788,10 +778,12 @@ class MemberModeration(Cog):
 
         #   Fetch channel and role
         ch = utils.get(ctx.guild.channels, name='auditlog')
+        role = utils.get(ctx.guild.roles, name ='Sushed')
 
-        try :#   Check for exceptions
-
+        try :
+            #   Check for exceptions
             if not ch: raise Exception("Auditlog channel were not created")
+            if not role: raise Exception("@Sushed were not created")
 
         except Exception as e:
 
@@ -800,42 +792,41 @@ class MemberModeration(Cog):
             self.embed.title = "An Exception Occured"
             await ctx.send(embed = self.embed)
 
-            del ch
+            del ch, role
             return
 
         else:
 
             #   Prepare & send embed message
-            self.embed.timestamp = self.now
             self.embed.color = Colour.dark_red()
-            self.embed.title = f'The Sush Has Been Lifted For {member} by {ctx.author}'
-            self.embed.description = f"User has been notified by a direct message."
+            self.embed.title = f'Sush Lifted for {member}'
+            self.embed.timestamp = datetime.datetime.now()
+            self.embed.description = f"by **{ctx.author.name}**\n Date: {self.now} User has been notified by a direct message."
         
-            await ch.send(embed= self.embed)
+        await ch.send(embed= self.embed)
 
-        await member.timeout(until=None) # remove timeout
-        self.embed.title = f"The Sush Has Been Lifted !"
-        self.embed.description = f"This means you can use {ctx.guild.name}"
+        #   Removing role, timeout & Notify the user
+        await member.remove_roles(role)
+        await member.timeout(until=None)
+        await member.send(f'Greetings **{member}**.\n\n The sush has been lifted you can now use {ctx.guild}')
 
-        await member.send(f"Greetings **{member}**, you recieve this message because you're a member in {ctx.guild.name}.")# Notify the member
-        await member.send(embed = self.embed)
-
-        
-        del ch, member#   Clear some memory
+        #   Clear some memory
+        del role, ch, member
         return
 
     @member.command()#  Kick member
     async def kick(self, ctx:d.ApplicationContext, member:d.Member, *, reason:d.Option(str, "A reason to kick the member", required = True)):
 
         """
-            Kick a member out of the channel
+            #   Fetching the auditlog channel
             #   Checks for exceptions
             #   Prepare the embed message
             #   Sending the member notification for the kick
             #   Kicking the member
         """
 
-        ch = utils.get(ctx.guild.channels, name='auditlog')#   Fetching the channel
+        #   Fetching the channel
+        ch = utils.get(ctx.guild.channels, name='auditlog')
 
         try :
 
@@ -855,18 +846,14 @@ class MemberModeration(Cog):
         else:
 
             #   Prepare embed
-            self.embed.timestamp = self.now
             self.embed.color = Colour.dark_red()
             self.embed.description = f' *{reason}*.'
+            self.embed.timestamp = datetime.datetime.now()
             self.embed.title = f'**{member}** has been kicked from the server by {ctx.author.name} Date : {self.now}'
 
             #   Creating a message to the user, send it to his DM, then kick
-            self.embed.timestamp = self.now
-            self.embed.title = f"You Have Been Kicked Out From {ctx.guild.name}"
-            self.embed.description = f"*{reason}*"
-            await member.send(f"Greetings **{member}**.\nYou recieve this notification because you're a member of {ctx.guild.name}")
-            await member.send(embed = self.embed)
-            await member.kick(reason=reason)#   Kick the member out
+            await member.send(f"Greetings **{member}**.\nYou recieve this message, because moderator {ctx.author.name} kicked you from {ctx.guild.name}\nDue to :\n *{reason}*")
+            await member.kick(reason=reason)
 
         await ch.send(embed=self.embed)
 
@@ -874,60 +861,16 @@ class MemberModeration(Cog):
 
         return
 
-    @member.before_invoke
-    async def check_channels(self, ctx:d.ApplicationContext):
-
-        ch = ["auditlog", "member.-reports"]
-
-        category = utils.get(ctx.guild.categories, name = "log")#   Fetch category
-
-        if not category:#   Create a new category if not exists
-            category = utils.get(ctx.guild.categories, name = "log")
-            await ctx.guild.create_category(name = "log", reason = "")
-
-        category = utils.get(ctx.guild.categories, name = "log")
-
-        for i in ch: 
-            ch = utils.get(ctx.guild.channels, name = i) # Fetch channels
-            
-            if not ch: #    Create channels for administrators / head moderators
-                match i:
-                    case "auditlog": await ctx.guild.create_text_channel(name = i, category = category, topic = "A place where head moderator / administrators can monitor moderators", reason = "Auto generated channels for administrators / head moderators")
-                    case "members-report": await ctx.guild.create_text_channel(name = i, category = category, topic = "Review reports from members", reason = "Auto generated channels for moderators")
-
-        del ch, i, ctx  #   Clear some memory
-        del category
-
-        return
-
-    @member.after_invoke
-    async def clear_memory(self, ctx: d.ApplicationContext):
-
-        #   Clearing embeds
-        self.embed.clear_fields()
-        self.embed.remove_image()
-        self.embed.remove_author()
-        self.embed.remove_footer()
-        self.embed.description = ""
-        self.embed.remove_thumbnail()
-        self.embed.color = Colour.dark_purple()
-
-        del ctx #   Clearing some memory
-        return
-
 class RoleModeration(Cog):
 
     """
-        Commands for Moderators with manage_role
+        #  Author : krigjo25
+        #  Date :   21.02-23
 
-        #   Author : krigjo25
-        #   Date :   21.02-23
-        #   Last update :
+        Commands for Moderators with manage_role
 
         #   Create a role
         #   Delete a role
-        #   Demote a member
-        #   Set a member as role
         #   modify a role
     """
 
@@ -949,10 +892,8 @@ class RoleModeration(Cog):
     async def delete(self, ctx:d.ApplicationContext, role:d.Option(str, "Server role", required = True) ):
 
         """
-            Delete a server role
-            #
-            #   Checking if there is any channels called 'moderationlog'
-            #   Ask the user for comfirmation before removing the role
+            1   Checking if there is any channels called 'moderationlog'
+            2   Ask the user for comfirmation before removing the role
 
         """
 
@@ -970,7 +911,8 @@ class RoleModeration(Cog):
             self.embed.description = f'{e}, Try again...'
             await ctx.send(embed = self.embed)
 
-            del role, ch#   Clear some memory
+            #   Clear some memory
+            del role, ch
             return
 
         else:   #   Confirming the deletion
@@ -982,21 +924,22 @@ class RoleModeration(Cog):
         return
  
     @role.command()# remove a member from a role
-    async def remove(self, ctx:d.ApplicationContext, member:d.Member, role:d.Option(str, "Server role", required = True), *, reason:d.Option(str, "Reason to remove the member from the role", required = True)):
+    async def demote(self, ctx:d.ApplicationContext, member:d.Member, role:d.Option(str, "Server role", required = True), *, reason:d.Option(str, "Reason to remove the member from the role", required = True)):
 
         """
             Removing the member from the selected role
 
             #   Fetch the role & audit channel
-            #   Checking if there is any channels called 'auditlog'
-            #   When the command is invoked, ask the user for a confirmation
-            #   Confirmation to remove the user from the role
+            1   Checking if there is any channels called 'auditlog'
+            2   When the command is invoked, ask the user for a confirmation
+            3   Remove the user from the role
 
         """
 
         role = utils.get(ctx.guild.roles, name=f'{role}')#  Fetch role
         ch = utils.get(ctx.guild.channels, name='auditlog')#    Fetch channel
 
+        #   Prepare, Send & Clean up embed
         try: 
             if not role : raise Exception(f"Role \"{role}\" Not found")
             if not ch: raise Exception(f"The auditlog channel were not created")
@@ -1007,28 +950,26 @@ class RoleModeration(Cog):
             self.embed.title = 'An Exception Occured'
             self.embed.description = f"{e}, try again."
             await ctx.send(embed = self.embed)
-            return
 
         else:
 
             #  Prepare, remove & send
-            modal = Role(title = "Remove member")
-            ctx.send_modal(modal)
+            self.embed.timestamp = self.now
+            self.embed.color = Colour.dark_red()
+            self.embed.title = f'{member} has been removed from {role} by {ctx.author} due to {reason}'
+
+            await member.remove_roles(role)
+            await ch.send(embed=self.embed)
 
         return
 
-    @role.command() # add someone to a role
-    async def add(self, ctx:d.ApplicationContext, member:d.Member, role:d.Option(str, "Server role", required = True)):
+    @role.command() # set a role
+    async def set(self, ctx:d.ApplicationContext, member:d.Member, role:d.Option(str, "Server role", required = True), *, reason:d.Option(str, "reason for the promotion", required = False)):
 
-        """
-            Add a member to given role
+        #   Fetch roles and channel
 
-            #   Fetch role and channel and check if they actually exists
-            #   Except exception if not exists
-            #   add member to role
-        """
-        role = utils.get(ctx.guild.roles, name=f'{role}')#  Fetch role
-        ch = utils.get(ctx.guild.channels, name='auditlog')#    Fetch channel
+        role = utils.get(ctx.guild.roles, name=f'{role}')
+        ch = utils.get(ctx.guild.channels, name='auditlog')
 
         try :
             if not role: raise Exception("Role does not exist")
@@ -1047,14 +988,16 @@ class RoleModeration(Cog):
             #  Prepare, remove, send & Clean up
             self.embed.color = Colour.dark_red()
             self.embed.title = f'{member} has been added to {role} by {ctx.author}'
+            self.embed.description = f"{reason}"
 
             await member.add_roles(role)
             await ch.send(embed = self.embed)
-
         return
 
-    @role.command()#    Modify permissions, roles
-    async def modify(self, ctx:d.ApplicationContext, role:d.Option(str, "Server role", required = True), *, reason = None):  return
+    #   Change Color for the role
+    @role.command()
+    async def modify(self, ctx:d.ApplicationContext, role:d.Option(str, "Server role", required = True), *, reason = None):
+        return
 
     @role.before_invoke
     async def check_channel(self, ctx: d.ApplicationContext):
@@ -1117,3 +1060,4 @@ class RoleModeration(Cog):
         self.embed.description = ""
 
         return
+

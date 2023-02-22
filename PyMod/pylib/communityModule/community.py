@@ -4,7 +4,7 @@ import aiohttp
 import random as r
 
 #   Discord Repositories
-
+import discord as d
 from discord import SlashCommandGroup, ApplicationContext
 from discord.colour import Colour
 from discord.embeds import Embed
@@ -19,7 +19,7 @@ class CommunityModule(Cog, name='Community Module'):
     """
         #   Author : krigjo25
         #   Date : 19.02-23
-        #   last updated :
+        #   last updated : 21.02-23
 
         Class contains community commands
         botinfo,        -   Information about the bot
@@ -36,11 +36,12 @@ class CommunityModule(Cog, name='Community Module'):
 
     community = SlashCommandGroup(name = "communitycommands", description = "Commands for the community")
 
-    @community.command()#   Information about the bot
-    async def botinfo(self, ctx: ApplicationContext, arg=None):
+    @community.command()#   Information about the bot :bug:
+    async def botinfo(self, ctx: ApplicationContext, arg:d.Option(str, "Optional arguments (log / todo / bug)", required = False)):
 
         '''
             Information about the bot
+
             #   Arguments (log / todo / None)
             #   Changelog
             #   ToDo list
@@ -58,6 +59,9 @@ class CommunityModule(Cog, name='Community Module'):
             self.embed.url=f'https://github.com/krigjo25/Discord/blob/main/{ctx.bot.user.name}/todo.md'
             self.embed.description = CommunityFunctions().Readlog(arg)
 
+        elif arg == "bug":
+            modal = Community(title = "Bug Report")
+            ctx.send_modal(modal)
         else:
 
             self.embed.title = f':notebook: About {ctx.bot.user.name}'
@@ -65,22 +69,21 @@ class CommunityModule(Cog, name='Community Module'):
 
             self.embed.add_field(name = ':rotating_light: Released', value = os.getenv('BotCreated'), inline=True)
             self.embed.add_field(name = ':new: Updated', value = os.getenv('PyModUpdated'), inline=True)
-            self.embed.add_field(name = ':person_with_probing_cane: Current Version', value = os.getenv('PyModV'), inline=True)
+            self.embed.add_field(name = ':person_with_probing_cane: Current Version', value = os.getenv("Version"), inline=True)
             self.embed.add_field(name = ':toolbox: Responsory', value = os.getenv('Responsory'), inline=True)
             self.embed.add_field(name = ':cloud: Hosted', value = os.getenv('Hosted'), inline=True)
-            self.embed.add_field(name = ':man: developed by', value = f'{self.bot.get_user(340540581174575107)} :flag_no:', inline=True)
-            self.embed.add_field(name = ':arrows_counterclockwise: Server Counting', value = f'Watching **{len(self.bot.guilds)}** Discord Servers', inline=True)
-            self.embed.add_field(name = "Bot's latency :", value = round(self.bot.latency * 1000), inline = True)
+            self.embed.add_field(name = ':man: developed by', value = f'{ctx.bot.get_user(340540581174575107)} :flag_no:', inline=True)
+            self.embed.add_field(name = ':arrows_counterclockwise: Server Counting', value = f'Watching **{len(ctx.bot.guilds)}** Discord Servers', inline=True)
+            self.embed.add_field(name = "Bot's latency :", value = round(ctx.bot.latency * 1000), inline = True)
 
         await ctx.respond(embed = self.embed)
 
-        #   Clear some memory
-        del arg
+        del arg#   Clear some memory
 
         return
 
     @community.command()#  List of online members
-    async def member(self, ctx: ApplicationContext, arg = None):
+    async def members(self, ctx: ApplicationContext, arg:d.Option(str, "Optional arguments (on / off / bot)", required = False)):
 
         """
             List of server members
@@ -148,7 +151,7 @@ class CommunityModule(Cog, name='Community Module'):
         return
 
     @community.command()#   Memes
-    async def meme(self, ctx: ApplicationContext, arg = None):
+    async def meme(self, ctx: ApplicationContext, arg:d.Option(str, "Optional arguments (reddit)", required = False)):
 
         """
             Generates a random meme
@@ -158,6 +161,7 @@ class CommunityModule(Cog, name='Community Module'):
         if arg == None:arg = meme[r.randint(len(meme - 1))]
 
         match str(arg).lower():
+
             case "reddit":
                 async with aiohttp.ClientSession() as cs:
                     async with cs.get('https://www.reddit.com/r/dankmemes/new.json?sort=hot') as response:
@@ -165,7 +169,6 @@ class CommunityModule(Cog, name='Community Module'):
                         post = response['data']['children'][r.randrange(0, 24)]
                         self.embed.title = post["data"]["title"]
                         self.embed.url = 'https://www.urbandictionary.com/define.php?term=Reddit'
-                        #self.embed.set_author(name = "")
                         self.embed.set_image(url=post['data']['url'])
                         self.embed.description = f'Hot meme porn from  {ctx.author.name}'
                         await ctx.respond(embed=self.embed)
@@ -213,34 +216,65 @@ class CommunityModule(Cog, name='Community Module'):
 
         self.embed.title = 'Server roles'
         for role in ctx.guild.roles:#   for each role in guild.role 
-
             self.embed.add_field(name = f'Role No.{x}', value=f'{role.mention}')#   Adding a embed field.
-
             x += 1#   Increasing by one
 
-        await ctx.respond(embed=self.embed)
+        await ctx.respond(embed = self.embed)
 
-        #   Clear some memory
-        del x, role
+        del x, role#   Clear some memory
 
+        return
+
+    @community.after_invoke
+    async def clear_memory(self, ctx: d.ApplicationContext):
+
+        #   Clearing embeds
+        self.embed.clear_fields()
+        self.embed.remove_image()
+        self.embed.remove_author()
+        self.embed.remove_footer()
+        self.embed.description = " "
+        self.embed.remove_thumbnail()
+        self.embed.color = Colour.dark_purple()
+
+        del ctx #   Clearing some memory
         return
 
 class CommunityFunctions():
 
-
     def Readlog(self, arg):
 
-        try :#   Opens the changelog
-            if str(arg) == "log":
-                with open("changelog.md", "r") as f: changelog = f.read(415)#    Read x lines
+        match arg:
+            case "log":
+                try :#   Opens the changelog
 
-            elif str(arg) == "todo": 
-                with open("todo.md", "r") as f: changelog = f.read(415)#    Read x lines
+                    with open("changelog.md", "r") as f:
 
-            f.close()#  Closing the document
+                        log = f.read(415)#    Read x lines
+                        f.close()#  Closing the document
+                
+                except Exception as e :
 
-        except Exception as e : print(e)
+                    f.close()#  Closing the document
+                    embed = Embed(title = "An Exception Occoured", description = e, color = d.Colour.dark_red()) 
+                    return embed
+
+            case "todo":
+ 
+                try :#   Opens the changelog
+
+                    with open("todo.md", "r") as f:
+
+                        log = f.read(415)#    Read x lines
+                        f.close()#  Closing the document
+
+                except Exception as e :
+
+                    f.close()#  Closing the document
+                    embed = Embed(title = "An Exception Occoured", description = e, color = d.Colour.dark_red())
+
+                    return embed
 
         del f#   Clear some memory
 
-        return changelog
+        return log

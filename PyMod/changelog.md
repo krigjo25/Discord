@@ -5,7 +5,7 @@
 
 ***v1.0***
 
--   Bot released
+-   Bot released, with slash command
 
 **maintained by**,<br>
 ***@krigjo25***<br>

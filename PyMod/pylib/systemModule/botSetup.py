@@ -7,7 +7,7 @@ from pylib.systemModule.discordBot import DiscordBot                            
 #from pylib.systemModule.faq import FrequentlyAskedQuestions                                  #   Help module
 
 #   Moderation Utility
-from pylib.moderation.post_moderation import ChannelModeration#, RoleModeration, MiscModeration, MemberModeration, Administrator
+from pylib.moderation.post_moderation import ChannelModeration, Administrator, MiscModeration, RoleModeration, MemberModeration
 
 class DiscordSetup():
 
@@ -62,9 +62,9 @@ class DiscordSetup():
 
     def ModerationSetup(self):
 
-        #self.bot.add_cog(Administrator(self.bot))
-        #self.bot.add_cog(MiscModeration(self.bot))
-        #self.bot.add_cog(MemberModeration(self.bot))
+        self.bot.add_cog(Administrator(self.bot))
+        self.bot.add_cog(MiscModeration(self.bot))
+        self.bot.add_cog(MemberModeration(self.bot))
         self.bot.add_cog(ChannelModeration(self.bot))
         
 

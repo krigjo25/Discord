@@ -16,7 +16,12 @@ from discord.ext.commands.errors import CheckFailure, CommandNotFound, MissingRe
 class ErrorHandler(Cog):
 
     """
-        #   raises when there is an error in the code.
+        Pycord Error handler
+        #   Author : krigjo25
+        #   Date :   21.02-23
+        #   Last update:
+
+        #   Handling Errors
     """
 
     def __init__(self, bot):
