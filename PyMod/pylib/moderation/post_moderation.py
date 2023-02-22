@@ -211,7 +211,7 @@ class ChannelModeration(Cog):
     #   Slash command group
     channel = d.SlashCommandGroup(name = "channel", description = "Create something", default_member_permissions = d.Permissions(manage_channels = True))
     @channel.command()
-    async def test(self, ctx:d.ApplicationContext, text = None):
+    async def uselesscommnd(self, ctx:d.ApplicationContext, text = None):
         print(ctx.guild.categories)
         return
 
@@ -227,6 +227,7 @@ class ChannelModeration(Cog):
             #   Create a channel
         """
 
+        await self.check_channel(ctx)# Calling the function manually
         arg = [{ #  Initializing a list with the parameters
                 "channeltype":channeltype, "channel_name": name, "category":category, "channel_permissions": perm,
                 "slow_mode": delay,  "topic":reason.get("topic"), "reason":reason.get("reason"), # Text channels
@@ -343,6 +344,7 @@ class ChannelModeration(Cog):
             #   Delete the channel
         """
 
+        await self.check_channel(ctx)# Calling the function manually
         #   Fetch channels
         ch = utils.get(ctx.guild.channels, name = ch)
         chlog = utils.get(ctx.guild.channels, name = "auditlog")
@@ -371,6 +373,7 @@ class ChannelModeration(Cog):
     @channel.command()
     async def modify(self, ctx:d.ApplicationContext, channeltype, name, age_restricted = False, archived = False, category = None, delay = 0, locked = False, newname = None, overwrites = None, reason = None, region = None, require_tags = False, thread_slowmode = 0, topic = None, quality = None): #   Modify a channel
 
+        await self.check_channel(ctx)# Calling the function manually
         ch = utils.get(ctx.guild.channels, name = name) #   Fetching the channel
 
         try :#  Checking for exceptions
@@ -556,7 +559,7 @@ class ChannelModeration(Cog):
         return
 
     @channel.before_invoke
-    async def check_channels(self, ctx:d.ApplicationContext):
+    async def check_channel(self, ctx:d.ApplicationContext):
 
         print("test, before_invoke")
         ch = ["auditlog", "member-reports", "member-support"]
@@ -672,7 +675,8 @@ class MemberModeration(Cog):
         """
             Warn a member for the member's behavior / rules or regulation voilation
         """
-        await self.check_channels(ctx)  #   Manually call the function 
+
+        await self.check_channel(ctx)  #   Manually call the function 
 
         chlog = utils.get(ctx.guild.channels, name='auditlog')#   Fetch the channel log
 
@@ -730,6 +734,7 @@ class MemberModeration(Cog):
             #   timeout and send the message
         """
 
+        await self.check_channel(ctx)# Calling the function manually
         ch = utils.get(ctx.guild.channels, name='auditlog')#    Fetch channel
 
         try:#   Checking if the selected member is the command invoker
@@ -787,6 +792,7 @@ class MemberModeration(Cog):
         """
 
         #   Fetch channel and role
+        await self.check_channel(ctx)# Calling the function manually
         ch = utils.get(ctx.guild.channels, name='auditlog')
 
         try :#   Check for exceptions
@@ -834,7 +840,7 @@ class MemberModeration(Cog):
             #   Sending the member notification for the kick
             #   Kicking the member
         """
-
+        await self.check_channel(ctx)# Calling the function manually
         ch = utils.get(ctx.guild.channels, name='auditlog')#   Fetching the channel
 
         try :
@@ -875,7 +881,7 @@ class MemberModeration(Cog):
         return
 
     @member.before_invoke
-    async def check_channels(self, ctx:d.ApplicationContext):
+    async def check_channel(self, ctx:d.ApplicationContext):
 
         ch = ["auditlog", "member.-reports"]
 
@@ -956,6 +962,7 @@ class RoleModeration(Cog):
 
         """
 
+        await self.check_channel(ctx)# Calling the function manually
         #   Fetch role and channel
         role = utils.get(ctx.guild.roles, name= role)#  Fetch role
         ch = utils.get(ctx.guild.channels, name='auditlog')#    Fetch channel
@@ -994,6 +1001,7 @@ class RoleModeration(Cog):
 
         """
 
+        await self.check_channel(ctx)# Calling the function manually
         role = utils.get(ctx.guild.roles, name=f'{role}')#  Fetch role
         ch = utils.get(ctx.guild.channels, name='auditlog')#    Fetch channel
 
@@ -1027,6 +1035,7 @@ class RoleModeration(Cog):
             #   Except exception if not exists
             #   add member to role
         """
+        await self.check_channel(ctx)# Calling the function manually
         role = utils.get(ctx.guild.roles, name=f'{role}')#  Fetch role
         ch = utils.get(ctx.guild.channels, name='auditlog')#    Fetch channel
 
