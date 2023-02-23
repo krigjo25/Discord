@@ -715,8 +715,7 @@ class MemberModeration(Cog):
 
         return
 
-   #   Mute Members
-    @member.command()
+    @member.command()#   Mute Members
     async def sush(self, ctx:d.ApplicationContext, member:d.Member, time:d.Option(str, "Counting time, (1s / 1m / 1h / 1day)", required = True), *, reason:d.Option(str, "Provide a reason to mute the member", required = True)):
 
         """

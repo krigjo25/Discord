@@ -84,7 +84,7 @@ class Community(Cog, name='Community Module'):
         return
 
     @community.command()#  List of online members
-    async def members(self, ctx: ApplicationContext, arg:d.Option(str, "Optional arguments (on / off / bot)", required = False)):
+    async def members(self, ctx: ApplicationContext, arg:d.Option(str, "Optional arguments (on / off)", required = False)):
 
         """
             List of server members

@@ -33,11 +33,9 @@
 
 ## About the Maintainer
 
-Hey, my name is Kristoffer, I'm borin in 94, :norway:<br>
+Hey, my name is Kristoffer, I'm born in 94, :norway:<br>
 [Contact](https://github.com/krigjo25/contactinformation) me through discord, messenger or at my website.<br>
 Bot developed by @krigjo25
-
-[Terms of Use](), [Privacy Policy notice]()<br> 
 
 
 #   Pymod
@@ -58,7 +56,7 @@ You will have to type (eg. **/community help**)
 
 ## Project Status
 
-Bot created at 15.04-22, as a prefixed command and have a last update at 25.02-23<br>
+Bot created at 20.02-23, as a slash command and have a last update at 25.02-23 as slash command<br>
 The current version of the bot is v1
 
 
@@ -69,18 +67,20 @@ The current version of the bot is v1
 <h3 align = "center"> Community module</h3>
 
 Commands which is available for everyone.
-> /community botinfo (optional parameter : log )<br>
-> * Information about the bot
->
+> /community botinfo (optional parameter : log, todo, bug )<br>
+> * if the command is executed with out or any other arguments than listed,Information about the bot will appear.
+>   * Log parameter returns the changelog information
+>   *   todo parameter returns whats planned further to do.
+>   *   bug parameter allows server members to send a direct message to  the developer to report a bug  
 > /community meme (optional parameter : reddit<br>
-> * Generates a random meme from Reddit
+> *     if the command is executed without any arguments, a meme from a random hoster
+>*  reddit argument notifies the program to send only meme from reddit.
 >
 > /community members (optional parameters : off, on<br>
 > * list of members in the server
->
-> /community random (integer one) (integer two)<br>
-> * generate a random integer
->
+> * on argument retruns only server members which is online
+> * off argument returns only offline members.
++
 > /community roles<br>
 > * List the server roles
 >
@@ -92,50 +92,61 @@ Commands which is available for everyone.
 >
 > /community support
 >   -   Creating a post in the support channel
+
 ## Bot Post Moderation Utility
 
 <h3 align = "center"> Introduction</h3>
 
 The bot has been coded to automate generate roles and channels
 
-### Roles
-
-
->   Sushed<br>
->   - Is a role for muted members
-
 ### Channels
+>   log<br>
+>   -   A category to store the listed text channels.
 >   auditlog<br>
 >   -   A channel log
 >
->   support<br>
+>   member-support<br>
 >   -   Generates a new post in help and support
 >
->   report<br>
+>   member-report<br>
 >   -   Reporting a members behavior
 
 <h2 align="center"> Moderation Module</h2>
 
+> Note : Most of the commands is recorded in the auditlog channel
+> Note : usage of commands such as warn, sush, lift, kick, ban will notify the member about it. So the member has the chance to understand why it has happend to the user. 
+
 ###  **Moderators with manage_channels**
 
 Commands which requires **manage_channels**
->   /misc clear (channel name) (int)
+>   /channel clear (channel name) (int)
 >  -    Clear the chat limit 100 lines each time the command is used
 >   -   Does not create duplicated channels due to deletion error.
 >
->   /create channel (channel name)
->  -    Creates a new channel as default hidden
+>   /channel create (channel type), (name), (age_restricted), (bitrate), (category), (delay), (user_limit), (perm), *(topic), (**reason)
+>   -   Channel_type, is required to contain either (text / forum / voice, stage or category). So the program has information about what type of channel you would like to create.
+>   -   name, is required to type in, so the program has information about what you would like to call the channel.
+>   -   age_restricted has a default value of False, if you would like to have a channel age_restricted, type True.
+>   -   category, has a default value to None, if you would like to select a category for the channel, type in the name of the category.
+>   -   delay has a default value of 0, if you would like slow peoples posts set it to a desired number, can not be less than 0.
+>   -   user_limit, limits how many users can be at once in a VOICE channel.
+>   -   perm, overwrites whom can view the channel, default to hidden.
+>   -   topic, notify moderators / admins what the channel is used for
+>   -   Reason to add to the auditlog
 >
->   /delete channel (channel name)
->   -   Deletes a channel if it exists
-
+>   /channel delete (channel name)
+>   -   Deletes a channel if it exists<br>
+>
+>   /channel clear (channel name)
 ###  **Moderators with manage_member**
 
 Commands which requires **moderate_members**
-
-###   **Moderators with kick_members**
+>   /member warn (member name), (reason)<br>
+>   /member sush (member name), (time), (reason)<br>
+>   /member lift (member name)<br>
 
 Commands which requires **kick_members**
+> /member kick (member name), (reason)
 
 
 ###   **Moderators with manage_Roles**
@@ -143,27 +154,29 @@ Commands which requires **kick_members**
 Commands which requires **manage_roles**
 
 >   /role delete* (roleName)
->  -   Deletes a role from the server
+>   ~~/role create~~
+>   /role modify
+>   /role add
 
-- "*" records the given command in the moderationlog channel
 
 ### **List of Premade Permissions**
 
->   Members
+>   Members ()
 >   -   Full Membership Permissions
 >   -   Chat previligies, Stream previliges & Voice Previliges
 >   -   Chat Permissions only
 >   -   permissions enabled :<br>Send_messages,<br> add_reactions,<br> external_emojis,<br> read_message_history & use_slash_commands<br>
+
 >  StreamPermissions
->  -    permissions enabled :<br>Chat Permissions & stream
+>  -    permissions enabled : stream
 >
 >   VoicePermissions
->   -   permissions enabled :<br> Chat Permissions,<br> speak, connect,<br> request_to_speak,<br> send_tts_messages,<br> use_voice_activation
+>   -   permissions enabled :<br> speak, connect,<br> request_to_speak,<br> send_tts_messages,<br> use_voice_activation
 
 >   Moderator
 >
->   Guild Moderator
->   -   Manages the guilds with manage_guild permissions
+>   Server Moderator
+>   -   Manages the guilds with manage_guild, and other  permissions for moderators.
 >
 >   Role Moderator
 >   -  Can manage roles with mange_roles permissions
@@ -174,24 +187,23 @@ Commands which requires **manage_roles**
 >   Member Moderator
 >   -    They're able to manage nicknames & moderate members
 >
->   ModerationMananger
+>   Headmoderator
 >   -   Has every moderation possiblities the other moderation type + they're able to kick members
 
 
 <h2 align="center"> Administrator module</h2>
 
->   ban* (member) (reason)
+>   /ban member (member) (reason)
 >  -   Ban a discord user from the server
 >
->   banlist
+>   /ban list
 >  -    View a list of banned server members
->                           
->   unban* (member)
+>
+>   /ban unban* (member)
 >   -   Unban a discord user from the server
 >
->   announce (channelName)
->  -   Creates an announcement in the given channel as the bot
-> - **"*"** records the command in the channel auditlog
+>   /misc announce (channelName)
+>  -   Opens a modal, where you can create a announcement in the given channel as the bot. The author will be the member whom invoked the commannd.
 
 ##  Credentials
 
@@ -212,3 +224,5 @@ no apis used in the project
 The developer can only have the responsibility,<br>
 for how the projects is created, how it is used,<br>
 is another story.
+
+[Terms of Use](), [Privacy Policy notice]()<br> 
