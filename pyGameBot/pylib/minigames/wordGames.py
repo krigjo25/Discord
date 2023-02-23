@@ -7,6 +7,7 @@ import time as t
 from dotenv import load_dotenv
 
 #   Discord library
+import discord as d
 from discord import File
 from discord.embeds import Embed
 from discord.colour import Color
@@ -80,8 +81,9 @@ class WordGames(Cog):
 
             return count
 
-    @command(name="jumble")
-    async def JumbleGame(self, ctx):
+    word = d.SlashCommandGroup(name = "word", description = "Word games")
+    @word.command()
+    async def jumble(self, ctx):
 
 
         '''
@@ -304,8 +306,8 @@ class WordGames(Cog):
 
         return
 
-    @command(name="ask")
-    async def EightBall(self, ctx):
+    @word.command()
+    async def eightball(self, ctx):
 
         '''
             #   Author : krigjo25
@@ -360,8 +362,8 @@ class WordGames(Cog):
 
         return
 
-    @command(name="scrabble")
-    async def Scrabble(self, ctx):
+    @word.command()
+    async def scrabble(self, ctx):
 
         '''
             #   Author : krigjo25
@@ -497,8 +499,8 @@ class WordGames(Cog):
         return
 
     #   Fixes
-    @command(name="rsp")
-    async def RockScissorPaper(self, ctx):
+    @word.command()
+    async def rockscissorsandpaper(self, ctx):
 
         '''
             #   Author : krigjo25
@@ -610,150 +612,3 @@ class WordGames(Cog):
                 self.embed.clear_fields()
                 
                 return
-
-    @command(name = "hangman")
-    async def Hangman(self, ctx):
-
-        #   Initializing variables
-        #x = 20
-        n = 0
-        sec = 60.0
-        letters = ""
-
-        #   Initializing lists
-        l = []
-
-        #   Visualizing the hangman
-        hangman = [i for i in os.listdir(os.getenv("hangman"))]
-
-        #answer = Hangman().ChooseWord()
-
-
-        #   Game Configuration
-        while True:
-
-            try :
-
-                #   Prepare and send the Welcome message
-                self.embed.title = 'Game Configurations'
-                self.embed.description = f'Choose a level'
-                await ctx.send(embed = self.embed)
-
-                #   Wait for level input
-                lvl = await self.bot.wait_for('message', timeout=sec)
-                lvl = int(lvl.content)
-
-                #   Check the level input
-                if lvl < 1: raise ValueError('The level can not be less than one')
-
-            except Exception as e : print(e)
-
-            else:
-
-                #   Configuring the timer based on level
-                if lvl < 10: count = 20
-                elif lvl > 9 and lvl < 20: count = 15
-                elif lvl > 19 and lvl < 30: count = 10
-                elif lvl > 29 and lvl < 40: count = 30
-                elif lvl > 39 and lvl < 50: count = 20
-                else: count = 5
-
-                break
-
-        self.embed.title = "Hangman game"
-        self.embed.description = f"Type in a word"
-        await ctx.send(embed = self.embed)
-
-        #   Hangman game
-        while True:
-
-            if count == 0:
-
-                #   Prepare and print a message
-                self.embed.title = "Game Over"
-                self.embed.description = f"**Game Summary**\nGuessed: {letters}\nTotal attempts: {len(letters)}\nPlay again?"
-                await ctx.send(embed = self.embed)
-
-                break
-
-            #   Decrease by 1
-            count -= 1
-
-            try :
-
-                #   Initializing a variable
-                string = ""
-
-                #   Prompting a user for a input
-                prompt = await self.bot.wait_for("message", timeout = sec)
-                prompt = str(prompt.content)
-
-                #   Error messages
-                #   Append prompt in list
-                if prompt.isdigit(): raise ValueError("String can not contain digits")
-                elif prompt in l: raise TypeError("already guessed")
-                else:
-
-                    l.append(prompt)
-
-                    #   Create a string, with the letters and / or words
-                    for i in l: letters += f"**{i}**, "
-                    total = len(l)
-                
-            except (ValueError, TypeError, TimeoutError) as e :
- 
-                #   Prepare and print a message
-                self.embed.title = "Game Summary"
-                self.embed.set_thumbnail(url = f"https://www.jottacloud.com/web/archive/1728fe66e7d3e92c27f4bce373a351cbadf/list/name/@@172:9583ed67a24ba25fa96574bdfb6b2611")
-                self.embed.description = f"Counting x words : **{total}**\nLetters typed in : {letters}\nError Message: **{e}**\nType in a letter again"
-                await ctx.send(embed = self.embed)
-                n += 1
-                
-                continue
-
-            else:
-
-
-                #   Checking if prompt is equal to answer
-                print(answer)
-                if prompt == answer:
-
-                    self.embed.title = "Winner"
-                    self.embed.description = f"**Game Summary**\nGuessed {letters}\nTotal attempts: {total}\nPlay again?"
-                    await ctx.send(embed = self.embed)
-
-                    break
-
-                else:
-
-                    print("test")
-                    #   Prepare the embed message
-                    self.embed.title = "Game Summary"
-                    self.embed.set_image(url = "https://www.jottacloud.com/web/archive/1728fe66e7d3e92c27f4bce373a351cbadf/list/name/@@172:6ff96e408ef8c2902724fbf8dde8e071")
-                    self.embed.description = f"Counting x words : **{total}**\nLetters typed in : {letters}\nError\n{GameOver().IncorrectAnswer()}"
-                    await ctx.send(embed = self.embed)
-
-                    #   clear fields
-                    self.embed.clear_fields()
-                    self.embed.remove_image()
-
-            #   increase value for thumbnail
-            n += 1
-
-            #   Clear some space
-            del prompt
-
-        #   Clear some space
-        del x, count
-        del prompt, string
-        del answer
-
-        #   Prompting for an answer
-        prompt = await self.bot.wait_for("message", timeout = sec)
-        prompt = str(prompt.content)
-
-        match prompt:
-            case "y": self.Hangman()
-            case "Yes": self.Hangman()
-
-        return

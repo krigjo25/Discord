@@ -3,6 +3,7 @@
 import random as r
 
 # Discord Responsories
+import discord as d
 from discord.embeds import Embed
 from discord.colour import Color
 from discord.ext.commands import Cog, command
@@ -27,34 +28,7 @@ class MathGames(Cog):
 
         return
 
-    #   Database connection
-    def DatabaseConnection(self, database ,table,  arg):
-
-        '''
-            #   Author : krigjo25
-            #   Date   :  12.01-23
-
-            #   Connecting to the Database
-            #   Creating a new word with joining the elements of the iterator
-
-        '''
-        #   Initializing variables & classes
-        #db = MariaDB(database =)
-        database = database
-
-        #   Selecting from table
-        query = f'SELECT {arg} FROM {table}'
-        word = db.SelectTable(database, query)
-
-        #   Closing the connection
-        db.closeConnection()
-
-        #   Clean up
-        del db
-        del query
-        del database
-
-        return word
+    integer = d.SlashCommandGroup(name = "intgame", description = "Integer games")
 
     def GenerateIntegers(self, lvl):
 
@@ -173,12 +147,12 @@ class MathGames(Cog):
         return arg
 
     #   Games
-    @command(name="lip")
-    async def LittleProffessor(self, ctx):
+    @integer.command()
+    async def littleproffessor(self, ctx:d.ApplicationContext):
 
         self.embed.title = "Little professor"
         self.embed.description = f' Please choose a level'
-        await ctx.send(embed = self.embed)
+        await ctx.respond(embed = self.embed)
 
         #   Checking if the answer is an integer
         while True:
@@ -195,7 +169,7 @@ class MathGames(Cog):
 
                 self.embed.title = "An error arised"
                 self.embed.description = f' {e}\n try again'
-                await ctx.send(embed = self.embed)
+                await ctx.respond(embed = self.embed)
                 continue
 
         #   Calculating the answer
@@ -205,13 +179,13 @@ class MathGames(Cog):
         score = 0
         etempt = arg[2]
 
-        while True:
+        while True: #   Littleproffessor
 
             try :
 
                 self.embed.title = "Little professor"
                 self.embed.description = f' {arg[1]}'
-                await ctx.send(embed = self.embed)
+                await ctx.respond(embed = self.embed)
                 
                 prmpt = await self.bot.wait_for('message', timeout=60)
                 prmpt = int(prmpt.content)
@@ -283,8 +257,8 @@ class MathGames(Cog):
 
         return
 
-    @command(name="int")
-    async def GuessTheNumber(self, ctx):
+    @integer.command(name="int")
+    async def guessthenumber(self, ctx):
 
         self.embed.title = "Welcome to Guess the number"
         self.embed.description = f' Please choose a level'
