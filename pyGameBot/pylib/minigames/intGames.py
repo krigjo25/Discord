@@ -191,7 +191,7 @@ class MathGames(Cog):
 
         self.embed.title = "Welcome to Guess the number"
         self.embed.description = f' Please choose a level'
-        await ctx.send(embed = self.embed)
+        await ctx.respond(embed = self.embed)
 
         while True: #   Choose a level
 

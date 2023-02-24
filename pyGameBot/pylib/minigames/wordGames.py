@@ -365,7 +365,7 @@ class WordGames(Cog):
         return
 
     @word.command()
-    async def scrabble(self, ctx):
+    async def scrabble(self, ctx:d.ApplicationContext):
 
         '''
             #   Author : krigjo25
@@ -380,123 +380,72 @@ class WordGames(Cog):
         '''
         #   Initializing lists
         word = []
+        score = []
+
+        #   Prompts the words for both players
+        self.embed.title = f'{ctx.author}'
+        self.embed.color = Color.dark_purple()
+        self.embed.description = f'How many member are going to be playing?'
+        await ctx.respond(embed=self.embed)
+
+        n = await ctx.bot.wait_for('message', timeout = 60.0, check = lambda m: m.author.id == ctx.author.id )
+
+        try : 
+                if str(n.content).isdigit(): n = int(n.content)
+                else: raise ValueError("Please insert a integer ")
+
+                if n < 1: raise ValueError("The number has to be greater than zero")
+            
+        except Exception as e:
+            self.embed.title = f'{ctx.author}'
+            self.embed.color = Color.dark_red()
+            self.embed.description = f'{e}'
+            await ctx.respond(embed = self.embed)
+            return
+
 
         while True:
 
-            try :
+            #   Prompts the words for both players
+            self.embed.title = f'{ctx.author}'
+            self.embed.color = Color.dark_purple()
+            self.embed.description = f'Available dictionaries : :england:, :flag_us: 60sec to type a word'
+            await ctx.send(embed=self.embed)
+
+            for i in range(len(n)): word.append(await ctx.bot.wait_for('message', timeout=60.0, check = lambda m: m.author.id == ctx.author.id))
+
+            try : 
+                for i in word:
+                    if str(i.content).isalpha(): word.append(str(i.content))
+                    else: raise ValueError("A word does not contain numbers")
+            
+            except Exception as e:
+                self.embed.title = f'{ctx.author}'
+                self.embed.color = Color.dark_red()
+                self.embed.description = f'{e}'
+                await ctx.respond(embed = self.embed)
+                continue
+
+            for i in word: score.append(ScrabbleGame().ComputeScore(i))
+
+            max = score[0]
+            for i in range(1, len(score)):# Linear algorithm
+                if score[i] > max: max = score[i]
+
+                #   Announce the winner
+            
+            else:
 
                 #   Prepare and send the Welcome message
-                self.embed.color = Color.dark_purple()
-                self.embed.title = 'Welcome to the Scrabble Game'
-                self.embed.description = f'Please choose an integer as game level'
-                await ctx.send(embed = self.embed)
-
-                #   Wait for level input
-                lvl = await self.bot.wait_for('message', timeout=60)
-                lvl = int(lvl.content)
-
-                #   Check the level input
-                if lvl < 1: raise ValueError('The level can not be less than one')
-
-            except (ValueError, TimeoutError) as e : 
-                
-                self.embed.title = ' Scrabble Game'
-                self.embed.description = f'{e}'
+                self.embed.title = 'Game over'
                 self.embed.color = Color.dark_red()
-                await ctx.send(embed = self.embed)
-                continue
+                self.embed.description = GameOver().TowTie()
 
-            else:
-
-                sec = 0
-
-                #   Configuring the timer based on level
-                if lvl < 10: sec = 60.0
-                elif lvl > 9 and lvl < 20: sec = 50.0
-                elif lvl > 19 and lvl < 30: sec = 40.0
-                elif lvl > 29 and lvl < 40: sec = 30.0
-                elif lvl > 39 and lvl < 50: sec = 20.0
-                else: sec = 15.0
-
-            break
-
-        #   Delete and save space
-        self.embed.clear_fields()
-        
-        while True:
-
-            try:
-
-                #   Prompts the words for both players
-                self.embed.title = f'Player one'
-                self.embed.color = Color.dark_purple()
-                self.embed.description = f'Available dictionaries : :england:, :flag_us: {sec} to type a word'
-                await ctx.send(embed=self.embed)
-
-                p1 = await self.bot.wait_for('message', timeout=sec)
-                p1 = str(p1.content)
-
-                self.embed.title = f'Player two'
-                self.embed.color = Color.dark_purple()
-                self.embed.description = f'Available dictionaries : :england:, :flag_us: {sec} to type a word'
-                await ctx.send(embed=self.embed)
-
-                p2 = await self.bot.wait_for('message', timeout=sec)
-                p2 = str(p2.content)
-
-                #   Wait for an answer and handling the string
-                word = [p1, p2]
-
-                for i in word:
-                    if bool(APITools().NinjaDefinition(i)) == False:  raise ValueError(f'"{i}" Is not a word')
-
-            except (ValueError, TypeError) as e:
-
-                 #   Prepare and send the Welcome message
-                self.embed.color = Color.dark_red()
-                self.embed.title = 'An error Occoured'
-                self.embed.description = f"{e}.\nTry again..."
-                await ctx.send(embed=self.embed)
-                continue
-
-            else:
-
-                score = [ScrabbleGame().ComputeScore(word[0]), ScrabbleGame().ComputeScore(word[1])]
-
-                #  Checking whom Scored Highest
-                if score[0] > score[1]:
-    
-                    self.embed.color = Color.dark_purple()
-                    self.embed.title = 'Player 1 is the winner'
-                    self.embed.description = " "
-
-
-                elif score[0] < score[1]:
-
-                    self.embed.color = Color.dark_purple()
-                    self.embed.title = 'Player 2 is the winner'
-                    self.embed.description = ""
-
-                else:
-
-                    #   Prepare and send the Welcome message
-                    self.embed.title = 'Game over'
-                    self.embed.color = Color.dark_red()
-                    self.embed.description = GameOver().TowTie()
-
-            await ctx.send(embed=self.embed)
+            await ctx.respond(embed=self.embed)
             
             break
 
-        #   Save some space
-        del i
-        del p1
-        del p2
-        del lvl
-        del word
-        del score
-
-        self.embed.clear_fields()
+        del word, score#    Clear some memory
 
         return
 
@@ -505,8 +454,7 @@ class WordGames(Cog):
     async def rockscissorsandpaper(self, ctx:d.ApplicationContext):
 
         '''
-            #   Author : krigjo25
-            #   Date   :  12.01-23
+            Rock, Scissors & paper game
 
             #   Prompt the user for a string
             #   Combine the answers
@@ -514,102 +462,47 @@ class WordGames(Cog):
 
         '''
 
-        #   Initializing classes
-        rsp = ReactionGame()
-        sec = 0.0
-        #   Initializing an array with Rock, Scissors, Paper
-
-        #   Game Configuration
-        while True:
-
-            try :
-                dictionary = {1:'\U0001FAA8', 2:'\U00002702', 3:'\U0001F4C4'}#    Rock, Scissors and paper
-                #   Prepare and send the Welcome message
-                self.embed.title = 'Game Configurations'
-                self.embed.description = f'Please choose a level'
-                await ctx.send(embed = self.embed)
-
-                #   Wait for level input
-                lvl = await self.bot.wait_for('message', timeout=60)
-                lvl = str(lvl.content).lower()
-
-                #   Error messages
-                if "q" in lvl: return 
-                elif lvl.isalpha() : raise ValueError("\"Q\" to quit otherwise, the level has to be digits")
-                
-                lvl = int(lvl)
-                if lvl < 1: raise ValueError('The level can not be less than one')
-            except Exception as e : print(e)
-
-            else:
-
-                lvl = int(lvl)
-
-                #   Configuring the timer based on level
-                if lvl < 10: sec = 60.0
-                elif lvl > 9 and lvl < 20: sec = 50.0
-                elif lvl > 19 and lvl < 30: sec = 40.0
-                elif lvl > 29 and lvl < 40: sec = 30.0
-                elif lvl > 39 and lvl < 50: sec = 20.0
-                else: sec = 15.0
-                print(f"Sec:{sec}")
-            break
+        x = ['\U0001FAA8', '\U00002702', '\U0001F4C4']# List with rock scissors and paper
 
         #   Prepare, Send and Add reaction to the message
         self.embed.title = ' Rock Scissors & Paper Game'
         self.embed.description = 'Choose one of the following reaction below'
-        message = await ctx.send(embed=self.embed)
+        msg = await ctx.respond(embed=self.embed)
 
-        for i in rsp.RockScissorPaper():  await message.add_reaction(i)
+        for i in x:  await msg.add_reaction(i)#    add reaction to the embed message
 
-        try :
+        try : prompt, member = await ctx.bot.wait_for('reaction_add', timeout = 60.0, check = lambda m: m.author.id == ctx.author.id)
+        except Exception as e : 
 
-            def emojiCheck(reaction, member):
+            #   Prepare, Send and Add reaction to the message
+            self.embed.title = ' Rock Scissors & Paper Game'
+            self.embed.description = f'{e}'
+            await ctx.respond(embed=self.embed)
+            return
 
-                reaction, member = str(reaction), ctx.author
+        prompt = str(prompt)
+        x = x[r.randrange(0, len(x))]
 
-                return member !=self.bot.user and reaction
+        if prompt == x: #   Check for winner and print out output
 
-            prompt, member = await self.bot.wait_for('reaction_add', timeout=sec, check= emojiCheck)
-
-        except Exception as e : print(e)
+            #   Prepare and send the embed
+            self.embed.title = 'Tie'
+            self.embed.description = f"{GameOver().TowTie()}"
+            await ctx.send(embed = self.embed)
 
         else:
+ 
+            self.embed.title = "The winner is.."#   If the user win
+            if prompt == '\U0001F4C4' and x =='\U0001FAA8': self.embed.description = f"{GameOver().CorrectAnswer('rockscissorpaper', prompt, x)}"
+            elif prompt == '\U0001FAA8' and x =='\U00002702': self.embed.description = f"{GameOver().CorrectAnswer('rockscissorpaper', prompt, x)}"
+            elif prompt == '\U00002702' and x =='\U0001F4C4': self.embed.description = f"{GameOver().CorrectAnswer('rockscissorpaper', prompt, x)}"
 
-            prompt = str(prompt)
-            x = rsp.RockScissorPaper()
+            #   if the bot wins
+            if x == '\U0001F4C4' and prompt =='\U0001FAA8': self.embed.description = f"{GameOver().IncorrectAnswer('rockscissorpaper', x, prompt)}"
+            elif x == '\U0001FAA8' and prompt =='\U00002702': self.embed.description = f"{GameOver().IncorrectAnswer('rockscissorpaper', x, prompt)}"
+            elif x == '\U00002702' and prompt =='\U0001F4C4': self.embed.description = f"{GameOver().IncorrectAnswer('rockscissorpaper', x, prompt)}"
 
-            #   Check for winner and print out output
-            if prompt == x:
+            await ctx.send(embed = self.embed)
 
-                #   Prepare and send the embed
-                self.embed.title = 'Tie'
-                self.embed.description = f"{rsp.TowTie()}"
-                await ctx.send(embed = self.embed)
-
-            else:
-
-                #   If the user win
-                self.embed.title = "The winner is.."
-                if prompt == '\U0001F4C4' and x =='\U0001FAA8': self.embed.description = f"{rsp.Player(prompt,x)}"
-                if prompt == '\U0001FAA8' and x =='\U00002702': self.embed.description = f"{rsp.Player(prompt,x)}"
-                if prompt == '\U00002702' and x =='\U0001F4C4': self.embed.description = f"{rsp.Player(prompt,x)}"
-
-                 #   if the bot wins
-                if x == '\U0001F4C4' and prompt =='\U0001FAA8': self.embed.description = f"{rsp.Computer(x)}"
-                if x == '\U0001FAA8' and prompt =='\U00002702': self.embed.description = f"{rsp.Computer(x)}"
-                if x == '\U00002702' and prompt =='\U0001F4C4': self.embed.description = f"{rsp.Computer(x)}"
-
-                await ctx.send(embed = self.embed)
-
-                #   Clear fields
-                del x
-                del rsp
-                del arr
-                del member
-                del prompt
-                del message
-
-                self.embed.clear_fields()
-                
-                return
+            del x, member, prompt#   Clear fields
+            return
