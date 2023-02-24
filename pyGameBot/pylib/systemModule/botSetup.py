@@ -23,7 +23,7 @@ from pylib.systemModule.discordBot import DiscordBot                            
 from pylib.systemModule.commandError import ErrorHandler                                    #   Error Handling Module
 
 #   Community Module
-from pylib.communityModule.community import CommunityModule                                     #   Community module
+#from pylib.communityModule.community import CommunityModule                                     #   Community module
 
 #   miniGames Module
 from pylib.minigames.intGames import MathGames
@@ -65,12 +65,12 @@ class DiscordSetup():
 
     def CommunityModule(self):
 
-        self.bot.add_cog(CommunityModule(self.bot))
+        #self.bot.add_cog(CommunityModule(self.bot))
 
         return
 
     def GamersModule(self):
-            #   miniGames
+
         self.bot.add_cog(WordGames(self.bot))
         self.bot.add_cog(MathGames(self.bot))
 

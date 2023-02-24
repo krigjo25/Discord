@@ -64,7 +64,6 @@ class FrequentlyAskedQuestions(Cog):
 
         return self.embed
 
-
     def GamersModule(self, arg = None):
 
         self.embed.title = 'Gamers Module'

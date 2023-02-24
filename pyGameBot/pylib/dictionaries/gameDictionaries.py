@@ -75,123 +75,15 @@ class Philosopher():
 
         return dictionary.get(x)
 
-class ReactionGame():
-
-    '''
-            #   Author : krigjo25
-            #   Date   :  12.01-23
-
-            #   Dictionary for Emoji game
-    '''
-    #   arg Game Dictionaries
-    def RockScissorPaper(self):
-
-        dictionary = {
-                        1:'\U0001FAA8',          #  somewhat rock
-                        2:'\U00002702',          #  ✂️
-                        3:'\U0001F4C4'           #  📄
-}
-
-        #   Randomize the dictionary
-        x = r.randrange(1,len(dictionary))
-
-        return dictionary.get(x)
-
-    def TowTie(self):
-
-        dictionary = {
-
-                    1:f'The computer draws a tie',
-                    2:'let\'s tie a tie',
-                    3:'What did the tie say to the **bowtie**? You\'re a weirdo',
-                    4:f'The cumputer drawing a toe.',
-                }
-
-        #   Randomize the dictionary
-        x = r.randrange(1,len(dictionary))
-
-        return dictionary.get(x)
-    
-    def Computer(self, arg):
-
-        #   Initializing variables
-        bot = 'Computer'
-        
-        if arg == '\U0001FAA8':
-
-            dictionary = {
-                            1:f'That moment, when you realize :stone doesn\'t play along with :Scissors',
-                            2:f'Congratulations, this game were Rock Hard !',
-                            3:f'It were crushing days for the scissors',
-                            4:f'pyBot Says : look behind you. **running away **.',
-}
-
-        elif arg == '\U0001F4C4':
-
-            dictionary = {
-                            1:f'{bot} sent your stone to North-Korea !',
-                            2:f'You recieved a new stone as a christmas :gift:',
-                            3:f'You have been mumified by {bot}',
-}
-
-        else:
-        
-            dictionary = {
-                            1:f'Noone : \'\'\n{bot} : Oh snap',
-                            2:f'The paper were succsessfully cut in two by {bot} ',
-                            3:f'{bot} flexed with his scissors, you lost',
-                            4:f'i won '
-}
-
-        #   Randomize the dictionary
-        x = r.randrange(1,len(dictionary))
-
-        return dictionary.get(x)
-
-    def Player(self, arg, arg1):
-
-        #   Initializing variables
-        bot = 'Computer'
-
-        if arg == '\U0001FAA8':
-
-            dictionary = {
-                            0:f'{bot} had the idea of using a {arg1} against your {arg}, {bot} thought the {arg1} were strong enough to cut thorugh your {arg}, lets do a wii-match',
-                            1:f'Congratulations, lets do it again',
-                            2:f'You just had a {arg}, while {bot} had the thought of {arg1} would be a grate choice.',
-                            3:f'OH SNAP, you just scared {bot}, he never returned to the battle field.',
-                    }
-
-        elif arg == '\U0001F4C4':
-
-            dictionary = {
-                            0:f'{bot} threw {arg1} at you, but you grabbed it with his {arg}, and wrapped it into a :package: \n you gave a :package: to {bot}, how considerate of you !',
-                            1:f'You wrappend {bot}\'s {arg1} into a :gift: and sent it to the North-Pole, Santa were stoned for the Christmas ',
-                            2:f'You made a mumified version of {bot}',
-                    }
-
-        else:
-        
-            dictionary = {
-                            0:f'Noone : \'\'\n{bot} : Oh snap',
-                            1:f'You succsessfully cut the {arg1} with a {arg}',
-                            2:f'you showed of with his :scissors: which he thought were a knife, but the goal were reached, {bot} ran.',
-                            3:f'you won '
-                    }
-
-        #   Randomize the dictionary
-        x = r.randrange(1,len(dictionary))
-
-        return dictionary.get(x)
-
 class ScrabbleGame():
 
-    '''
-            #   Author : krigjo25
-            #   Date   :  12.01-23
+    """
+        #   By              : krigjo25
+        #   Creation Date   : 12.01-23
+        #   Last update     :
 
-            #   Dictionary for Scrabble Game
-    '''
+        #   Dictionary for Scrabble
+    """
 
     def ComputeScore(self, word):
         
@@ -233,22 +125,20 @@ class ScrabbleGame():
 
     def CheckWord(self, arg):
 
-        #print(bool(self.APINinja(arg)))
-        #   Checking if api ninja has the word
-        if APITools().CheckWord(arg): return True
+        if APITools().NinjaDefinition(arg): return True
         else: return False
 
 class JumbleCategory():
 
-    '''
-            #   Author : krigjo25
-            #   Date   :  12.01-23
+    """
+        #   By              : krigjo25
+        #   Creation Date   : 12.01-23
+        #   Last update     :
 
-            #   Dictionary for JumbleGame
-    '''
+        #   Dictionary for the jumble game
+    """
 
-    def __init__(self) -> None:
-        pass
+    def __init__(self) -> None: return
 
 
     def JumbleGenerator(self, jumble):
@@ -308,18 +198,20 @@ class JumbleCategory():
 
 class GameOver():
 
-    '''
-            #   Author : krigjo25
-            #   Date   :  12.01-23
+    """
+        #   By              : krigjo25
+        #   Creation Date   : 12.01-23
+        #   Last update     :
 
-            #   Dictionary for game won, losses, tie
-    '''
+        #   A dictionary for Correct / incorrect answers
+    """
+
 
     def __init__(self):
         return
 
     #   When the answer is correct
-    def CorrectAnswer(self):
+    def CorrectAnswer(self, arg = None):
 
         '''
             #   Author : krigjo25
@@ -328,18 +220,50 @@ class GameOver():
             #   Dictionary for game Won
         '''
 
-        dictionary =  {
-                        1:'Congratulation you guessed correct',
-                        2:'',
-                    }
+        match str(arg):
+            case 'integer':
 
-        #   Randomize the dictionary
-        x = r.randrange(1,len(dictionary))
+                dictionary = {
+                                1:f'Thank you for the humble answer, sir ',
+                                2:f'Well thats equal..',
+                                3:'Thats a humble answer !' }
 
-        #   Returning the value
-        return dictionary.get(x)
+            case 'scrabble': pass
+            case 'littleprofessor':
+                dictionary = {
+                                1:f'Congratulation, you gussed correct ',
+                                2:f'Math genious'}
 
-    def IncorrectAnswer(self):
+            case 'rockscissorpaper':#  Human winner
+
+                if arg[1] == '\U0001FAA8':
+
+                    dictionary = {
+                                    1:f'The bot had the idea of using a {arg[2]} against your {arg[1]}',
+                                    2:f'The bot thought the {arg[2]} were strong enough to cut thorugh your {arg[1]}, lets do a wii-match',
+                                    3:f'You just had a {arg[1]}, while the bot had the thought of {arg[2]} would be a grate choice.',
+                                    4:f'OH SNAP, you just scared the bot, he never returned to the battle field.',}
+
+                elif arg == '\U0001F4C4':
+
+                    dictionary = {
+                                    1:f'The bot threw a {arg[1]} at you, but you grabbed it with a {arg[2]}, and wrapped it into a :package: \n you gave a :package: to the bot, how considerate of you !',
+                                    2:f'You wrappend the bot\'s {arg[1]} into a :gift: and sent it to the North-Pole, Santa were stoned for the Christmas ',
+                                    3:f'You made a mumified version of the bot',
+                            }
+
+                else:
+                
+                    dictionary = {
+                                    1:f'Noone : \"\"\nthe bot : Oh snap',
+                                    2:f'You succsessfully cut the {arg[1]} with a {arg[2]}',
+                                    3:f'The bot ran from the battlefield',
+                            }
+
+        x = r.randrange(1,len(dictionary))#   Randomize the dictionary
+        return dictionary.get(x)#   Returning the value
+
+    def IncorrectAnswer(self, *arg):
 
         '''
             #   Author : krigjo25
@@ -348,25 +272,60 @@ class GameOver():
             #   Dictionary for game losses
         '''
 
-        dictionary = {
-                        1:f'Incorrect Answer',
-                        2:'EEE',
-                        3:"Try again..."
-                    }
+        match str(arg[0]):
+            case 'integer':
+                if arg[1] > arg[2]:#    If the prompted integer is greater than n
 
-        #   Randomize the dictionary
-        x = r.randrange(1,len(dictionary))
+                    dictionary = {
+                                    1:'Well, well you pride human, you think you\'re greater than me ?',
+                                    2:'The given number is not humble enough, try again.',
+                                    3:f'{arg[1]} is greater than n',}
 
-        return dictionary.get(x)
+                elif arg[2] < arg[1]:#  If the prompted integer is less than n
+
+                    dictionary = {
+                                    1:'You thought you were good enough, puh.',
+                                    2:f'{arg[1]} is less than requested',
+                                    3:f'{arg[1]} is less akward than :100:',
+                                    4:'less is not humble',
+                                    5:f'{arg[1]} is less humble ',}
+
+            case 'scrabble':pass
+            case 'littleprofessor':            
+                dictionary = {
+                                1:f'Incorrect Answer',
+                                2:'EEE',}
+            case 'rockscissorspaper':#  If the bot win
+
+                if arg == '\U0001FAA8':
+
+                    dictionary = {
+                                    1:f'That moment, when you realize :stone doesn\'t play along with :Scissors',
+                                    2:f'Congratulations, this game were Rock Hard !',
+                                    3:f'It were crushing days for the scissors',
+                                    4:f'pyBot Says : look behind you. **running away **.'}
+                elif arg == '\U0001F4C4':
+
+                    dictionary = {
+                                    1:f'The bot sent your stone to North-Korea !',
+                                    2:f'You recieved a new stone as a christmas :gift:',
+                                    3:f'You have been mumified by the bot',}
+                else:
+                
+                    dictionary = {
+                                    2:f'The paper were succsessfully cut in two by the bot ',
+                                    3:f'The bot flexed with his scissors, you lost',
+                                    4:f'The bot won '}
+
+        
+        x = r.randrange(1,len(dictionary))#   Randomize the dictionary
+        return dictionary.get(x)#   Return the value
 
     def TowTie(self):
 
-        '''
-            #   Author : krigjo25
-            #   Date   :  12.01-23
-
-            #   Dictionary for game Ties
-        '''
+        """
+            #   Dictionary for game draws
+        """
         dictionary = {
 
                     1:f'The computer draws a tie',
@@ -382,63 +341,27 @@ class GameOver():
  
 class MathDictionary():
 
-    def Operators(self):
+    """
+        #   A dictionary for Mathimatical games
+        >   By              : krigjo25
+        >   Creation Date   : 12.01-23
+        >   Last update     :
+    """
 
-        '''
-            #   Author : krigjo25
-            #   Date   :  12.01-23
+    def Operators(self, arg = None):
 
-            #   Dictionary for game Won
-        '''
+        """
+            The function accepts a parameter (+, -, / or *)
+            and selects a choosen math operator.
 
-        dictionary = {  1:'+',
-                        2:'-',
-                        3:'/',
-                        4:'*',
-                        }
+        """
+        dictionary = {  1:'+', 2:'-', 3:'/', 4:'*'}#, 5:'//', 6: '**', 7:'%'
 
-        r.shuffle(dictionary)
-
-        arg = []
-        rint = r.randint(1, len(dictionary))
-
-
-        return dictionary.values(dictionary[rint])
-
-    def intGame(self, num, x):
-
-        if x > num:
-
-            dictionary = {
-                            1:'Well well, we like the answer more humble than a greater answer',
-                            2:'The given number is not humble enough, try again.',
-                            3:'is greater than the answer ',
-                            4:'Do you know why the equal sign are so humble? neither were less or greater !',
-                            }
-
-        elif x < num:
-
-            dictionary = {
-                            1:f"is less, we want more",
-                            2:f'is less than i ask for',
-                            3:f'is less akward than :100:',
-                            4:f'is less humble',
-                            }
-
+        if str(arg) == "random":
+            r.shuffle(dictionary) # Shuffle the dictionary
+            return dictionary.get(r.randrange(1, len(dictionary)))
         else:
-
-            dictionary = {
-                            1:f'Thank you for the humble answer, sir ',
-                            2:f'Well thats equal..'
-                           }
-
-        #   Randomize the dictionary
-        x = r.randrange(1,len(dictionary))
-
-        #   Clear some space
-        del x, num
-
-        return dictionary.get(x)
+            return dictionary.get(arg)
 
 class APITools():
 
@@ -464,8 +387,7 @@ class APITools():
             for i in response.text:
                 if i.isalpha(): string += i
 
-        #   Clear some space
-        del parse, response
+        del parse, response#   Clear some space
 
         return string
 
@@ -475,7 +397,7 @@ class APITools():
             #   API by API-Ninja
             # Using an api to check wether the word exist or not.
         """
-        print("Test ninja definition")
+
         parse = f'https://api.api-ninjas.com/v1/dictionary?word={word}'
         response = req.get(parse, headers={'X-Api-Key': getenv("DictionaryToken")})
         json = dict(response.json())
@@ -484,17 +406,13 @@ class APITools():
             if response.status_code != req.codes.ok: raise Exception(response.status_code)
 
         except Exception as e: return e
-        else:
 
-            for i, j in json.items(): 
-                if "valid" in i :  json = j
+        for i, j in json.items():
 
-        #   Clear some memory
-        del word
-        del parse
-        del response
-
-        return json
+            if "valid" in i : 
+                del word, parse, response, json#   Clear some memory
+                
+                return j
 
 class Madlibs():
 

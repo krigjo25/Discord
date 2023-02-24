@@ -21,12 +21,14 @@ load_dotenv()
 
 class WordGames(Cog):
 
-    '''
-        #   Author : krigjo25
-        #   Date   :  12.01-23
+    """
+        #   A dictionary for Mathimatical games
+        >   By              : krigjo25
+        >   Creation Date   : 12.01-23
+        >   Last update     : 23.02-23
 
-        #   Collection of Classic WordGames
-    '''
+        A collection of word games
+    """
 
     def __init__(self, bot):
 
@@ -500,7 +502,7 @@ class WordGames(Cog):
 
     #   Fixes
     @word.command()
-    async def rockscissorsandpaper(self, ctx):
+    async def rockscissorsandpaper(self, ctx:d.ApplicationContext):
 
         '''
             #   Author : krigjo25
@@ -516,13 +518,12 @@ class WordGames(Cog):
         rsp = ReactionGame()
         sec = 0.0
         #   Initializing an array with Rock, Scissors, Paper
-        arr = ['\U0001FAA8', '\U00002702', '\U0001F4C4']
 
         #   Game Configuration
         while True:
 
             try :
-
+                dictionary = {1:'\U0001FAA8', 2:'\U00002702', 3:'\U0001F4C4'}#    Rock, Scissors and paper
                 #   Prepare and send the Welcome message
                 self.embed.title = 'Game Configurations'
                 self.embed.description = f'Please choose a level'
@@ -559,7 +560,7 @@ class WordGames(Cog):
         self.embed.description = 'Choose one of the following reaction below'
         message = await ctx.send(embed=self.embed)
 
-        for i in arr:  await message.add_reaction(i)
+        for i in rsp.RockScissorPaper():  await message.add_reaction(i)
 
         try :
 

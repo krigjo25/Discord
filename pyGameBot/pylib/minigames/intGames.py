@@ -4,22 +4,24 @@ import random as r
 
 # Discord Responsories
 import discord as d
+import asyncio
 from discord.embeds import Embed
 from discord.colour import Color
 from discord.ext.commands import Cog, command
 
-#   Importing local libraries
-from pylib.systemModule.databasePython import MariaDB
+#   Local responsories
 from pylib.dictionaries.gameDictionaries import  GameOver, MathDictionary
 
 class MathGames(Cog):
 
-    '''
-        #   Author : krigjo25
-        #   Date   :  12.01-23
+    """
+        #   A dictionary for Mathimatical games
+        >   By              : krigjo25
+        >   Creation Date   : 12.01-23
+        >   Last update     : 23.02-23
 
-        #   Collection of Classic Math Games
-    '''
+        A collection of math games
+    """
 
     def __init__(self, bot):
 
@@ -28,291 +30,214 @@ class MathGames(Cog):
 
         return
 
-    integer = d.SlashCommandGroup(name = "intgame", description = "Integer games")
+    minigame = d.SlashCommandGroup(name = "minigame", description = "Integer games")
 
-    def GenerateIntegers(self, lvl):
+    def GenerateIntegers(self, lvl): return r.randrange(0, lvl * 10)
 
-        match lvl:
-            case 1: return r.randint(0, 10)
-            case 2: return r.randint(0,20)
-            case 3: return r.randint(0,30)
-            case 4: return r.randint(0,40)
-            case 5: return r.randint(0,50)
-            case 6: return r.randint(0,60)
-            case 7: return r.randint(0,70)
-            case 8: return r.randint(0,80)
-            case 9: return r.randint(0,90)
-            case 10: return r.randint(0,100)
+    def GameConfiguration(self, lvl):
 
-        return
 
-    def GameConfigurationLittleproffessor(self, lvl):
-
-        #   Initializing an array
-        arg = []
-
-        #   Initializing x, y & o
-        o = 0
         x = self.GenerateIntegers(lvl)
         y = self.GenerateIntegers(lvl)
 
-        if lvl < 10:
+        if lvl < 10: o = MathDictionary().Operators(1)
+        elif lvl > 49: o = MathDictionary().Operators(2)
+        elif lvl > 69: o = MathDictionary().Operators(3)
+        elif lvl > 79: o = MathDictionary().Operators(4)
+        elif lvl > 89: o = MathDictionary().Operators(5)
+        elif lvl > 99: o = MathDictionary().Operators(6)
 
-            #   Math Question
-            n = x + y
-            mf = f"{x} + {y} = "
+        match o:
 
-            #   Attempts
-            tempt = 5
-
-        elif lvl > 19:
-
-            #   Generate integers, math question
-            x = self.GenerateIntegers(lvl)
-            y = self.GenerateIntegers(lvl)
-            o = MathDictionary.Operators()
-
-            #   Attempts
-            tempt = 5
-
-            match o:
-    
-                case "+":
-                    n = x + y
-                    mf = f"{x} + {y} = "
+            case "+":
+                n = x + y
+                string = f"{x} + {y} = "
             
-                case "-":
-                    n = x - y
-                    mf = f"{x} - {y} = "
+            case "-":
+                 n = x - y
+                 string = f"{x} - {y} = "
 
-                case "/":
+            case "/":
+                n = x / y
+                string = f"{x} / {y} = "
 
-                    n = x / y
-                    mf = f"{x} / {y} = "
-
-                case "*":
-                    n = x * y
-                    mf = f"{x} * {y} = "
-
-        elif lvl > 99:
-
-            x = self.GenerateIntegers(lvl)
-            y = self.GenerateIntegers(lvl)
-            o = MathDictionary.Operators()
-
-            match o:
-
-                case "+":
-                    n = x + y
-                    mf = f"{x} + {y} = "
+            case "*":
+                n = x * y
+                string = f"{x} * {y} = "
             
-                case "-":
-                    n = x - y
-                    mf = f"{x} - {y} = "
+            case "//":
+                n = x // y
+                string = f"{x} // {y} = "
 
-                case "/":
+            case "**":
+                n = x ** y
+                string = f"{x} ** {y} = "
 
-                    n = x / y
-                    mf = f"{x} / {y} = "
+            case "%":
+                n = x % y
+                string = f"{x} % {y} = "
 
-                case "*":
-                    n = x * y
-                    mf = f"{x} * {y} = "
-
-                case "//":
-
-                    n = x // y
-                    mf = f"{x} // {y} = "
-
-                case "**":
-
-                    n = x ** y
-                    mf = f"{x} ** {y} = "
-
-                case "%":
-
-                    n = x % y
-                    mf = f"{x} % {y} = "
-
-        #   Appending to the list
+        arg = []#   Initializing an array & appending into list
         arg.append(n)
-        arg.append(mf)
-        arg.append(tempt)
+        arg.append(string)
+        arg.append(5)
 
         #   Clear some space
         del x, y, n, o
-        del mf, lvl, tempt
+        del string, lvl
 
-        #   Returning the argument
-        return arg
+        return arg#   Returning the argument
 
     #   Games
-    @integer.command()
-    async def littleproffessor(self, ctx:d.ApplicationContext):
+    @minigame.command()
+    async def littleprofessor(self, ctx: d.ApplicationContext):
 
-        self.embed.title = "Little professor"
+        """
+            Little Proffessor game
+
+        """
+        self.embed.title = "Little Professor"
         self.embed.description = f' Please choose a level'
         await ctx.respond(embed = self.embed)
 
-        #   Checking if the answer is an integer
-        while True:
+        while True:#    Configure the game
+
+            lvl = await ctx.bot.wait_for('message', timeout = 60.0, check = lambda m: m.author.id == ctx.author.id)#   Requesting a level from the user
 
             try:
 
-                lvl = await self.bot.wait_for('message', timeout=60)
-                lvl = int(lvl.content)
+                if str(lvl.content).isdigit():lvl = int(lvl.content)#   Checking if level is an integer
+                else: raise ValueError("Level requires integers not alphabetical characters / glypths")
 
-                if lvl > 0: break
-                else: raise ValueError("The level can not be less than one")
+                if lvl < 0: raise ValueError("The level can not be less than one")
+                else: break
 
             except Exception as e:
 
-                self.embed.title = "An error arised"
-                self.embed.description = f' {e}\n try again'
+                self.embed.title = "An Exception Has Occured"
+                self.embed.description = f' {e}'
                 await ctx.respond(embed = self.embed)
                 continue
+        
+        arg = self.GameConfiguration(lvl) #   Calculating the answer
 
-        #   Calculating the answer
-        arg = self.GameConfigurationLittleproffessor(lvl)
+        score = 0   #  Initializing the score
+        TEMP = arg[2]   #  Initializing user attempts
 
-        #   Initializing variables
-        score = 0
-        etempt = arg[2]
+        while True: #   Littleproffessor Game
 
-        while True: #   Littleproffessor
+            self.embed.title = "Little professor"
+            self.embed.description = f' {arg[1]}'
+            await ctx.respond(embed = self.embed)
+
+            prmpt = await ctx.bot.wait_for('message', timeout = 60.0, check = lambda m: m.author.id == ctx.author.id)# Prompt the user for a message
 
             try :
 
-                self.embed.title = "Little professor"
-                self.embed.description = f' {arg[1]}'
-                await ctx.respond(embed = self.embed)
-                
-                prmpt = await self.bot.wait_for('message', timeout=60)
-                prmpt = int(prmpt.content)
+                if str(prmpt.content).isdigit():prmpt = int(prmpt.content)
+                else: raise Exception("The requested answer must be integers")
 
-            except ValueError as e:
+            except Exception as e:
 
                 #   Decrease the score by one
-                etempt -= 1
+                TEMP -= 1
 
-                if etempt <= 0:
+                self.embed.title = "An Exception Has Occured"
+                self.embed.description = f'{e}, try again'
+                await ctx.send(embed = self.embed)
+                continue
+
+            if prmpt == arg[0]:
+
+                
+                score += 1#   Adding one point to score
+                arg = self.GameConfiguration(lvl)
+                self.embed.title = "Correct !"
+                self.embed.description = f'**Game Summuary**\nScore : {score}/9\n attempts left: {TEMP}\n{GameOver().CorrectAnswer("littleprofessor")}'
+                await ctx.send(embed = self.embed)
+
+                if score == 5:
 
                     self.embed.title = "Game Over"
-                    self.embed.description = f'**Game Summuary**\nCorrect number : {arg[0]}\nScore : {score}/9'
+                    self.embed.description = f'**Game Summuary**\nScore : {score}/9\n{GameOver().CorrectAnswer("littleprofessor")}'
                     await ctx.send(embed = self.embed)
                     break
 
-                self.embed.title = "EEE"
-                self.embed.description = f'Try again'
-                await ctx.send(embed = self.embed)
+            else :
 
-                
-            else:
+                TEMP -= 1 # Decrease the attempt by one
 
-                if prmpt == arg[0]:
+                if TEMP < 1:#   Breaking out of the loop
 
-                    #   Adding one point to score
-                    score += 1
+                    self.embed.title = "Game Over"
+                    self.embed.description = f'**Game Summuary**\nCorrect number : {arg[0]}\nScore : {score}/9\n{GameOver().IncorrectAnswer("littleprofessor")}'
+                    await ctx.send(embed = self.embed)
+                    break
 
-                    if score == 9:
+                else :# Notify the user its incorrect
 
-                        self.embed.title = "Game Over"
-                        self.embed.description = f'**Game Summuary**\nScore : {score}/9'
-                        await ctx.send(embed = self.embed)
-                        break
-
-                    else:
-
-                        #   Calculating the answer
-                        arg = self.GameConfigurationLittleproffessor(lvl)
-
-
-                else :
-
-                    etempt -= 1
-
-                    #   Breaking out of the loop
-                    if etempt <= 0:
-
-                        self.embed.title = "Game Over"
-                        self.embed.description = f'**Game Summuary**\nCorrect number : {arg[0]}\nScore : {score}/9'
-                        await ctx.send(embed = self.embed)
-                        break
-
-                    else :
-
-                        self.embed.title = "EEE"
-                        self.embed.description = "try again"
-                        await ctx.send(embed = self.embed)
-
-
-
-
-                    arg = self.GameConfigurationLittleproffessor(lvl)
-                    print(arg)
+                    self.embed.title = 'EEE'
+                    self.embed.description = f'{GameOver().IncorrectAnswer("littleprofessor")}'
+                    await ctx.send(embed = self.embed)
 
         #   Clear some space
-        del score, etempt
-        del prmpt, arg, lvl
+        del score, TEMP, arg
+        del prmpt, lvl
 
         return
 
-    @integer.command(name="int")
-    async def guessthenumber(self, ctx):
+    @minigame.command()
+    async def guessthenumber(self, ctx:d.ApplicationContext):
 
         self.embed.title = "Welcome to Guess the number"
         self.embed.description = f' Please choose a level'
         await ctx.send(embed = self.embed)
 
-        #   Checking if the answer is an integer
-        while True:
+        while True: #   Choose a level
+
+            lvl = await ctx.bot.wait_for('message', timeout = 60.0, check = lambda m: m.author.id == ctx.author.id)#   Requesting a level from the user
 
             try:
 
-                lvl = await self.bot.wait_for('message', timeout=60)
-                lvl = int(lvl.content)
+                if str(lvl.content).isdigit(): lvl = int(lvl.content)
+                else: raise ValueError("The level has to be an integer")
 
-                if lvl > 0: break
-                else: raise ValueError("The level can not be less than one")
+                if lvl < 1: raise ValueError("The level can not be less than one")
+                else: break
 
             except Exception as e:
 
-                self.embed.title = "An error arised"
+                self.embed.title = "An Exception Has Occured"
                 self.embed.description = f' {e}\n try again'
                 await ctx.send(embed = self.embed)
                 continue
 
-        n = self.GenerateIntegers(lvl)
+        #   Game Configurations
+        TEMP = 10# Game attemps
+        gints = ""
+        ints = []#   Declare lists
+        n = self.GenerateIntegers(lvl)# Generate a random integer based on level
 
-        #   Initializing variables
-        tempt = 3
-        gints = "Gussed numbers : "
-
-        #   Declare lists
-        ints = []
-
-        #   Game Conftemptgurations
-        self.embed.title = "Guess the number"
-        self.embed.description = f'Game Level : {lvl}\nUser attempts : {tempt}'
+        self.embed.title = "Guess The Number"
+        self.embed.description = f'Game Level : **{lvl}**\nUser attempts : **{TEMP}**\n Guess a number between 0-{lvl*10}'
         await ctx.send(embed = self.embed)
 
         while True:
 
-            
+            if TEMP <= 0:
+
+                #   Prepare and send the embed message
+                self.embed.description = f"Attempts : {TEMP}/3\n{gints}\nThe correct answer were {n}\n{GameOver().IncorrectAnswer()}"
+                await ctx.send(embed=self.embed)
+                break
+
+            x = await ctx.bot.wait_for('message', timeout = 60.0, check = lambda m: m.author.id == ctx.author.id)#   Requesting an integer from the user
+
+
             try :
 
-                #   Prompting the user
-                print(n)
-                x = await self.bot.wait_for('message')
-                x = int(x.content)
-
-                t = len(ints)
-
-                ints.append(x)
-
-                for i in ints:
-                    gints += f"{i}, "
-
+                if str(x.content).isdigit(): x = int(x.content)
+                else: raise ValueError("The level has to be an integer")
 
             except (ValueError, TypeError) as e:
 
@@ -322,48 +247,35 @@ class MathGames(Cog):
 
                 continue
 
-            else:
+            ints.append(x)
+            TEMP -= 1#   Decrease the attempt by 1
+            for i in ints: gints += f"{i}, "
 
-                if x == n:
-
-                    #score += 1
-                    self.embed.title = "Game Summuary"
-                    self.embed.description = f"Attempts left : {tempt}\n{gints}\n{GameOver().CustomAnswer(n, x)}"
-                    await ctx.send(embed=self.embed)
-                    break
-
-                else:
-
-                    #   Decrease the attempt by 1
-                    tempt -= 1
-
-                    if tempt == 0:
-
-                        #   Prepare and send the embed message
-                        self.embed.title = 'Game Summuary'
-                        self.embed.description = f"Attempts : {t}/{t}\n{gints}\nThe correct answer were {x}\n{GameOver().IncorrectAnswer()}"
-                        await ctx.send(embed=self.embed)
-                        break
-    
-                    if x < n:
-
-                        #   Prepare embed message
-                        self.embed.title = f'Game Summuary'
-                        self.embed.description = f"Attempts left : {tempt}\n{gints}\n{GameOver().CustomAnswer(n, x)}"
-
-                    elif x > n:
-
-                        #   Prepare embed message
-                        self.embed.title = f'Game Summuary'
-                        self.embed.description = f"Attempts left : {tempt}\n{gints}\n{GameOver().CustomAnswer(n, x)}"
+            if x < n:self.embed.description = f"**Game Summary**\nAttempts left: {TEMP}/10\nIntegers guessed: {gints}\nGuess a number between 0 - {lvl*10}\n{GameOver().IncorrectAnswer('integer', n, x)}"
+            elif x > n: self.embed.description = f"**Game Summary**\nAttempts left: {TEMP}/10\nIntegers guessed: {gints}\nGuess a number between 0 - {lvl*10}\n{GameOver().IncorrectAnswer('integer',n, x)}"
+            else: self.embed.description = f"**Game Summary**\nAttempts left: {TEMP}/10\n Integers guessed: {gints}\n{GameOver().CorrectAnswer('integer')}"
 
             await ctx.send(embed=self.embed)
 
+            if x == n : break
+
         #   Clear and save space
-        del lvl
-        del n
-        del t
+        del lvl, n, x
+        del ints, TEMP
 
+        return
+
+    @minigame.after_invoke
+    async def clear_memory(self, ctx: d.ApplicationContext):
+
+        #   Clearing embeds
         self.embed.clear_fields()
+        self.embed.remove_image()
+        self.embed.remove_author()
+        self.embed.remove_footer()
+        self.embed.description = ""
+        self.embed.remove_thumbnail()
+        self.embed.color = d.Colour.dark_purple()
 
+        del ctx #   Clearing some memory
         return
