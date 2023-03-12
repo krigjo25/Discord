@@ -93,7 +93,7 @@ The points system is ranged for each letter as in scrabble.
 
 ### Responsories
 
--   pycord.py [Rapptz](https://github.com/Rapptz/discord.py),  <br>
+-   pycord.py [Pycord Development](https://github.com/Pycord-Development/pycord),  <br>
 -   python_dotenv [Saurabh Kumar](https://github.com/motdotla/dotenv),<br>
 -   requests [Kenneth Reitz](https://requests.readthedocs.io/en/latest/)<nt>
 
