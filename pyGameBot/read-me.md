@@ -90,6 +90,7 @@ The points system is ranged for each letter as in scrabble.
 
 ## Credentials
 
+    [GNU Licence]()
 ### Responsories
 
 -   pycord.py [Rapptz](https://github.com/Rapptz/discord.py),  <br>
