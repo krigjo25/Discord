@@ -16,6 +16,7 @@
 > APIs<br>
 > Disclaimers<br>
 > References
+> Contact
 
 > [Project-Summary](#project-summary)
 
@@ -108,6 +109,4 @@ is another story.
 
 ### [Licence](https://github.com/krigjo25/Discord/blob/main/pyGameBot/licence.md)
 
-### Contact information
-
-[ContactInformation](https://github.com/krigjo25/contactinformation)
+### [Contact information](https://github.com/krigjo25/contactinformation)
