@@ -109,4 +109,8 @@ is another story.
 
 ### [Licence](https://github.com/krigjo25/Discord/blob/main/pyGameBot/licence.md)
 
-### [Contact information](https://github.com/krigjo25/contactinformation)
+### Contact information
+
+-   Discord : krigjo25#5588<br>
+-   Messenger : krigjo25<br>
+-   website :
