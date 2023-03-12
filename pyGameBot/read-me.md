@@ -130,5 +130,3 @@ is another story.
 -   Discord : krigjo25#5588<br>
 -   Messenger : krigjo25<br>
 -   website :
-
-## Project Summary
