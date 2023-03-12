@@ -90,7 +90,6 @@ The points system is ranged for each letter as in scrabble.
 
 ## Credentials
 
-    [GNU Licence]()
 ### Responsories
 
 -   pycord.py [Rapptz](https://github.com/Rapptz/discord.py),  <br>
@@ -106,6 +105,8 @@ The points system is ranged for each letter as in scrabble.
 The developer can only have the responsibility,<br>
 for how the projects is created, how it is used,<br>
 is another story.
+
+### [Licence](https://github.com/krigjo25/Discord/blob/main/pyGameBot/licence.md)
 
 ### Contact information
 
