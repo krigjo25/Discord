@@ -4,10 +4,9 @@ import random as r
 
 # Discord Responsories
 import discord as d
-import asyncio
 from discord.embeds import Embed
 from discord.colour import Color
-from discord.ext.commands import Cog, command
+from discord.ext.commands import Cog
 
 #   Local responsories
 from pylib.dictionaries.gameDictionaries import  GameOver, MathDictionary
@@ -15,7 +14,7 @@ from pylib.dictionaries.gameDictionaries import  GameOver, MathDictionary
 class MathGames(Cog):
 
     """
-        #   A dictionary for Mathimatical games
+        A dictionary for Mathimatical games
         >   By              : krigjo25
         >   Creation Date   : 12.01-23
         >   Last update     : 23.02-23
@@ -30,12 +29,18 @@ class MathGames(Cog):
 
         return
 
-    minigame = d.SlashCommandGroup(name = "minigame", description = "Integer games")
+    math = d.SlashCommandGroup(name = "math", description = "Math Games")
 
     def GenerateIntegers(self, lvl): return r.randrange(0, lvl * 10)
 
     def GameConfiguration(self, lvl):
 
+        """
+            Game Configurations
+
+            >   Creation Date   : 23.02-23
+            >   Last update     :
+        """
 
         x = self.GenerateIntegers(lvl)
         y = self.GenerateIntegers(lvl)
@@ -89,13 +94,16 @@ class MathGames(Cog):
         return arg#   Returning the argument
 
     #   Games
-    @minigame.command()
+    @math.command()
     async def littleprofessor(self, ctx: d.ApplicationContext):
 
         """
-            Little Proffessor game
+            Little Professor game
 
+            >   Creation Date   : 23.02-23
+            >   Last update     :
         """
+
         self.embed.title = "Little Professor"
         self.embed.description = f' Please choose a level'
         await ctx.respond(embed = self.embed)
@@ -186,10 +194,16 @@ class MathGames(Cog):
 
         return
 
-    @minigame.command()
+    @math.command()
     async def guessthenumber(self, ctx:d.ApplicationContext):
 
-        self.embed.title = "Welcome to Guess the number"
+        """
+            Guess The Number
+
+            >   Creation Date   : 23.02-23
+            >   Last update     :
+        """
+        self.embed.title = "Welcome to Guess The Number"
         self.embed.description = f' Please choose a level'
         await ctx.respond(embed = self.embed)
 
@@ -265,9 +279,15 @@ class MathGames(Cog):
 
         return
 
-    @minigame.after_invoke
+    @math.after_invoke
     async def clear_memory(self, ctx: d.ApplicationContext):
 
+        """
+            clearing the chace data
+
+            >   Creation Date   : 23.02-23
+            >   Last update     :
+        """
         #   Clearing embeds
         self.embed.clear_fields()
         self.embed.remove_image()

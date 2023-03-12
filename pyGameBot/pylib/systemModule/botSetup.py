@@ -1,42 +1,30 @@
-#   Python Repositories
-from os import getenv
-import random
-
-#   Dotenv Repositories
-from dotenv import load_dotenv
 
 #   Discord Repositories
 from discord import Intents
 
-# pyLib Repositories
-
 #   System module
-#   System module
-
 from pylib.systemModule.discordBot import DiscordBot                                                    #   The Client
 from pylib.systemModule.commandError import ErrorHandler                                                 #   Error Handling Module
 from pylib.systemModule.frequentlyaskedquestions import FrequentlyAskedQuestions                         #   Help module
-
 
 
 from pylib.systemModule.discordBot import DiscordBot                                        #   The Client#
 from pylib.systemModule.commandError import ErrorHandler                                    #   Error Handling Module
 
 #   Community Module
-#from pylib.communityModule.community import CommunityModule                                     #   Community module
+from pylib.community.community import Community                                  #   Community module
 
 #   miniGames Module
-from pylib.minigames.intGames import MathGames
+from pylib.minigames.wordGames import ReactionGames
+from pylib.minigames.mathgames import MathGames
 from pylib.minigames.wordGames import WordGames
 
-# Importing .evn file
-load_dotenv()
+
 
 class DiscordSetup():
 
     def __init__(self):
 
-        #self.appinfo = AppInfo()
         self.intents = Intents()
         self.bot = DiscordBot(intents=self.SystemConiguration())
 
@@ -65,13 +53,14 @@ class DiscordSetup():
 
     def CommunityModule(self):
 
-        #self.bot.add_cog(CommunityModule(self.bot))
+        self.bot.add_cog(Community(self.bot))
 
         return
 
     def GamersModule(self):
 
         self.bot.add_cog(WordGames(self.bot))
+        self.bot.add_cog(ReactionGames(self.bot))
         self.bot.add_cog(MathGames(self.bot))
 
         return

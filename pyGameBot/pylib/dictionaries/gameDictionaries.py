@@ -370,8 +370,8 @@ class APITools():
     def NinjaChoice(self):
 
         '''
-            #   API by API-Ninja
-            #   API to choose a randomly generated word
+            API by API-Ninja
+            API to choose a randomly generated word
         '''
 
         parse = 'https://api.api-ninjas.com/v1/randomword'

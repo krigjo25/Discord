@@ -1,3 +1,4 @@
+#   Python responsories
 import datetime
 
 #   Discord responsory
@@ -29,7 +30,6 @@ class Member(Modal):
             match i['title']:
                 case "Member Report": self.report()
                 case "Member Support": self.support()
-                case "Bug Report": self.bugreport()
 
         return
 
