@@ -9,14 +9,22 @@ from discord.ext.commands import Cog
 class ChannelPermissions(Cog):
 
     """
-        #  Author : Krigjo25
-        #  Creation Date :  2.18-23
-        #  last update :
+        Copyright (C) 2023  Kristoffer Gjøsund
 
-        #   Create channels
-        #   Delete channels
-        #   modify channels
-            Commands for Moderators with manage_channels & manage_messages
+        Permissions of the Discord Channels
+
+        >   Creation Date   : 18.02-23
+        >   Last update     :
+
+        This program is free software: you can redistribute it and/or modify
+        it under the terms of the GNU General Public License as published by
+        the Free Software Foundation, either version 3 of the License, or
+        (at your option) any later version.
+
+        This program is distributed in the hope that it will be useful,
+        but WITHOUT ANY WARRANTY; without even the implied warranty of
+        MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+        GNU General Public License for more details.
     """
     def __init__(self):
 

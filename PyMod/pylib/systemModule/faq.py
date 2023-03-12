@@ -7,6 +7,24 @@ from discord.ext.commands import Cog, slash_command, has_permissions, after_invo
 
 class FrequentlyAskedQuestions(Cog):
 
+    """        
+        Copyright (C) 2023  Kristoffer Gjøsund
+
+        Help page for the bot
+
+        >   Creation Date   : 19.02-23
+        >   Last update     : 21.02-23
+
+        This program is free software: you can redistribute it and/or modify
+        it under the terms of the GNU General Public License as published by
+        the Free Software Foundation, either version 3 of the License, or
+        (at your option) any later version.
+
+        This program is distributed in the hope that it will be useful,
+        but WITHOUT ANY WARRANTY; without even the implied warranty of
+        MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+        GNU General Public License for more details.
+        """
     def __init__(self, bot):
         self.bot = bot
         self.embed = Embed(color=Color.dark_purple())

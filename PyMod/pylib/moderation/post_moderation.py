@@ -16,16 +16,24 @@ from pylib.moderation.modal import Channel, Role
 class Administrator(Cog):
 
     """
+            Copyright (C) 2023  Kristoffer Gjøsund
+
+        Administrator Commands
+
+        >   Creation Date   : 21.02-23
+        >   Last update     :
+
+        This program is free software: you can redistribute it and/or modify
+        it under the terms of the GNU General Public License as published by
+        the Free Software Foundation, either version 3 of the License, or
+        (at your option) any later version.
+
+        This program is distributed in the hope that it will be useful,
+        but WITHOUT ANY WARRANTY; without even the implied warranty of
+        MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+        GNU General Public License for more details.
         Commands for Moderators with administrator
 
-        #   Author : krigjo25
-        #   Date :   21.02-23
-        #   Last update :      
-
-        #   Ban a member
-        #   unban a member
-        #   view the banlist
-        #   view the auditlog
     """
     def __init__(self, bot):
 

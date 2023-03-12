@@ -10,14 +10,26 @@ from discord.ui import InputText, Modal
 class Member(Modal):
 
     """
+        Copyright (C) 2023  Kristoffer Gjøsund
+
+        Collection of Community Commands
+
+        >   Creation Date   : 21.02-23
+        >   Last update     : 22.02-23
+
+        Discord UI, reporting / supporting members
+
+        This program is free software: you can redistribute it and/or modify
+        it under the terms of the GNU General Public License as published by
+        the Free Software Foundation, either version 3 of the License, or
+        (at your option) any later version.
+
+        This program is distributed in the hope that it will be useful,
+        but WITHOUT ANY WARRANTY; without even the implied warranty of
+        MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+        GNU General Public License for more details.
         Member modals
 
-        #   Author : krigjo25
-        #   Date :   21.02-23
-        #   Last update: 22.02-23
-
-        #   Report a user
-        #   Member support
     """
 
     def __init__(self, *args, **kwargs) -> None:
