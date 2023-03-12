@@ -341,8 +341,8 @@ class WordGames(Cog):
                     for i in ctx.guild.members:
                         if str(prompt.content) == i.name: word.append({'name':str(prompt.content), 'word':''})
                     
-                    #   raise an exception, how?
-                except Exception as e:
+                    
+                except Exception as e:#   raise an exception, how?
                     self.embed.title = f'An Exception Has Occured'
                     self.embed.color = Color.dark_red()
                     self.embed.description = f'{e}, try again'
@@ -371,12 +371,13 @@ class WordGames(Cog):
                         await ctx.respond(embed = self.embed)
                         break
 
-            if n == 1: word.append({'name': 'Bot', 'word': APITools().NinjaChoice()})
+            if n == 1: word.append({'name': 'PyGame', 'word': APITools().NinjaChoice()})
 
             for i in word: score.append([i['name'], i['word'], ScrabbleGame().ComputeScore(i['word'])])#   Calculating the score
 
             max = [score[0][0], score [0][1], score[0][2]]
             tie = 0
+
             for i in range(1, len(score)):# Linear algorithm
 
                 if score[i][2] > max[2]: max = [score[i][0], score[i][1], score[i][2]]
@@ -393,7 +394,7 @@ class WordGames(Cog):
 
         else:#  Else there has to be a winner
             self.embed.title = f'The Winner Is : {max[0]}!'
-            self.embed.description = f'**Game Summary**\n {max[0]}, used the word {max[1]}, which gave the member {max[2]} points'
+            self.embed.description = f'**Game Summary**\n {max[0]}, used the word {max[1]}, which gave **{max[0]}** {max[2]} points'
             await ctx.respond(embed=self.embed)
 
         del word, score, n, max#    Clear some memory
@@ -439,12 +440,12 @@ class ReactionGames(Cog):
         self.embed.title = ' Rock Scissors & Paper Game'
         self.embed.description = 'Choose one of the following reaction below'
         msg = await ctx.respond(embed=self.embed)
-
         for i in x:  await msg.add_reaction(i)#    add reaction to the embed message
 
         try : 
             prompt, member = await ctx.bot.wait_for('reaction_add', timeout = 60.0, check = lambda m: m.author.id == ctx.author.id)
             prompt = str(prompt)
+    
         except Exception as e :
 
             #   Prepare, Send the exception

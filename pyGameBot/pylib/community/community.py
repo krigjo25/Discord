@@ -145,7 +145,7 @@ class Community(Cog, name='Community Module'):
                     else : self.embed.add_field(name=f'{member.name}#{member.discriminator}',value=f'Nick {member.nick} Status : {status} ', inline=False)
 
         self.embed.add_field(name = "== End Of List ==", value=" ")
-        await ctx.send(embed = self.embed)
+        await ctx.respond(embed = self.embed)
 
         #   Clear some memories
         del member, status

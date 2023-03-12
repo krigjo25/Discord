@@ -60,7 +60,7 @@ class DiscordSetup():
     def GamersModule(self):
 
         self.bot.add_cog(WordGames(self.bot))
-        self.bot.add_cog(ReactionGames(self.bot))
+        #self.bot.add_cog(ReactionGames(self.bot))
         self.bot.add_cog(MathGames(self.bot))
 
         return
