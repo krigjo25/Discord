@@ -211,7 +211,7 @@ class GameOver():
         return
 
     #   When the answer is correct
-    def CorrectAnswer(self, arg = None):
+    def CorrectAnswer(self, arg, **kwargs):
 
         '''
             #   Author : krigjo25
@@ -223,7 +223,7 @@ class GameOver():
         match str(arg):
             case 'integer':
 
-                dictionary = {
+                    dictionary = {
                                 1:f'Thank you for the humble answer, sir ',
                                 2:f'Well thats equal..',
                                 3:'Thats a humble answer !' }
@@ -278,7 +278,7 @@ class GameOver():
 
                     dictionary = {
                                     1:'Well, well you pride human, you think you\'re greater than me ?',
-                                    2:'The given number is not humble enough, try again.',
+                                    2:f'{arg[1]}is not humble enough, try again.',
                                     3:f'{arg[1]} is greater than n',}
 
                 elif arg[2] < arg[1]:#  If the prompted integer is less than n

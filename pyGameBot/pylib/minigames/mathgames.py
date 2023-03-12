@@ -161,13 +161,13 @@ class MathGames(Cog):
                 score += 1#   Adding one point to score
                 arg = self.GameConfiguration(lvl)
                 self.embed.title = "Correct !"
-                self.embed.description = f'**Game Summuary**\nScore : {score}/9\n attempts left: {TEMP}\n{GameOver().CorrectAnswer("littleprofessor")}'
+                self.embed.description = f'**Game Summuary**\nScore : {score}/5\n attempts left: {TEMP}\n{GameOver().CorrectAnswer("littleprofessor")}'
                 await ctx.send(embed = self.embed)
 
                 if score == 5:
 
                     self.embed.title = "Game Over"
-                    self.embed.description = f'**Game Summuary**\nScore : {score}/9\n{GameOver().CorrectAnswer("littleprofessor")}'
+                    self.embed.description = f'**Game Summuary**\nScore : {score}/5\n{GameOver().CorrectAnswer("littleprofessor")}'
                     await ctx.send(embed = self.embed)
                     break
 
@@ -229,11 +229,12 @@ class MathGames(Cog):
         #   Game Configurations
         TEMP = 10# Game attemps
         gints = ""
+
         ints = []#   Declare lists
         n = self.GenerateIntegers(lvl)# Generate a random integer based on level
 
         self.embed.title = "Guess The Number"
-        self.embed.description = f'Game Level : **{lvl}**\nUser attempts : **{TEMP}**\n Guess a number between 0-{lvl*10}'
+        self.embed.description = f'Game Level : **{lvl}**\nUser attempts : **{TEMP}**\nGuess a number between 0-{lvl*10}'
         await ctx.send(embed = self.embed)
 
         while True:
@@ -246,7 +247,6 @@ class MathGames(Cog):
                 break
 
             x = await ctx.bot.wait_for('message', timeout = 60.0, check = lambda m: m.author.id == ctx.author.id)#   Requesting an integer from the user
-
 
             try :
 
@@ -265,8 +265,8 @@ class MathGames(Cog):
             TEMP -= 1#   Decrease the attempt by 1
             for i in ints: gints += f"{i}, "
 
-            if x < n:self.embed.description = f"**Game Summary**\nAttempts left: {TEMP}/10\nIntegers guessed: {gints}\nGuess a number between 0 - {lvl*10}\n{GameOver().IncorrectAnswer('integer', n, x)}"
-            elif x > n: self.embed.description = f"**Game Summary**\nAttempts left: {TEMP}/10\nIntegers guessed: {gints}\nGuess a number between 0 - {lvl*10}\n{GameOver().IncorrectAnswer('integer',n, x)}"
+            if x < n:self.embed.description = f"**Game Summary**\nAttempts left: {TEMP}/5\nIntegers guessed: {gints}\nGuess a number between 0 - {lvl*10}\n{GameOver().IncorrectAnswer('integer', n, x)}"
+            elif x > n: self.embed.description = f"**Game Summary**\nAttempts left: {TEMP}/\nIntegers guessed: {gints}\nGuess a number between 0 - {lvl*10}\n\n{GameOver().IncorrectAnswer('integer',n, x)}"
             else: self.embed.description = f"**Game Summary**\nAttempts left: {TEMP}/10\n Integers guessed: {gints}\n{GameOver().CorrectAnswer('integer')}"
 
             await ctx.send(embed=self.embed)

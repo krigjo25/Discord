@@ -53,11 +53,11 @@ class EightBall(Modal):
                     
 
                     try : # Looking for any characters which is not alphabetical
-                        if not re.search(r'([A-Za-z\s\,\.\'\?\!])', quiz):raise Exception()
+                        if not re.search(r'([A-Za-z\s\,\.\'\?\!])', quiz):raise Exception(" The answer can not contain any numberic or glyptic answers")
 
                     except Exception as e :
                         self.embed.title = f'Socrates Answers on your question "*{quiz}*"'
-                        self.embed.description = '?'
+                        self.embed.description = f'{e}'
                         await interaction.response.send_message(embed = self.embed)
                         return
 
