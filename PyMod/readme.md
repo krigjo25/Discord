@@ -2,67 +2,62 @@
 
 <h2 align="center">Table of content</h2>
 
-### [Introduction](#introduction)
->   About the Maintainer
->   Contact
+## [Introduction](#introduction)
+> [the Maintainer](#the-maintainer)<br>
+> [project information](#project-info)<br>
 
-### [PyMod](#pymod)
+## [PyMod](#pymod)
 
-> How to use the bot<br>
-> Project Status<br>
-> Available features<br>
+> [How to use the bot](#how-to-use-the-bot)<br>
+> [What makes the bot unique](#what-makes-this-bot-unique)<br>
 
-### [Features](#features)
+## [Features](#features)
 
-> Community Module<br>
-> Moderation commands<br>
-> Administrator commands<br>
-> Updates
+> [Community Module](#community-commands)<br>
+> [Moderation commands](#moderator-commands)<br>
+> [Administrator commands](#administrator-commands)<br>
 
-### [Responsories](#responsories)
+## [Credentials](#credentials)
 
-### [Credentials](#credentials)
+> [Disclamers](#disclaimer)
+> [Responsories](#responsories)
+> [Licence](#licence)
 
-> PrivacyPolicy<br>
-> Termsofusage<br>
-> licence
+## [Project Summary](#project-summary)
 
-### [Project Summary](#project-summary)
+## Introduction
 
-# Introduction
+###  The Maintainer
 
-## About the Maintainer
+goes by the name Kristoffer, born in 94, :flag_no:.<br>
+maintaining Python & SQL projects<br>
+otherwise just being a human.
 
-Hey, my name is Kristoffer, I'm born in 94, :norway:<br>
-[Contact](https://github.com/krigjo25/contactinformation) me through discord, messenger or at my website.<br>
-Bot developed by @krigjo25
+### Project info
 
+> Project start :<br>
+>   20.02-23
+>
+>   Last update :<br>
+>   25.02-23
+>
+>   SQL Database:<br>
+>   mariadb
 
-#   Pymod
+##   Pymod
 
 The bot is a discord moderator command assistant,<br>
 Intention of the bot is to easy accsess discord moderation system.
 
-## How to use the bot
+### What makes this bot unique
 
-The bot uses Slash command, "/"
-You will have to type (eg. **/community help**)
+The unique thing about this bot, its made of love and its not automatically gen
 
-## available features
+### How to use the bot
 
--   Community commands
--   Moderator commands
--   Administrator commands
+The bot uses Slash command, "/" (eg. **/help frequentlyaskedquestions**)
 
-## Project Status
-
-Bot created at 20.02-23, as a slash command and have a last update at 25.02-23 as slash command<br>
-The current version of the bot is v1
-
-
-#   Features
-
-## Bot Member Utility
+## Features
 
 <h3 align = "center"> Community module</h3>
 
@@ -215,7 +210,7 @@ Commands which requires **manage_roles**
 -   MariaDB by [MariaDB Community](https://github.com/mariadb-corporation/mariadb-connector-python),
 -   python_dotenv by [Saurabh Kumar](https://github.com/motdotla/dotenv),
 
-### APIS
+### API
 
 no apis used in the project
 
@@ -223,6 +218,14 @@ no apis used in the project
 
 The developer can only have the responsibility,<br>
 for how the projects is created, how it is used,<br>
-is another story.
+is another story. 
 
 [Terms of Use](), [Privacy Policy notice]()<br> 
+
+### [Licence](https://github.com/krigjo25/Discord/blob/main/licence)
+
+### Contact information
+
+-   Discord : krigjo25#5588<br>
+-   Messenger : krigjo25<br>
+-   website :

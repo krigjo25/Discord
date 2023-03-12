@@ -2,32 +2,32 @@
 
 ## Table of content
 
-> [Introduction](#introduction)<br>
->> [the Maintainer](#the-maintainer)<br>
->> [project information](#project-info)<br>
+## [Introduction](#introduction)<br>
+> [the Maintainer](#the-maintainer)<br>
+> [project information](#project-info)<br>
 
-> [PyGame](#pygame)<br>
->> [What makes the bot unique](#what-makes-this-bot-unique)<br>
->> [How to use the bot](#how-to-use-the-bot))<br>
+## [PyGame](#pygame)<br>
+> [What makes the bot unique](#what-makes-this-bot-unique)<br>
+> [How to use the bot](#how-to-use-the-bot))<br>
 
-> [Features](#feautures)<br>
->>  [available games](#available-games)<br>
->>  [Eightball](#eightball)<br>
->>  [Jumble Game](#jumblegame)<br>
->>  [Scrabble](#scrabble)<br>
->>  [Little Proffessor](#little-proffessor)<br>
->> [Guess The Number](#guess-the-number)<br>
+## [Features](#feautures)<br>
+>  [available games](#available-games)<br>
+>  [Eightball](#eightball)<br>
+>  [Jumble Game](#jumblegame)<br>
+>  [Scrabble](#scrabble)<br>
+>  [Little Proffessor](#little-proffessor)<br>
+> [Guess The Number](#guess-the-number)<br>
 
-> [Credentials](#credentials)<br>
->> [Responsories](#responsories)<br>
->> [APIs](#api)<br>
->> [Disclaimers](#disclaimer)<br>
->>  [licence](#licence)<br>
->>  [contact](#contact-information)
+## [Credentials](#credentials)<br>
+> [Responsories](#responsories)<br>
+> [APIs](#api)<br>
+> [Disclaimers](#disclaimer)<br>
+>  [licence](#licence)<br>
+>  [contact](#contact-information)
 
 ## Introduction
 
-### the Maintainer
+### The Maintainer
 
 goes by the name Kristoffer, born in 94, :flag_no:.<br>
 maintaining Python & SQL projects<br>
@@ -55,7 +55,7 @@ The unique thing about this bot, its made of love and its not automatically gene
 
 ### How to use the bot
 
-/help frequentlyaskedquestions (category)
+The bot uses Slash command, "/" (eg. **/help frequentlyaskedquestions**)
 
 ## Feautures
 
