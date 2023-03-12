@@ -178,7 +178,7 @@ class Community(Cog, name='Community Module'):
         """
 
         meme = ["reddit"]
-        if arg == None:arg = meme[r.randint(len(meme - 1))]
+        if arg == None: arg = meme[r.randint(len(meme) - 1)]
 
         match str(arg).lower():
 

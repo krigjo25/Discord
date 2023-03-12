@@ -57,8 +57,6 @@ class WordGames(Cog):
 
             >   Creation date   : 12.01-23
             >   Last update     : 26.02-23
-            Jumble game
-    
         """
         
         sub = ""

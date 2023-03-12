@@ -268,7 +268,8 @@ class GameOver():
 
         match str(arg):
             case 'integer':
-
+                    print(kwargs)
+                    for i in kwargs: print(i)
                     dictionary = {
                                 1:f'Thank you for the humble answer, sir ',
                                 2:f'Well thats equal..',
@@ -320,14 +321,15 @@ class GameOver():
 
         match str(arg[0]):
             case 'integer':
-                if arg[1] > arg[2]:#    If the prompted integer is greater than n
+
+                if int(arg[1]) > int(arg[2]):#    If the prompted integer is greater than n
 
                     dictionary = {
-                                    1:'Well, well you pride human, you think you\'re greater than me ?',
+                                    1:'Well, well you pride human, you think you\'re greater than?',
                                     2:f'{arg[1]}is not humble enough, try again.',
                                     3:f'{arg[1]} is greater than n',}
 
-                elif arg[2] < arg[1]:#  If the prompted integer is less than n
+                elif int(arg[1]) < int(arg[2]):#  If the prompted integer is less than n
 
                     dictionary = {
                                     1:'You thought you were good enough, puh.',
@@ -362,8 +364,8 @@ class GameOver():
                                     2:f'The paper were succsessfully cut in two by the bot ',
                                     3:f'The bot flexed with his scissors, you lost',
                                     4:f'The bot won '}
+  
 
-        
         x = r.randrange(1,len(dictionary))#   Randomize the dictionary
         return dictionary.get(x)#   Return the value
 

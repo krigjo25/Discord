@@ -222,7 +222,7 @@ class MathGames(Cog):
         while True: #   Choose a level
 
             lvl = await ctx.bot.wait_for('message', timeout = 60.0, check = lambda m: m.author.id == ctx.author.id)#   Requesting a level from the user
-
+            print(lvl)
             try:
 
                 if str(lvl.content).isdigit(): lvl = int(lvl.content)
@@ -277,8 +277,8 @@ class MathGames(Cog):
             TEMP -= 1#   Decrease the attempt by 1
             for i in ints: gints += f"{i}, "
 
-            if x < n:self.embed.description = f"**Game Summary**\nAttempts left: {TEMP}/5\nIntegers guessed: {gints}\nGuess a number between 0 - {lvl*10}\n{GameOver().IncorrectAnswer('integer', n, x)}"
-            elif x > n: self.embed.description = f"**Game Summary**\nAttempts left: {TEMP}/\nIntegers guessed: {gints}\nGuess a number between 0 - {lvl*10}\n\n{GameOver().IncorrectAnswer('integer',n, x)}"
+            if x < n:self.embed.description = f"**Game Summary**\nAttempts left: {TEMP}/5\nIntegers guessed: {gints}\nGuess a number between 0 - {lvl*10}\n{GameOver().IncorrectAnswer('integer', x, n)}"
+            elif x > n: self.embed.description = f"**Game Summary**\nAttempts left: {TEMP}/\nIntegers guessed: {gints}\nGuess a number between 0 - {lvl*10}\n\n{GameOver().IncorrectAnswer('integer', x, n)}"
             else: self.embed.description = f"**Game Summary**\nAttempts left: {TEMP}/10\n Integers guessed: {gints}\n{GameOver().CorrectAnswer('integer')}"
 
             await ctx.send(embed=self.embed)

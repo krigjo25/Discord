@@ -42,22 +42,21 @@ class FrequentlyAskedQuestions(Cog):
             >   Last update     : 27.02-23
         """
 
-        if arg == None:
+        arg = str(arg).lower().replace(" ", "")
+
+        if arg == "gamersmodule" : self.embed = self.GamersModule()
+        elif arg == "wordgames" : self.embed = self.GamersModule(arg)
+        elif arg == "mathgames" : self.embed = self.GamersModule(arg)
+        elif arg == "reactiongames" : self.embed = self.GamersModule(arg)
+        elif arg == "communitymodule" : self.embed = self.CommunityModule()
+
+        else :
 
             self.embed.title = 'Frequently Asked Questions:question:'
             self.embed.add_field(name=':people_holding_hands: Community Module', value='Ever heard of the guy whom joined a community? \n He were never seen again.', inline=True)
             self.embed.add_field(name=':signal_strength: Gamers Module',value='An Irishman arrived at J.F.K. Airport and wandered around the terminal with tears streaming down his cheeks...', inline=True)
-            await ctx.respond(embed=self.embed)
-        else :
-            arg = str(arg).lower().replace(" ", "")
-            match arg:
 
-                case "gamersmodule" : self.embed = self.GamersModule()
-                case "wordgames" : self.embed = self.GamersModule(arg)
-                case "mathgames" : self.embed = self.GamersModule(arg)
-                case "adventure" : self.embed = self.GamersModule(arg)
-                case "communitymodule" : self.embed = self.CommunityModule()
-            await ctx.respond(embed= self.embed)
+        await ctx.respond(embed= self.embed)
 
         del arg#   Clear some memory
         return
@@ -100,7 +99,7 @@ class FrequentlyAskedQuestions(Cog):
         if arg == None:
             self.embed.add_field(name ='Math Games', value =' Such as guess the number, little proffessor')
             self.embed.add_field(name ='Word Games', value =' Such as Eightball, Jumble, Scrabble, Rock, Scissors and paper')
-            self.embed.add_field(name ='Reaction Games', value =' Such as Eightball, Jumble, Scrabble, Rock, Scissors and paper')
+            self.embed.add_field(name ='Reaction Games', value =' Such as Rock, Scissors and paper')
         
         elif arg == "mathgames":
 
