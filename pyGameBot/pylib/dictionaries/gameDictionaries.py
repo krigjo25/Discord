@@ -14,12 +14,24 @@ load_dotenv()
 
 class Philosopher():
 
-    '''
-            #   Author : krigjo25
-            #   Date   :  12.01-23
+    """
+        Copyright (C) 2023  Kristoffer Gjøsund
 
-            #   Dictionary for Eightball game
-    '''
+        Dictionary for Eightball game
+
+        >   Creation Date   : 12.01-23
+        >   Last update     :
+
+        This program is free software: you can redistribute it and/or modify
+        it under the terms of the GNU General Public License as published by
+        the Free Software Foundation, either version 3 of the License, or
+        (at your option) any later version.
+
+        This program is distributed in the hope that it will be useful,
+        but WITHOUT ANY WARRANTY; without even the implied warranty of
+        MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+        GNU General Public License for more details.
+    """
 
     def __init__(self):
         return
@@ -78,11 +90,22 @@ class Philosopher():
 class ScrabbleGame():
 
     """
-        #   By              : krigjo25
-        #   Creation Date   : 12.01-23
-        #   Last update     :
+        Copyright (C) 2023  Kristoffer Gjøsund
 
-        #   Dictionary for Scrabble
+        Dictionary for Scrabble
+
+        >   Creation Date   : 12.01-23
+        >   Last update     :
+
+        This program is free software: you can redistribute it and/or modify
+        it under the terms of the GNU General Public License as published by
+        the Free Software Foundation, either version 3 of the License, or
+        (at your option) any later version.
+
+        This program is distributed in the hope that it will be useful,
+        but WITHOUT ANY WARRANTY; without even the implied warranty of
+        MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+        GNU General Public License for more details.
     """
 
     def ComputeScore(self, word):
@@ -131,11 +154,22 @@ class ScrabbleGame():
 class JumbleCategory():
 
     """
-        #   By              : krigjo25
-        #   Creation Date   : 12.01-23
-        #   Last update     :
+        Copyright (C) 2023  Kristoffer Gjøsund
 
-        #   Dictionary for the jumble game
+        Dictionary for Jumble Games
+
+        >   Creation Date   : 12.01-23
+        >   Last update     :
+
+        This program is free software: you can redistribute it and/or modify
+        it under the terms of the GNU General Public License as published by
+        the Free Software Foundation, either version 3 of the License, or
+        (at your option) any later version.
+
+        This program is distributed in the hope that it will be useful,
+        but WITHOUT ANY WARRANTY; without even the implied warranty of
+        MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+        GNU General Public License for more details.
     """
 
     def __init__(self) -> None: return
@@ -199,11 +233,23 @@ class JumbleCategory():
 class GameOver():
 
     """
-        #   By              : krigjo25
-        #   Creation Date   : 12.01-23
-        #   Last update     :
+        Copyright (C) 2023  Kristoffer Gjøsund
 
-        #   A dictionary for Correct / incorrect answers
+        Dictionary for Correct / incorrect answers
+
+        >   Creation Date   : 12.01-23
+        >   Last update     :
+
+        This program is free software: you can redistribute it and/or modify
+        it under the terms of the GNU General Public License as published by
+        the Free Software Foundation, either version 3 of the License, or
+        (at your option) any later version.
+
+        This program is distributed in the hope that it will be useful,
+        but WITHOUT ANY WARRANTY; without even the implied warranty of
+        MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+        GNU General Public License for more details.
+
     """
 
 
@@ -342,10 +388,22 @@ class GameOver():
 class MathDictionary():
 
     """
-        #   A dictionary for Mathimatical games
-        >   By              : krigjo25
+        Copyright (C) 2023  Kristoffer Gjøsund
+
+        Dictionary for Mathematical answers
+
         >   Creation Date   : 12.01-23
         >   Last update     :
+
+        This program is free software: you can redistribute it and/or modify
+        it under the terms of the GNU General Public License as published by
+        the Free Software Foundation, either version 3 of the License, or
+        (at your option) any later version.
+
+        This program is distributed in the hope that it will be useful,
+        but WITHOUT ANY WARRANTY; without even the implied warranty of
+        MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+        GNU General Public License for more details.
     """
 
     def Operators(self, arg = None):
@@ -416,5 +474,23 @@ class APITools():
 
 class Madlibs():
 
+    """
+            Copyright (C) 2023  Kristoffer Gjøsund
+
+        Dictionary for madlibs
+
+        >   Creation Date   : 12.01-23
+        >   Last update     :
+
+        This program is free software: you can redistribute it and/or modify
+        it under the terms of the GNU General Public License as published by
+        the Free Software Foundation, either version 3 of the License, or
+        (at your option) any later version.
+
+        This program is distributed in the hope that it will be useful,
+        but WITHOUT ANY WARRANTY; without even the implied warranty of
+        MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+        GNU General Public License for more details.
+    """
     def MadlibsOne(self, *args):
         print(args)

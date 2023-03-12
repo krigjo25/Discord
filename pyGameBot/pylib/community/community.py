@@ -15,17 +15,30 @@ from discord.ext.commands import Cog
 class Community(Cog, name='Community Module'):
 
     """
-        #   Author : krigjo25
-        #   Date : 19.02-23
-        #   last updated : 21.02-23
+        Help command
 
         Class contains community commands
-        botinfo,        -   Information about the bot
-        member,         -   A list of online / offline members
-        meme,           -   Meme (optional args : reddit)
-        report,         -   Reporting a server member using modals
-        support,        -   Support ticket using modals
-        roles           -   A list of server roles
+            botinfo,        -   Information about the bot
+            member,         -   A list of online / offline members
+            meme,           -   Meme (optional args : reddit)
+            report,         -   Reporting a server member using modals
+            support,        -   Support ticket using modals
+            roles           -   A list of server roles
+
+        Copyright (C) 2023  Kristoffer Gjøsund
+
+        >   Creation Date   : 19.02-23
+        >   Last update     : 21.02-23
+
+        This program is free software: you can redistribute it and/or modify
+        it under the terms of the GNU General Public License as published by
+        the Free Software Foundation, either version 3 of the License, or
+        (at your option) any later version.
+
+        This program is distributed in the hope that it will be useful,
+        but WITHOUT ANY WARRANTY; without even the implied warranty of
+        MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+        GNU General Public License for more details.
     """
 
     def __init__(self, bot):

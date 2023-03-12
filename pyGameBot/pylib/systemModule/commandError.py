@@ -15,7 +15,22 @@ from discord.ext.commands.errors import CheckFailure, CommandNotFound, MissingRe
 class ErrorHandler(Cog):
 
     """
-        #   raises when there is an error in the code.
+        Copyright (C) 2023  Kristoffer Gjøsund
+
+        A collection of reaction games
+
+        >   Creation Date   : 01.01-23
+        >   Last update     : 
+
+        This program is free software: you can redistribute it and/or modify
+        it under the terms of the GNU General Public License as published by
+        the Free Software Foundation, either version 3 of the License, or
+        (at your option) any later version.
+
+        This program is distributed in the hope that it will be useful,
+        but WITHOUT ANY WARRANTY; without even the implied warranty of
+        MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+        GNU General Public License for more details.
     """
 
     def __init__(self, bot):

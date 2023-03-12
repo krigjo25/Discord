@@ -7,14 +7,22 @@ from discord.ext.commands import Cog
 class FrequentlyAskedQuestions(Cog):
 
     """
-        By              : Krigjo25
-        Creation date   : 23.01-23
-        Last Update     : 26.02-23
+        Copyright (C) 2023  Kristoffer Gjøsund
 
         Discord command menu
-        Gamers module,
-        Community module.
 
+        >   Creation Date   : 23.01-23
+        >   Last update     : 26.02-23
+
+        This program is free software: you can redistribute it and/or modify
+        it under the terms of the GNU General Public License as published by
+        the Free Software Foundation, either version 3 of the License, or
+        (at your option) any later version.
+
+        This program is distributed in the hope that it will be useful,
+        but WITHOUT ANY WARRANTY; without even the implied warranty of
+        MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+        GNU General Public License for more details.
     """
 
     help = d.SlashCommandGroup(name = 'help', description = 'Frequently asked questions')

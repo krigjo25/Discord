@@ -1,4 +1,3 @@
-
 # Python Responsories
 import random as r
 
@@ -14,12 +13,22 @@ from pylib.dictionaries.gameDictionaries import  GameOver, MathDictionary
 class MathGames(Cog):
 
     """
-        A dictionary for Mathimatical games
-        >   By              : krigjo25
+        Copyright (C) 2023  Kristoffer Gjøsund
+
+        A collection of Mathimatical games
+
         >   Creation Date   : 12.01-23
         >   Last update     : 23.02-23
 
-        A collection of math games
+        This program is free software: you can redistribute it and/or modify
+        it under the terms of the GNU General Public License as published by
+        the Free Software Foundation, either version 3 of the License, or
+        (at your option) any later version.
+
+        This program is distributed in the hope that it will be useful,
+        but WITHOUT ANY WARRANTY; without even the implied warranty of
+        MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+        GNU General Public License for more details.
     """
 
     def __init__(self, bot):
@@ -93,15 +102,16 @@ class MathGames(Cog):
 
         return arg#   Returning the argument
 
-    #   Games
-    @math.command()
+    @math.command()#    Games
     async def littleprofessor(self, ctx: d.ApplicationContext):
 
         """
-            Little Professor game
+            Copyright (C) 2023  Kristoffer Gjøsund
+
+            Little Professor Game
 
             >   Creation Date   : 23.02-23
-            >   Last update     :
+            >   Last update     : 
         """
 
         self.embed.title = "Little Professor"
@@ -198,10 +208,12 @@ class MathGames(Cog):
     async def guessthenumber(self, ctx:d.ApplicationContext):
 
         """
-            Guess The Number
+            Copyright (C) 2023  Kristoffer Gjøsund
+
+            Little Professor Game
 
             >   Creation Date   : 23.02-23
-            >   Last update     :
+            >   Last update     : 
         """
         self.embed.title = "Welcome to Guess The Number"
         self.embed.description = f' Please choose a level'

@@ -22,12 +22,22 @@ load_dotenv()
 class WordGames(Cog):
 
     """
-        #   A dictionary for Mathimatical games
-        >   By              : krigjo25
+        Copyright (C) 2023  Kristoffer Gjøsund
+
+        A collection of word games
+
         >   Creation Date   : 12.01-23
         >   Last update     : 23.02-23
 
-        A collection of word games
+        This program is free software: you can redistribute it and/or modify
+        it under the terms of the GNU General Public License as published by
+        the Free Software Foundation, either version 3 of the License, or
+        (at your option) any later version.
+
+        This program is distributed in the hope that it will be useful,
+        but WITHOUT ANY WARRANTY; without even the implied warranty of
+        MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+        GNU General Public License for more details.
     """
 
     word = d.SlashCommandGroup(name = "word", description = "Word games")
@@ -76,20 +86,16 @@ class WordGames(Cog):
     @word.command()
     async def jumble(self, ctx:d.ApplicationContext):
 
+        """
+            Copyright (C) 2023  Kristoffer Gjøsund
 
-        '''
-            Jungle of jumble
+            Jumble game
 
             >   Creation date   : 12.01-23
             >   Last update     : 26.02-23
-
-            #   Welcome the user to the game & Prompting for category
-            #   Promting for a sub category
-            #   Randomizing the dictionary word
-            #   Request a solve
-            #   Creating a new word with joining the elements of the iterator
-
-        '''
+            Jumble game
+    
+        """
 
         while True:#   Game Configuration Sec and tempt
 
@@ -266,17 +272,13 @@ class WordGames(Cog):
     @word.command()
     async def eightball(self, ctx:d.ApplicationContext):
 
-        '''
+        """
+            Copyright (C) 2023  Kristoffer Gjøsund
             An Philiosophic 8ball
 
-            #   Creation date   :  12.01-23
+            >   Creation date   :  12.01-23
             >   Last update     : 26.02-23
-
-            #   Prompt the user for a question
-            #   Combine the answers
-            #   Send a philliosofically answer
-
-        '''
+        """
 
         #   Prepare & send the embed
         self.embed.title = ':8ball: Ask the Philiospher a question'
@@ -291,19 +293,13 @@ class WordGames(Cog):
     @word.command()
     async def scrabble(self, ctx:d.ApplicationContext):
 
-        '''
+        """
+            Copyright (C) 2023  Kristoffer Gjøsund
             The scrabble game
 
             >   Creation Date   : 12.01-23
             >   Last update     : 26.02-23
-
-            #   Prompts the words for each player
-            #   Calculating the score for both words
-            #   Printing the winner
-
-            #   Player required : 1 - 2
-
-        '''
+        """
 
         self.embed.title = f'{ctx.author}'
         self.embed.color = Color.dark_purple()
@@ -403,12 +399,22 @@ class WordGames(Cog):
 class ReactionGames(Cog):
 
     """
-        #   A dictionary for Mathimatical games
-        >   By              : krigjo25
+        Copyright (C) 2023  Kristoffer Gjøsund
+
+        A collection of reaction games
+
         >   Creation Date   : 26.02-23
         >   Last update     : 
 
-        A collection of reaction games
+        This program is free software: you can redistribute it and/or modify
+        it under the terms of the GNU General Public License as published by
+        the Free Software Foundation, either version 3 of the License, or
+        (at your option) any later version.
+
+        This program is distributed in the hope that it will be useful,
+        but WITHOUT ANY WARRANTY; without even the implied warranty of
+        MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+        GNU General Public License for more details.
     """
 
     reaction = d.SlashCommandGroup(name = "reaction", description = "Reaction Games")
@@ -422,14 +428,13 @@ class ReactionGames(Cog):
     async def rockscissorsandpaper(self, ctx:d.ApplicationContext):
 
         '''
+            Copyright (C) 2023  Kristoffer Gjøsund
             Rock, Scissors & paper game
 
             >   Creation Date   : 26.02-23
             >   Last update     :
 
-            >   Prompt the user for a string
-            >   Combine the answers
-            >   Send a philliosofically answer
+            Rock Scissor and paper discord style
 
         '''
 

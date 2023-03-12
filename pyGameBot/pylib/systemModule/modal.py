@@ -12,14 +12,22 @@ from pylib.dictionaries.gameDictionaries import Philosopher
 class EightBall(Modal):
 
     """
-        Eightball modal
+        Copyright (C) 2023  Kristoffer Gjøsund
 
-        by : krigjo25
-        Date :   21.02-23
-        Last update: 26.02-23
+        Discord UI modal
 
-        Eightball modal
+        >   Creation Date   : 21.02-23
+        >   Last update     : 26.02-23
 
+        This program is free software: you can redistribute it and/or modify
+        it under the terms of the GNU General Public License as published by
+        the Free Software Foundation, either version 3 of the License, or
+        (at your option) any later version.
+
+        This program is distributed in the hope that it will be useful,
+        but WITHOUT ANY WARRANTY; without even the implied warranty of
+        MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+        GNU General Public License for more details.
     """
 
     def __init__(self, *args, **kwargs) -> None:

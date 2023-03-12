@@ -14,16 +14,24 @@ load_dotenv()
 #   Selecting, Inserting or updates a table
 class MariaDB():
 
-    '''
-            #   Author : krigjo25
-            #   Date   :  12.01-23
+    """
+        Copyright (C) 2023  Kristoffer Gjøsund
 
-            #   Connecting to preferably database in MariaDB
+        Connecting to preferably database in MariaDB
 
-            #   SELECT, Counting rows, 
-            #   Dropping / Creating databases, Counting rows in a table
-            #   Delete, Select records, 
-    '''
+        >   Creation Date   : 12.01-23
+        >   Last update     :
+
+        This program is free software: you can redistribute it and/or modify
+        it under the terms of the GNU General Public License as published by
+        the Free Software Foundation, either version 3 of the License, or
+        (at your option) any later version.
+
+        This program is distributed in the hope that it will be useful,
+        but WITHOUT ANY WARRANTY; without even the implied warranty of
+        MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+        GNU General Public License for more details.
+    """
 
     def __init__(self, database):
 
@@ -165,7 +173,6 @@ class MariaDB():
         #   Returning the values in sqlData
         return sqlData
 
-
     def RowCount(self, query):
 
         #   Executes the query and retrieve the rows
@@ -178,8 +185,7 @@ class MariaDB():
         #   Counts the rows in the cursor
         return self.cur.rowcount
 
-    #   Not working properly
-    def newRecord(self, database, table, *dbcolumn):
+    def newRecord(self, database, table, *dbcolumn):#   Not working properly
 
         #   Initializing variables
         column = ""
@@ -223,7 +229,3 @@ class MariaDB():
         del query
 
         return
-
-if __name__ == "__main__":
-    db = MariaDB(os.getenv("db2"))
-    db.closeConnection()
