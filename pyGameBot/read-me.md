@@ -123,7 +123,7 @@ The developer can only have the responsibility,<br>
 for how the projects is created, how it is used,<br>
 is another story.
 
-### [Licence](https://github.com/krigjo25/Discord/blob/main/pyGameBot/licence.md)
+### [Licence](https://github.com/krigjo25/Discord/blob/main/licence)
 
 ### Contact information
 
