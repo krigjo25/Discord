@@ -30,6 +30,7 @@ class FrequentlyAskedQuestions(Cog):
         self.embed = Embed(color=Color.dark_purple())
 
         return
+
     help = d.SlashCommandGroup(name = "help", description = "Bot Documentation")
 
     @help.command()
@@ -66,9 +67,8 @@ class FrequentlyAskedQuestions(Cog):
 
         return self.embed
 
-    #   Server Moderation
 
-    def channelmod(self, ctx:d.ApplicationContext):
+    def channelmod(self, ctx:d.ApplicationContext):#   Server Moderation
 
         self.embed.title = 'Moderator Module'
         self.embed.color = Color.dark_purple()

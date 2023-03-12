@@ -51,13 +51,14 @@ class Community(Cog, name='Community Module'):
     @community.command()#   Information about the bot :bug:
     async def botinfo(self, ctx: ApplicationContext, arg:d.Option(str, "Optional arguments (log / todo / bug)", required = False)):
 
-        '''
-            Information about the bot
+        
+        """
+            Bot information
 
             #   Arguments (log / todo / None)
             #   Changelog
             #   ToDo list
-        '''
+        """
 
         if arg == "log":
 
@@ -71,9 +72,8 @@ class Community(Cog, name='Community Module'):
             self.embed.url=f'https://github.com/krigjo25/Discord/blob/main/{ctx.bot.user.name}/todo.md'
             self.embed.description = CommunityFunctions().Readlog(arg)
 
-        elif arg == "bug": pass
-            #modal = Community(title = "Bug Report")
-            #ctx.send_modal(modal)
+        elif arg == "bug": await ctx.respond("under development")
+
         else:
 
             self.embed.title = f':notebook: About {ctx.bot.user.name}'

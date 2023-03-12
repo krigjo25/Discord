@@ -47,42 +47,6 @@ class WordGames(Cog):
         self.bot = bot
         self.embed = Embed(color=Color.dark_purple(), description='')
 
-    async def GameLevel(self, ctx:d.ApplicationContext):#   Game Configurations
-
-        '''
-            #   Author : krigjo25
-            #   Date   :  12.01-23
-
-            #   Checking if the prompted integer is less than 1
-
-        '''
-
-        array = []#   Declare a list
-
-        while True:
-
-            lvl = await ctx.bot.wait_for('message', timeout = 60.0 )#   Wait for the user to respond
-
-            try :
-                if str(lvl.content).isdigit(): lvl = array.append(int(lvl.content))
-                else: raise ValueError("The level can not contain alphabetical letters nor glyphs. ")
-                #   Check the level input
-                if lvl < 1: raise ValueError('The level can not be less than one')
-
-            except Exception as e :
-
-                self.embed.color = Color.dark_red()
-                self.embed.title = 'An Exception Has Occured'
-                self.embed.description = f"{e}"
-                await ctx.send(embed = self.embed)
-                continue
-
-            del lvl #   Clear some memory
-
-            self.embed.clear_fields()
-
-            return array
-
     @word.command()
     async def jumble(self, ctx:d.ApplicationContext):
 
@@ -96,20 +60,6 @@ class WordGames(Cog):
             Jumble game
     
         """
-
-        while True:#   Game Configuration Sec and tempt
-
-            #   Prepare and send the Welcome message
-            self.embed.color = Color.dark_purple()
-            self.embed.title = 'Jumble Game Configurations'
-            self.embed.description = f'Please select a level'
-            await ctx.respond(embed = self.embed)
-
-            try: lvl = self.GameLevel()
-            except Exception as e:
-                print(e)
-                continue
-            break
         
         sub = ""
         category = [i for i in MariaDB(database= os.getenv("database")).SelectTable("categories", "categories")]
