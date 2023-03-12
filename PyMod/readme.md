@@ -13,7 +13,7 @@
 
 ## [Features](#features)
 
-> [Community Module](#community-commands)<br>
+> [Community Module](#community-module)<br>
 > [Moderation commands](#moderator-commands)<br>
 > [Administrator commands](#administrator-commands)<br>
 
@@ -23,7 +23,6 @@
 > [Responsories](#responsories)
 > [Licence](#licence)
 
-## [Project Summary](#project-summary)
 
 ## Introduction
 
@@ -59,14 +58,15 @@ The bot uses Slash command, "/" (eg. **/help frequentlyaskedquestions**)
 
 ## Features
 
-<h3 align = "center"> Community module</h3>
+## <h2 align = "center"> Community module</h3>
 
 Commands which is available for everyone.
 > /community botinfo (optional parameter : log, todo, bug )<br>
 > * if the command is executed with out or any other arguments than listed,Information about the bot will appear.
->   * Log parameter returns the changelog information
+>   *   Log parameter returns the changelog information
 >   *   todo parameter returns whats planned further to do.
->   *   bug parameter allows server members to send a direct message to  the developer to report a bug  
+>   *   bug parameter allows server members to send a direct message to  the developer to report a bug
+>
 > /community meme (optional parameter : reddit<br>
 > *     if the command is executed without any arguments, a meme from a random hoster
 >*  reddit argument notifies the program to send only meme from reddit.
@@ -75,7 +75,7 @@ Commands which is available for everyone.
 > * list of members in the server
 > * on argument retruns only server members which is online
 > * off argument returns only offline members.
-+
+>
 > /community roles<br>
 > * List the server roles
 >
@@ -90,9 +90,9 @@ Commands which is available for everyone.
 
 ## Bot Post Moderation Utility
 
-<h3 align = "center"> Introduction</h3>
+<h2 align = "center"> Introduction</h3>
 
-The bot has been coded to automate generate roles and channels
+The bot has been coded to automatically generate roles and channels.
 
 ### Channels
 >   log<br>
@@ -106,22 +106,24 @@ The bot has been coded to automate generate roles and channels
 >   member-report<br>
 >   -   Reporting a members behavior
 
-<h2 align="center"> Moderation Module</h2>
 
-> Note : Most of the commands is recorded in the auditlog channel
-> Note : usage of commands such as warn, sush, lift, kick, ban will notify the member about it. So the member has the chance to understand why it has happend to the user. 
+### <h2 align="center"> Moderation Module</h2>
 
-###  **Moderators with manage_channels**
+Note : Most of the commands is recorded in the auditlog channel
+
+Note : The targeted member will be notified if commands such as warn, sush, lift, kick, ban is used, the member will get a clear understanding for the left brain thought "why" it has happend
+
+####  **Moderators with manage_channels**
 
 Commands which requires **manage_channels**
 >   /channel clear (channel name) (int)
 >  -    Clear the chat limit 100 lines each time the command is used
->   -   Does not create duplicated channels due to deletion error.
+>   -   Limited to channel duplicates, due to an deletion error.
 >
 >   /channel create (channel type), (name), (age_restricted), (bitrate), (category), (delay), (user_limit), (perm), *(topic), (**reason)
->   -   Channel_type, is required to contain either (text / forum / voice, stage or category). So the program has information about what type of channel you would like to create.
->   -   name, is required to type in, so the program has information about what you would like to call the channel.
->   -   age_restricted has a default value of False, if you would like to have a channel age_restricted, type True.
+>   -   Channel_type, is required to contain either (text / forum / voice, stage or category). So the program knows what type of channel the user would like to create.
+>   -   name, is required to type in, so the program knows what you would like to call the channel.
+>   -   age_restricted has a default value of False, if you would like to restrict the channels for adults add True as value.
 >   -   category, has a default value to None, if you would like to select a category for the channel, type in the name of the category.
 >   -   delay has a default value of 0, if you would like slow peoples posts set it to a desired number, can not be less than 0.
 >   -   user_limit, limits how many users can be at once in a VOICE channel.
@@ -133,7 +135,7 @@ Commands which requires **manage_channels**
 >   -   Deletes a channel if it exists<br>
 >
 >   /channel clear (channel name)
-###  **Moderators with manage_member**
+####  **Moderators with manage_member**
 
 Commands which requires **moderate_members**
 >   /member warn (member name), (reason)<br>
@@ -144,7 +146,7 @@ Commands which requires **kick_members**
 > /member kick (member name), (reason)
 
 
-###   **Moderators with manage_Roles**
+####  **Moderators with manage_Roles**
 
 Commands which requires **manage_roles**
 
@@ -154,7 +156,7 @@ Commands which requires **manage_roles**
 >   /role add
 
 
-### **List of Premade Permissions**
+#### **List of Premade Permissions**
 
 >   Members ()
 >   -   Full Membership Permissions

@@ -121,7 +121,9 @@ An Exception may occure:<br>
 
 The developer can only have the responsibility,<br>
 for how the projects is created, how it is used,<br>
-is another story.
+is another story. 
+
+[Terms of Use](), [Privacy Policy notice]()<br> 
 
 ### [Licence](https://github.com/krigjo25/Discord/blob/main/licence)
 
