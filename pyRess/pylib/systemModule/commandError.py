@@ -58,7 +58,7 @@ class ErrorHandler(Cog):
 
             #   Prepare & send the embed
             dictionary = cmdError.ErrorDescriptionDictionary(NotFound)
-            self.embed.title = 'Member were not Found in the server'
+            self.embed.title = 'Member were not found in the server'
             self.embed.description = f'{dictionary}'
             await ctx.send(embed=self.embed)
 
@@ -77,8 +77,8 @@ class ErrorHandler(Cog):
             """     Missing arguments
 
                 Checking if there is any dictionary for the command.
-                if a command is not listed send message to the bot maintainer.
-                and notify the user, about the inconvinient
+                If a command is not listed, send message to the bot maintainer
+                and notify the user about the inconvenience.
 
             """
 
@@ -94,7 +94,7 @@ class ErrorHandler(Cog):
             #   RSS Module module
 
             else:
-                self.embed.title = 'Command Missing some required arguments'
+                self.embed.title = 'Command missing some required arguments'
 
             self.embed.description = cmdError.ErrorDescriptionDictionary(errorModule[36:59])
             await ctx.send(embed=self.embed)
@@ -108,7 +108,7 @@ class ErrorHandler(Cog):
             #   Prepare and send the embed
             errorModule = str(cmdNotFound)
 
-            self.embed.title = 'Command were not Found in the dictionary'
+            self.embed.title = 'Command were not found in the dictionary'
             self.embed.description = f'{cmdError.ErrorDescriptionDictionary(errorModule[36:51])}'
             await ctx.send(embed=self.embed)
 
@@ -143,7 +143,7 @@ class ErrorHandler(Cog):
                 errorModule = str(BadArgs)
                 botmsg = f'Master, There is some  {errorModule} Error were found. {error.original}'
 
-                self.embed.title = 'You sent me a Bad Arguments'
+                self.embed.title = 'You sent me bad arguments'
                 self.embed.description = cmdError.ErrorDescriptionDictionary(errorModule)
                 await ctx.send(embed=self.embed)
 
@@ -171,16 +171,16 @@ class ErrorMessageDictionary():
 
             dictionary = {
                             1:'meep morp zeep :(\n',
-                            2:'Given command does not exists',
-                            3:'Sir, have you drunken to much?',
-                            4:'We all do mistakes, sometimes...',
-                            5:f'Sir where did you find the "{cmd}" ',
-                            6:'Sir, im sorry, could you please repeat the command?',
-                            7:'Sir The command has not been impleted in my software',
-                            8:'Command Executed, if you see this message, check your spelling.',
-                            9:f'I have some good news, sir. Im a good boy. Command already executed {cmd}',
+                            2:'Given command does not exist',
+                            3:'Sir, have you drunken too much?',
+                            4:'We all do mistakes, sometimes ...',
+                            5:f'Sir, where did you find the "{cmd}" ',
+                            6:'Sir, I\'m sorry, could you please repeat the command?',
+                            7:'Sir, the command has not been implemented in my software',
+                            8:'Command executed. If you see this message, check your spelling',
+                            9:f'I have some good news, sir. I\'m a good boy. Command already executed {cmd}',
                             10:f'Sir, an error has emerged \"{cmd}\" were not found in bot command dictionary',
-                            11:'Sir, you\'ve started the "Self destruction protocol", press "enter" to continue, press "esc" to stop.',
+                            11:'Sir, you\'ve started the "Self destruction protocol", press "enter" to continue, press "esc" to stop',
                             12:'0101010001101000011001010010000001100011011011110110110101101101011000010110111001100100001000000110010001101111011001010111001100100000011011100110111101110100001000000110010101111000011010010111001101110100',
 }
 
@@ -188,12 +188,12 @@ class ErrorMessageDictionary():
 
             dictionary = {
                             1:'meep, morp, zeep :(\n',
-                            2:'Sir, imagne the member where found\n',
+                            2:'Sir, imagine the member where found\n',
                             3:'Sir, if the error continues, check your spelling \n',
-                            4:'I regret to inform you, sir. the selected member can not be found in the dictionary, should i make one? \n',
+                            4:'I regret to inform you, sir, the selected member can not be found in the dictionary. Should I make one? \n',
                             5:'010110010110111101110101001000000100010001101111001000000110111001101111011101000010000001101000011000010111011001100101001000000111010001101000011001010010000001110010011001010111000101110101011010010111001001100101011001000010000001110010011011110110110001100101\n',
                             6:'I\'m the bot version for the 99th emoji !',
-                            7:f'Just sent out an APB.',
+                            7:f'Just sent out an APB',
                             8:'We all do mistakes, this time the user doesn\'t exist',
 }
 
@@ -201,18 +201,18 @@ class ErrorMessageDictionary():
 
             dictionary = {
                             1:'meep, morp, zeep :(\n',
-                            2:'Role access Denied.',
+                            2:'Role access denied',
 }
 
         elif errorModule == 'MissingRequiredArgument':
 
             dictionary = {
                             1:'meep, morp, meep :(\n',
-                            2:'Sir, i just executed the command with-out any arguments...',
-                            3:'Sir, should i just fake it?\n',
-                            4:'More infomation would do my job easier..',
-                            5:'Still missing some leads..',
-                            6:'We all do mistakes. You\'re missing some requred arguments ',
+                            2:'Sir, I just executed the command without any arguments ...',
+                            3:'Sir, should I just fake it?\n',
+                            4:'More infomation would do my job easier ...',
+                            5:'Still missing some leads ...',
+                            6:'We all do mistakes. You\'re missing some required arguments ',
 }
 
         elif errorModule == 'AttributeError':
@@ -221,8 +221,8 @@ class ErrorMessageDictionary():
 
             dictionary = {
                             1:'meep, morp, zeep :(\n',
-                            2:'Sir, Something went horribly wrong',
-                            3:'I found out i didnt want to start after all',
+                            2:'Sir, something went horribly wrong',
+                            3:'I realized I didn\'t want to start after all',
 
 }
 
@@ -230,11 +230,11 @@ class ErrorMessageDictionary():
 
             dictionary = {
                             1:'meep, morp, zeep :(\n',
-                            2:'Sir, the BOENG 437 just left the airport',
+                            2:'Sir, the BOEING 437 just left the airport',
                             3:'Sir, do you need more time?',
                             4:'The game is over',
                             5:'Try again',
-                            6:'I decided to cancel the game.',
+                            6:'I decided to cancel the game',
                             7:'Never got a response in time',
 }
 
@@ -244,7 +244,7 @@ class ErrorMessageDictionary():
 
             dictionary = {
                             1:f'Something went wrong with {errorModule}',
-                            2:'The content has a False value',
+                            2:'The content has a false value',
 }
 
         #   Randomize the dictionary
