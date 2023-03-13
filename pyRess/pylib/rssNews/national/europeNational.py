@@ -55,8 +55,8 @@ class UKNational(Cog):
 
             #   Searching for selected list items
             summary = article.get('summary', 'There is no summary for this article')
-            updated = rssNews.feed.get('updated', ' No Date to be shown')
-            author = article.get('author', 'Unkown') # Get the authors name
+            updated = rssNews.feed.get('updated', ' No date to be shown')
+            author = article.get('author', 'Unknown') # Get the authors name
            #image = article.get('media_thumbnail', 'No images to be shown') # Get the image
 
             if summary != 'There is no summary for this article':
@@ -107,8 +107,8 @@ class UKNational(Cog):
 
             #   Searching for selected list items
             summary = article.get('summary', 'There is no summary for this article')
-            updated = rssNews.feed.get('updated', ' No Date to be shown')
-            author = article.get('author', 'Unkown') # Get the authors name
+            updated = rssNews.feed.get('updated', ' No date to be shown')
+            author = article.get('author', 'Unknown') # Get the authors name
            #image = article.get('media_thumbnail', 'No images to be shown') # Get the image
 
             if summary != 'There is no summary for this article':
