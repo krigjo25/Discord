@@ -7,6 +7,7 @@ import random as r
 from asyncio.exceptions import TimeoutError
 
 #   Discord Responsories
+import discord as d
 from discord.embeds import Embed
 from discord.colour import Color
 from discord.ext.commands import Cog
@@ -42,7 +43,7 @@ class ErrorHandler(Cog):
 
     #   Calls when there is an error
     @Cog.listener()
-    async def on_command_error(self, ctx, error):
+    async def on_command_error(self, ctx:d.ApplicationContext, error):
 
         '''
             #   Triggers when an error is raised while invoking a command.Parameters
@@ -61,10 +62,8 @@ class ErrorHandler(Cog):
         roleError = CheckFailure
         NotFound = MemberNotFound
         attribute = AttributeError
-        cmdNotFound = CommandNotFound
         invokeError = CommandInvokeError
         cmdError = ErrorMessageDictionary
-        misingargs = MissingRequiredArgument
 
         botDM = await self.bot.fetch_user(340540581174575107)
         botmsg = None
@@ -76,6 +75,7 @@ class ErrorHandler(Cog):
             dictionary = cmdError.ErrorDescriptionDictionary(NotFound)
             self.embed.title = 'Member were not found in the server'
             self.embed.description = dictionary
+            await ctx.send(embed= self.embed)
 
         #   Role not satisified
         elif isinstance(error, roleError):
@@ -84,35 +84,6 @@ class ErrorHandler(Cog):
             dictionary = cmdError.ErrorDescriptionDictionary(roleError)
             self.embed.title = 'Unauthorized Role'
             self.embed.description = dictionary
-            await ctx.send(embed=self.embed)
-
-        #   MissingRequiredArgument
-        elif isinstance(error, misingargs):
-
-            """     Missing arguments
-
-                #   Checking if there is any dictionary for the command.
-                #   If a command is not listed send message to the bot maintainer.
-                #   Notify the user, about the inconvinience
-
-            """
-
-            #   Initializing variables
-            cmd = str(ctx.command).lower()
-            errorModule = str(misingargs)
-
-            self.embed.title = cmdError.CommandNameError(cmd)
-            self.embed.description = cmdError.ErrorDescriptionDictionary(errorModule[36:59])
-            await ctx.send(embed=self.embed)
-
-        #   Command Not Found
-        elif isinstance(error, cmdNotFound):
-
-            #   Prepare and send the embed
-
-            errorModule = str(cmdNotFound)
-            self.embed.title = "404: Command were not found in the dictionary"
-            self.embed.description = cmdError.ErrorDescriptionDictionary(errorModule[36:51])
             await ctx.send(embed=self.embed)
 
         #   Non Discord errors
@@ -157,8 +128,7 @@ class ErrorHandler(Cog):
             print('Ignoring exception in command {}:\n\n'.format(ctx.command), file=sys.stderr)
             traceback.print_exception(type(error), error, error.__traceback__, file=sys.stderr)
 
-        if botmsg !=None: 
-            await botDM.send(f'{botmsg}', tts = True)
+        if botmsg !=None: await botDM.send(f'{botmsg}', tts = True)
 
         return
 
@@ -167,9 +137,9 @@ class ErrorMessageDictionary():
     def __init__(self) -> None:
         pass
 
-    def ErrorDescriptionDictionary (errorModule, *cmd):
+    def ErrorDescriptionDictionary (error, *cmd):
 
-        match errorModule:
+        match error:
 
             case "CommandNotFound":
                 dictionary = {

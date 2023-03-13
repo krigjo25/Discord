@@ -12,8 +12,6 @@ from pylib.dictionaries.gameDictionaries import Philosopher
 class EightBall(Modal):
 
     """
-        Copyright (C) 2023  Kristoffer Gjøsund
-
         Discord UI modal
 
         >   Creation Date   : 21.02-23
@@ -28,6 +26,7 @@ class EightBall(Modal):
         but WITHOUT ANY WARRANTY; without even the implied warranty of
         MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
         GNU General Public License for more details.
+        Copyright (C) 2023  Kristoffer Gjøsund
     """
 
     def __init__(self, *args, **kwargs) -> None:

@@ -13,8 +13,6 @@ from pylib.dictionaries.gameDictionaries import  GameOver, MathDictionary
 class MathGames(Cog):
 
     """
-        Copyright (C) 2023  Kristoffer Gjøsund
-
         A collection of Mathimatical games
 
         >   Creation Date   : 12.01-23
@@ -29,6 +27,7 @@ class MathGames(Cog):
         but WITHOUT ANY WARRANTY; without even the implied warranty of
         MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
         GNU General Public License for more details.
+        Copyright (C) 2023  Kristoffer Gjøsund
     """
 
     def __init__(self, bot):
@@ -106,12 +105,12 @@ class MathGames(Cog):
     async def littleprofessor(self, ctx: d.ApplicationContext):
 
         """
-            Copyright (C) 2023  Kristoffer Gjøsund
-
             Little Professor Game
 
             >   Creation Date   : 23.02-23
             >   Last update     : 
+
+            Copyright (C) 2023  Kristoffer Gjøsund
         """
 
         self.embed.title = "Little Professor"
@@ -208,12 +207,12 @@ class MathGames(Cog):
     async def guessthenumber(self, ctx:d.ApplicationContext):
 
         """
-            Copyright (C) 2023  Kristoffer Gjøsund
-
-            Little Professor Game
+            Guess the number
 
             >   Creation Date   : 23.02-23
             >   Last update     : 
+
+            Copyright (C) 2023  Kristoffer Gjøsund
         """
         self.embed.title = "Welcome to Guess The Number"
         self.embed.description = f' Please choose a level'
@@ -240,7 +239,7 @@ class MathGames(Cog):
 
         #   Game Configurations
         TEMP = 10# Game attemps
-        gints = ""
+        
 
         ints = []#   Declare lists
         n = self.GenerateIntegers(lvl)# Generate a random integer based on level
@@ -258,6 +257,7 @@ class MathGames(Cog):
                 await ctx.send(embed=self.embed)
                 break
 
+            gints = ""
             x = await ctx.bot.wait_for('message', timeout = 60.0, check = lambda m: m.author.id == ctx.author.id)#   Requesting an integer from the user
 
             try :
@@ -273,15 +273,17 @@ class MathGames(Cog):
 
                 continue
 
+        
             ints.append(x)
             TEMP -= 1#   Decrease the attempt by 1
             for i in ints: gints += f"{i}, "
 
-            if x < n:self.embed.description = f"**Game Summary**\nAttempts left: {TEMP}/5\nIntegers guessed: {gints}\nGuess a number between 0 - {lvl*10}\n{GameOver().IncorrectAnswer('integer', x, n)}"
+            if x < n:self.embed.description = f"**Game Summary**\nAttempts left: {TEMP}/5\nIntegers guessed: {gints}\nGuess a number between 0 - {lvl*10}\n\n{GameOver().IncorrectAnswer('integer', x, n)}"
             elif x > n: self.embed.description = f"**Game Summary**\nAttempts left: {TEMP}/\nIntegers guessed: {gints}\nGuess a number between 0 - {lvl*10}\n\n{GameOver().IncorrectAnswer('integer', x, n)}"
-            else: self.embed.description = f"**Game Summary**\nAttempts left: {TEMP}/10\n Integers guessed: {gints}\n{GameOver().CorrectAnswer('integer')}"
+            else: self.embed.description = f"**Game Summary**\nAttempts left: {TEMP}/10\n Integers guessed: {gints}\n\n{GameOver().CorrectAnswer('integer')}"
 
             await ctx.send(embed=self.embed)
+            del gints
 
             if x == n : break
 

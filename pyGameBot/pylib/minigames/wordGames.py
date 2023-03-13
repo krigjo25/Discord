@@ -22,8 +22,6 @@ load_dotenv()
 class WordGames(Cog):
 
     """
-        Copyright (C) 2023  Kristoffer Gjøsund
-
         A collection of word games
 
         >   Creation Date   : 12.01-23
@@ -38,6 +36,7 @@ class WordGames(Cog):
         but WITHOUT ANY WARRANTY; without even the implied warranty of
         MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
         GNU General Public License for more details.
+        Copyright (C) 2023  Kristoffer Gjøsund
     """
 
     word = d.SlashCommandGroup(name = "word", description = "Word games")
@@ -51,12 +50,11 @@ class WordGames(Cog):
     async def jumble(self, ctx:d.ApplicationContext):
 
         """
-            Copyright (C) 2023  Kristoffer Gjøsund
-
             Jumble game
 
             >   Creation date   : 12.01-23
             >   Last update     : 26.02-23
+            Copyright (C) 2023  Kristoffer Gjøsund
         """
         
         sub = ""
@@ -221,11 +219,11 @@ class WordGames(Cog):
     async def eightball(self, ctx:d.ApplicationContext):
 
         """
-            Copyright (C) 2023  Kristoffer Gjøsund
             An Philiosophic 8ball
 
             >   Creation date   :  12.01-23
             >   Last update     : 26.02-23
+            Copyright (C) 2023  Kristoffer Gjøsund
         """
 
         #   Prepare & send the embed
@@ -242,11 +240,11 @@ class WordGames(Cog):
     async def scrabble(self, ctx:d.ApplicationContext):
 
         """
-            Copyright (C) 2023  Kristoffer Gjøsund
             The scrabble game
 
             >   Creation Date   : 12.01-23
             >   Last update     : 26.02-23
+            Copyright (C) 2023  Kristoffer Gjøsund
         """
 
         self.embed.title = f'{ctx.author}'
@@ -347,8 +345,6 @@ class WordGames(Cog):
 class ReactionGames(Cog):
 
     """
-        Copyright (C) 2023  Kristoffer Gjøsund
-
         A collection of reaction games
 
         >   Creation Date   : 26.02-23
@@ -363,6 +359,7 @@ class ReactionGames(Cog):
         but WITHOUT ANY WARRANTY; without even the implied warranty of
         MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
         GNU General Public License for more details.
+        Copyright (C) 2023  Kristoffer Gjøsund
     """
 
     reaction = d.SlashCommandGroup(name = "reaction", description = "Reaction Games")
@@ -376,13 +373,11 @@ class ReactionGames(Cog):
     async def rockscissorsandpaper(self, ctx:d.ApplicationContext):
 
         '''
-            Copyright (C) 2023  Kristoffer Gjøsund
             Rock, Scissors & paper game
 
             >   Creation Date   : 26.02-23
             >   Last update     :
-
-            Rock Scissor and paper discord style
+            Copyright (C) 2023  Kristoffer Gjøsund
 
         '''
 

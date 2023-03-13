@@ -15,8 +15,6 @@ load_dotenv()
 class Philosopher():
 
     """
-        Copyright (C) 2023  Kristoffer Gjøsund
-
         Dictionary for Eightball game
 
         >   Creation Date   : 12.01-23
@@ -31,6 +29,7 @@ class Philosopher():
         but WITHOUT ANY WARRANTY; without even the implied warranty of
         MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
         GNU General Public License for more details.
+        Copyright (C) 2023  Kristoffer Gjøsund
     """
 
     def __init__(self):
@@ -90,8 +89,6 @@ class Philosopher():
 class ScrabbleGame():
 
     """
-        Copyright (C) 2023  Kristoffer Gjøsund
-
         Dictionary for Scrabble
 
         >   Creation Date   : 12.01-23
@@ -106,6 +103,7 @@ class ScrabbleGame():
         but WITHOUT ANY WARRANTY; without even the implied warranty of
         MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
         GNU General Public License for more details.
+        Copyright (C) 2023  Kristoffer Gjøsund
     """
 
     def ComputeScore(self, word):
@@ -154,8 +152,6 @@ class ScrabbleGame():
 class JumbleCategory():
 
     """
-        Copyright (C) 2023  Kristoffer Gjøsund
-
         Dictionary for Jumble Games
 
         >   Creation Date   : 12.01-23
@@ -170,6 +166,7 @@ class JumbleCategory():
         but WITHOUT ANY WARRANTY; without even the implied warranty of
         MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
         GNU General Public License for more details.
+        Copyright (C) 2023  Kristoffer Gjøsund
     """
 
     def __init__(self) -> None: return
@@ -233,8 +230,6 @@ class JumbleCategory():
 class GameOver():
 
     """
-        Copyright (C) 2023  Kristoffer Gjøsund
-
         Dictionary for Correct / incorrect answers
 
         >   Creation Date   : 12.01-23
@@ -249,6 +244,7 @@ class GameOver():
         but WITHOUT ANY WARRANTY; without even the implied warranty of
         MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
         GNU General Public License for more details.
+        Copyright (C) 2023  Kristoffer Gjøsund
 
     """
 
@@ -257,7 +253,7 @@ class GameOver():
         return
 
     #   When the answer is correct
-    def CorrectAnswer(self, arg, **kwargs):
+    def CorrectAnswer(self, arg):
 
         '''
             #   Author : krigjo25
@@ -268,8 +264,7 @@ class GameOver():
 
         match str(arg):
             case 'integer':
-                    print(kwargs)
-                    for i in kwargs: print(i)
+
                     dictionary = {
                                 1:f'Thank you for the humble answer, sir ',
                                 2:f'Well thats equal..',
@@ -326,7 +321,7 @@ class GameOver():
 
                     dictionary = {
                                     1:'Well, well you pride human, you think you\'re greater than?',
-                                    2:f'{arg[1]}is not humble enough, try again.',
+                                    2:f'{arg[1]} is not humble enough, try again.',
                                     3:f'{arg[1]} is greater than n',}
 
                 elif int(arg[1]) < int(arg[2]):#  If the prompted integer is less than n
@@ -390,8 +385,6 @@ class GameOver():
 class MathDictionary():
 
     """
-        Copyright (C) 2023  Kristoffer Gjøsund
-
         Dictionary for Mathematical answers
 
         >   Creation Date   : 12.01-23
@@ -406,6 +399,7 @@ class MathDictionary():
         but WITHOUT ANY WARRANTY; without even the implied warranty of
         MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
         GNU General Public License for more details.
+        Copyright (C) 2023  Kristoffer Gjøsund
     """
 
     def Operators(self, arg = None):
@@ -477,8 +471,6 @@ class APITools():
 class Madlibs():
 
     """
-            Copyright (C) 2023  Kristoffer Gjøsund
-
         Dictionary for madlibs
 
         >   Creation Date   : 12.01-23
@@ -493,6 +485,7 @@ class Madlibs():
         but WITHOUT ANY WARRANTY; without even the implied warranty of
         MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
         GNU General Public License for more details.
+        Copyright (C) 2023  Kristoffer Gjøsund
     """
     def MadlibsOne(self, *args):
         print(args)

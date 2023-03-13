@@ -18,8 +18,6 @@ load_dotenv()
 class DiscordBot(Bot):
 
     """
-        Copyright (C) 2023  Kristoffer Gjøsund
-
         Connecting to preferably database in MariaDB
 
         >   Creation Date   : 01.01-23
@@ -34,6 +32,7 @@ class DiscordBot(Bot):
         but WITHOUT ANY WARRANTY; without even the implied warranty of
         MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
         GNU General Public License for more details.
+        Copyright (C) 2023  Kristoffer Gjøsund
     """
     def __init__(self, command_prefix='?', help_command=None, description=None, owner_id = 340540581174575107, **options):
         super().__init__(command_prefix, help_command=help_command, description=description, owner_id = owner_id, **options)

@@ -7,8 +7,6 @@ from discord.ext.commands import Cog
 class FrequentlyAskedQuestions(Cog):
 
     """
-        Copyright (C) 2023  Kristoffer Gjøsund
-
         Discord command menu
 
         >   Creation Date   : 23.01-23
@@ -23,6 +21,7 @@ class FrequentlyAskedQuestions(Cog):
         but WITHOUT ANY WARRANTY; without even the implied warranty of
         MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
         GNU General Public License for more details.
+        Copyright (C) 2023  Kristoffer Gjøsund
     """
 
     help = d.SlashCommandGroup(name = 'help', description = 'Frequently asked questions')

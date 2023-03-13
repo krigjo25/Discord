@@ -25,8 +25,6 @@ class Community(Cog, name='Community Module'):
             support,        -   Support ticket using modals
             roles           -   A list of server roles
 
-        Copyright (C) 2023  Kristoffer Gjøsund
-
         >   Creation Date   : 19.02-23
         >   Last update     : 21.02-23
 
@@ -39,6 +37,7 @@ class Community(Cog, name='Community Module'):
         but WITHOUT ANY WARRANTY; without even the implied warranty of
         MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
         GNU General Public License for more details.
+        Copyright (C) 2023  Kristoffer Gjøsund
     """
 
     def __init__(self, bot):
