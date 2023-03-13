@@ -8,7 +8,7 @@
 >>> Contact
 
 > [About-RSSBot](#About-RSSBot)
->> project information 
+>> Project information 
 >> How to use the bot
 >> Features
 >> Updates
@@ -25,9 +25,9 @@
 
 ### About the Maintainer
 
-goes by the name Kristoffer, born in 94, :flag_no:.<br>
-maintaining Python & SQL projects<br>
-otherwise just being a human.
+Goes by the name Kristoffer, born in 94, :flag_no:<br>
+Maintaining Python & SQL projects<br>
+Otherwise just being a human
 
 
 ### Project info
@@ -42,29 +42,30 @@ includes the text files below,
 
 #### Status
 
-    project start :<br>
+    Project start:<br>
         10.04-21
 
-   Last Update :<br>
+    Last Update:<br>
         13.04-22
 
     Current verison:<br>
-    0.0.3br
+        0.0.3br
 
     SQL Database:
+        sql
 
 ## RSS-bot
 
-the RSS-bot is made as an rss bot reader<br> 
-for discord. its made for the members, <br>
-with love the prefix command used in<br>
+The RSS-bot is made as an RSS bot reader<br> 
+for Discord. It is made for the members <br>
+with love. The prefix command used in<br>
 in the bot  **@'**, e.g **'@help'**
 
 ## Feautures
 
 ### RSS-Feeds
 
-Reading rss feeds from [NewsChannels](https://github.com/krigjo25/Discord/blob/main/RSSBot/design/RSSBot.md#news-channels)
+Reading rss feeds from [NewsChannels](https://github.com/krigjo25/Discord/blob/main/pyRess/RSSBot.md#news-channels)
 
 ### What makes this bot unique
 
@@ -89,16 +90,16 @@ The bot is made with love for python.
 
 ### Disclaimer
 
-The developer can only have the responsibility,<br>
-for how the projects is created, how it is used,<br>
+The developer can only have the responsibility<br>
+for how the project is created. How it is used<br>
 is another story.
 
 ### Contact information
 
 
-[ContactInformation](https://github.com/krigjo25/Discord/blob/main/pyBut/read-me.md#Credentials)
+[ContactInformation](https://github.com/krigjo25/Discord/blob/main/PyMod/readme.md#contact-information)
 
 ### References
 
-[references](https://github.com/krigjo25/Discord/blob/main/pyBut/read-me.md#Credentials)
+[references](https://github.com/krigjo25/Discord/blob/main/PyMod/readme.md#credentials-1)
 
