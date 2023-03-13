@@ -172,7 +172,7 @@ class ErrorMessageDictionary():
             dictionary = {
                             1:'meep morp zeep :(\n',
                             2:'Given command does not exist',
-                            3:'Sir, have you drunken too much?',
+                            3:'Sir, have you drank too much?',
                             4:'We all do mistakes, sometimes ...',
                             5:f'Sir, where did you find the "{cmd}" ',
                             6:'Sir, I\'m sorry, could you please repeat the command?',
