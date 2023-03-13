@@ -25,13 +25,13 @@ class DiscordBot(Bot):
         #   Print API name and version
         print(f'Py-cord.py v{api_version} has been loaded')
 
-        for i in svr: print(f'{self.user.name} has establized an connection to {i}')
+        for i in svr: print(f'{self.user.name} has established a connection to {i}')
 
         return
         
     async def on_message(self, message:Message):
 
-    #   Procsess commands
+    #   Process commands
         await self.process_commands(message)
 
         return

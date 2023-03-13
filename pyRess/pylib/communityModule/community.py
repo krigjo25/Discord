@@ -32,12 +32,12 @@ class CommunityModule(Cog, name='Community Module'):
         if args == None:
 
             self.embed.title = f':notebook: About {botName}'
-            self.embed.url=f'https://github.com/krigjo25/Discord/blob/main/{botName}/readme.md'
+            self.embed.url=f'https://github.com/krigjo25/Discord/blob/main/PyMod/readme.md'
             self.embed.description = ''
             self.embed.add_field(name = ':rotating_light: Released', value=getenv('BotCreated'), inline=True)
             self.embed.add_field(name = ' :new: Updated', value=getenv('BotUpdated'), inline=True)
             self.embed.add_field(name = ':person_with_probing_cane: Current Version', value= '0.1.0rb', inline=True)
-            self.embed.add_field(name = ':toolbox: Responsory', value='https://github.com/krigjo25/Discord/blob/main/RSSBot/RSSBot.md#Responsories', inline=True)
+            self.embed.add_field(name = ':toolbox: Responsory', value='https://github.com/krigjo25/Discord/blob/main/pyRess/RSSBot.md#responsories', inline=True)
             self.embed.add_field(name = ':cloud: Hosted', value=getenv('HOSTED'), inline=True)
             self.embed.add_field(name = ':man: Master', value=f'{Master} :flag_no:', inline=True)
             self.embed.add_field(name = ':arrows_counterclockwise: Server Counting', value=f'Watching {svr} \nDiscord Servers', inline=True)
@@ -45,8 +45,8 @@ class CommunityModule(Cog, name='Community Module'):
         elif args == 'log':
 
 
-            self.embed.title = 'Change log'
-            self.embed.url=f'https://github.com/krigjo25/Discord/blob/main/changelog.md'
+            self.embed.title = 'Changelog'
+            self.embed.url=f'https://github.com/krigjo25/Discord/blob/main/pyRess/changelog.md'
             self.embed.description = f'*** What is new ***\n{CommunityFunctions().ReadChangelog()}'
             
 
@@ -61,7 +61,7 @@ class CommunityModule(Cog, name='Community Module'):
     @command(name='meme', pass_context= True)
     async def GetRedditMeme(self, ctx):
         """" GetRedditMeme
-            Generates a random meme from reddit
+            Generates a random meme from r/dankmemes
         """
 
         async with aiohttp.ClientSession() as cs:
