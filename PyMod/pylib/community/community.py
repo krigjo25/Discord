@@ -57,21 +57,13 @@ class Community(Cog, name='Community Module'):
 
             #   Arguments (log / todo / None)
             #   Changelog
-            #   ToDo list
         """
-
 
         if arg == "log":
 
             self.embed.title = f"{ctx.bot.user.name} change log"
             self.embed.url=f'https://github.com/krigjo25/Discord/blob/main/{ctx.bot.user.name}/changelog.md'
-            self.embed.description = CommunityFunctions().Readlog(arg)
-
-        elif arg == "todo":
-
-            self.embed.title = f"{ctx.bot.user.name} todo"
-            self.embed.url=f'https://github.com/krigjo25/Discord/blob/main/{ctx.bot.user.name}/todo.md'
-            self.embed.description = CommunityFunctions().Readlog(arg)
+            self.embed.description = CommunityFunctions().Readlog()
 
         else:
 
@@ -177,7 +169,7 @@ class Community(Cog, name='Community Module'):
         """
 
         meme = ["reddit"]
-        if arg == None: arg = meme[r.randint(len(meme) - 1)]
+        if arg == None: arg = meme[r.randint(0, len(meme) - 1)]
 
         match str(arg).lower():
 
@@ -218,6 +210,13 @@ class Community(Cog, name='Community Module'):
 
         return
 
+    @community.command()
+    async def termsofusage(self, ctx:ApplicationContext):
+
+        self.embed.title = f"{ctx.bot.user.name} change log"
+        self.embed.url=f'https://www.termsfeed.com/live/4c7f1718-578b-4e89-8bb4-aa2a5500981d'
+        await ctx.respond(embed = self.embed)
+
     @community.after_invoke
     async def clear_memory(self, ctx: d.ApplicationContext):
 
@@ -235,32 +234,17 @@ class Community(Cog, name='Community Module'):
 
 class CommunityFunctions():
 
-    def Readlog(self, arg):
+    def Readlog(self):
 
-        match arg:
-            case "log":
-                try :#   Opens the changelog
+        try :#   Opens the changelog
 
-                    with open("changelog.md", "r") as f: log = f.read(415)#    Read x lines
+            with open("changelog.md", "r") as f: log = f.read(415)#    Read x lines
                 
-                except Exception as e :
+        except Exception as e :
 
-                    f.close()#  Closing the document
-                    embed = Embed(title = "An Exception Occoured", description = e, color = d.Colour.dark_red()) 
-                    return embed
-
-            case "todo":
- 
-                try :#   Opens the changelog
-
-                    with open("todo.md", "r") as f: log = f.read(415)#    Read x lines
-
-                except FileNotFoundError as e :
-
-                    f.close()#  Closing the document
-                    embed = Embed(title = "An Exception Occoured", description = e, color = d.Colour.dark_red())
-
-                    return embed
+            f.close()#  Closing the document
+            embed = Embed(title = "An Exception Occoured", description = e, color = d.Colour.dark_red()) 
+            return embed
 
         f.close()#  Closing the document
 

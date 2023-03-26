@@ -1,8 +1,6 @@
 #   Importing Responsories
 import os
-import sys
 import random as r
-import time as t
 
 from dotenv import load_dotenv
 
@@ -13,9 +11,10 @@ from discord.colour import Color
 from discord.ext.commands import Cog, command
 
 #   Importing local libraries
-from pylib.systemModule.modal import Socrates
-from pylib.systemModule.databasePython import MariaDB
-from pylib.dictionaries.gameDictionaries import JumbleCategory, GameOver,ScrabbleGame, APITools
+from lib.system.modal import Socrates
+from lib.system.databasePython import MariaDB
+from lib.dictionary.game import JumbleCategory, GameOver, ScrabbleGame
+from lib.dictionary.tools import APITools
 
 load_dotenv()
 
@@ -97,7 +96,7 @@ class WordGames(Cog):
             break
         
 
-        if prompt in category[0]: answer = APITools().NinjaChoice()
+        if prompt in category[0]: answer = APITools().NinjaRandomWord()
 
         else:
 

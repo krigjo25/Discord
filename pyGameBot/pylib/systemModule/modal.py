@@ -9,7 +9,7 @@ from discord import utils, Colour
 from discord.ui import InputText, Modal
 from pylib.dictionaries.gameDictionaries import Philosopher
 
-class EightBall(Modal):
+class Socrates(Modal):
 
     """
         Discord UI modal

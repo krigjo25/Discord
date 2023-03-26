@@ -10,16 +10,20 @@ from discord.colour import Colour
 from discord.embeds import Embed
 from discord.ext.commands import Cog
 
-#custom responsories
-from pylib.moderation.modal import Member
 
 
 class Community(Cog, name='Community Module'):
 
     """
-        Copyright (C) 2023  Kristoffer Gjøsund
+        Help command
 
-        Collection of Community Commands
+        Class contains community commands
+            botinfo,        -   Information about the bot
+            member,         -   A list of online / offline members
+            meme,           -   Meme (optional args : reddit)
+            report,         -   Reporting a server member using modals
+            support,        -   Support ticket using modals
+            roles           -   A list of server roles
 
         >   Creation Date   : 19.02-23
         >   Last update     : 21.02-23
@@ -33,13 +37,7 @@ class Community(Cog, name='Community Module'):
         but WITHOUT ANY WARRANTY; without even the implied warranty of
         MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
         GNU General Public License for more details.
-
-        botinfo,        -   Information about the bot
-        member,         -   A list of online / offline members
-        meme,           -   Meme (optional args : reddit)
-        report,         -   Reporting a server member using modals
-        support,        -   Support ticket using modals
-        roles           -   A list of server roles
+        Copyright (C) 2023  Kristoffer Gjøsund
     """
 
     def __init__(self, bot):
@@ -51,28 +49,21 @@ class Community(Cog, name='Community Module'):
     @community.command()#   Information about the bot :bug:
     async def botinfo(self, ctx: ApplicationContext, arg:d.Option(str, "Optional arguments (log / todo / bug)", required = False)):
 
-        
         """
             Bot information
+            >   By              : krigjo25
+            >   Creation Date   : 23.02-23
+            >   Last update     :
 
             #   Arguments (log / todo / None)
             #   Changelog
-            #   ToDo list
         """
 
         if arg == "log":
 
             self.embed.title = f"{ctx.bot.user.name} change log"
             self.embed.url=f'https://github.com/krigjo25/Discord/blob/main/{ctx.bot.user.name}/changelog.md'
-            self.embed.description = CommunityFunctions().Readlog(arg)
-
-        elif arg == "todo":
-
-            self.embed.title = f"{ctx.bot.user.name} todo"
-            self.embed.url=f'https://github.com/krigjo25/Discord/blob/main/{ctx.bot.user.name}/todo.md'
-            self.embed.description = CommunityFunctions().Readlog(arg)
-
-        elif arg == "bug": await ctx.respond("under development")
+            self.embed.description = CommunityFunctions().Readlog()
 
         else:
 
@@ -100,6 +91,8 @@ class Community(Cog, name='Community Module'):
 
         """
             List of server members
+            >   Creation Date   : 23.02-23
+            >   Last update     :
         """
 
         self.embed.title = 'Server Members'
@@ -156,7 +149,7 @@ class Community(Cog, name='Community Module'):
                     else : self.embed.add_field(name=f'{member.name}#{member.discriminator}',value=f'Nick {member.nick} Status : {status} ', inline=False)
 
         self.embed.add_field(name = "== End Of List ==", value=" ")
-        await ctx.send(embed = self.embed)
+        await ctx.respond(embed = self.embed)
 
         #   Clear some memories
         del member, status
@@ -167,11 +160,16 @@ class Community(Cog, name='Community Module'):
     async def meme(self, ctx: ApplicationContext, arg:d.Option(str, "Optional arguments (reddit)", required = False)):
 
         """
-            Generates a random meme
+            Memes
+            >   Creation Date   : 23.02-23
+            >   Last update     :
+
+            #   Generates random memes
+            #   from selected archives
         """
 
         meme = ["reddit"]
-        if arg == None:arg = meme[r.randint(len(meme - 1))]
+        if arg == None: arg = meme[r.randint(0, len(meme) - 1)]
 
         match str(arg).lower():
 
@@ -191,38 +189,13 @@ class Community(Cog, name='Community Module'):
         return
 
     @community.command()
-    async def report(self, ctx:ApplicationContext):
-        """
-            Reporting a rule voilator by a modal
-        """
-        modal = Member(title = "Member Report")
-        await ctx.send_modal(modal)
-
-
-        return
-
-    @community.command()
-    async def support(self, ctx:ApplicationContext): 
-
-        """
-            Member Support
-        """
-        modal = Member(title = "Member Support")
-        await ctx.send_modal(modal)
-
-        return
-
-    #   List Roles
-    @community.command()
     async def roles(self, ctx:ApplicationContext):
 
-        '''
-            Retrieve a list of the server roles
-
-            #   Initialize the variables
-            #   Iterate through server roles
-            #   respond to the command
-        '''
+        """
+            List of server Roles
+            >   Creation Date   : 23.02-23
+            >   Last update     :
+        """
 
         x = 1#   Initializing variable
 
@@ -236,6 +209,13 @@ class Community(Cog, name='Community Module'):
         del x, role#   Clear some memory
 
         return
+
+    @community.command()
+    async def termsofusage(self, ctx:ApplicationContext):
+
+        self.embed.title = f"{ctx.bot.user.name} change log"
+        self.embed.url=f'https://www.termsfeed.com/live/4c7f1718-578b-4e89-8bb4-aa2a5500981d'
+        await ctx.respond(embed = self.embed)
 
     @community.after_invoke
     async def clear_memory(self, ctx: d.ApplicationContext):
@@ -254,38 +234,18 @@ class Community(Cog, name='Community Module'):
 
 class CommunityFunctions():
 
-    def Readlog(self, arg):
+    def Readlog(self):
 
-        match arg:
-            case "log":
-                try :#   Opens the changelog
+        try :#   Opens the changelog
 
-                    with open("changelog.md", "r") as f:
-
-                        log = f.read(415)#    Read x lines
-                        f.close()#  Closing the document
+            with open("changelog.md", "r") as f: log = f.read(415)#    Read x lines
                 
-                except Exception as e :
+        except Exception as e :
 
-                    f.close()#  Closing the document
-                    embed = Embed(title = "An Exception Occoured", description = e, color = d.Colour.dark_red()) 
-                    return embed
+            f.close()#  Closing the document
+            embed = Embed(title = "An Exception Occoured", description = e, color = d.Colour.dark_red()) 
+            return embed
 
-            case "todo":
- 
-                try :#   Opens the changelog
-
-                    with open("todo.md", "r") as f:
-
-                        log = f.read(415)#    Read x lines
-                        f.close()#  Closing the document
-
-                except Exception as e :
-
-                    f.close()#  Closing the document
-                    embed = Embed(title = "An Exception Occoured", description = e, color = d.Colour.dark_red())
-
-                    return embed
-
+        f.close()#  Closing the document
 
         return log

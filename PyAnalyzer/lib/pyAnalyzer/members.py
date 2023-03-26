@@ -27,8 +27,6 @@ class MemberAnalysis(Cog):
         th = 0
         emo = 0
         post = 0
-        sticker = 0
-        reaction = 0
         
 
         try:
