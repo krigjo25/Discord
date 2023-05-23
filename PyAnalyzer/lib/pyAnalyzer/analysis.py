@@ -6,7 +6,7 @@ import pandas as pd
 import discord as d
 from discord import Forbidden
 from discord.embeds import Embed
-from discord.ext.commands import command, group, before_invoke, after_invoke, Cog
+from discord.ext.commands import command,  Cog
 
 class ServerAnalysis(Cog):
 
@@ -15,73 +15,68 @@ class ServerAnalysis(Cog):
         #   Fetching roles
         #   Fetching Posts
     '''
+
     def __init__(self, bot):
 
         self.embed = Embed()
         self.bot = bot
 
         return
-    @after_invoke("Analysis")
-    def ClearMemory(self, ctx):
+    
+    analysis = d.SlashCommandGroup(name='analysis', description= 'Server analysis commands')
 
-        #   Clear some Memory
+    @analysis.after_invoke
+    async def clear_memory(self, ctx: d.ApplicationContext):
+
+        """
+            Clearing data chace
+
+            >   Creation Date   : 23.02-23
+            >   Last update     :
+        """
+
         self.embed.clear_fields()
         self.embed.remove_image()
         self.embed.remove_author()
         self.embed.remove_footer()
+        self.embed.description = ""
         self.embed.remove_thumbnail()
         self.embed.color = d.Colour.dark_purple()
 
+        del ctx #   Clearing some memory
         return
 
-    @group(pass_context = True)
-    @d.has_permission(administrator = True)
-    async def Analysis(self, ctx):
-
-        await self.ClearMemory(ctx)
 
         return
 
-    @Analysis.command()
-    async def server(self, ctx):
+    @analysis.command()
+    async def server(self, ctx:d.ApplicationContext):
 
-        #   Initializing variables
+        banned = len([i async for i in ctx.guild.bans(limit=None)])
 
-        try:
+        #   Creating a Dataframe
+        overview = [ctx.guild.name, ctx.guild.id, f'{ctx.guild.owner},', ctx.guild.created_at.date(), '  ', len(ctx.guild.roles), len(ctx.guild.premium_subscribers),  banned, ctx.guild.member_count, len(ctx.guild.channels), len(ctx.guild.scheduled_events)]
+        row = ['**ServerName**: ', '**ServerID**: ', '**Owner(s)**: ', '**Created**: ', ' ', '**Total roles**: ', '**Total Boosts** :', '**Total banned** :', '**Total Members**: ', '**Total Channels :**', '**Scheduled Events** :']
+        overview = pd.DataFrame(overview, index = row, columns = [''])
 
-            banned = len([i async for i in ctx.guild.bans(limit=None)])
+        #   Prepare & Send message
+        self.embed.title = f'Server Information'
+        self.embed.description = f'{overview}'
 
-            #   Creating a Dataframe
-            overview = [ctx.guild.name, ctx.guild.id, f'{ctx.guild.owner},', ctx.guild.created_at.date(), '  ', len(ctx.guild.roles), len(ctx.guild.premium_subscribers),  banned, ctx.guild.member_count, len(ctx.guild.channels), len(ctx.guild.scheduled_events)]
-            row = ['**ServerName**: ', '**ServerID**: ', '**Owner(s)**: ', '**Created**: ', ' ', '**Total roles**: ', '**Total Boosts** :', '**Total banned** :', '**Total Members**: ', '**Total Channels :**', '**Scheduled Events** :']
-            overview = pd.DataFrame(overview, index = row, columns = [''])
-        
-        except Exception as e: print(e)
-        else:
+        await ctx.respond(embed = self.embed)
 
-            #   Prepare & Send message
-            self.embed.title = f'Server Information'
-            self.embed.description = f'{overview}'
+        #   Cleaning up the Code
+        del row, banned, overview
 
-            #   Send the message
-            await ctx.send(embed = self.embed)
+        return
 
-            #   Cleaning up the Code
-            del row
-            del banned
-            del overview
-
-            return
-
-    @Analysis.command()
-    async def role(self, ctx):
+    @analysis.command()
+    async def role(self, ctx:d.ApplicationContext):
 
         #    Creating a DataFrame
-        row = []
-        column = ['']
+        row, column = [], ['']
 
-        roleID = []
-        roleName = []
+        roleID, roleName = [], []
         memberCount = []
 
         #   Extracting role infomration
@@ -115,62 +110,8 @@ class ServerAnalysis(Cog):
 
         return
 
-    @command(name= 'ca', pass_context=True)
-    async def ChannelAnalysis(self, ctx):
-
-        row = []
-        column = ['']
-        categoryID = []
-        channelName = []
-        categoryName = []
-        categoryType = []
-        channelCount = []
-        
-
-        txt = 0
-        voice = 0
-
-        for i in ctx.guild.channels:
-
-            try:
-
-                if str(i.type) == 'category':
-    
-                    row.append('')
-                    categoryID.append([i.id])
-                    categoryName.append([i.name])
-                    categoryType.append(str(i.type))
-
-                match str(i.type):
-                    case "voice": voice += 1
-                    case "text": txt += 1
-
-            except Forbidden as e : print(e)
-
-        channelCount.append([f'{voice} Voice Channel'])
-        channelCount.append([f'{txt} Text Channels'])
-
-        #   Create DataFrame
-
-        categoryID = pd.DataFrame(categoryID, index = row, columns= column)
-        categoryName = pd.DataFrame(categoryName, index = row, columns= column)
-        categoryType = pd.DataFrame(categoryType, index = row, columns= column)
-
-        channelName = pd.DataFrame(channelName, index = i, columns = column)
-        channelCount = pd.DataFrame(channelCount, index = ['',''], columns= column)
-        #   Prepare & send embed message
-        self.embed.title = 'Category Analysis'
-        self.embed.add_field(name ='Category ID', value = categoryID)
-        self.embed.add_field(name ='Category Name', value = categoryName)
-        self.embed.add_field(name ='Category Type', value = categoryType)
-        self.embed.add_field(name ='Channel Count', value = channelCount)
-
-        await ctx.send(embed=self.embed)
-
-        return
-
-    @command(name='loga', pass_context = True)
-    async def AuditLogAnalysis(self, ctx):
+    @analysis.command()
+    async def auditlog(self, ctx:d.ApplicationContext):
 
         #   Initializing a list
         row = ['']
@@ -207,8 +148,8 @@ class ServerAnalysis(Cog):
 
         return
 
-    @command(name = 'bota', pass_context=True)
-    async def BotInfo(self, ctx):
+    @analysis.command()
+    async def bot(self, ctx:d.ApplicationContext):
 
         if not hasattr(self.bot, 'appinfo'):self.bot.appinfo = await self.bot.application_info()
 
@@ -263,3 +204,166 @@ class ServerAnalysis(Cog):
         self.embed.clear_fields()
 
         return
+
+    @analysis.command()
+    async def channel(self, ctx:d.ApplicationContext):
+
+        row = []
+        column = ['']
+        categoryID = []
+        channelName = []
+        categoryName = []
+        categoryType = []
+        channelCount = []
+        
+
+        txt = 0
+        voice = 0
+
+        for i in ctx.guild.channels:
+
+            try:
+
+                if str(i.type) == 'category':
+    
+                    row.append('')
+                    categoryID.append([i.id])
+                    categoryName.append([i.name])
+                    categoryType.append(str(i.type))
+
+                match str(i.type):
+                    case "voice": voice += 1
+                    case "text": txt += 1
+
+            except Forbidden as e : print(e)
+
+        channelCount.append([f'{voice} Voice Channel'])
+        channelCount.append([f'{txt} Text Channels'])
+
+        #   Create DataFrame
+
+        categoryID = pd.DataFrame(categoryID, index = row, columns= column)
+        categoryName = pd.DataFrame(categoryName, index = row, columns= column)
+        categoryType = pd.DataFrame(categoryType, index = row, columns= column)
+
+        channelName = pd.DataFrame(channelName, index = i, columns = column)
+        channelCount = pd.DataFrame(channelCount, index = ['',''], columns= column)
+        #   Prepare & send embed message
+        self.embed.title = 'Category Analysis'
+        self.embed.add_field(name ='Category ID', value = categoryID)
+        self.embed.add_field(name ='Category Name', value = categoryName)
+        self.embed.add_field(name ='Category Type', value = categoryType)
+        self.embed.add_field(name ='Channel Count', value = channelCount)
+
+        await ctx.send(embed=self.embed)
+
+        return
+
+    @analysis.command()
+    async def post(self, ctx:d.ApplicationContext):
+
+        #   Initializing variables, sending a process message
+        srv = ctx.guild
+
+        #   DataFrame lists
+        postCount = []
+        channelID = []
+        emojiCount = []
+        channelName = []
+        channelType = []
+        threadCount = []
+        memberCount = []
+        ageRestriction = []
+        
+        
+
+        #
+        th = 0
+        row = []
+        column = ['**Channel ID**', '**Channel Name**','**Total Threads**', '**Total Posts**']
+        column = ['']
+
+        #   Voive Channels
+        #   Text Channels
+        for i in srv.text_channels:
+
+
+            if i.is_nsfw(): age = 'Yes'
+            else : age = 'No'
+            
+            if i.threads : th = len([j for j in i.threads])
+            else : th = 0
+
+            try :
+
+                emo = 0
+                post = 0
+                await ctx.send(f'Collecting data from **{i.name}**')
+
+
+                #   Fetching all messages and counting
+                async for j in i.history(limit = None):
+
+                    post += 1
+
+                emo = [emo]
+                post = [post]
+                chID = [i.id]
+                thread = [th]
+                chName = [i.mention]
+                member = [len(i.members)]
+
+                #   Channel information
+                channelID.append(chID)
+                channelName.append(chName)
+                ageRestriction.append(age)
+
+                #   Channel counts
+                emojiCount.append(emo)
+                postCount.append(post)
+                threadCount.append(thread)
+                memberCount.append(member)
+
+                #   Clean up
+                del chID, post, chName
+                del thread, member
+
+            except Exception:
+                print(f'channel {i.name} could not be accsessed')
+                continue
+
+        for i in range(len(channelID)):
+            row.append('')
+
+    
+        channelID = pd.DataFrame(channelID, index = row, columns = column)
+        channelName = pd.DataFrame(channelName, index = row, columns = column)
+        ageRestriction = pd.DataFrame(ageRestriction, index = row, columns = column)
+        
+        postCount = pd.DataFrame(postCount, index = row, columns = column)
+        emojiCount = pd.DataFrame(emojiCount, index = row, columns = column)
+        threadCount = pd.DataFrame(threadCount, index = row, columns = column)
+        memberCount = pd.DataFrame(memberCount, index = row, columns = column)
+
+        #   Prepare & send embeded message
+        self.embed.title = 'Channel Analysis'
+        self.embed.add_field(name ='Channel ID', value=channelID)
+        self.embed.add_field(name ='Channel Name', value=channelName)
+        self.embed.add_field(name ='Age Restriction', value = ageRestriction)
+
+        self.embed.add_field(name ='Total Channel Posts', value = postCount)
+        self.embed.add_field(name ='Total Channel Emoji', value = emojiCount)
+        self.embed.add_field(name ='Total Channel Threads', value = threadCount)
+        self.embed.add_field(name ='Total Channel Watchers', value = memberCount)
+
+        await ctx.send(embed = self.embed)
+
+        #   Cleaning up the Code
+        del channelID, postCount,  threadCount
+        del channelName, memberCount, ageRestriction
+
+        self.embed.clear_fields()
+        self.embed.description = ''
+
+        return
+

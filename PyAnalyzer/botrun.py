@@ -9,13 +9,11 @@ load_dotenv()
 def RunBot ():
         
         #   Initializing classes
-
         disc = DiscordSetup()
-        botKey = getenv('PyAnalyzeToken')
 
         disc.Analyzer()
         disc.SystemSetup()
-        disc.bot.run(getenv("PyAnalyzerToken"))
+        disc.bot.run(getenv("Token"))
 
 
 if __name__ == '__main__':

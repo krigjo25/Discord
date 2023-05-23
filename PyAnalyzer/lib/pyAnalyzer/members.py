@@ -4,6 +4,7 @@ import numpy as np
 import emoji
 
 #   Discord Repositories
+import discord as d
 from discord import utils
 from discord.embeds import Embed
 from discord import Color, Member, Message, Forbidden
@@ -20,18 +21,16 @@ class MemberAnalysis(Cog):
 
         return
 
-    @command(name='mpa', pass_context = True)
-    async def MemberProfileAnalyzer(self, ctx, *, member:Member = None, message = Message):
+    member = d.SlashCommandGroup(name= 'member', description= 'Member analysis')
+    @member.command(name='mpa', pass_context = True)
+    async def MemberProfileAnalyzer(self, ctx:d.ApplicationContext, *, member:Member = None, message = Message):
 
         #   Counters
-        th = 0
-        emo = 0
-        post = 0
-        
+        th, emo, post = 0, 0, 0
 
         try:
 
-            if member == None: return await ctx.send('Member not found, try again')
+            if member == None: raise Exception('Member not found, try again')
 
             if str(member.web_status) != 'offline': 
                 status = f'**Web Status** :'
@@ -55,12 +54,11 @@ class MemberAnalysis(Cog):
             if member.premium_since == None: boost = 'No'
             else: boost = member.premium_since
             
-            role = ''
-            mutual = ''
+            role, mutual = '', ''
             permissions = []
             
-            for i in member.roles:
-                role += f'{i.mention}\n'
+            for i in member.roles: role += f'{i.mention}\n'
+
             for i in member.mutual_guilds:mutual += f'{i.name}'
 
             for i in member.guild_permissions:
@@ -71,25 +69,17 @@ class MemberAnalysis(Cog):
 
         else:
 
-            await ctx.send(f'Collecting Data from {member}.\nIt may take several minutes to collect the information, please hold on')
+            await ctx.respond(f'Collecting Data from {member}.\nIt may take several minutes to collect the information, please hold on')
 
             #   Fetching the profile information
             profileInfo = [
-                            [member.display_name],
-                            [member.id],
-                            [member.activity],
-                            [member.color], 
-                            [member.bot],
-                            [member.banner],
-                            [MemberStatus],
-                            [boost],
-                            [member.created_at.date()],
-
-                ]
+                            [member.display_name], [member.id], [member.activity],
+                            [member.color], [member.bot], [member.banner],
+                            [MemberStatus], [boost], [member.created_at.date()],
+                        ]
 
             #   Initializing
             memberCount = {}
-            emojiCount = {}
     
             for i in ctx.guild.text_channels:
 
@@ -152,14 +142,11 @@ class MemberAnalysis(Cog):
             self.embed.add_field(name = 'Member Stats', value= memberStats, inline=True)
 
 
-            await ctx.send(embed=self.embed)
+            await ctx.respond(embed=self.embed)
 
             #   Cleaning up the Code
-            del row
-            del column
-            del memberGuild
-            del profileInfo
-            del memberCount
+            del row, column, memberGuild
+            del profileInfo, memberCount
 
             self.embed.url = ''
             self.embed.clear_fields()
@@ -167,13 +154,11 @@ class MemberAnalysis(Cog):
 
             return
 
-    @command(name='topma', pass_context = True)
-    async def TopPoster(self, ctx):
+    @member.command()
+    async def TopPoster(self, ctx:d.ApplicationContext):
 
         #   Initializing lists
-        post = []
-        member = []
-        channel = []
+        post, member, channel = [], [], []
 
         for i in ctx.guild.text_channels:
 
@@ -218,12 +203,9 @@ class MemberAnalysis(Cog):
         #   Creating Dataframes
 
         #   Channel Dataframe
-        column = ['']
-        row = []
+        column, row = [''], []
 
-        for i in range(len(channel)):
-            row.append('')
-
+        for i in range(len(channel)): row.append('')
 
         channel = pd.DataFrame(channel, index = row, columns= column)
         
@@ -239,14 +221,10 @@ class MemberAnalysis(Cog):
         self.embed.add_field(name='Member Name', value = member)
         self.embed.add_field(name='Total Post', value = post)
 
-        await ctx.send(embed=self.embed)
+        await ctx.respond(embed=self.embed)
 
-        
         #   Clean up
         self.embed.clear_fields()
-
-        del post
-        del member
-        del channel
+        del post, member, channel
 
         return

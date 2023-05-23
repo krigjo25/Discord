@@ -24,7 +24,9 @@ class FrequentlyAskedQuestions(Cog):
         but WITHOUT ANY WARRANTY; without even the implied warranty of
         MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
         GNU General Public License for more details.
-        """
+
+    """
+
     def __init__(self, bot):
         self.bot = bot
         self.embed = Embed(color=Color.dark_purple())
@@ -51,24 +53,8 @@ class FrequentlyAskedQuestions(Cog):
             if ctx.author.guild_permissions.administrator: self.embed.add_field(name = "Administrator Module", value = " ")
 
         ctx.send(embed = self.embed)
-    
-    def community(self, ctx:d.ApplicationContext):
 
-        """
-            Community commands
-        """
-        self.embed.color = Color.dark_purple()
-        self.embed.title=':people_holding_hands: Community Module'
-
-        self.embed.add_field(name= f'/community roles', value='list of roles')
-        self.embed.add_field(name= f'/community members', value ='list of members', inline=True)
-        self.embed.add_field(name= f'/community botinfo (optional parameter: log, todo)', value='- how did the bot fail the exam? She was a bit rusty', inline=True)
-        self.embed.add_field(name= f'/community meme (optional argument : reddit)', value='- What do you call a gamer whom works at an abortion clinic? :rofl:\n Spawn Camper ', inline=True)
-
-        return self.embed
-
-
-    def channelmod(self, ctx:d.ApplicationContext):#   Server Moderation
+    def ServerMod(self, ctx:d.ApplicationContext):#   Server Moderation
 
         self.embed.title = 'Moderator Module'
         self.embed.color = Color.dark_purple()
